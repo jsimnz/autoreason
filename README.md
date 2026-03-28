@@ -92,7 +92,7 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
         │
    ┌────┴───────────┐
    │  Synthesizer   │   fresh agent, sees task + A + B (randomized)
-   └────┬───────────┘   keeps the strongest elements of each
+   └────┬───────────┘   merges the strongest elements of each -> AB
         │
         ▼
    ┌─────────────────────────────────────────────────┐
