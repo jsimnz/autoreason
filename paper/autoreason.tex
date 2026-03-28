@@ -1,0 +1,138 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.55in,top=0.45in,bottom=0.4in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parskip}{3pt}
+\setlength{\parindent}{0pt}
+\setlist{nosep,leftmargin=*}
+
+\titlespacing*{\section}{0pt}{6pt}{2pt}
+\titlespacing*{\subsection}{0pt}{4pt}{1pt}
+\titleformat{\section}{\normalfont\bfseries\normalsize}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\normalfont\bfseries\small}{\thesubsection}{0.5em}{}
+
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{2pt}
+\captionsetup{font=small}
+
+\begin{document}
+
+\twocolumn[{
+\begin{center}
+{\Large\bfseries Autoreason: Autoresearch for Subjective Domains}\\[4pt]
+{\normalsize Nous Research}\\[2pt]
+{\small\url{https://github.com/NousResearch/autoreason}}\\[8pt]
+\end{center}
+}]
+
+\section{Problem}
+
+LLMs used for iterative refinement exhibit compounding failure modes: \textbf{sycophancy} (strengthens whatever you hand it), \textbf{overcriticism} (always finds problems even when work is sound), \textbf{overcompromise} (hedges everything when synthesizing), \textbf{authorship bias} (defends its own prior choices), \textbf{scope drift} (adds complexity each iteration), and \textbf{context collapse} (output diverges from original intent with no reversion mechanism). The output is shaped more by how you prompt than by what is actually better.
+
+\section{Method}
+
+Autoreason extends autoresearch to subjective domains by constructing a fitness function from independent blind evaluation---the same way science uses peer review where math can use proofs.
+
+Every role is a fresh, isolated agent with no shared context. The loop:
+
+\begin{enumerate}
+\item \textbf{Version A} --- the incumbent (unchanged)
+\item \textbf{Strawman} --- fresh agent attacks A, finds problems only
+\item \textbf{Version B} --- fresh agent revises A using valid criticisms
+\item \textbf{Version AB} --- fresh agent synthesizes best of A and B
+\item \textbf{Judge panel} --- 3 blind judges rank A, B, AB against the original task prompt (randomized labels, Borda count, incumbent wins ties)
+\end{enumerate}
+
+Winner becomes new A. Loop repeats until A survives 2 consecutive passes.
+
+\textbf{A} represents conservatism, \textbf{B} represents adversarial editing, \textbf{AB} approximates objectivity. The judge panel decides which framing produced the best result, with no knowledge of which is which.
+
+\section{Results}
+
+\subsection{Convergence Trajectory}
+
+We ran 26 passes on a go-to-market strategy task (Claude Sonnet 4, 3-judge panel). Figure~\ref{fig:trajectory} shows the full trajectory.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{fig_trajectory.png}
+\caption{\textbf{Autoreason v2 trajectory (26 passes).} Top: Borda scores per pass. Middle: word count showing bloat/prune oscillation. Bottom: winner per pass. Dashed lines mark 2-consecutive-A-win points (passes 14--15 and 24--25).}
+\label{fig:trajectory}
+\end{figure}
+
+The loop reached 2 consecutive incumbent wins at pass 15. Key dynamics: early passes show genuine improvement (pass 1: unanimous B win, Borda 9-3-6). Fresh agents prevent authorship bias---Author B re-emerged at passes 17--21 after 15 passes of irrelevance. On ambiguous tasks, the synthesizer (AB) adds complexity while Author B prunes it, creating a bloat/prune oscillation (847 $\to$ 1800 $\to$ 1644 $\to$ 1758 words).
+
+\subsection{Qualitative Improvement}
+
+The initial output is a generic startup playbook with round-number targets and no validation. After 14 passes, the autoreason output contains quantified pain (\$15K/incident $\times$ 6/year), team-based pricing matching buying motions (\$1,499/mo vs \$49/user), validation from 50+ interviews with 75\% pilot success, competitive positioning against named tools, and unit economics (CAC \$2K, LTV \$54K). Unrealistic revenue targets were killed (\$100K $\to$ \$25K MRR).
+
+\subsection{5-Way Baseline Comparison}
+
+All methods start from the same initial output (847 words), 15 passes, same model. 7-judge blind panel with randomized labels, Borda count scoring.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccr@{}}
+\toprule
+\textbf{Method} & \textbf{Borda} & \textbf{1st} & \textbf{Words} \\
+\midrule
+\textbf{Autoreason} & \textbf{35/35} & \textbf{7/7} & 1,800 \\
+Conservative & 21 & 0 & 862 \\
+``Improve this'' & 18 & 0 & 2,116 \\
+Harsh critic & 18 & 0 & 1,961 \\
+Critique \& revise & 13 & 0 & 2,507 \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{7-judge blind panel results.} Autoreason: perfect score, all first-place votes. Conservative (barely changed) outranks all iterative baselines. Critique-and-revise, the standard approach, came last.}
+\label{tab:baselines}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{fig_wordcount.png}
+\caption{\textbf{Word count trajectories.} Conservative flatlines, autoreason stabilizes, all iterative baselines bloat. Each method's structural bias is visible in the trajectory shape.}
+\label{fig:wordcount}
+\end{figure}
+
+Doing almost nothing (conservative) produced better output than 15 passes of ``improve this,'' ``harsh critic,'' or ``critique and revise.'' Iterating without structural protection is worse than not iterating.
+
+\subsection{Convergence Threshold}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\columnwidth]{fig_convergence.png}
+\caption{\textbf{Does continuing past first convergence help?} Pass 15 (1800 words) vs pass 25 (1758 words), 7-judge blind panel: 6--1 for pass 15. First convergence is the quality ceiling.}
+\label{fig:convergence}
+\end{figure}
+
+The first convergence point is the quality ceiling. Ten additional passes degraded output---the bloat/prune oscillation churned without improving.
+
+\subsection{Judges Need a Baseline}
+
+Two panels compared autoreason vs critique-and-revise directly. Without the initial output shown: 3--2. With it: 7--0. Judges need a reference point to distinguish improvement from drift.
+
+\section{Prior Work}
+
+Earlier experiments ($\sim$1,800 LLM calls) informed the v2 design. Key findings: severe positional bias in non-blind evaluation (eliminated by randomized labels), single-judge noise (fixed by 3-judge panel), shared-context contamination where the same agent rubber-stamped its own revisions (fixed by fresh isolated agents per role).
+
+\section{Related Work}
+
+\textbf{Autoresearch} (Karpathy) uses val\_bpb as an objective fitness function for autonomous experiments. Autoreason extends this to domains without objective metrics. \textbf{SlopCodeBench} (Orlanski et al., 2026) shows agents produce progressively worse code each iteration---prompting doesn't fix it. \textbf{ACE} (Zhang et al., ICLR 2026) documents context collapse in iterative rewriting. \textbf{LLM Council} (Karpathy) uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation.
+
+\section{Open Questions}
+
+Does autoreason improve outcomes where metrics exist but are insufficient (code that passes tests but degrades)? Do mixed-model judge panels converge faster? Does the loop reach the same optimum across independent runs?
+
+\vfill
+{\small Code, data, and artifacts: \url{https://github.com/NousResearch/autoreason}}
+
+\end{document}
