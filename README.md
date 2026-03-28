@@ -30,7 +30,15 @@ The output is shaped more by how you prompt than by what's actually better. Ther
 | **Scope drift** | Judges evaluate against the original task prompt — "which version best accomplishes what was asked for" — not "which is most thorough" |
 | **Context collapse** | The original task prompt is the anchor throughout all passes. The incumbent (A) is always a candidate, so the loop can revert to stability at any point |
 
-## The Method
+## Two Modes
+
+**Quick pass (v1)** — A single cycle: generate A, strawman it, revise to B, synthesize AB, judge picks the best. Five LLM calls, ~2 minutes. Prevents the worst failure modes without the cost of iteration. Use this when you want "make this better without overcorrecting" — the agent equivalent of getting one round of peer review. Drift is prevented structurally: the original is always a candidate, so overcorrection gets caught by comparison rather than compounding through sequential revision.
+
+**Convergence loop (v2)** — Repeats the cycle until the incumbent survives consecutive passes. Every role is a fresh isolated agent, judged by a 3-judge blind panel. More rigorous and more expensive. Use this when you need confidence that the output has survived sustained adversarial pressure — where there's no test suite or specification to anchor correctness, and the stakes justify the token cost.
+
+Both modes share the same core architecture. v1 is one iteration of v2.
+
+## Architecture
 
 Every role is a fresh, isolated agent with no shared context. The artifact is the thread of continuity, not the agent's memory.
 
