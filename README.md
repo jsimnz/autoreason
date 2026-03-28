@@ -18,7 +18,7 @@ Autoreason is an iterative refinement method for LLM-generated content where no 
             ▼          ▼          ▼
          ┌─────┐   ┌─────┐   ┌──────┐
          │  A  │   │  B  │   │  AB  │
-         │keep │   │fix  │   │merge │
+         │keep │   │fix  │   │synth │
          └──┬──┘   └──┬──┘   └──┬───┘
             └──────────┼──────────┘
                        ▼
