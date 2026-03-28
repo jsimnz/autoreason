@@ -95,16 +95,16 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
    └────┬───────────┘   merges the strongest elements of each -> AB
         │
         ▼
-   ┌──────────────────────────────────────────────────┐
-   │            Judge Panel (3 judges)                │
-   │  fresh agents, blind evaluation                  │
-   │  ranked choice + Borda count                     │
-   │                                                  │
-   │  chooses best of:                                │
-   │    A  — the incumbent (unchanged)                │
-   │    B  — the adversarial revision                 │
-   │    AB — the synthesis (best of both)             │
-   └────┬─────────────────────────────────────────────┘
+   ┌───────────────────────────────────────────┐
+   │            Judge Panel (3 judges)         │
+   │  fresh agents, blind evaluation           │
+   │  ranked choice + Borda count              │
+   │                                           │
+   │  chooses best of:                         │
+   │    A  — the incumbent (unchanged)         │
+   │    B  — the adversarial revision          │
+   │    AB — the synthesis (best of both)      │
+   └────┬──────────────────────────────────────┘
         │
         ├── Winner = A → streak++
         └── Winner = B or AB → streak = 0, winner becomes new A
