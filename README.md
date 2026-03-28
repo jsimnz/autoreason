@@ -40,13 +40,18 @@ ORIGINAL TASK PROMPT (anchor)
    │  Synthesizer   │   fresh agent, sees task + A + B (randomized)
    └────┬───────────┘   takes strongest elements from each
         │
-   ┌────┴───────────────────┐
-   │ Judge Panel (3 judges) │   fresh agents, blind evaluation
-   │ Ranked choice + Borda  │   randomized labels + order
-   └────┬───────────────────┘
+        │
+        ▼
+   ┌─────────────────────────────────────┐
+   │        Judge Panel (3 judges)       │
+   │  fresh agents, blind evaluation     │
+   │  ranked choice + Borda count        │
+   │                                     │
+   │  chooses best of:  A  /  B  /  AB   │
+   └────┬────────────────────────────────┘
         │
         ├── Winner = A → streak++
-        └── Winner ≠ A → streak = 0, winner becomes new A
+        └── Winner = B or AB → streak = 0, winner becomes new A
         │
         ▼  loop until streak = 2 (converged)
 ```
