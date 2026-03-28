@@ -110,9 +110,10 @@ for bar, w in zip(bars, wins):
     ax.text(bar.get_x() + bar.get_width()/2, w + 0.15, str(w),
             ha='center', fontsize=14, fontweight='bold')
 
-ax.text(0.5, -0.15, 'Pass 15: 1800 words  |  Pass 25: 1758 words  |  10 extra passes, no improvement',
+ax.text(0.5, -0.22, 'Pass 15: 1800 words  |  Pass 25: 1758 words  |  10 extra passes, no improvement',
         transform=ax.transAxes, ha='center', fontsize=9, color='#666666', style='italic')
 
 plt.tight_layout()
+plt.subplots_adjust(bottom=0.2)
 plt.savefig('/root/autoreason-experiment/experiments/v2/pass15_vs_pass25.png', dpi=150, bbox_inches='tight', facecolor='white')
 print("Saved pass15_vs_pass25.png")
