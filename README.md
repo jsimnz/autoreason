@@ -95,7 +95,7 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
    └────┬───────────┘   merges the strongest elements of each -> AB
         │
         ▼
-   ┌─────────────────────────────────────────────────┐
+   ┌──────────────────────────────────────────────────┐
    │            Judge Panel (3 judges)                │
    │  fresh agents, blind evaluation                  │
    │  ranked choice + Borda count                     │
