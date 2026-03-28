@@ -6,11 +6,33 @@ Autoreason is an iterative refinement method for LLM-generated content where no 
 
 ## The Core Idea
 
-Generate a proposal (A). Have a fresh agent attack it to find problems. Have another fresh agent revise it based on valid criticisms (B). Have a third fresh agent synthesize the best of both (AB). Then have an independent judge — blind to which version is which — pick the one that best accomplishes the original task.
+```
+                    ┌─────┐
+                    │  A  │  the original
+                    └──┬──┘
+                       │
+                  ┌────┴────┐
+                  │strawman │  find problems
+                  └────┬────┘
+            ┌──────────┼──────────┐
+            ▼          ▼          ▼
+         ┌─────┐   ┌─────┐   ┌──────┐
+         │  A  │   │  B  │   │  AB  │
+         │keep │   │fix  │   │merge │
+         └──┬──┘   └──┬──┘   └──┬───┘
+            └──────────┼──────────┘
+                       ▼
+                 ┌───────────┐
+                 │blind judge│  which best
+                 │  panel    │  accomplishes
+                 └─────┬─────┘  the task?
+                       │
+                       ▼
+                 winner → new A
+                 repeat until A survives
+```
 
 **A** is conservatism: the current version is fine, the changes made things worse. **B** is adversarial editing: the critique found real problems and the revision fixes them. **AB** is what happens when you ask an agent to be objective: both versions got some things right, here's a synthesis that keeps the best of each. The judge decides which of these three framings actually produced the best result, with no knowledge of which is which.
-
-The winner becomes the new A. Repeat until A survives — it can no longer be improved by adversarial pressure.
 
 ## The Problem This Solves
 
