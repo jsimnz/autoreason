@@ -8,11 +8,27 @@ Autoreason is an iterative refinement method for LLM-generated content where no 
 
 LLMs exhibit three compounding failure modes when used for iterative refinement on subjective work:
 
-- **Sycophancy** — always strengthens whatever you hand it
-- **Overcriticism** — always finds problems when prompted to critique, even when the work is sound  
-- **Overcompromise** — produces mushy synthesis that averages instead of selecting the best answer
+| Failure Mode | What Happens | Why It Happens |
+|---|---|---|
+| **Sycophancy** | Ask it to improve something and it strengthens whatever you hand it, regardless of whether the argument is actually sound | The model follows the implied instruction: "make this better" becomes "make this more of what it already is" |
+| **Overcriticism** | Ask it to find problems and it always finds something, even when the work is sound | The instruction to critique is interpreted as an instruction to change — saying "this is fine" feels like task failure |
+| **Overcompromise** | Ask it to synthesize two perspectives and it hedges everything, producing a mushy average instead of selecting the best answer per dimension | The model treats both inputs as equally valid and tries to include something from each, losing the sharpness of either |
+| **Authorship bias** | An agent that wrote version A will defend it even while "incorporating feedback" from a critique | The drafting history in the context window creates a completion bias toward continuing the established pattern |
+| **Scope drift** | Each iteration adds hedging, caveats, and complexity — the output bloats away from what was asked for | No anchor back to the original task; the model optimizes for "impressiveness" rather than "accomplishes the task" |
+| **Context collapse** | After several review cycles, the output diverges from the original intent with no mechanism to detect or reverse the drift | Each round takes the previous round's output as input — by round 3, the original signal has decayed through layers of revision |
 
 The output is shaped more by how you prompt than by what's actually better. There is no independent evaluation happening — just a mirror.
+
+## How Autoreason Addresses Each Failure Mode
+
+| Failure Mode | Architectural Fix |
+|---|---|
+| **Sycophancy** | The incumbent (A) competes against adversarial alternatives — the judge picks the best version, not the most polished one |
+| **Overcriticism** | The strawman only finds problems. A separate Author B decides which criticisms are valid enough to act on. If the critique was wrong, the judge picks A and the criticism is discarded |
+| **Overcompromise** | The synthesizer (AB) is one of three options, not the default. If the synthesis hedged too much, the judge picks A or B instead |
+| **Authorship bias** | Every role is a fresh agent with no shared context. Author B never saw Author A's drafting process. The synthesizer doesn't know which version came first |
+| **Scope drift** | Judges evaluate against the original task prompt — "which version best accomplishes what was asked for" — not "which is most thorough" |
+| **Context collapse** | The original task prompt is the anchor throughout all passes. The incumbent (A) is always a candidate, so the loop can revert to stability at any point |
 
 ## The Method
 
