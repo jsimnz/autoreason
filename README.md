@@ -68,7 +68,7 @@ The output is shaped more by how you prompt than by what's actually better. Ther
 
 Both modes share the same core architecture. v1 is one iteration of v2.
 
-## Architecture
+## v2 Architecture
 
 Every role is a fresh, isolated agent with no shared context. The artifact is the thread of continuity, not the agent's memory.
 
