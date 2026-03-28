@@ -1,0 +1,26 @@
+{
+  "baseline": "improve_this",
+  "description": "Pure sycophantic mode \u2014 just 'make it better'",
+  "num_passes": 15,
+  "model": "anthropic/claude-sonnet-4-20250514",
+  "temperature": 0.8,
+  "word_counts": [
+    847,
+    2196,
+    2015,
+    2098,
+    2138,
+    2048,
+    2114,
+    2137,
+    2219,
+    2082,
+    2011,
+    2057,
+    2013,
+    1999,
+    1985,
+    2116
+  ],
+  "final_words": 2116
+}

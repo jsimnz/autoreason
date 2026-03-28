@@ -163,6 +163,78 @@ Full artifacts: `experiments/v2/results_v2/task_01/initial_a.md` and `experiment
 5. **Add an early-exit heuristic.** If the incumbent has survived 2 of the last 3 passes (even non-consecutively), the loop is likely near its ceiling. Consider exiting or switching to a verification mode.
 
 
+## Baseline Comparison: Autoreason vs 4 Iterative Prompting Strategies
+
+All methods start from the same initial output (847 words), run 15 passes with the same model (claude-sonnet-4, temp=0.8). Autoreason uses the v2 architecture (fresh agents, 3-judge panel, convergence at pass 14-15). Baselines use a single agent iterating on its own output.
+
+### Methods Tested
+
+| Method | Prompt Strategy | Final Words |
+|---|---|---|
+| **autoreason** | A/B/AB + blind judge panel, fresh agents | 1800 |
+| **conservative** | "Make changes only if necessary" | 862 |
+| **improve_this** | "Improve this. Make it stronger and more thorough." | 2116 |
+| **harsh_critic** | "Find every flaw. Rewrite from scratch to be bulletproof." | 1961 |
+| **critique_and_revise** | "Find problems, then fix them." (standard adversarial) | 2507 |
+
+### Word Count Trajectories
+
+![Word Count Trajectories](experiments/v2/word_count_trajectories.png)
+
+The trajectories reveal each method's structural bias:
+- **conservative** barely moves (847 → 862). Prevents drift but also prevents improvement.
+- **autoreason** grows steadily then stabilizes (847 → 1800). The bloat/prune oscillation keeps it in check.
+- **improve_this** instantly bloats then plateaus (847 → 2196 → ~2100). Pure sycophancy adds everything, removes nothing.
+- **harsh_critic** bloats aggressively then oscillates (847 → 2391 → ~2000). Maximum adversarial pressure creates maximum instability.
+- **critique_and_revise** bloats monotonically and never comes back (847 → 2507). The standard approach is the worst bloater.
+
+### 7-Judge Blind Panel Results
+
+Each judge saw the original task, the initial output, and all 5 final versions with randomized labels. Judges ranked all 5 from best to worst. Borda count scoring (5 points for 1st, 4 for 2nd, etc.).
+
+![Baseline Comparison](experiments/v2/baseline_comparison.png)
+
+| Method | Borda Score (max 35) | 1st Place Votes (out of 7) |
+|---|---|---|
+| **autoreason** | **35** | **7** |
+| conservative | 21 | 0 |
+| improve_this | 18 | 0 |
+| harsh_critic | 18 | 0 |
+| critique_and_revise | 13 | 0 |
+
+**Autoreason won unanimously.** Every judge ranked it first. Perfect Borda score.
+
+The most striking result is that **conservative (barely changed) beat all three iterative baselines**. Doing almost nothing produced a better output than "improve this," "harsh critic," or "critique and revise." The baselines all drifted in different ways, and the judges saw through every one of them.
+
+**Critique and revise came dead last** — the method most people actually use for iterative refinement produced the worst output of all five approaches.
+
+### Adversarial Comparison Detail
+
+Two separate judge panels compared autoreason vs critique_and_revise directly:
+
+- **5 judges, no initial output shown:** Autoreason 3, Adversarial 2. Judges who preferred adversarial cited simplicity and realism for a small team.
+- **7 judges, initial output shown as baseline:** Autoreason 7, Adversarial 0. Unanimous. Once judges could see where both started, the adversarial version's drift became obvious. Two judges noted the adversarial output contained critique artifacts — fragments of the "find problems" step leaked into the final output (context collapse).
+
+Providing the initial output as baseline completely changed the result. Judges need a reference point to evaluate improvement vs drift.
+
+## Pass 15 vs Pass 25: Does Continuing Help?
+
+The v2 run reached 2 consecutive A wins twice: passes 14-15 and passes 24-25. We compared the incumbents from both convergence points.
+
+![Pass 15 vs Pass 25](experiments/v2/pass15_vs_pass25.png)
+
+| Convergence Point | Words | Judge Votes (out of 7) |
+|---|---|---|
+| Pass 15 (first) | 1800 | **6** |
+| Pass 25 (second) | 1758 | 1 |
+
+**The first convergence point produced better output.** 10 additional passes didn't improve quality — they degraded it. Pass 15 had stronger customer validation evidence and more grounded financials. Pass 25 had churned through the bloat/prune oscillation and lost some of the specificity that made pass 15 strong.
+
+The one dissenting judge preferred pass 25's more conservative revenue targets ($120K vs $300K ARR) as more realistic for a 3-person team.
+
+**Conclusion:** Convergence threshold of 2 consecutive A wins is correct. The first convergence point is the quality ceiling. Additional passes are noise at best, degradation at worst.
+
+
 ## Design Space
 
 Tracking all dimensions and permutations, tested and untested.

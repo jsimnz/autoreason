@@ -147,6 +147,28 @@ The initial version reads like an LLM generated a strategy from the prompt alone
 
 ![Trajectory](experiments/v2/trajectory_chart.png)
 
+### Baseline Comparison: 7-Judge Blind Panel
+
+All 5 methods start from the same initial output, run 15 passes with the same model. Judges see the original task, the initial output, and all 5 finals with randomized labels.
+
+![Baseline Comparison](experiments/v2/baseline_comparison.png)
+
+| Method | Borda Score (max 35) | 1st Place | Final Words |
+|---|---|---|---|
+| **autoreason** | **35** | **7/7** | 1800 |
+| conservative | 21 | 0 | 862 |
+| improve_this | 18 | 0 | 2116 |
+| harsh_critic | 18 | 0 | 1961 |
+| critique_and_revise | 13 | 0 | 2507 |
+
+Autoreason won unanimously. Conservative (barely changed the initial output) beat all three iterative baselines — doing almost nothing is better than iterating without structural protection. Critique and revise, the method most people actually use, came dead last.
+
+![Word Count Trajectories](experiments/v2/word_count_trajectories.png)
+
+### Does Continuing Past Convergence Help?
+
+Compared the incumbent at pass 15 (first convergence) vs pass 25 (second convergence). 7-judge blind panel: pass 15 won 6-1. Ten extra passes degraded quality. The first convergence point is the quality ceiling.
+
 Full trajectory data, analysis, and design space matrix: [RESULTS.md](RESULTS.md)
 
 Shareable project overview: [OVERVIEW.md](OVERVIEW.md)
