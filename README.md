@@ -187,7 +187,18 @@ python experiments/v2/run_v2.py --task 1
 python experiments/v2/run_v2.py --task 1 --max-passes 20
 ```
 
-Requires `ANTHROPIC_API_KEY` in environment or `~/.hermes/.env`.
+Uses [litellm](https://docs.litellm.ai/) for model routing — any supported provider works. Set the model in `config_v2.yaml` and the corresponding API key in your environment:
+
+| Provider | Model format | Environment variable |
+|---|---|---|
+| Anthropic | `anthropic/claude-sonnet-4-20250514` | `ANTHROPIC_API_KEY` |
+| OpenAI | `openai/gpt-4o` | `OPENAI_API_KEY` |
+| OpenRouter | `openrouter/anthropic/claude-sonnet-4` | `OPENROUTER_API_KEY` |
+| Nous Portal | `openrouter/nousresearch/hermes-3-llama-3.1-405b` | `OPENROUTER_API_KEY` |
+| Google | `gemini/gemini-2.5-pro` | `GEMINI_API_KEY` |
+| Any OpenAI-compatible | `openai/model-name` + `api_base` | `OPENAI_API_KEY` |
+
+Mixed-model judge panels (e.g., sonnet for authors, gpt-4o + gemini + hermes for judges) are a planned experiment for decorrelating judge biases.
 
 ## Next Experiments
 
