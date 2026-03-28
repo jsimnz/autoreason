@@ -19,7 +19,7 @@ The output is shaped more by how you prompt than by what's actually better. Ther
 Every role is a fresh, isolated agent with no shared context. The artifact is the thread of continuity, not the agent's memory.
 
 ```
-ORIGINAL TASK PROMPT (anchor)
+ORIGINAL TASK PROMPT (anchor — seen by all roles)
         │
         ▼
    ┌──────────┐
@@ -34,27 +34,31 @@ ORIGINAL TASK PROMPT (anchor)
         │
    ┌────┴──────┐
    │ Author B  │   fresh agent, sees task + A + critique
-   └────┬──────┘   revises A based on valid criticisms
+   └────┬──────┘   revises A to address valid criticisms
         │
    ┌────┴───────────┐
    │  Synthesizer   │   fresh agent, sees task + A + B (randomized)
-   └────┬───────────┘   takes strongest elements from each
-        │
+   └────┬───────────┘   keeps the strongest elements of each
         │
         ▼
-   ┌─────────────────────────────────────┐
-   │        Judge Panel (3 judges)       │
-   │  fresh agents, blind evaluation     │
-   │  ranked choice + Borda count        │
-   │                                     │
-   │  chooses best of:  A  /  B  /  AB   │
-   └────┬────────────────────────────────┘
+   ┌─────────────────────────────────────────────────┐
+   │            Judge Panel (3 judges)                │
+   │  fresh agents, blind evaluation                  │
+   │  ranked choice + Borda count                     │
+   │                                                  │
+   │  chooses best of:                                │
+   │    A  — the incumbent (unchanged)                │
+   │    B  — the adversarial revision                 │
+   │    AB — the synthesis (best of both)             │
+   └────┬─────────────────────────────────────────────┘
         │
         ├── Winner = A → streak++
         └── Winner = B or AB → streak = 0, winner becomes new A
         │
         ▼  loop until streak = 2 (converged)
 ```
+
+**A** represents conservatism — "the current version is fine, the changes made things worse." **B** represents adversarial editing — "the critique found real problems and the revision fixes them." **AB** represents what happens when you ask an agent to be objective — "both versions got some things right, here's a synthesis that keeps the best of each." The judge panel decides which of these three framings actually produced the best result for the task, with no knowledge of which is which.
 
 ### Why It Works
 
