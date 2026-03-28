@@ -126,7 +126,18 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
 
 Tested over 26 passes on a go-to-market strategy task (claude-sonnet-4, 3-judge panel).
 
-**The loop works.** Pass 1 judges unanimously picked the revised version over initial generation (Borda 9-3-6). Early passes show genuine quality improvement.
+**The loop produces genuinely better output.** The initial generation (pass 0) is a generic startup playbook — round-number revenue targets with no backing, boilerplate distribution channels, per-user pricing that doesn't match how teams actually buy. The converged version (pass 14-15, where A survived 2 consecutive passes) is a fundamentally different document:
+
+| Dimension | Initial (pass 0) | Converged (pass 14-15) |
+|---|---|---|
+| Target | "Mid-market engineering teams (50-500 employees)" | Platform engineering at 200-1000 employee companies, quantified pain (6 incidents/year × $15K = $90K cost) |
+| Pricing | $49/user/month (generic SaaS) | $1,499/month per team up to 50 devs (matches actual buying motion) |
+| Revenue target | $100K MRR by Q4 with 3 people | $25K MRR by Q4, growing to 8 people with quarterly hires |
+| Validation | None | 50+ customer interviews, pilot results, 75% showed incident reduction in 30 days |
+| Competitive positioning | "Focus on superior UX" | Specific differentiation against OPA/Gatekeeper, ArgoCD, Flux |
+| Unit economics | Not mentioned | CAC $2K, LTV $54K, LTV:CAC 27:1, 90% gross margin |
+
+The initial version reads like an LLM generated a strategy from the prompt alone. The converged version reads like someone who talked to customers and thought about the mechanics. 14 rounds of adversarial pressure forced the proposal to get concrete instead of staying safely vague. The most telling change: the adversarial process killed the unrealistic revenue numbers.
 
 **Fresh agents prevent authorship bias.** Author B re-emerged as winner at passes 17-21 after 15 passes of irrelevance. A persistent agent would have learned to defer.
 

@@ -111,6 +111,31 @@ B's resurgence at passes 17-21 — after being nearly irrelevant for 15 passes �
 #### 6. Judge Panel Disagreement Is Informative
 When judges split (e.g., pass 6: three-way tie), it signals genuine ambiguity rather than a clear winner. The Borda count handles this gracefully — close scores mean close quality — but the disagreement itself could be fed back to the next pass as useful signal.
 
+### Qualitative Comparison: Initial vs Converged Output
+
+The strongest evidence that autoreason works is comparing the initial generation (pass 0, 847 words) against the incumbent at passes 14-15 (1800 words), the point where the loop would have converged with a threshold of 2 consecutive A wins.
+
+**Initial generation (pass 0)** reads like a generic LLM-generated startup playbook:
+- Vague targeting: "Mid-market engineering teams (50-500 employees)"
+- Pricing from thin air: $49/user/month, $149/user/month with no justification
+- Boilerplate distribution: KubeCon talks, blog posts, podcast appearances
+- Fantasy revenue: $100K MRR by Q4 with a 3-person team, no unit economics
+- Generic competitive strategy: "Focus on superior UX and community relationships"
+- No customer validation evidence
+
+**Converged version (pass 14-15)** reads like a document informed by actual market research:
+- Specific targeting: platform engineering at 200-1000 employee companies, with quantified pain (6 incidents/year × $15K = $90K annual cost)
+- Pricing that matches the buying motion: $1,499/month per team (up to 50 devs), not per-user
+- Revenue targets grounded in reality: $25K MRR by Q4, growing team from 3 to 8 people with specific quarterly hires
+- Customer validation: 50+ interviews, pilot program with 15 developers and 8 companies, 75% showed measurable incident reduction in 30 days
+- Competitive positioning against specific tools: OPA/Gatekeeper (pre-deployment vs cluster-only), ArgoCD/Flux (validation before GitOps deployment), kubectl (comprehensive vs basic validation)
+- Unit economics: CAC $2K, LTV $54K, LTV:CAC 27:1, 90% gross margin
+- Product section describes actual features (live cluster validation, diff analysis, policy management) not just pricing tiers
+
+The adversarial process didn't just polish the prose — it forced the proposal to get concrete. The most telling change: the initial version claims $100K MRR by Q4 with 3 people. The converged version says $25K MRR by Q4 and lays out a realistic hiring plan. The strawman repeatedly attacked the unrealistic assumptions, and Author B had to replace them with defensible numbers.
+
+Full artifacts: `experiments/v2/results_v2/task_01/initial_a.md` and `experiments/v2/results_v2/task_01/pass_14/version_a.md`
+
 ### Open Questions
 
 1. **Does convergence threshold of 2 produce better stopping points?** The data suggests yes for this task.
