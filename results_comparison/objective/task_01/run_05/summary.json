@@ -1,0 +1,8 @@
+{
+  "condition": "objective",
+  "passes": 1,
+  "declined_at": 1,
+  "stopped_reason": "declined",
+  "elapsed_seconds": 50.7,
+  "complete": true
+}

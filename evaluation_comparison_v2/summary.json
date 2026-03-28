@@ -1,0 +1,160 @@
+{
+  "rubric_version": "v2",
+  "dimensions": [
+    "solves_problem",
+    "completeness",
+    "coherence",
+    "specificity",
+    "anticipates_objections",
+    "appropriate_complexity"
+  ],
+  "max_score": 30,
+  "overall": {
+    "objective": {
+      "avg": 27.2,
+      "n": 10,
+      "scores": [
+        27,
+        22,
+        28,
+        29,
+        29,
+        26,
+        27,
+        28,
+        27,
+        29
+      ]
+    },
+    "autoreason": {
+      "avg": 25.5,
+      "n": 10,
+      "scores": [
+        19,
+        27,
+        27,
+        26,
+        27,
+        28,
+        23,
+        26,
+        26,
+        26
+      ]
+    },
+    "adversarial": {
+      "avg": 24.2,
+      "n": 10,
+      "scores": [
+        28,
+        25,
+        26,
+        23,
+        29,
+        15,
+        26,
+        26,
+        28,
+        16
+      ]
+    },
+    "baseline": {
+      "avg": 27.1,
+      "n": 10,
+      "scores": [
+        27,
+        27,
+        27,
+        26,
+        29,
+        27,
+        28,
+        27,
+        28,
+        25
+      ]
+    }
+  },
+  "by_task": {
+    "objective_task_04": {
+      "avg": 28.0,
+      "scores": [
+        27,
+        28,
+        29,
+        27,
+        29
+      ]
+    },
+    "autoreason_task_01": {
+      "avg": 24.8,
+      "scores": [
+        19,
+        27,
+        26,
+        26,
+        26
+      ]
+    },
+    "adversarial_task_04": {
+      "avg": 22.6,
+      "scores": [
+        28,
+        25,
+        29,
+        15,
+        16
+      ]
+    },
+    "objective_task_01": {
+      "avg": 26.4,
+      "scores": [
+        22,
+        29,
+        26,
+        27,
+        28
+      ]
+    },
+    "baseline_task_01": {
+      "avg": 26.4,
+      "scores": [
+        27,
+        27,
+        26,
+        27,
+        25
+      ]
+    },
+    "autoreason_task_04": {
+      "avg": 26.2,
+      "scores": [
+        27,
+        27,
+        28,
+        23,
+        26
+      ]
+    },
+    "adversarial_task_01": {
+      "avg": 25.8,
+      "scores": [
+        26,
+        23,
+        26,
+        26,
+        28
+      ]
+    },
+    "baseline_task_04": {
+      "avg": 27.8,
+      "scores": [
+        27,
+        29,
+        28,
+        27,
+        28
+      ]
+    }
+  }
+}

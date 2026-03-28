@@ -1,0 +1,11 @@
+{
+  "picks": [
+    "AB",
+    "AB"
+  ],
+  "variant": "conservative_2pass",
+  "author_temperature": 0.4,
+  "judge_temperature": 0.2,
+  "passes": 2,
+  "elapsed_seconds": 482.5
+}

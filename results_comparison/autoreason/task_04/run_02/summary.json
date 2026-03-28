@@ -1,0 +1,16 @@
+{
+  "condition": "autoreason",
+  "passes": 7,
+  "picks": [
+    "AB",
+    "AB",
+    "AB",
+    "AB",
+    "A",
+    "AB",
+    "AB"
+  ],
+  "stopped_reason": "max_passes",
+  "elapsed_seconds": 1354.0,
+  "complete": true
+}

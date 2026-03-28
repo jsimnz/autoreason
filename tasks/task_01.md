@@ -1,0 +1,1 @@
+Propose a go-to-market strategy for an open-source developer tool that has 5k GitHub stars but no revenue. The tool is a CLI for managing Kubernetes configs. The team is 3 people. Cover: target customer segments, pricing model, distribution channels, first-year milestones, and what you'd explicitly not do yet.

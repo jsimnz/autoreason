@@ -1,0 +1,10 @@
+{
+  "picks": [
+    "AB"
+  ],
+  "variant": "chaos_1pass",
+  "author_temperature": 1.0,
+  "judge_temperature": 0.9,
+  "passes": 1,
+  "elapsed_seconds": 235.5
+}

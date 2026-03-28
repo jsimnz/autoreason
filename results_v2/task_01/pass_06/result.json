@@ -1,0 +1,72 @@
+{
+  "pass": 6,
+  "winner": "A",
+  "scores": {
+    "A": 6,
+    "B": 6,
+    "AB": 6
+  },
+  "num_judges": 3,
+  "num_valid": 3,
+  "individual_rankings": [
+    [
+      "B",
+      "A",
+      "AB"
+    ],
+    [
+      "AB",
+      "B",
+      "A"
+    ],
+    [
+      "A",
+      "AB",
+      "B"
+    ]
+  ],
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "presentation_order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw_response": "## Evaluation of Proposals\n\n### Proposal 1 Analysis\n\n**Handles Well:**\n- Comprehensive coverage of all required elements (target segments, pricing, distribution, milestones, explicit non-goals)\n- Realistic pricing model with clear value differentiation across tiers\n- Well-structured first-year milestones with specific MRR targets\n- Strong technical architecture strategy that maintains CLI advantages\n- Detailed resource allocation and unit economics\n- Clear competitive positioning and risk mitigation\n\n**Handles Poorly/Misses:**\n- Unit economics appear overly optimistic (80:1 LTV:CAC ratio, $25 CAC for developer tools)\n- Revenue targets may be aggressive given the team size and market realities\n- Limited discussion of enterprise sales complexity\n\n**Feasibility/Coherence Issues:**\n- The $25 CAC seems unrealistically low for B2B developer tools\n- 8% free-to-paid conversion rate is optimistic without proven demand generation\n\n### Proposal 2 Analysis\n\n**Handles Well:**\n- Addresses realistic buyer personas with actual budget authority\n- Acknowledges enterprise sales complexity with appropriate processes\n- More realistic unit economics and CAC projections\n- Detailed hiring plan with specific roles and timing\n- Comprehensive enterprise sales strategy\n- Honest assessment of infrastructure requirements for team features\n\n**Handles Poorly/Misses:**\n- Pricing model has some inconsistencies (Individual Pro at $79/month may be too high for the target segment)\n- Revenue math doesn't fully align with stated pricing in some calculations\n- Less detailed technical architecture compared to other proposals\n\n**Feasibility/Coherence Issues:**\n- Some pricing tiers seem disconnected from stated customer segments\n- Revenue projections don't always match the pricing structure presented\n\n### Proposal 3 Analysis\n\n**Handles Well:**\n- Covers all required task elements comprehensively\n- Balanced approach between self-service and enterprise support\n- Realistic pricing that aligns with customer segments\n- Clear technical architecture maintaining CLI-first approach\n- Good balance of resource allocation\n- Addresses enterprise customer success needs specifically\n\n**Handles Poorly/Misses:**\n- Very similar to Proposal 1 with minor modifications\n- Still has some optimistic unit economics assumptions\n- Limited differentiation in approach from Proposal 1\n\n**Feasibility/Coherence Issues:**\n- Inherits some of the same optimistic assumptions about conversion rates and CAC\n- Revenue targets are ambitious but more realistic than Proposal 1\n\n## Detailed Comparison\n\n**Target Customer Segments:** All three proposals identify appropriate segments, but Proposal 2 does the best job of identifying buyers with actual budget authority and decision-making power.\n\n**Pricing Model:** Proposal 1 and 3 have more coherent pricing structures, while Proposal 2's pricing seems disconnected from the stated customer segments in some cases.\n\n**Distribution Channels:** Proposal 2 provides the most realistic assessment of sales complexity, while Proposals 1 and 3 may underestimate enterprise sales requirements.\n\n**First-Year Milestones:** All three provide detailed milestones, but Proposal 2 has the most realistic revenue progression given market realities.\n\n**Explicit Non-Goals:** All three handle this well, with similar and appropriate exclusions.\n\n**Overall Feasibility:** Proposal 2 demonstrates the most realistic understanding of B2B software sales cycles, customer acquisition costs, and enterprise buying processes, despite some internal inconsistencies.\n\nRANKING: 2, 1, 3"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "presentation_order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw_response": "## Evaluation of Proposals\n\n### Proposal 1 Analysis\n\n**Handles Well:**\n- Comprehensive coverage of all required elements (customer segments, pricing, distribution, milestones, what not to do)\n- Realistic pricing model with clear differentiation between tiers\n- Detailed first-year milestones with specific revenue targets and customer counts\n- Thorough risk mitigation section addressing key challenges\n- Acknowledges infrastructure requirements and costs for team features\n- Includes hiring plan and resource allocation details\n- Addresses enterprise sales complexity with appropriate processes\n\n**Handles Poorly/Misses:**\n- Overly complex and verbose - difficult to extract key insights\n- Pricing seems high for individual developers ($79/month) given the competitive landscape\n- Revenue projections may be optimistic (targeting $96K ARR with relatively few customers)\n- The strategy feels somewhat scattered across too many tactical details\n\n**Feasibility/Coherence Issues:**\n- Generally feasible but the complexity might overwhelm a 3-person team\n- Some revenue math inconsistencies in earlier sections that are later corrected\n- The enterprise focus may be premature for a team of 3 with no current revenue\n\n### Proposal 2 Analysis\n\n**Handles Well:**\n- All required elements covered comprehensively\n- More realistic pricing model ($29/month individual tier)\n- Clear CLI-first architecture that leverages existing strengths\n- Excellent unit economics (80:1 LTV:CAC ratio)\n- Strong focus on self-service adoption that scales naturally\n- Maintains open-source community trust while monetizing appropriately\n- Realistic resource allocation for a 3-person team\n\n**Handles Poorly/Misses:**\n- Could be more specific about competitive differentiation\n- Enterprise sales process could use more detail\n- Marketing strategy is somewhat light on specifics\n\n**Feasibility/Coherence Issues:**\n- Highly feasible approach that builds incrementally\n- Coherent strategy that aligns well with team size and current position\n- Revenue targets are realistic and achievable\n\n### Proposal 3 Analysis\n\n**Handles Well:**\n- Covers all required elements\n- Realistic pricing structure similar to Proposal 2\n- CLI-first approach that makes sense for the tool\n- Good focus on organic growth and self-service adoption\n- Clear technical architecture principles\n\n**Handles Poorly/Misses:**\n- Lacks depth in several areas compared to other proposals\n- Missing detailed hiring plan and resource allocation specifics\n- Risk mitigation section is less comprehensive\n- Revenue model details are less thorough\n- Competitive positioning section is brief and generic\n\n**Feasibility/Coherence Issues:**\n- Feasible but less detailed planning may lead to execution challenges\n- Strategy is coherent but lacks the depth needed for implementation\n- Some sections feel incomplete or underdeveloped\n\n## Detailed Comparison\n\n**Completeness:** Proposal 1 is most comprehensive, Proposal 2 is well-rounded, Proposal 3 lacks depth in key areas.\n\n**Realism:** Proposal 2 has the most realistic pricing and unit economics. Proposal 1's pricing may be too aggressive. Proposal 3 is realistic but less detailed.\n\n**Feasibility for 3-person team:** Proposal 2 best balances ambition with team constraints. Proposal 1 may be too complex. Proposal 3 is feasible but underdeveloped.\n\n**Strategic coherence:** Proposal 2 has the clearest, most logical progression from open-source to revenue. Proposal 1 is comprehensive but complex. Proposal 3 is coherent but shallow.\n\n**Actionability:** Proposal 2 provides the clearest roadmap for execution. Proposal 1 has good detail but may overwhelm. Proposal 3 lacks sufficient detail for execution.\n\nRANKING: 2, 1, 3"
+    },
+    {
+      "ranking": [
+        "A",
+        "AB",
+        "B"
+      ],
+      "presentation_order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw_response": "## Evaluation of Proposals\n\n### Proposal 1 Analysis\n\n**Handles Well:**\n- Comprehensive coverage of all required elements (customer segments, pricing, distribution, milestones, what not to do)\n- Realistic pricing model with clear value differentiation across tiers\n- Well-structured customer segments with specific pain points and budget authority\n- Detailed first-year milestones with specific targets and timelines\n- Strong technical architecture strategy that maintains CLI advantages\n- Thoughtful resource allocation including hiring plans\n- Clear \"what not to do\" section with solid rationale\n\n**Handles Poorly/Misses:**\n- Some revenue calculations appear inconsistent (claims $120K ARR target but Q4 shows $10K+ MRR which would be $120K+ ARR)\n- Customer acquisition cost of $25 seems unrealistically low for B2B developer tools\n- LTV:CAC ratio of 80:1 is extraordinarily high and likely unrealistic\n\n**Feasibility/Coherence Issues:**\n- Generally coherent strategy but unit economics assumptions are overly optimistic\n- Technical architecture is sound and feasible for a 3-person team\n\n### Proposal 2 Analysis\n\n**Handles Well:**\n- Addresses all required task elements comprehensively\n- More realistic unit economics with CAC of $300 and LTV:CAC of 15.6:1\n- Acknowledges enterprise sales complexity with appropriate processes\n- Includes partner channel strategy for enterprise reach\n- Realistic hiring plan with specific roles and timing\n- Good risk mitigation section addressing key challenges\n\n**Handles Poorly/Misses:**\n- Higher pricing ($79 individual, $299 team) may be too aggressive for initial market entry\n- More complex technical architecture requiring significant cloud infrastructure investment\n- Revenue targets are lower ($96K ARR) which may not justify the infrastructure costs proposed\n\n**Feasibility/Coherence Issues:**\n- Strategy is coherent but may be overly complex for a 3-person team starting with no revenue\n- Infrastructure investment plan seems front-loaded relative to revenue generation\n\n### Proposal 3 Analysis\n\n**Handles Well:**\n- Covers all required task elements clearly\n- Balanced pricing strategy that's accessible but still generates meaningful revenue\n- Strong focus on maintaining CLI advantages while adding enterprise features\n- Clear progression from individual to enterprise customers\n- Realistic technical architecture that scales with revenue\n- Good balance of simplicity and growth potential\n\n**Handles Poorly/Misses:**\n- Less detailed on enterprise sales processes compared to Proposal 2\n- Limited discussion of competitive positioning and differentiation\n- Resource allocation percentages provided but less detail on specific hiring plans\n\n**Feasibility/Coherence Issues:**\n- Most feasible strategy for a 3-person team with no current revenue\n- Coherent progression from simple to complex features\n- Unit economics are optimistic but more realistic than Proposal 1\n\n## Ranking Rationale\n\n**Proposal 1** provides the most comprehensive strategy with excellent structure and detail, but suffers from unrealistic unit economics assumptions that undermine its credibility.\n\n**Proposal 3** offers the most balanced and feasible approach for a 3-person team, with realistic pricing and a clear path to scale without over-investing in infrastructure early on.\n\n**Proposal 2** has strong enterprise sales thinking and realistic unit economics, but proposes a more complex strategy that may be difficult to execute with limited resources and no existing revenue.\n\nFor a team of 3 people with 5K GitHub stars but no revenue, feasibility and realistic execution are paramount. Proposal 3 strikes the best balance between ambition and achievability.\n\nRANKING: 3, 1, 2"
+    }
+  ],
+  "elapsed_seconds": 147.5,
+  "author_model": "anthropic/claude-sonnet-4-20250514",
+  "judge_model": "anthropic/claude-sonnet-4-20250514"
+}

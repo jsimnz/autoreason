@@ -1,0 +1,992 @@
+[
+  {
+    "task": "task_04",
+    "run": 3,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses the core challenge of positioning an on-premise AI code review tool against cloud competitors. The document clearly articulates the unique value proposition of data sovereignty and provides comprehensive guidance for sales and marketing teams to differentiate the product."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements with exceptional depth: detailed buyer personas with specific pain points, comprehensive messaging framework with primary and supporting pillars, competitive positioning with direct comparisons and win themes, thorough objection handling with responses and proof points, and explicit guidance on what not to claim. Goes beyond requirements with sales enablement and marketing campaign sections."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Exceptionally well-organized with logical flow from executive summary through detailed sections. Messaging is consistent throughout, with the security-first, on-premise positioning reinforced at every level. The competitive positioning directly supports the key messages, and objection handling aligns with the overall narrative."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific job titles and company profiles for targeting, exact messaging phrases, detailed competitive responses, word-for-word objection handling scripts with proof points, specific qualification questions, and precise demo focus areas. The positioning map and competitive analysis table provide clear visual guidance."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Exceptional anticipation of challenges with five detailed objections covering quality concerns, cost, features, complexity, and business continuity. Each includes specific responses and proof points. The 'what never to claim' section proactively prevents common positioning mistakes. Addresses both customer objections and internal missteps."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for enterprise B2B software positioning. The depth is warranted given the technical nature of the product, enterprise buyer complexity, and competitive landscape. Includes necessary nuance around compliance, security, and performance trade-offs while remaining accessible to sales and marketing teams. The visual elements and structured formats enhance usability without oversimplifying."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses the core challenge of positioning an on-premise AI code review tool against cloud competitors. The document clearly articulates the unique value proposition of data sovereignty and provides comprehensive guidance for sales and marketing teams to differentiate the product.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements with exceptional depth: detailed buyer personas with specific pain points, comprehensive messaging framework with primary and supporting pillars, competitive positioning with direct comparisons and win themes, thorough objection handling with responses and proof points, and explicit guidance on what not to claim. Goes beyond requirements with sales enablement and marketing campaign sections.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Exceptionally well-organized with logical flow from executive summary through detailed sections. Messaging is consistent throughout, with the security-first, on-premise positioning reinforced at every level. The competitive positioning directly supports the key messages, and objection handling aligns with the overall narrative.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific job titles and company profiles for targeting, exact messaging phrases, detailed competitive responses, word-for-word objection handling scripts with proof points, specific qualification questions, and precise demo focus areas. The positioning map and competitive analysis table provide clear visual guidance.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Exceptional anticipation of challenges with five detailed objections covering quality concerns, cost, features, complexity, and business continuity. Each includes specific responses and proof points. The 'what never to claim' section proactively prevents common positioning mistakes. Addresses both customer objections and internal missteps.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for enterprise B2B software positioning. The depth is warranted given the technical nature of the product, enterprise buyer complexity, and competitive landscape. Includes necessary nuance around compliance, security, and performance trade-offs while remaining accessible to sales and marketing teams. The visual elements and structured formats enhance usability without oversimplifying.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 3,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses the core differentiator of on-premise deployment with comprehensive positioning against cloud-based competitors. Clearly defines target buyers, messaging, and competitive stance. Minor deduction for the somewhat contradictory inclusion of managed cloud options alongside the on-premise differentiator."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements: detailed buyer personas, comprehensive messaging framework, competitive positioning, extensive objection handling, clear 'never claim' section, plus additional valuable sections like implementation approach, pricing, GTM strategy, and risk mitigation."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Well-organized and internally consistent overall. The document flows logically and maintains consistent messaging about data sovereignty. The only tension is between the core on-premise differentiator and the inclusion of managed cloud deployment options, though this is addressed as flexibility for different security requirements."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly specific and actionable throughout. Includes exact job titles, company profiles, specific pain points, measurable claims (60% triage reduction), detailed pricing ($250-350/developer), implementation timelines (6-18 months), and concrete objection responses. Sales team could execute directly from this."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Excellent anticipation of likely pushback with four detailed objections and responses, comprehensive risk mitigation section covering market, technology, and implementation risks, and realistic acknowledgment of long implementation timelines and high costs. Shows deep understanding of enterprise sales challenges."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Appropriately complex for enterprise B2B positioning in a competitive market. The depth on implementation phases, pricing models, and deployment options is warranted given the technical nature and high stakes. Could potentially be slightly more concise in some sections, but the detail serves the sales team's needs well."
+      }
+    },
+    "total": 27,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses the core differentiator of on-premise deployment with comprehensive positioning against cloud-based competitors. Clearly defines target buyers, messaging, and competitive stance. Minor deduction for the somewhat contradictory inclusion of managed cloud options alongside the on-premise differentiator.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements: detailed buyer personas, comprehensive messaging framework, competitive positioning, extensive objection handling, clear 'never claim' section, plus additional valuable sections like implementation approach, pricing, GTM strategy, and risk mitigation.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Well-organized and internally consistent overall. The document flows logically and maintains consistent messaging about data sovereignty. The only tension is between the core on-premise differentiator and the inclusion of managed cloud deployment options, though this is addressed as flexibility for different security requirements.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly specific and actionable throughout. Includes exact job titles, company profiles, specific pain points, measurable claims (60% triage reduction), detailed pricing ($250-350/developer), implementation timelines (6-18 months), and concrete objection responses. Sales team could execute directly from this.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Excellent anticipation of likely pushback with four detailed objections and responses, comprehensive risk mitigation section covering market, technology, and implementation risks, and realistic acknowledgment of long implementation timelines and high costs. Shows deep understanding of enterprise sales challenges.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Appropriately complex for enterprise B2B positioning in a competitive market. The depth on implementation phases, pricing models, and deployment options is warranted given the technical nature and high stakes. Could potentially be slightly more concise in some sections, but the detail serves the sales team's needs well.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 4,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Excellently addresses the core task by positioning the tool with a dual differentiation strategy (security-specialized AI + on-premise deployment) that creates a defensible market position against established competitors. The document provides clear guidance for sales and marketing teams on how to position against GitHub Copilot, Cursor, and CodeRabbit."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements comprehensively: detailed buyer personas (VP Engineering and CISO), key messaging framework with channel-specific variations, competitive positioning against multiple competitor types, thorough objection handling, and explicit 'what not to claim' guidance. Goes beyond requirements with business model, timeline, and risk mitigation."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Exceptionally well-organized with a clear narrative thread. The dual positioning strategy (security + on-premise) is consistently reinforced throughout. Each section builds on previous ones, and the rationale notes explain strategic choices. The messaging framework aligns perfectly with buyer personas and competitive positioning."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific pricing tiers ($200-500/developer/month), exact metrics (85% detection accuracy, <20% false positives), detailed objection responses with supporting evidence types, and phase-by-phase implementation timeline. Sales teams could execute directly from this document."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Thoroughly addresses multiple failure modes: competitive responses (GitHub offering on-premise, security vendors adding AI), technical risks (model performance, deployment complexity), and common customer objections. The risk mitigation section provides specific contingency plans for major competitive threats."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for enterprise B2B software positioning. The document acknowledges the nuanced buying process (engineering leader as buyer, CISO as approver), provides tiered deployment options recognizing different security needs, and includes sophisticated competitive analysis. The synthesis approach adds valuable depth by explaining strategic choices."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Excellently addresses the core task by positioning the tool with a dual differentiation strategy (security-specialized AI + on-premise deployment) that creates a defensible market position against established competitors. The document provides clear guidance for sales and marketing teams on how to position against GitHub Copilot, Cursor, and CodeRabbit.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements comprehensively: detailed buyer personas (VP Engineering and CISO), key messaging framework with channel-specific variations, competitive positioning against multiple competitor types, thorough objection handling, and explicit 'what not to claim' guidance. Goes beyond requirements with business model, timeline, and risk mitigation.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Exceptionally well-organized with a clear narrative thread. The dual positioning strategy (security + on-premise) is consistently reinforced throughout. Each section builds on previous ones, and the rationale notes explain strategic choices. The messaging framework aligns perfectly with buyer personas and competitive positioning.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific pricing tiers ($200-500/developer/month), exact metrics (85% detection accuracy, <20% false positives), detailed objection responses with supporting evidence types, and phase-by-phase implementation timeline. Sales teams could execute directly from this document.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Thoroughly addresses multiple failure modes: competitive responses (GitHub offering on-premise, security vendors adding AI), technical risks (model performance, deployment complexity), and common customer objections. The risk mitigation section provides specific contingency plans for major competitive threats.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for enterprise B2B software positioning. The document acknowledges the nuanced buying process (engineering leader as buyer, CISO as approver), provides tiered deployment options recognizing different security needs, and includes sophisticated competitive analysis. The synthesis approach adds valuable depth by explaining strategic choices.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 3,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses monetizing an open-source K8s CLI tool with 5k stars. Clear path from free users to revenue through freemium SaaS. Minor gap: doesn't explicitly address how to convert existing star-gazers who may resist commercialization."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements thoroughly: detailed customer segments with pain points and buying process, specific pricing tiers with rationale, multiple distribution channels with timelines, quarterly milestones with metrics, and extensive 'what not to do' section. Goes beyond requirements with resource allocation."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Strategy elements align well - pricing matches target segments, channels fit developer audience, milestones are realistic for team size. Minor inconsistency: mentions hiring sales/marketing person in Q3 but maintains founder-led sales until $50K MRR (which should be achieved in Q3)."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Exceptionally concrete: exact pricing ($49/$149), specific conference (KubeCon), detailed customer profiles (5-50 clusters, 3-15 engineers), quarterly revenue targets, percentage allocations for team roles. Someone could execute this plan without ambiguity."
+      },
+      "anticipates_objections": {
+        "score": 3,
+        "note": "Addresses some risks through 'what not to do' section and resource constraints. However, missing key objections: how to handle open-source community backlash, competitive response from existing players, technical debt from rapid feature development, or what happens if conversion rates miss targets."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Well-calibrated detail level for a 3-person team commercializing an open-source tool. Comprehensive without being overwhelming. Good balance of strategic direction and tactical execution. Could use slightly more detail on technical implementation challenges of building SaaS on top of CLI."
+      }
+    },
+    "total": 25,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses monetizing an open-source K8s CLI tool with 5k stars. Clear path from free users to revenue through freemium SaaS. Minor gap: doesn't explicitly address how to convert existing star-gazers who may resist commercialization.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements thoroughly: detailed customer segments with pain points and buying process, specific pricing tiers with rationale, multiple distribution channels with timelines, quarterly milestones with metrics, and extensive 'what not to do' section. Goes beyond requirements with resource allocation.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Strategy elements align well - pricing matches target segments, channels fit developer audience, milestones are realistic for team size. Minor inconsistency: mentions hiring sales/marketing person in Q3 but maintains founder-led sales until $50K MRR (which should be achieved in Q3).\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Exceptionally concrete: exact pricing ($49/$149), specific conference (KubeCon), detailed customer profiles (5-50 clusters, 3-15 engineers), quarterly revenue targets, percentage allocations for team roles. Someone could execute this plan without ambiguity.\"},\n  \"anticipates_objections\": {\"score\": 3, \"note\": \"Addresses some risks through 'what not to do' section and resource constraints. However, missing key objections: how to handle open-source community backlash, competitive response from existing players, technical debt from rapid feature development, or what happens if conversion rates miss targets.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Well-calibrated detail level for a 3-person team commercializing an open-source tool. Comprehensive without being overwhelming. Good balance of strategic direction and tactical execution. Could use slightly more detail on technical implementation challenges of building SaaS on top of CLI.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 4,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses the positioning challenge with clear differentiation (security team capacity multiplication) and on-premise capability. The hybrid approach cleverly solves technical constraints while maintaining strategic value. Minor deduction for the confusing 'synthesis' framing that suggests this combines two proposals."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements: detailed buyer personas, comprehensive messaging, competitive positioning, objection handling, and clear boundaries. Goes beyond requirements with implementation roadmap, success metrics, and customer success framework."
+      },
+      "coherence": {
+        "score": 3,
+        "note": "Core strategy is consistent and well-organized, but the document's 'synthesis' framing and repeated justifications referencing 'Version A' and 'Version B' are confusing and detract from clarity. The actual positioning strategy is coherent, but presentation suggests this is a comparison document rather than a standalone positioning guide."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific pricing tiers ($60K-$240K), implementation timelines (4-week integration), measurable success metrics (40% triage time reduction), and detailed sales process stages. Sales team could execute directly from this document."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Strong coverage of likely objections including technical feasibility, competitive responses (12-month window), long sales cycles, and security approval processes. Includes defensive moat strategy and risk mitigation. Could better address potential customer skepticism about AI accuracy in security context."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Depth is well-suited to enterprise B2B positioning challenges. Detailed buyer personas, nuanced competitive analysis, and comprehensive go-to-market strategy are appropriate for this market. The 'synthesis' meta-commentary adds unnecessary complexity that doesn't serve the sales/marketing audience."
+      }
+    },
+    "total": 25,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses the positioning challenge with clear differentiation (security team capacity multiplication) and on-premise capability. The hybrid approach cleverly solves technical constraints while maintaining strategic value. Minor deduction for the confusing 'synthesis' framing that suggests this combines two proposals.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements: detailed buyer personas, comprehensive messaging, competitive positioning, objection handling, and clear boundaries. Goes beyond requirements with implementation roadmap, success metrics, and customer success framework.\"},\n  \"coherence\": {\"score\": 3, \"note\": \"Core strategy is consistent and well-organized, but the document's 'synthesis' framing and repeated justifications referencing 'Version A' and 'Version B' are confusing and detract from clarity. The actual positioning strategy is coherent, but presentation suggests this is a comparison document rather than a standalone positioning guide.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific pricing tiers ($60K-$240K), implementation timelines (4-week integration), measurable success metrics (40% triage time reduction), and detailed sales process stages. Sales team could execute directly from this document.\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Strong coverage of likely objections including technical feasibility, competitive responses (12-month window), long sales cycles, and security approval processes. Includes defensive moat strategy and risk mitigation. Could better address potential customer skepticism about AI accuracy in security context.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Depth is well-suited to enterprise B2B positioning challenges. Detailed buyer personas, nuanced competitive analysis, and comprehensive go-to-market strategy are appropriate for this market. The 'synthesis' meta-commentary adds unnecessary complexity that doesn't serve the sales/marketing audience.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 4,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses monetizing a 5k-star OSS tool with a clear path from free to paid tiers. The workspace-based pricing model and local-only architecture are well-reasoned solutions for a 3-person team. Minor deduction for not exploring alternative monetization models beyond SaaS."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements thoroughly: target segments with specific profiles, detailed pricing tiers, distribution channels with effort allocation, quarterly milestones with revenue targets, and explicit 'won't do' list. Goes beyond requirements with validation plan and risk mitigation."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Strategy elements align well - local-only architecture matches team size, pricing matches target segment budgets, and milestones are realistic. The synthesis approach explaining rationale for each decision adds clarity. Minor inconsistency in claiming 'no backend' while mentioning email sequences and usage tracking."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Exceptionally concrete: exact price points ($49/$149), specific feature lists by tier, revenue targets by quarter ($2K-$35K MRR), customer interview targets (50), conversion rate goals (0.5%), and clear validation criteria. Someone could execute this plan without ambiguity."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Strong risk section covering market size, customer concentration, technical debt, and competition. Addresses why certain features are excluded and provides mitigation strategies. Could better address potential objections to local-only limitations or how to handle enterprise requests."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Well-calibrated for a 3-person team's first revenue attempt. The local-only constraint appropriately simplifies execution. Detailed enough to be actionable but not overwhelming. The synthesis format explaining decisions adds useful context without excessive complexity."
+      }
+    },
+    "total": 26,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses monetizing a 5k-star OSS tool with a clear path from free to paid tiers. The workspace-based pricing model and local-only architecture are well-reasoned solutions for a 3-person team. Minor deduction for not exploring alternative monetization models beyond SaaS.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements thoroughly: target segments with specific profiles, detailed pricing tiers, distribution channels with effort allocation, quarterly milestones with revenue targets, and explicit 'won't do' list. Goes beyond requirements with validation plan and risk mitigation.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Strategy elements align well - local-only architecture matches team size, pricing matches target segment budgets, and milestones are realistic. The synthesis approach explaining rationale for each decision adds clarity. Minor inconsistency in claiming 'no backend' while mentioning email sequences and usage tracking.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Exceptionally concrete: exact price points ($49/$149), specific feature lists by tier, revenue targets by quarter ($2K-$35K MRR), customer interview targets (50), conversion rate goals (0.5%), and clear validation criteria. Someone could execute this plan without ambiguity.\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Strong risk section covering market size, customer concentration, technical debt, and competition. Addresses why certain features are excluded and provides mitigation strategies. Could better address potential objections to local-only limitations or how to handle enterprise requests.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Well-calibrated for a 3-person team's first revenue attempt. The local-only constraint appropriately simplifies execution. Detailed enough to be actionable but not overwhelming. The synthesis format explaining decisions adds useful context without excessive complexity.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 4,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses the core challenge of monetizing an open-source Kubernetes CLI tool with 5k stars. The GitOps intelligence platform strategy is a logical evolution from CLI to enterprise SaaS, targeting real pain points around visibility and compliance. The approach leverages existing traction while solving enterprise-scale problems."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements. Goes beyond basics to include unit economics, CAC/payback periods, technical architecture, competitive differentiation, and detailed quarterly revenue projections. The customer validation plan and success metrics are particularly well-developed. Even includes rationale for departures from 'Version A' throughout."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Strong internal consistency with the GitOps intelligence theme threading through all sections. The enterprise focus aligns well across pricing, distribution, and product strategy. Minor tension between 3-person team constraint and ambitious enterprise sales goals, though the consultant revenue bridge helps. The progression from CLI to SaaS platform is logical."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete numbers throughout: $1,200-3,600/month pricing, 25 customer interviews, $18-25K CAC targets, specific integration targets (ArgoCD, Flux), quarterly MRR projections ($28K→$68K→$132K), and precise success metrics (99.9% uptime, <2 second load times). Someone could execute this plan without ambiguity."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Thoughtfully addresses key risks including enterprise sales cycle length, SaaS delivery costs, and competitive positioning. The 'Departure from Version A' sections show consideration of alternatives. Could have been stronger on addressing the 3-person team limitation for enterprise sales execution and potential channel conflicts between consultant and enterprise segments."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Well-calibrated depth for an enterprise B2B SaaS go-to-market strategy. The detail on sales cycles, procurement processes, and enterprise requirements is warranted given the target market. The technical architecture section provides just enough detail to be credible without over-engineering. Some sections (like the Version A comparisons) add useful nuance without being excessive."
+      }
+    },
+    "total": 26,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses the core challenge of monetizing an open-source Kubernetes CLI tool with 5k stars. The GitOps intelligence platform strategy is a logical evolution from CLI to enterprise SaaS, targeting real pain points around visibility and compliance. The approach leverages existing traction while solving enterprise-scale problems.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements. Goes beyond basics to include unit economics, CAC/payback periods, technical architecture, competitive differentiation, and detailed quarterly revenue projections. The customer validation plan and success metrics are particularly well-developed. Even includes rationale for departures from 'Version A' throughout.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Strong internal consistency with the GitOps intelligence theme threading through all sections. The enterprise focus aligns well across pricing, distribution, and product strategy. Minor tension between 3-person team constraint and ambitious enterprise sales goals, though the consultant revenue bridge helps. The progression from CLI to SaaS platform is logical.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete numbers throughout: $1,200-3,600/month pricing, 25 customer interviews, $18-25K CAC targets, specific integration targets (ArgoCD, Flux), quarterly MRR projections ($28K→$68K→$132K), and precise success metrics (99.9% uptime, <2 second load times). Someone could execute this plan without ambiguity.\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Thoughtfully addresses key risks including enterprise sales cycle length, SaaS delivery costs, and competitive positioning. The 'Departure from Version A' sections show consideration of alternatives. Could have been stronger on addressing the 3-person team limitation for enterprise sales execution and potential channel conflicts between consultant and enterprise segments.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Well-calibrated depth for an enterprise B2B SaaS go-to-market strategy. The detail on sales cycles, procurement processes, and enterprise requirements is warranted given the target market. The technical architecture section provides just enough detail to be credible without over-engineering. Some sections (like the Version A comparisons) add useful nuance without being excessive.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 4,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses the core challenge of positioning an on-premise AI code review tool against cloud competitors. The security-first positioning leverages the key differentiator effectively, targeting buyers who cannot use cloud solutions due to compliance requirements."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements comprehensively: detailed buyer personas (primary and secondary), messaging framework with tactical variations, competitive positioning against all three named competitors, thorough objection handling, clear 'never claim' guidelines, plus bonus sections on metrics and implementation timeline."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Exceptionally well-organized with consistent messaging throughout. The security-first theme flows logically from buyer pain points through messaging to competitive positioning. The document structure is clear and each section builds on previous ones without contradiction."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific buyer profiles with budget ranges and KPIs, exact messaging phrases, detailed competitive comparisons, word-for-word objection responses, and specific metrics to track. Sales team could execute immediately from this document."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Excellent coverage of likely pushback including performance concerns, cost objections, developer resistance, model quality questions, and update processes. Each objection includes both response strategy and supporting evidence. The 'never claim' section proactively prevents common positioning mistakes."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for enterprise B2B software positioning. The depth on buyer personas, nuanced competitive positioning, and detailed objection handling matches the sophistication needed for selling to security-conscious enterprises. Includes implementation timeline recognizing this is a complex sale requiring phased approach."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses the core challenge of positioning an on-premise AI code review tool against cloud competitors. The security-first positioning leverages the key differentiator effectively, targeting buyers who cannot use cloud solutions due to compliance requirements.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements comprehensively: detailed buyer personas (primary and secondary), messaging framework with tactical variations, competitive positioning against all three named competitors, thorough objection handling, clear 'never claim' guidelines, plus bonus sections on metrics and implementation timeline.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Exceptionally well-organized with consistent messaging throughout. The security-first theme flows logically from buyer pain points through messaging to competitive positioning. The document structure is clear and each section builds on previous ones without contradiction.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific buyer profiles with budget ranges and KPIs, exact messaging phrases, detailed competitive comparisons, word-for-word objection responses, and specific metrics to track. Sales team could execute immediately from this document.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Excellent coverage of likely pushback including performance concerns, cost objections, developer resistance, model quality questions, and update processes. Each objection includes both response strategy and supporting evidence. The 'never claim' section proactively prevents common positioning mistakes.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for enterprise B2B software positioning. The depth on buyer personas, nuanced competitive positioning, and detailed objection handling matches the sophistication needed for selling to security-conscious enterprises. Includes implementation timeline recognizing this is a complex sale requiring phased approach.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 4,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses converting 5k GitHub stars to revenue with a clear freemium strategy, specific pricing tiers, and realistic milestones for a 3-person team. The focus on DevOps engineers at mid-market companies is well-reasoned given the tool's nature."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements thoroughly: detailed customer segments with budget authority, comprehensive pricing model with rationale, specific distribution channels with effort allocation, quarterly milestones with concrete metrics, and extensive 'what not to do' section across multiple dimensions."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Exceptionally well-organized with logical flow from segments to pricing to distribution. The strategy components reinforce each other - freemium model aligns with PLG distribution, pricing matches target segment budgets, and milestones build progressively. The 'what not to do' section directly supports focus."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with specific numbers ($29/$99 pricing, 70/30 effort split, quarterly revenue targets from $5K to $120K MRR), named integration partners, concrete marketing tactics, and clear metrics to track. Someone could execute this plan without ambiguity."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Good risk mitigation section covering competition, technical, and market risks. Addresses common pitfalls through the 'what not to do' section. Could be slightly stronger on addressing potential objections to pricing or conversion rate assumptions, but overall very thorough."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfect balance for the problem. Detailed enough to execute (specific pricing, channels, milestones) but not over-engineered for a 3-person team. The quarterly progression shows appropriate scaling of complexity. The extensive 'what not to do' section shows mature thinking about focus and constraints."
+      }
+    },
+    "total": 29,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses converting 5k GitHub stars to revenue with a clear freemium strategy, specific pricing tiers, and realistic milestones for a 3-person team. The focus on DevOps engineers at mid-market companies is well-reasoned given the tool's nature.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements thoroughly: detailed customer segments with budget authority, comprehensive pricing model with rationale, specific distribution channels with effort allocation, quarterly milestones with concrete metrics, and extensive 'what not to do' section across multiple dimensions.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Exceptionally well-organized with logical flow from segments to pricing to distribution. The strategy components reinforce each other - freemium model aligns with PLG distribution, pricing matches target segment budgets, and milestones build progressively. The 'what not to do' section directly supports focus.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with specific numbers ($29/$99 pricing, 70/30 effort split, quarterly revenue targets from $5K to $120K MRR), named integration partners, concrete marketing tactics, and clear metrics to track. Someone could execute this plan without ambiguity.\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Good risk mitigation section covering competition, technical, and market risks. Addresses common pitfalls through the 'what not to do' section. Could be slightly stronger on addressing potential objections to pricing or conversion rate assumptions, but overall very thorough.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfect balance for the problem. Detailed enough to execute (specific pricing, channels, milestones) but not over-engineered for a 3-person team. The quarterly progression shows appropriate scaling of complexity. The extensive 'what not to do' section shows mature thinking about focus and constraints.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 5,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses the core differentiator (on-premise deployment) throughout the document. Clearly positions against named competitors and provides comprehensive guidance for sales/marketing teams on how to leverage this unique value proposition."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements exceptionally well: detailed buyer personas with specific metrics, comprehensive messaging framework, competitive positioning tables, thorough objection handling (6 detailed responses), clear 'never claim' section, and goes beyond with stakeholder-specific messaging and success metrics."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Exceptionally well-organized with consistent messaging throughout. The security-first positioning flows logically from personas through messaging to objection handling. Document structure is clear with proper hierarchy and cross-references between sections reinforce key themes."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific buyer age ranges, budget authority ($500K-$5M), exact metrics (40% vulnerability reduction, 60% faster reviews), deployment timelines (2-4 weeks), and word-for-word messaging scripts. Sales teams could execute immediately from this document."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Outstanding objection handling with 6 detailed scenarios covering cost, performance, implementation complexity, and competitive switching. Goes beyond basic objections to address nuanced concerns like model accuracy without cloud data. Also anticipates future competitive threats and includes monitoring requirements."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated for enterprise B2B sales positioning. The depth matches the complexity of selling security-critical infrastructure to regulated industries. Includes necessary detail on compliance, deployment models, and stakeholder concerns without being overwhelming. The nuance around different buyer personas and their distinct concerns is exactly what's needed for this market."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses the core differentiator (on-premise deployment) throughout the document. Clearly positions against named competitors and provides comprehensive guidance for sales/marketing teams on how to leverage this unique value proposition.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements exceptionally well: detailed buyer personas with specific metrics, comprehensive messaging framework, competitive positioning tables, thorough objection handling (6 detailed responses), clear 'never claim' section, and goes beyond with stakeholder-specific messaging and success metrics.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Exceptionally well-organized with consistent messaging throughout. The security-first positioning flows logically from personas through messaging to objection handling. Document structure is clear with proper hierarchy and cross-references between sections reinforce key themes.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific buyer age ranges, budget authority ($500K-$5M), exact metrics (40% vulnerability reduction, 60% faster reviews), deployment timelines (2-4 weeks), and word-for-word messaging scripts. Sales teams could execute immediately from this document.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Outstanding objection handling with 6 detailed scenarios covering cost, performance, implementation complexity, and competitive switching. Goes beyond basic objections to address nuanced concerns like model accuracy without cloud data. Also anticipates future competitive threats and includes monitoring requirements.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated for enterprise B2B sales positioning. The depth matches the complexity of selling security-critical infrastructure to regulated industries. Includes necessary detail on compliance, deployment models, and stakeholder concerns without being overwhelming. The nuance around different buyer personas and their distinct concerns is exactly what's needed for this market.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 1,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses monetizing an open-source K8s CLI tool with 5k stars. Provides clear revenue path from $0 to $900K ARR through freemium SaaS model. Minor deduction for not deeply exploring alternative monetization models beyond freemium."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements: detailed customer segments with budget authority, three-tier pricing model with specific prices, multiple distribution channels with timelines, quarterly milestones with revenue targets, and comprehensive 'what not to do' section."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Well-organized and internally consistent. Pricing aligns with target segments, milestones build logically, and distribution channels complement each other. The progression from foundation to scale makes sense. Minor inconsistency in team composition (mentions 'DevOps/sales hybrid' then later 'sales/marketing hybrid')."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: exact pricing ($49/$149), specific revenue targets ($10K->$35K->$75K MRR), clear customer profiles (10-50 clusters, 3-15 person teams), implementation timelines by month, and specific tools (HubSpot, Apollo, Stripe)."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Good coverage of risks through 'what not to do' section, addresses bootstrapping constraints, and considers churn/retention. Acknowledges 30-60 day sales cycles and need for case studies. Could better address potential open-source community backlash or competitive response."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Right-sized for a 3-person team going from 0 to revenue. Avoids overcomplication while providing sufficient detail for execution. The phased approach and explicit constraints show good judgment. Slightly dense in places but generally well-calibrated to the challenge."
+      }
+    },
+    "total": 26,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses monetizing an open-source K8s CLI tool with 5k stars. Provides clear revenue path from $0 to $900K ARR through freemium SaaS model. Minor deduction for not deeply exploring alternative monetization models beyond freemium.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements: detailed customer segments with budget authority, three-tier pricing model with specific prices, multiple distribution channels with timelines, quarterly milestones with revenue targets, and comprehensive 'what not to do' section.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Well-organized and internally consistent. Pricing aligns with target segments, milestones build logically, and distribution channels complement each other. The progression from foundation to scale makes sense. Minor inconsistency in team composition (mentions 'DevOps/sales hybrid' then later 'sales/marketing hybrid').\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: exact pricing ($49/$149), specific revenue targets ($10K->$35K->$75K MRR), clear customer profiles (10-50 clusters, 3-15 person teams), implementation timelines by month, and specific tools (HubSpot, Apollo, Stripe).\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Good coverage of risks through 'what not to do' section, addresses bootstrapping constraints, and considers churn/retention. Acknowledges 30-60 day sales cycles and need for case studies. Could better address potential open-source community backlash or competitive response.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Right-sized for a 3-person team going from 0 to revenue. Avoids overcomplication while providing sufficient detail for execution. The phased approach and explicit constraints show good judgment. Slightly dense in places but generally well-calibrated to the challenge.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 2,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses the core differentiator (on-premise deployment) and positions it as serving a specific market need (security-isolated environments) rather than competing on general features. Covers all requested elements: buyer persona, messaging, competitive positioning, objection handling, and what not to claim."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements plus critical additions like technical architecture, market sizing, sales process, implementation timeline, and support model. Each section has appropriate depth with specific metrics, timelines, and qualification criteria."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Highly consistent throughout - the 'security-isolated environment' positioning threads through every section. The synthesis decisions at the end show deliberate choices between different approaches, maintaining internal consistency. Financial models, timelines, and resource allocations all align."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Extremely actionable with concrete details: specific hardware requirements (RTX A6000), exact pricing ($150-200K appliance, $300-400K license), precise timelines (18-month sales cycle), qualification criteria, and even specific messaging alternatives. Sales team could execute directly from this."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Thoroughly addresses multiple failure modes: realistic 12-15% market penetration, 18-month sales cycles, synthetic PoC requirements, shared CSM model for economics, and explicit 'what never to claim' section. Acknowledges tradeoffs like performance vs isolation and cost vs cloud alternatives."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Complexity perfectly matched to the challenge of entering a narrow, specialized market against established players. The depth on technical architecture, multi-stakeholder messaging, and 18-month sales process is warranted given enterprise sales reality. Synthesis notes show thoughtful balancing of ambition with realism."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses the core differentiator (on-premise deployment) and positions it as serving a specific market need (security-isolated environments) rather than competing on general features. Covers all requested elements: buyer persona, messaging, competitive positioning, objection handling, and what not to claim.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements plus critical additions like technical architecture, market sizing, sales process, implementation timeline, and support model. Each section has appropriate depth with specific metrics, timelines, and qualification criteria.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Highly consistent throughout - the 'security-isolated environment' positioning threads through every section. The synthesis decisions at the end show deliberate choices between different approaches, maintaining internal consistency. Financial models, timelines, and resource allocations all align.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Extremely actionable with concrete details: specific hardware requirements (RTX A6000), exact pricing ($150-200K appliance, $300-400K license), precise timelines (18-month sales cycle), qualification criteria, and even specific messaging alternatives. Sales team could execute directly from this.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Thoroughly addresses multiple failure modes: realistic 12-15% market penetration, 18-month sales cycles, synthetic PoC requirements, shared CSM model for economics, and explicit 'what never to claim' section. Acknowledges tradeoffs like performance vs isolation and cost vs cloud alternatives.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Complexity perfectly matched to the challenge of entering a narrow, specialized market against established players. The depth on technical architecture, multi-stakeholder messaging, and 18-month sales process is warranted given enterprise sales reality. Synthesis notes show thoughtful balancing of ambition with realism.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 3,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses positioning for an AI code review tool with on-premise differentiator. Provides clear target buyer (CISO/Security Director), messaging framework, competitive positioning against manual processes, and comprehensive objection handling. The pivot to vulnerability intelligence rather than code review is well-justified given market dynamics."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements: detailed buyer personas with budget authority, multi-pillar messaging framework, competitive positioning, extensive objection handling, and explicit 'never claim' section. Goes beyond requirements with deployment models, pricing strategy, implementation approach, and risk mitigation."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Well-organized and internally consistent throughout. The revision notes show thoughtful refinement of claims and assumptions. Pricing models align with deployment complexity, timelines are realistic, and messaging pillars support the core value proposition. Minor deduction for the document cutting off mid-sentence at the end."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly specific and actionable. Includes exact pricing ($15K-50K/month base), implementation timelines (4-8 months), target company profiles (2,000+ employees, 100+ applications), success metrics (40-50% manual triage reduction), and detailed deployment architectures. Sales team could execute directly from this."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Exceptional objection handling throughout. Addresses AI trust issues with explainable AI, data privacy with multiple deployment options, implementation complexity with realistic timelines, and competitive threats. The 'never claim' section proactively prevents overselling. Risk mitigation section covers major failure modes with specific monitoring metrics."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Complexity is perfectly matched to the challenge of entering a competitive enterprise security market. The extensive detail on deployment models, pricing tiers, and implementation phases is warranted given enterprise sales cycles. The revision notes showing conservative adjustments to claims demonstrate appropriate nuance for a complex B2B sale."
+      }
+    },
+    "total": 28,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses positioning for an AI code review tool with on-premise differentiator. Provides clear target buyer (CISO/Security Director), messaging framework, competitive positioning against manual processes, and comprehensive objection handling. The pivot to vulnerability intelligence rather than code review is well-justified given market dynamics.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements: detailed buyer personas with budget authority, multi-pillar messaging framework, competitive positioning, extensive objection handling, and explicit 'never claim' section. Goes beyond requirements with deployment models, pricing strategy, implementation approach, and risk mitigation.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Well-organized and internally consistent throughout. The revision notes show thoughtful refinement of claims and assumptions. Pricing models align with deployment complexity, timelines are realistic, and messaging pillars support the core value proposition. Minor deduction for the document cutting off mid-sentence at the end.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly specific and actionable. Includes exact pricing ($15K-50K/month base), implementation timelines (4-8 months), target company profiles (2,000+ employees, 100+ applications), success metrics (40-50% manual triage reduction), and detailed deployment architectures. Sales team could execute directly from this.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Exceptional objection handling throughout. Addresses AI trust issues with explainable AI, data privacy with multiple deployment options, implementation complexity with realistic timelines, and competitive threats. The 'never claim' section proactively prevents overselling. Risk mitigation section covers major failure modes with specific monitoring metrics.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Complexity is perfectly matched to the challenge of entering a competitive enterprise security market. The extensive detail on deployment models, pricing tiers, and implementation phases is warranted given enterprise sales cycles. The revision notes showing conservative adjustments to claims demonstrate appropriate nuance for a complex B2B sale.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 3,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses monetizing a 5k-star Kubernetes CLI tool with a clear freemium individual developer model. The focus on individual productivity features for power users is well-aligned with CLI tool nature. Minor deduction for not exploring alternative revenue streams like support contracts or training."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements. Target segments are precisely defined with budget authority details, pricing model includes specific features and rationale, distribution channels are phased appropriately, milestones have concrete revenue targets and metrics, and the 'not do' section is comprehensive with clear reasoning."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Highly consistent throughout. The individual developer focus flows logically from problem identification through execution. Resource allocation aligns with strategy, metrics match the business model, and the revision notes show systematic thinking about why team-based approaches fail for CLI tools."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Extremely actionable with concrete details: $19/month pricing, specific premium features (workflow automation, context switching), exact revenue targets ($2,280 MRR by month 12), conversion metrics (1% of stars), and clear validation gates with pivot triggers. Someone could execute this plan immediately."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Exceptional anticipation of failure modes. Addresses why team sales won't work for CLI tools, includes specific validation gates with pivot criteria, explains why certain features are excluded, and provides alternative paths if assumptions prove wrong. The 'Problems Fixed' sections show deep understanding of potential pitfalls."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Generally well-calibrated complexity for a 3-person team's first revenue attempt. The phased approach and focus on individual users is appropriately simple. Slight over-documentation in the revision notes, but the core strategy maintains good focus. The validation gates and metrics are sophisticated without being overwhelming."
+      }
+    },
+    "total": 28,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses monetizing a 5k-star Kubernetes CLI tool with a clear freemium individual developer model. The focus on individual productivity features for power users is well-aligned with CLI tool nature. Minor deduction for not exploring alternative revenue streams like support contracts or training.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements. Target segments are precisely defined with budget authority details, pricing model includes specific features and rationale, distribution channels are phased appropriately, milestones have concrete revenue targets and metrics, and the 'not do' section is comprehensive with clear reasoning.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Highly consistent throughout. The individual developer focus flows logically from problem identification through execution. Resource allocation aligns with strategy, metrics match the business model, and the revision notes show systematic thinking about why team-based approaches fail for CLI tools.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Extremely actionable with concrete details: $19/month pricing, specific premium features (workflow automation, context switching), exact revenue targets ($2,280 MRR by month 12), conversion metrics (1% of stars), and clear validation gates with pivot triggers. Someone could execute this plan immediately.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Exceptional anticipation of failure modes. Addresses why team sales won't work for CLI tools, includes specific validation gates with pivot criteria, explains why certain features are excluded, and provides alternative paths if assumptions prove wrong. The 'Problems Fixed' sections show deep understanding of potential pitfalls.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Generally well-calibrated complexity for a 3-person team's first revenue attempt. The phased approach and focus on individual users is appropriately simple. Slight over-documentation in the revision notes, but the core strategy maintains good focus. The validation gates and metrics are sophisticated without being overwhelming.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 2,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 2,
+        "note": "The proposal fundamentally misunderstands the task. Asked for a GTM strategy for a Kubernetes config management CLI tool with 5k GitHub stars, but instead delivers a consulting services strategy for cloud cost optimization. While it attempts to justify this pivot, it completely abandons the actual product that needs monetization."
+      },
+      "completeness": {
+        "score": 3,
+        "note": "Covers all required elements (target segments, pricing, distribution, milestones, what not to do) but for the wrong product/service. The depth is good for a consulting strategy, but it's not addressing the actual CLI tool that needs a revenue model."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Internally consistent and well-organized within its own framework. The cost optimization consulting strategy flows logically from problem to solution to execution. However, the coherence breaks down when considering it's supposed to be about a Kubernetes CLI tool."
+      },
+      "specificity": {
+        "score": 4,
+        "note": "Very specific and actionable recommendations for the consulting business it proposes - concrete pricing ($8K assessments, $200/hour), clear customer profiles ($50K+ monthly cloud spend), and measurable success criteria (3x ROI). But again, these specifics are for the wrong business."
+      },
+      "anticipates_objections": {
+        "score": 3,
+        "note": "Extensively addresses objections to the consulting model it proposes, with detailed 'Fixes X Problem' sections throughout. However, it doesn't anticipate the most obvious objection: why abandon the actual product (Kubernetes CLI) entirely? The risk mitigation focuses on consulting risks, not product monetization risks."
+      },
+      "appropriate_complexity": {
+        "score": 2,
+        "note": "Overly complex for what should be a straightforward product monetization strategy. The proposal reads like a complete business pivot rather than a GTM strategy for an existing tool. A 3-person team with a 5k-star CLI tool needs a focused monetization approach, not a wholesale transformation into a consulting firm."
+      }
+    },
+    "total": 18,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 2, \"note\": \"The proposal fundamentally misunderstands the task. Asked for a GTM strategy for a Kubernetes config management CLI tool with 5k GitHub stars, but instead delivers a consulting services strategy for cloud cost optimization. While it attempts to justify this pivot, it completely abandons the actual product that needs monetization.\"},\n  \"completeness\": {\"score\": 3, \"note\": \"Covers all required elements (target segments, pricing, distribution, milestones, what not to do) but for the wrong product/service. The depth is good for a consulting strategy, but it's not addressing the actual CLI tool that needs a revenue model.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Internally consistent and well-organized within its own framework. The cost optimization consulting strategy flows logically from problem to solution to execution. However, the coherence breaks down when considering it's supposed to be about a Kubernetes CLI tool.\"},\n  \"specificity\": {\"score\": 4, \"note\": \"Very specific and actionable recommendations for the consulting business it proposes - concrete pricing ($8K assessments, $200/hour), clear customer profiles ($50K+ monthly cloud spend), and measurable success criteria (3x ROI). But again, these specifics are for the wrong business.\"},\n  \"anticipates_objections\": {\"score\": 3, \"note\": \"Extensively addresses objections to the consulting model it proposes, with detailed 'Fixes X Problem' sections throughout. However, it doesn't anticipate the most obvious objection: why abandon the actual product (Kubernetes CLI) entirely? The risk mitigation focuses on consulting risks, not product monetization risks.\"},\n  \"appropriate_complexity\": {\"score\": 2, \"note\": \"Overly complex for what should be a straightforward product monetization strategy. The proposal reads like a complete business pivot rather than a GTM strategy for an existing tool. A 3-person team with a 5k-star CLI tool needs a focused monetization approach, not a wholesale transformation into a consulting firm.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 1,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses the core differentiator (on-premise deployment) throughout the document and builds entire positioning strategy around data sovereignty. Clearly positions against named competitors and provides sales/marketing teams with comprehensive guidance."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements with exceptional depth: detailed buyer personas (primary, secondary, tertiary), comprehensive messaging framework, competitive positioning matrix, extensive objection handling (5 detailed objections), clear 'never claim' section, plus bonus content like qualification criteria, discovery questions, and implementation roadmap."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Exceptionally well-organized with consistent messaging throughout. The security/compliance theme flows logically from persona pain points through messaging, competitive positioning, and objection handling. Document structure is clear with proper hierarchy and cross-references."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific titles and company sizes for personas, exact messaging headlines, detailed competitor comparisons, word-for-word objection responses, specific discovery questions, quantified success metrics (e.g., '80% adoption within 6 months'), and clear qualification criteria."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Outstanding objection handling with 5 detailed objections covering cost, updates, existing tools, infrastructure, and model quality. Each includes acknowledge/reframe/evidence/close structure. Also anticipates risks through 'never claim' section and positioning guardrails. Shows deep understanding of enterprise sales challenges."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly matched to the complexity of enterprise B2B software sales. The depth is warranted given the technical nature, long sales cycles, and multiple stakeholders involved. Includes nuanced details like hybrid deployment options and TCO considerations that reflect real enterprise buying processes."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses the core differentiator (on-premise deployment) throughout the document and builds entire positioning strategy around data sovereignty. Clearly positions against named competitors and provides sales/marketing teams with comprehensive guidance.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements with exceptional depth: detailed buyer personas (primary, secondary, tertiary), comprehensive messaging framework, competitive positioning matrix, extensive objection handling (5 detailed objections), clear 'never claim' section, plus bonus content like qualification criteria, discovery questions, and implementation roadmap.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Exceptionally well-organized with consistent messaging throughout. The security/compliance theme flows logically from persona pain points through messaging, competitive positioning, and objection handling. Document structure is clear with proper hierarchy and cross-references.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific titles and company sizes for personas, exact messaging headlines, detailed competitor comparisons, word-for-word objection responses, specific discovery questions, quantified success metrics (e.g., '80% adoption within 6 months'), and clear qualification criteria.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Outstanding objection handling with 5 detailed objections covering cost, updates, existing tools, infrastructure, and model quality. Each includes acknowledge/reframe/evidence/close structure. Also anticipates risks through 'never claim' section and positioning guardrails. Shows deep understanding of enterprise sales challenges.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly matched to the complexity of enterprise B2B software sales. The depth is warranted given the technical nature, long sales cycles, and multiple stakeholders involved. Includes nuanced details like hybrid deployment options and TCO considerations that reflect real enterprise buying processes.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 1,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses GTM for a 5k-star Kubernetes CLI tool with no revenue. Provides clear target segments (platform engineering teams), specific pricing ($2.5k/year team license), concrete distribution channels (platform engineering communities), detailed milestones with revenue targets, and explicit constraints. The revision notes show deep thinking about common GTM pitfalls."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements plus critical additions like competitive positioning, ROI justification, resource requirements, and risk mitigation. Each section has multiple layers of detail - e.g., pricing includes feature lists, support levels, and economic justification. The 'what we won't do' section is particularly comprehensive with product, business model, and technical constraints."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Remarkably consistent throughout. The platform team focus threads through every section - from targeting teams with budget authority, to team-based pricing, to community distribution, to team-level ROI calculations. The phased approach (6/12/18 months) maintains consistency across product development, revenue targets, and resource scaling. The revision notes reinforce how each element addresses specific problems."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Extremely actionable with concrete details: exact pricing ($2,500/year), specific team sizes (3-5 person platform teams), precise revenue targets ($25K/100K/300K ARR), named CI/CD integrations, specific policy examples (CIS Kubernetes Benchmark), detailed resource costs ($8K/month contract dev), and exact support SLAs (24-hour email response). Someone could execute this plan without ambiguity."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Exceptional anticipation of failure modes throughout, with dedicated risk mitigation section. Addresses why individual pricing fails, why freemium doesn't work for B2B tools, competitive positioning against specific alternatives (OPA Gatekeeper, Polaris), sustainability concerns with detailed unit economics, and technical scope creep risks. The 'fixes' annotations show systematic thinking about common objections."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for a B2B enterprise tool GTM. The depth on customer segments, pricing justification, and phased development is warranted given the challenge of monetizing open source. The technical detail (policy types, integrations) is appropriate for a developer tool. The 18-month timeline with three phases provides necessary nuance without over-engineering. Constraints section prevents scope creep while maintaining focus."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses GTM for a 5k-star Kubernetes CLI tool with no revenue. Provides clear target segments (platform engineering teams), specific pricing ($2.5k/year team license), concrete distribution channels (platform engineering communities), detailed milestones with revenue targets, and explicit constraints. The revision notes show deep thinking about common GTM pitfalls.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements plus critical additions like competitive positioning, ROI justification, resource requirements, and risk mitigation. Each section has multiple layers of detail - e.g., pricing includes feature lists, support levels, and economic justification. The 'what we won't do' section is particularly comprehensive with product, business model, and technical constraints.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Remarkably consistent throughout. The platform team focus threads through every section - from targeting teams with budget authority, to team-based pricing, to community distribution, to team-level ROI calculations. The phased approach (6/12/18 months) maintains consistency across product development, revenue targets, and resource scaling. The revision notes reinforce how each element addresses specific problems.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Extremely actionable with concrete details: exact pricing ($2,500/year), specific team sizes (3-5 person platform teams), precise revenue targets ($25K/100K/300K ARR), named CI/CD integrations, specific policy examples (CIS Kubernetes Benchmark), detailed resource costs ($8K/month contract dev), and exact support SLAs (24-hour email response). Someone could execute this plan without ambiguity.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Exceptional anticipation of failure modes throughout, with dedicated risk mitigation section. Addresses why individual pricing fails, why freemium doesn't work for B2B tools, competitive positioning against specific alternatives (OPA Gatekeeper, Polaris), sustainability concerns with detailed unit economics, and technical scope creep risks. The 'fixes' annotations show systematic thinking about common objections.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for a B2B enterprise tool GTM. The depth on customer segments, pricing justification, and phased development is warranted given the challenge of monetizing open source. The technical detail (policy types, integrations) is appropriate for a developer tool. The 18-month timeline with three phases provides necessary nuance without over-engineering. Constraints section prevents scope creep while maintaining focus.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 5,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses monetizing a 5k-star Kubernetes CLI tool with a comprehensive GTM strategy. Covers all required elements (segments, pricing, channels, milestones, exclusions) with clear focus on revenue generation. Minor deduction for some optimistic assumptions about conversion rates despite acknowledging churn."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements plus critical additions like competitive response, resource allocation, support model, and success metrics. Each section has appropriate depth with specific details about implementation. The 'fixes' annotations show iterative thinking about common pitfalls."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Well-organized and internally consistent strategy that flows logically from individual-first targeting through pricing and distribution. The focus on CLI excellence without platform complexity is maintained throughout. Some minor tension between aggressive outbound targets (50/week) and limited resources, but generally coherent."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete numbers, timelines, and implementation details. Specific pricing ($15/month), outreach targets (50 contacts/week), revenue projections with churn calculations, exact resource allocation percentages, and clear feature priorities. Someone could execute this plan without ambiguity."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Exceptional anticipation of failure modes with explicit 'fixes' throughout addressing common GTM pitfalls. Accounts for 20% monthly churn, explains why not to pursue enterprise/platform/compliance, addresses competitive threats, and includes realistic resource constraints. The 'what we won't do' section is particularly strong."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Right-sized complexity for a 3-person team monetizing an open-source tool. Avoids oversimplification while remaining executable. The detailed churn calculations and multi-month milestone planning add appropriate nuance. Slightly verbose in places but the depth is generally warranted for a working GTM document."
+      }
+    },
+    "total": 27,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses monetizing a 5k-star Kubernetes CLI tool with a comprehensive GTM strategy. Covers all required elements (segments, pricing, channels, milestones, exclusions) with clear focus on revenue generation. Minor deduction for some optimistic assumptions about conversion rates despite acknowledging churn.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements plus critical additions like competitive response, resource allocation, support model, and success metrics. Each section has appropriate depth with specific details about implementation. The 'fixes' annotations show iterative thinking about common pitfalls.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Well-organized and internally consistent strategy that flows logically from individual-first targeting through pricing and distribution. The focus on CLI excellence without platform complexity is maintained throughout. Some minor tension between aggressive outbound targets (50/week) and limited resources, but generally coherent.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete numbers, timelines, and implementation details. Specific pricing ($15/month), outreach targets (50 contacts/week), revenue projections with churn calculations, exact resource allocation percentages, and clear feature priorities. Someone could execute this plan without ambiguity.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Exceptional anticipation of failure modes with explicit 'fixes' throughout addressing common GTM pitfalls. Accounts for 20% monthly churn, explains why not to pursue enterprise/platform/compliance, addresses competitive threats, and includes realistic resource constraints. The 'what we won't do' section is particularly strong.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Right-sized complexity for a 3-person team monetizing an open-source tool. Avoids oversimplification while remaining executable. The detailed churn calculations and multi-month milestone planning add appropriate nuance. Slightly verbose in places but the depth is generally warranted for a working GTM document.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 2,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses the core challenge of monetizing an open-source tool with existing traction. Provides a clear path from 5k stars to revenue through enterprise-focused strategy. Minor deduction for not exploring alternative monetization models beyond SaaS."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements. Goes beyond basics with detailed customer profiles, specific pricing tiers, quarterly milestones with metrics, and comprehensive 'what not to do' section. Includes risk mitigation which wasn't required but adds value."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Well-organized and internally consistent. The enterprise focus flows logically through all sections. Pricing aligns with target segments. Minor tension between 'no complex deployments' stance and Enterprise Plus offering custom deployment options, but overall very cohesive."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details throughout. Specific pricing ($99/$199/month), exact milestone targets ($10K->$150K MRR progression), named conference (KubeCon), hiring timeline (sales rep month 6), and clear feature differentiation between tiers. A team could execute directly from this."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Strong coverage of key risks including open source tension, revenue concentration, and technical debt allocation. Explicitly addresses what not to do, preventing common pitfalls. Could have addressed potential community backlash from monetization or competitor response strategies more deeply."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Well-calibrated depth for a 3-person team's first GTM strategy. Provides enough detail to execute without overwhelming. The quarterly breakdown and specific metrics are particularly appropriate. Slightly over-detailed in some areas (e.g., multiple enterprise tiers might be premature) but generally right-sized."
+      }
+    },
+    "total": 26,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses the core challenge of monetizing an open-source tool with existing traction. Provides a clear path from 5k stars to revenue through enterprise-focused strategy. Minor deduction for not exploring alternative monetization models beyond SaaS.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements. Goes beyond basics with detailed customer profiles, specific pricing tiers, quarterly milestones with metrics, and comprehensive 'what not to do' section. Includes risk mitigation which wasn't required but adds value.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Well-organized and internally consistent. The enterprise focus flows logically through all sections. Pricing aligns with target segments. Minor tension between 'no complex deployments' stance and Enterprise Plus offering custom deployment options, but overall very cohesive.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details throughout. Specific pricing ($99/$199/month), exact milestone targets ($10K->$150K MRR progression), named conference (KubeCon), hiring timeline (sales rep month 6), and clear feature differentiation between tiers. A team could execute directly from this.\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Strong coverage of key risks including open source tension, revenue concentration, and technical debt allocation. Explicitly addresses what not to do, preventing common pitfalls. Could have addressed potential community backlash from monetization or competitor response strategies more deeply.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Well-calibrated depth for a 3-person team's first GTM strategy. Provides enough detail to execute without overwhelming. The quarterly breakdown and specific metrics are particularly appropriate. Slightly over-detailed in some areas (e.g., multiple enterprise tiers might be premature) but generally right-sized.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 5,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses monetizing a 5k-star Kubernetes CLI tool with a comprehensive GTM strategy. Clearly identifies the path from open source to revenue, leveraging existing momentum while respecting team constraints."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements thoroughly: detailed customer segments with pain points and buying behavior, tiered pricing with specific features and prices, multiple distribution channels with effort allocation, quarterly milestones with metrics, and six explicit 'won't do' items with reasoning."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Exceptionally well-organized and internally consistent. The strategy flows logically from targeting mid-market platform teams to pricing that matches their budgets to channels that reach them. Resource allocation aligns with proposed activities. Metrics tie directly to strategy goals."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: exact pricing ($49/$199), specific content topics, conference names, metric targets ($75K MRR by month 12), feature roadmap by quarter, and precise resource allocation percentages. A team could execute this plan immediately."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Strong coverage of risks through the 'won't do' section with clear reasoning. Addresses common pitfalls like premature enterprise sales and paid advertising. Could have been stronger on competitive response, churn risks, or what happens if conversion rates disappoint."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfect depth for a 3-person team commercializing an open source tool. Detailed enough to execute but not overwhelming. Recognizes the complexity of developer tool monetization while keeping the strategy focused and achievable. The quarterly breakdown provides appropriate granularity."
+      }
+    },
+    "total": 29,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses monetizing a 5k-star Kubernetes CLI tool with a comprehensive GTM strategy. Clearly identifies the path from open source to revenue, leveraging existing momentum while respecting team constraints.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements thoroughly: detailed customer segments with pain points and buying behavior, tiered pricing with specific features and prices, multiple distribution channels with effort allocation, quarterly milestones with metrics, and six explicit 'won't do' items with reasoning.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Exceptionally well-organized and internally consistent. The strategy flows logically from targeting mid-market platform teams to pricing that matches their budgets to channels that reach them. Resource allocation aligns with proposed activities. Metrics tie directly to strategy goals.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: exact pricing ($49/$199), specific content topics, conference names, metric targets ($75K MRR by month 12), feature roadmap by quarter, and precise resource allocation percentages. A team could execute this plan immediately.\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Strong coverage of risks through the 'won't do' section with clear reasoning. Addresses common pitfalls like premature enterprise sales and paid advertising. Could have been stronger on competitive response, churn risks, or what happens if conversion rates disappoint.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfect depth for a 3-person team commercializing an open source tool. Detailed enough to execute but not overwhelming. Recognizes the complexity of developer tool monetization while keeping the strategy focused and achievable. The quarterly breakdown provides appropriate granularity.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 1,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Exceptionally addresses the core task. Creates a comprehensive positioning document for an on-premise AI code review tool with clear differentiation from cloud-based competitors. The government contractor focus and secure cloud deployment model directly leverages the on-premise differentiator while solving real market needs."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements with exceptional depth: detailed buyer personas, comprehensive messaging framework, competitive positioning against both AI tools and existing processes, thorough objection handling, and explicit 'never claim' section. Goes beyond requirements with market sizing, sales process, implementation roadmap, and risk mitigation."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Remarkably consistent throughout. The government contractor positioning flows logically from market analysis through implementation. All sections reinforce the core positioning, and the document explicitly tracks how it addresses identified problems. The secure cloud deployment model coherently solves technical and business model challenges."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Extremely actionable with concrete details: specific market size (150-200 organizations), exact pricing ($300-500K), detailed 18-month sales process with phases, specific qualifying criteria, and precise messaging. Sales team could execute immediately without ambiguity. Integration requirements and deployment models are clearly specified."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Exceptional anticipation of challenges. Addresses cost concerns, integration complexity, compliance requirements, and competitive threats. The 'never claim' section proactively prevents misrepresentation. Risk mitigation section covers technical, market, and operational risks. Acknowledges honest limitations throughout."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for enterprise B2B positioning in a regulated market. The depth on compliance, integration requirements, and sales process is essential for government contractors. The document's self-awareness about fixing identified problems shows sophisticated understanding. Detail level matches the complexity of selling enterprise security tools to government contractors."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Exceptionally addresses the core task. Creates a comprehensive positioning document for an on-premise AI code review tool with clear differentiation from cloud-based competitors. The government contractor focus and secure cloud deployment model directly leverages the on-premise differentiator while solving real market needs.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements with exceptional depth: detailed buyer personas, comprehensive messaging framework, competitive positioning against both AI tools and existing processes, thorough objection handling, and explicit 'never claim' section. Goes beyond requirements with market sizing, sales process, implementation roadmap, and risk mitigation.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Remarkably consistent throughout. The government contractor positioning flows logically from market analysis through implementation. All sections reinforce the core positioning, and the document explicitly tracks how it addresses identified problems. The secure cloud deployment model coherently solves technical and business model challenges.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Extremely actionable with concrete details: specific market size (150-200 organizations), exact pricing ($300-500K), detailed 18-month sales process with phases, specific qualifying criteria, and precise messaging. Sales team could execute immediately without ambiguity. Integration requirements and deployment models are clearly specified.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Exceptional anticipation of challenges. Addresses cost concerns, integration complexity, compliance requirements, and competitive threats. The 'never claim' section proactively prevents misrepresentation. Risk mitigation section covers technical, market, and operational risks. Acknowledges honest limitations throughout.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for enterprise B2B positioning in a regulated market. The depth on compliance, integration requirements, and sales process is essential for government contractors. The document's self-awareness about fixing identified problems shows sophisticated understanding. Detail level matches the complexity of selling enterprise security tools to government contractors.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 2,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses monetizing a 5k-star Kubernetes CLI tool with a comprehensive go-to-market strategy. The proposal clearly understands the core challenge: converting open-source popularity into revenue while maintaining community goodwill. It proposes a tiered CLI pricing model that preserves the open-source core while adding premium features for enterprise needs."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements and beyond. Includes target segments (platform engineering teams, DevOps consultancies), pricing model ($49-99/environment/month), distribution channels (direct sales, content marketing), first-year milestones ($15K MRR by month 6, $45K by month 12), and explicit 'will not do' items (no hosted platforms, no broad enterprise targeting). Also covers customer research, competitive positioning, unit economics, and risk mitigation."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Highly consistent throughout. The strategy flows logically from problem analysis to solution positioning to execution. All elements reinforce the core thesis: enhance existing toolchains rather than replace them. Pricing aligns with customer budgets, hiring timeline matches revenue milestones, and technical architecture supports the business model. The document even addresses its own revisions, showing iterative thinking."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Extremely actionable with concrete details throughout. Specific pricing ($49/environment/month Professional, $99 Enterprise), exact customer research targets (25 platform engineering teams), precise revenue goals ($15K MRR month 6), detailed feature lists for each tier, CAC calculations ($800 Professional, $2,500 Enterprise), and hiring timeline (customer success engineer month 8). Someone could execute this plan without ambiguity."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Thoroughly addresses potential concerns and failure modes. Explicitly handles: why not build a hosted platform (security liability), how to avoid cannibalizing open-source community (clear value differentiation), customer concentration risk (25% cap), long sales cycles (3-6 month expectation), low conversion rates (5% assumption), and technical risks (incremental development, rollback capability). Each major decision includes rationale addressing potential pushback."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for a 3-person team monetizing an open-source tool. The depth is warranted given the challenges of open-source monetization, enterprise sales, and technical product development. Includes necessary nuance (environment-based pricing rationale, integration vs. replacement positioning) while remaining focused. The 'fixes' annotations show sophisticated understanding of common go-to-market pitfalls."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses monetizing a 5k-star Kubernetes CLI tool with a comprehensive go-to-market strategy. The proposal clearly understands the core challenge: converting open-source popularity into revenue while maintaining community goodwill. It proposes a tiered CLI pricing model that preserves the open-source core while adding premium features for enterprise needs.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements and beyond. Includes target segments (platform engineering teams, DevOps consultancies), pricing model ($49-99/environment/month), distribution channels (direct sales, content marketing), first-year milestones ($15K MRR by month 6, $45K by month 12), and explicit 'will not do' items (no hosted platforms, no broad enterprise targeting). Also covers customer research, competitive positioning, unit economics, and risk mitigation.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Highly consistent throughout. The strategy flows logically from problem analysis to solution positioning to execution. All elements reinforce the core thesis: enhance existing toolchains rather than replace them. Pricing aligns with customer budgets, hiring timeline matches revenue milestones, and technical architecture supports the business model. The document even addresses its own revisions, showing iterative thinking.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Extremely actionable with concrete details throughout. Specific pricing ($49/environment/month Professional, $99 Enterprise), exact customer research targets (25 platform engineering teams), precise revenue goals ($15K MRR month 6), detailed feature lists for each tier, CAC calculations ($800 Professional, $2,500 Enterprise), and hiring timeline (customer success engineer month 8). Someone could execute this plan without ambiguity.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Thoroughly addresses potential concerns and failure modes. Explicitly handles: why not build a hosted platform (security liability), how to avoid cannibalizing open-source community (clear value differentiation), customer concentration risk (25% cap), long sales cycles (3-6 month expectation), low conversion rates (5% assumption), and technical risks (incremental development, rollback capability). Each major decision includes rationale addressing potential pushback.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for a 3-person team monetizing an open-source tool. The depth is warranted given the challenges of open-source monetization, enterprise sales, and technical product development. Includes necessary nuance (environment-based pricing rationale, integration vs. replacement positioning) while remaining focused. The 'fixes' annotations show sophisticated understanding of common go-to-market pitfalls.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 2,
+    "condition": "baseline",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses the core challenge of positioning an on-premise AI code review tool against cloud competitors. The entire document is built around the key differentiator of data not leaving customer infrastructure, with clear messaging for sales and marketing teams."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements comprehensively: detailed buyer persona with specific titles/company profiles/pain points, key messaging framework by stakeholder, competitive positioning against all three named competitors, extensive objection handling guide, and clear 'never claim' section. Goes beyond requirements with messaging scripts and success metrics."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Exceptionally well-organized with consistent messaging throughout. The security/on-premise theme flows logically from persona pain points through messaging, competitive positioning, and objection handling. Internal cross-references are consistent and the document builds a cohesive narrative."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific buyer titles, company sizes ($100M+ revenue), exact performance claims (40% review overhead reduction, 35% bug detection improvement), detailed objection responses, actual sales scripts, and a competitive feature matrix. Sales team could execute immediately."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Outstanding objection handling covering performance concerns, cost, existing tool adoption, build vs buy, and roadmap questions. Each objection has a multi-part response strategy. The 'never claim' section proactively prevents common positioning mistakes. Addresses both customer objections and internal missteps."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly matched to the complexity of enterprise B2B software sales in regulated industries. The depth on compliance, security requirements, and 90+ day sales cycles reflects real enterprise selling. The detail level enables consistent execution across sales and marketing without being overwhelming."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses the core challenge of positioning an on-premise AI code review tool against cloud competitors. The entire document is built around the key differentiator of data not leaving customer infrastructure, with clear messaging for sales and marketing teams.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements comprehensively: detailed buyer persona with specific titles/company profiles/pain points, key messaging framework by stakeholder, competitive positioning against all three named competitors, extensive objection handling guide, and clear 'never claim' section. Goes beyond requirements with messaging scripts and success metrics.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Exceptionally well-organized with consistent messaging throughout. The security/on-premise theme flows logically from persona pain points through messaging, competitive positioning, and objection handling. Internal cross-references are consistent and the document builds a cohesive narrative.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific buyer titles, company sizes ($100M+ revenue), exact performance claims (40% review overhead reduction, 35% bug detection improvement), detailed objection responses, actual sales scripts, and a competitive feature matrix. Sales team could execute immediately.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Outstanding objection handling covering performance concerns, cost, existing tool adoption, build vs buy, and roadmap questions. Each objection has a multi-part response strategy. The 'never claim' section proactively prevents common positioning mistakes. Addresses both customer objections and internal missteps.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly matched to the complexity of enterprise B2B software sales in regulated industries. The depth on compliance, security requirements, and 90+ day sales cycles reflects real enterprise selling. The detail level enables consistent execution across sales and marketing without being overwhelming.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 1,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses monetizing a 5k-star Kubernetes CLI tool with comprehensive GTM strategy. Covers all requested elements: target segments, pricing, channels, milestones, and explicit non-goals. The flat-rate SaaS model specifically solves the revenue generation challenge while maintaining open-source community trust."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements plus critical additions like technical architecture, metrics tracking, and differentiation strategy. Each section has appropriate depth - target segments include budget authority and decision processes, pricing has clear tier progression, channels have specific timelines and tactics."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Well-organized and internally consistent. The flat-rate pricing aligns with target segment budgets, channel timing prevents conflicts, and milestones build logically. Minor deduction for the meta-commentary at the end about departures from versions A/B which breaks the flow of an otherwise cohesive document."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details throughout: exact pricing ($99/$299/$999), specific company sizes (200-800 employees), precise timelines (Month 1-2: web dashboard MVP), measurable goals ($5K MRR by Month 8), and clear implementation priorities. Someone could execute this plan without ambiguity."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Strong coverage of key risks: addresses channel conflict concerns, explains why flat-rate over usage-based pricing, justifies delayed sales hiring, and includes explicit 'won't do' section. Could have addressed potential open-source community backlash more directly or discussed competitive response scenarios."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for a 3-person team monetizing an established open-source tool. Detailed enough to execute (technical architecture phases, specific customer profiles) but maintains focus through clear priorities and explicit constraints. The nuanced approach to balancing community trust with revenue generation shows appropriate sophistication."
+      }
+    },
+    "total": 28,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses monetizing a 5k-star Kubernetes CLI tool with comprehensive GTM strategy. Covers all requested elements: target segments, pricing, channels, milestones, and explicit non-goals. The flat-rate SaaS model specifically solves the revenue generation challenge while maintaining open-source community trust.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements plus critical additions like technical architecture, metrics tracking, and differentiation strategy. Each section has appropriate depth - target segments include budget authority and decision processes, pricing has clear tier progression, channels have specific timelines and tactics.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Well-organized and internally consistent. The flat-rate pricing aligns with target segment budgets, channel timing prevents conflicts, and milestones build logically. Minor deduction for the meta-commentary at the end about departures from versions A/B which breaks the flow of an otherwise cohesive document.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details throughout: exact pricing ($99/$299/$999), specific company sizes (200-800 employees), precise timelines (Month 1-2: web dashboard MVP), measurable goals ($5K MRR by Month 8), and clear implementation priorities. Someone could execute this plan without ambiguity.\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Strong coverage of key risks: addresses channel conflict concerns, explains why flat-rate over usage-based pricing, justifies delayed sales hiring, and includes explicit 'won't do' section. Could have addressed potential open-source community backlash more directly or discussed competitive response scenarios.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for a 3-person team monetizing an established open-source tool. Detailed enough to execute (technical architecture phases, specific customer profiles) but maintains focus through clear priorities and explicit constraints. The nuanced approach to balancing community trust with revenue generation shows appropriate sophistication.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 3,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses converting 5k GitHub stars to revenue with a clear SaaS strategy. Covers all required elements (segments, pricing, channels, milestones, exclusions) with practical focus on mid-market DevOps teams. Minor deduction for not exploring alternative monetization paths that might be viable."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements plus critical additions like resource allocation, success metrics, and detailed quarterly milestones. Each section has appropriate depth with specific numbers, rationales, and implementation details."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Highly consistent throughout - single-track SaaS approach flows logically from team constraints to target market to pricing to execution. Resource allocation aligns with strategy, milestones build progressively, and exclusions reinforce focus. The 'Fixes' notes suggest iterative refinement."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Extremely actionable with concrete details: exact pricing tiers ($19/$39), specific conversion targets (15% free-to-paid), named integration partners, percentage time allocations for team members, and clear monthly revenue targets. Someone could execute this plan immediately."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Strong anticipation of common pitfalls through explicit exclusions and conservative projections. Addresses resource constraints, pricing validation, and growth sustainability. Could strengthen by addressing competitive response risks or what happens if conversion rates miss targets."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for a 3-person team's first revenue push. Avoids oversimplification while preventing analysis paralysis. The quarterly milestone breakdown, detailed resource allocation, and specific success metrics provide necessary depth without overwhelming a small team."
+      }
+    },
+    "total": 28,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses converting 5k GitHub stars to revenue with a clear SaaS strategy. Covers all required elements (segments, pricing, channels, milestones, exclusions) with practical focus on mid-market DevOps teams. Minor deduction for not exploring alternative monetization paths that might be viable.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements plus critical additions like resource allocation, success metrics, and detailed quarterly milestones. Each section has appropriate depth with specific numbers, rationales, and implementation details.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Highly consistent throughout - single-track SaaS approach flows logically from team constraints to target market to pricing to execution. Resource allocation aligns with strategy, milestones build progressively, and exclusions reinforce focus. The 'Fixes' notes suggest iterative refinement.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Extremely actionable with concrete details: exact pricing tiers ($19/$39), specific conversion targets (15% free-to-paid), named integration partners, percentage time allocations for team members, and clear monthly revenue targets. Someone could execute this plan immediately.\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Strong anticipation of common pitfalls through explicit exclusions and conservative projections. Addresses resource constraints, pricing validation, and growth sustainability. Could strengthen by addressing competitive response risks or what happens if conversion rates miss targets.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for a 3-person team's first revenue push. Avoids oversimplification while preventing analysis paralysis. The quarterly milestone breakdown, detailed resource allocation, and specific success metrics provide necessary depth without overwhelming a small team.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 5,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Exceptionally addresses the core task. Clearly positions the on-premise AI code review tool against competitors, with sophisticated differentiation as an enhancement layer rather than replacement. The positioning leverages the on-premise differentiator effectively for regulated industries."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements with exceptional depth: detailed buyer personas (CFO/CRO as economic buyer, CISO as influencer), comprehensive messaging framework, competitive positioning, thorough objection handling, and explicit 'never claim' section. Goes beyond requirements with implementation roadmap, ROI framework, and qualification criteria."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Remarkably consistent throughout. The enhancement/integration positioning flows logically from target market needs through messaging, competitive positioning, and objection handling. Document revisions are tracked with clear rationale, showing iterative refinement that strengthens coherence."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Extremely specific and actionable. Provides exact pricing ranges ($480K-720K), implementation timelines (12-16 weeks), integration examples (Veracode, Checkmarx), concrete objection responses, and detailed sales approaches by stakeholder. Sales team could execute immediately without ambiguity."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Outstanding anticipation of challenges. Addresses five major objections with nuanced responses, includes extensive 'never claim' section preventing overreach, acknowledges regulatory compliance complexities, and provides disqualifying factors. The tracked revisions show deep thinking about potential failure modes."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for enterprise B2B sales. The depth matches the complexity of selling $500K+ solutions to regulated enterprises with multiple stakeholders. Includes necessary nuance around regulatory compliance without oversimplifying. The revision tracking adds valuable context without cluttering the core document."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Exceptionally addresses the core task. Clearly positions the on-premise AI code review tool against competitors, with sophisticated differentiation as an enhancement layer rather than replacement. The positioning leverages the on-premise differentiator effectively for regulated industries.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements with exceptional depth: detailed buyer personas (CFO/CRO as economic buyer, CISO as influencer), comprehensive messaging framework, competitive positioning, thorough objection handling, and explicit 'never claim' section. Goes beyond requirements with implementation roadmap, ROI framework, and qualification criteria.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Remarkably consistent throughout. The enhancement/integration positioning flows logically from target market needs through messaging, competitive positioning, and objection handling. Document revisions are tracked with clear rationale, showing iterative refinement that strengthens coherence.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Extremely specific and actionable. Provides exact pricing ranges ($480K-720K), implementation timelines (12-16 weeks), integration examples (Veracode, Checkmarx), concrete objection responses, and detailed sales approaches by stakeholder. Sales team could execute immediately without ambiguity.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Outstanding anticipation of challenges. Addresses five major objections with nuanced responses, includes extensive 'never claim' section preventing overreach, acknowledges regulatory compliance complexities, and provides disqualifying factors. The tracked revisions show deep thinking about potential failure modes.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for enterprise B2B sales. The depth matches the complexity of selling $500K+ solutions to regulated enterprises with multiple stakeholders. Includes necessary nuance around regulatory compliance without oversimplifying. The revision tracking adds valuable context without cluttering the core document.\"}\n}"
+  },
+  {
+    "task": "task_01",
+    "run": 5,
+    "condition": "autoreason_7pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses monetizing a 5k-star Kubernetes CLI tool with a clear revenue model ($19-49/user/month), specific target segments (senior engineers at SaaS companies), and realistic milestones. The focus on workflow acceleration for existing Kubernetes users is well-aligned with the tool's nature."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements: target segments with detailed personas, tiered pricing model with justification, multiple distribution channels, specific 18-month milestones with metrics, and explicit 'not doing' items (consulting, enterprise sales). Goes beyond requirements with competitive defense strategy and operational allocation."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Remarkably consistent throughout. The workflow acceleration theme connects every element - from pricing tiers to feature development to customer acquisition. The document explicitly addresses how each section fixes problems identified in a previous version, showing deep internal consistency. Resource allocation percentages align with stated priorities."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Extremely actionable with concrete details: exact pricing ($19/29/49), specific features (Smart Environment Mirroring), precise metrics (8K stars by month 6, $450K ARR by month 18), detailed customer profiles (3+ years experience, 100+ employee SaaS), and specific marketing channels (r/kubernetes, Stack Overflow). Someone could execute this plan immediately."
+      },
+      "anticipates_objections": {
+        "score": 4,
+        "note": "Strong anticipation of key risks: addresses why consulting doesn't scale, justifies pricing through time-savings calculations, explains why targeting individual developers works better than enterprise sales. Includes competitive defense strategy. Could be stronger on technical execution risks or what happens if conversion rates are lower than projected."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly calibrated complexity for a 3-person team monetizing an open-source tool. Avoids oversimplification (recognizes need for different pricing tiers, upgrade paths) while staying focused on executable strategies. The depth on customer psychology and purchase behavior is warranted given the challenge of monetizing free users. Explicitly rejects complex enterprise sales in favor of simpler direct monetization."
+      }
+    },
+    "total": 28,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses monetizing a 5k-star Kubernetes CLI tool with a clear revenue model ($19-49/user/month), specific target segments (senior engineers at SaaS companies), and realistic milestones. The focus on workflow acceleration for existing Kubernetes users is well-aligned with the tool's nature.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements: target segments with detailed personas, tiered pricing model with justification, multiple distribution channels, specific 18-month milestones with metrics, and explicit 'not doing' items (consulting, enterprise sales). Goes beyond requirements with competitive defense strategy and operational allocation.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Remarkably consistent throughout. The workflow acceleration theme connects every element - from pricing tiers to feature development to customer acquisition. The document explicitly addresses how each section fixes problems identified in a previous version, showing deep internal consistency. Resource allocation percentages align with stated priorities.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Extremely actionable with concrete details: exact pricing ($19/29/49), specific features (Smart Environment Mirroring), precise metrics (8K stars by month 6, $450K ARR by month 18), detailed customer profiles (3+ years experience, 100+ employee SaaS), and specific marketing channels (r/kubernetes, Stack Overflow). Someone could execute this plan immediately.\"},\n  \"anticipates_objections\": {\"score\": 4, \"note\": \"Strong anticipation of key risks: addresses why consulting doesn't scale, justifies pricing through time-savings calculations, explains why targeting individual developers works better than enterprise sales. Includes competitive defense strategy. Could be stronger on technical execution risks or what happens if conversion rates are lower than projected.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly calibrated complexity for a 3-person team monetizing an open-source tool. Avoids oversimplification (recognizes need for different pricing tiers, upgrade paths) while staying focused on executable strategies. The depth on customer psychology and purchase behavior is warranted given the challenge of monetizing free users. Explicitly rejects complex enterprise sales in favor of simpler direct monetization.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 5,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses the core differentiator of on-premise deployment with comprehensive positioning against cloud competitors. Clearly articulates the security-first value proposition for enterprises that cannot use cloud solutions."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements exceptionally well: detailed buyer personas, comprehensive messaging framework, competitive positioning against all named competitors plus traditional tools, thorough objection handling, and explicit 'never claim' section. Goes beyond requirements with deployment options and success metrics."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Well-organized and internally consistent. The synthesis approach is transparent but adds some complexity. Minor inconsistency between 'entirely on-premise' in the task and 'flexible deployment options' in the document, though this is explained as addressing feasibility."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific deployment timelines (6-8 weeks), exact metrics (20-30% reduction), detailed buyer profiles with budget ranges ($500K-$5M), specific objection responses, and stakeholder-specific messaging. Sales team could execute immediately."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Exceptional anticipation of challenges including cost concerns, AI unpredictability, implementation complexity, and compliance guarantees. Addresses both customer objections and internal execution risks. The 'never claim' section proactively prevents sales mistakes."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Generally well-calibrated complexity for enterprise B2B positioning. The synthesis notes add transparency but make the document longer than necessary. Some sections like deployment options are appropriately detailed for the complex enterprise sale, while maintaining clarity."
+      }
+    },
+    "total": 28,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses the core differentiator of on-premise deployment with comprehensive positioning against cloud competitors. Clearly articulates the security-first value proposition for enterprises that cannot use cloud solutions.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements exceptionally well: detailed buyer personas, comprehensive messaging framework, competitive positioning against all named competitors plus traditional tools, thorough objection handling, and explicit 'never claim' section. Goes beyond requirements with deployment options and success metrics.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Well-organized and internally consistent. The synthesis approach is transparent but adds some complexity. Minor inconsistency between 'entirely on-premise' in the task and 'flexible deployment options' in the document, though this is explained as addressing feasibility.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific deployment timelines (6-8 weeks), exact metrics (20-30% reduction), detailed buyer profiles with budget ranges ($500K-$5M), specific objection responses, and stakeholder-specific messaging. Sales team could execute immediately.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Exceptional anticipation of challenges including cost concerns, AI unpredictability, implementation complexity, and compliance guarantees. Addresses both customer objections and internal execution risks. The 'never claim' section proactively prevents sales mistakes.\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Generally well-calibrated complexity for enterprise B2B positioning. The synthesis notes add transparency but make the document longer than necessary. Some sections like deployment options are appropriately detailed for the complex enterprise sale, while maintaining clarity.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 1,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 5,
+        "note": "Directly addresses the core task of positioning an on-premise AI code review tool. Clearly differentiates from cloud competitors, identifies the right target buyers (VP Engineering + Platform Engineering Director), provides specific messaging, handles objections, and explicitly states what not to claim. The 'Problem Fixed' annotations show deep understanding of positioning pitfalls."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Covers all required elements with exceptional depth: detailed buyer personas with pain points, comprehensive messaging framework, competitive positioning against the right competitors (status quo/existing tools), thorough objection handling, and clear prohibited claims. Goes beyond requirements with market sizing, sales process, success metrics, and implementation roadmap."
+      },
+      "coherence": {
+        "score": 5,
+        "note": "Exceptionally consistent throughout. The positioning as 'for infrastructure-capable enterprises' threads through every section. All elements align: the limited TAM matches the complex requirements, the 18-24 month sales cycle matches the deployment complexity, and the messaging consistently acknowledges the need for internal expertise rather than promising easy deployment."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific TAM of ~300 companies, exact infrastructure requirements (5+ FTE platform team, GPU capabilities), precise pricing ($300-800K software + $200-500K services), detailed 18-24 month sales process phases, and specific objection response scripts. Sales team could execute immediately."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Exceptional anticipation of failure modes. Not only handles customer objections but preemptively addresses internal misconceptions through 'Problem Fixed' notes. Identifies disqualification criteria to prevent pursuing bad deals. Acknowledges hard truths like lower retention rates and performance limitations vs cloud. The prohibited claims section prevents overselling."
+      },
+      "appropriate_complexity": {
+        "score": 5,
+        "note": "Perfectly matched to the problem's complexity. Enterprise infrastructure software sales require this level of detail - from technical requirements to multi-phase sales processes. The document acknowledges the narrow market and complex deployment rather than oversimplifying. Every caveat (like customer uptime responsibility) is warranted for this market."
+      }
+    },
+    "total": 30,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 5, \"note\": \"Directly addresses the core task of positioning an on-premise AI code review tool. Clearly differentiates from cloud competitors, identifies the right target buyers (VP Engineering + Platform Engineering Director), provides specific messaging, handles objections, and explicitly states what not to claim. The 'Problem Fixed' annotations show deep understanding of positioning pitfalls.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Covers all required elements with exceptional depth: detailed buyer personas with pain points, comprehensive messaging framework, competitive positioning against the right competitors (status quo/existing tools), thorough objection handling, and clear prohibited claims. Goes beyond requirements with market sizing, sales process, success metrics, and implementation roadmap.\"},\n  \"coherence\": {\"score\": 5, \"note\": \"Exceptionally consistent throughout. The positioning as 'for infrastructure-capable enterprises' threads through every section. All elements align: the limited TAM matches the complex requirements, the 18-24 month sales cycle matches the deployment complexity, and the messaging consistently acknowledges the need for internal expertise rather than promising easy deployment.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific TAM of ~300 companies, exact infrastructure requirements (5+ FTE platform team, GPU capabilities), precise pricing ($300-800K software + $200-500K services), detailed 18-24 month sales process phases, and specific objection response scripts. Sales team could execute immediately.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Exceptional anticipation of failure modes. Not only handles customer objections but preemptively addresses internal misconceptions through 'Problem Fixed' notes. Identifies disqualification criteria to prevent pursuing bad deals. Acknowledges hard truths like lower retention rates and performance limitations vs cloud. The prohibited claims section prevents overselling.\"},\n  \"appropriate_complexity\": {\"score\": 5, \"note\": \"Perfectly matched to the problem's complexity. Enterprise infrastructure software sales require this level of detail - from technical requirements to multi-phase sales processes. The document acknowledges the narrow market and complex deployment rather than oversimplifying. Every caveat (like customer uptime responsibility) is warranted for this market.\"}\n}"
+  },
+  {
+    "task": "task_04",
+    "run": 2,
+    "condition": "autoreason_2pass",
+    "scores": {
+      "solves_problem": {
+        "score": 4,
+        "note": "Directly addresses the core differentiator (on-premise deployment) and provides clear positioning against named competitors. Effectively frames security/data sovereignty as the primary value prop. Minor deduction for not exploring potential secondary differentiators beyond security."
+      },
+      "completeness": {
+        "score": 5,
+        "note": "Exceptionally thorough coverage of all required elements: detailed buyer persona, comprehensive messaging framework, specific competitive positioning, robust objection handling, and clear 'never claim' guidelines. Goes beyond requirements with implementation timeline, qualification criteria, and market sizing."
+      },
+      "coherence": {
+        "score": 4,
+        "note": "Well-organized and internally consistent throughout. The security-first positioning flows logically through all sections. The document's self-awareness about combining elements from 'Version A' and 'Version B' is unusual but doesn't detract from coherence. Minor inconsistency in sometimes positioning as 'only' solution vs acknowledging build-your-own option."
+      },
+      "specificity": {
+        "score": 5,
+        "note": "Highly actionable with concrete details: specific titles, company sizes ($250M+ revenue), exact metrics (25% bug detection improvement, 80% adoption), detailed cost breakdowns ($800K-$1.2M annually), hardware requirements (4-8 GPU servers), and word-for-word sales scripts. Sales team could execute immediately."
+      },
+      "anticipates_objections": {
+        "score": 5,
+        "note": "Exceptional anticipation of challenges: addresses cost concerns, performance tradeoffs, build vs buy decisions, long sales cycles, infrastructure requirements, and market limitations. Includes both objection handling scripts and disqualification criteria. Acknowledges realistic constraints (18-month deployment, limited addressable market of 300-400 companies)."
+      },
+      "appropriate_complexity": {
+        "score": 4,
+        "note": "Right-sized for enterprise B2B positioning with appropriate depth for complex, high-stakes sales. The detailed qualification criteria and implementation phases match the complexity of selling to security-conscious enterprises. The meta-commentary about Version A/B choices, while insightful, adds some unnecessary complexity for a sales/marketing audience."
+      }
+    },
+    "total": 27,
+    "raw_judgment": "{\n  \"solves_problem\": {\"score\": 4, \"note\": \"Directly addresses the core differentiator (on-premise deployment) and provides clear positioning against named competitors. Effectively frames security/data sovereignty as the primary value prop. Minor deduction for not exploring potential secondary differentiators beyond security.\"},\n  \"completeness\": {\"score\": 5, \"note\": \"Exceptionally thorough coverage of all required elements: detailed buyer persona, comprehensive messaging framework, specific competitive positioning, robust objection handling, and clear 'never claim' guidelines. Goes beyond requirements with implementation timeline, qualification criteria, and market sizing.\"},\n  \"coherence\": {\"score\": 4, \"note\": \"Well-organized and internally consistent throughout. The security-first positioning flows logically through all sections. The document's self-awareness about combining elements from 'Version A' and 'Version B' is unusual but doesn't detract from coherence. Minor inconsistency in sometimes positioning as 'only' solution vs acknowledging build-your-own option.\"},\n  \"specificity\": {\"score\": 5, \"note\": \"Highly actionable with concrete details: specific titles, company sizes ($250M+ revenue), exact metrics (25% bug detection improvement, 80% adoption), detailed cost breakdowns ($800K-$1.2M annually), hardware requirements (4-8 GPU servers), and word-for-word sales scripts. Sales team could execute immediately.\"},\n  \"anticipates_objections\": {\"score\": 5, \"note\": \"Exceptional anticipation of challenges: addresses cost concerns, performance tradeoffs, build vs buy decisions, long sales cycles, infrastructure requirements, and market limitations. Includes both objection handling scripts and disqualification criteria. Acknowledges realistic constraints (18-month deployment, limited addressable market of 300-400 companies).\"},\n  \"appropriate_complexity\": {\"score\": 4, \"note\": \"Right-sized for enterprise B2B positioning with appropriate depth for complex, high-stakes sales. The detailed qualification criteria and implementation phases match the complexity of selling to security-conscious enterprises. The meta-commentary about Version A/B choices, while insightful, adds some unnecessary complexity for a sales/marketing audience.\"}\n}"
+  }
+]

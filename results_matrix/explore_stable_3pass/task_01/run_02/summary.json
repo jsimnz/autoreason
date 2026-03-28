@@ -1,0 +1,12 @@
+{
+  "picks": [
+    "AB",
+    "B",
+    "B"
+  ],
+  "variant": "explore_stable_3pass",
+  "author_temperature": 1.0,
+  "judge_temperature": 0.3,
+  "passes": 3,
+  "elapsed_seconds": 575.2
+}

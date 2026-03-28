@@ -1,0 +1,55 @@
+author_model: "anthropic/claude-sonnet-4-20250514"
+judge_model: "anthropic/claude-sonnet-4-20250514"
+max_tokens: 4096
+runs_per_variant: 5
+batch_size: 5
+
+# Only run on tasks 1 and 4 — task 1 had AB-dominant, task 4 had A-dominant.
+# Gives us both patterns to test against.
+tasks: [1, 4]
+
+variants:
+  - name: "conservative_1pass"
+    author_temperature: 0.4
+    judge_temperature: 0.2
+    passes: 1
+
+  - name: "conservative_2pass"
+    author_temperature: 0.4
+    judge_temperature: 0.2
+    passes: 2
+
+  - name: "conservative_3pass"
+    author_temperature: 0.4
+    judge_temperature: 0.2
+    passes: 3
+
+  - name: "explore_stable_1pass"
+    author_temperature: 1.0
+    judge_temperature: 0.3
+    passes: 1
+
+  - name: "explore_stable_2pass"
+    author_temperature: 1.0
+    judge_temperature: 0.3
+    passes: 2
+
+  - name: "explore_stable_3pass"
+    author_temperature: 1.0
+    judge_temperature: 0.3
+    passes: 3
+
+  - name: "chaos_1pass"
+    author_temperature: 1.0
+    judge_temperature: 0.9
+    passes: 1
+
+  - name: "chaos_2pass"
+    author_temperature: 1.0
+    judge_temperature: 0.9
+    passes: 2
+
+  - name: "chaos_3pass"
+    author_temperature: 1.0
+    judge_temperature: 0.9
+    passes: 3
