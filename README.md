@@ -109,7 +109,8 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
         ├── Winner = A → streak++
         └── Winner = B or AB → streak = 0, winner becomes new A
         │
-        ▼  loop until streak = 2 (converged)
+        ▼ ══════════════════ /LOOP ══════════════════
+          repeat until A streak = 2 (converged)
 ```
 
 ### Why It Works
