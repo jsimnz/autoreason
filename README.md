@@ -104,6 +104,17 @@ Full trajectory data, analysis, and design space matrix: [RESULTS.md](RESULTS.md
 
 Shareable project overview: [OVERVIEW.md](OVERVIEW.md)
 
+## Prior Experiments (v1)
+
+The v2 architecture was informed by ~1,800 LLM calls of earlier experiments that exposed specific problems:
+
+- **Positional bias.** When the judge saw versions labeled "Version A (original)" and "Version B (revised)," it systematically favored B. Renaming them to neutral labels (Proposal 1, 2, 3) and randomizing presentation order eliminated this. This is why v2 judges see randomized numeric labels.
+- **Single judge noise.** One judge's idiosyncratic preferences dominated outcomes. Runs with the same inputs produced different winners depending on which quirks the judge fixated on. This led to the 3-judge panel with Borda count aggregation.
+- **Shared context contamination.** When the same agent served as both author and judge, it rubber-stamped its own revisions. The judge always agreed with the changes it had just made. This is why v2 uses fresh, isolated agents for every role.
+- **No convergence signal.** v1 ran a fixed number of independent single-pass trials (Monte Carlo) but had no iterative loop. You could see that autoreason outputs were better than baselines, but couldn't answer "when should you stop?" v2 introduces the convergence loop to answer this.
+
+Code and data from these experiments live in `experiments/v1/` and `experiments/prior/`.
+
 ## Repository Structure
 
 ```
