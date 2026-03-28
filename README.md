@@ -4,9 +4,17 @@
 
 Autoreason is an iterative refinement method for LLM-generated content where no objective metric exists. It constructs a subjective fitness function through independent blind evaluation — the same way science uses peer review where math can use proofs.
 
-## The Problem
+## The Core Idea
 
-LLMs exhibit three compounding failure modes when used for iterative refinement on subjective work:
+Generate a proposal (A). Have a fresh agent attack it to find problems. Have another fresh agent revise it based on valid criticisms (B). Have a third fresh agent synthesize the best of both (AB). Then have an independent judge — blind to which version is which — pick the one that best accomplishes the original task.
+
+**A** is conservatism: the current version is fine, the changes made things worse. **B** is adversarial editing: the critique found real problems and the revision fixes them. **AB** is what happens when you ask an agent to be objective: both versions got some things right, here's a synthesis that keeps the best of each. The judge decides which of these three framings actually produced the best result, with no knowledge of which is which.
+
+The winner becomes the new A. Repeat until A survives — it can no longer be improved by adversarial pressure.
+
+## The Problem This Solves
+
+LLMs exhibit compounding failure modes when used for iterative refinement on subjective work:
 
 | Failure Mode | What Happens | Why It Happens |
 |---|---|---|
@@ -81,8 +89,6 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
         │
         ▼  loop until streak = 2 (converged)
 ```
-
-**A** represents conservatism — "the current version is fine, the changes made things worse." **B** represents adversarial editing — "the critique found real problems and the revision fixes them." **AB** represents what happens when you ask an agent to be objective — "both versions got some things right, here's a synthesis that keeps the best of each." The judge panel decides which of these three framings actually produced the best result for the task, with no knowledge of which is which.
 
 ### Why It Works
 
