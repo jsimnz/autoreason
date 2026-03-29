@@ -1,0 +1,52 @@
+{
+  "pass": 23,
+  "winner": "B",
+  "scores": {
+    "A": 6,
+    "B": 9,
+    "AB": 3
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "Let me evaluate each proposal against the constraints:\n\n## Constraint Analysis\n\n### Word Count (Maximum 1000 words)\n- **Proposal 1**: 998 words ✓\n- **Proposal 2**: ~650 words ✓ \n- **Proposal 3**: 695 words ✓\n\n### Required Sections Coverage\n\n**Target Customer** (who, what pain, what budget, why now):\n- All three cover this adequately\n- Proposal 1 adds market size quantification (bonus)\n\n**Pricing** (one paid tier with specific price point, justified by ROI):\n- All have $89/month tier\n- Proposal 1: 23x ROI with detailed calculation ✓\n- Proposal 2: 12.5x ROI with simpler calculation ✓\n- Proposal 3: 23x ROI (identical to Proposal 1) ✓\n\n**Distribution** (single highest-leverage channel with specific tactics):\n- Proposal 1: Job posting outreach with specific metrics ✓\n- Proposal 2: Incident discussion engagement ✓\n- Proposal 3: Incident discussion engagement (identical to 2) ✓\n\n**First 6 Months** (3 concrete milestones with measurable success criteria):\n- Proposal 1: All 3 milestones with detailed metrics ✓\n- Proposal 2: All 3 milestones ✓\n- Proposal 3: All 3 milestones ✓\n\n**What You Won't Do** (3 things with one-sentence rationale each):\n- All three provide 3 items with rationales ✓\n\n**Biggest Risk** (one risk, one mitigation, one metric to watch):\n- All three cover this adequately ✓\n\n### Number Justification\n- **Proposal 1**: Extensively sourced (CNCF survey, Datadog, Outreach.io, Tomasz Tunguz, etc.) ✓\n- **Proposal 2**: Some sourcing (Gremlin, OpenView) but less comprehensive ✓\n- **Proposal 3**: Mix of sources, some identical to Proposal 1 ✓\n\n### Specificity (Not Generic)\n- **Proposal 1**: Highly specific (job posting signals, resource exhaustion focus, admission controller competition) ✓\n- **Proposal 2**: Specific to incident response engagement ✓\n- **Proposal 3**: Specific but largely combines elements from 1 and 2 ✓\n\n## Key Differentiators\n\n**Proposal 1** stands out for:\n- Most comprehensive sourcing and justification\n- Unique distribution strategy (job posting outreach)\n- More detailed milestone metrics\n- Better use of word count allowance\n\n**Proposal 2** has:\n- Simpler but still valid approach\n- Good incident-based distribution strategy\n- Adequate but less detailed justification\n\n**Proposal 3** appears to be:\n- A hybrid of Proposals 1 and 2\n- Uses Proposal 1's pricing justification but Proposal 2's distribution\n- Less original content\n\n**RANKING: 1, 2, 3**\n\nProposal 1 best accomplishes the task with superior sourcing, unique strategic insights, and maximum utilization of the word count to provide depth. Proposal 2 is solid but less comprehensive. Proposal 3 feels derivative, combining elements from the other two without adding unique value."
+    },
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "Let me evaluate each proposal against the constraints:\n\n## Constraint Analysis\n\n**Word Count (Maximum 1000 words):**\n- Proposal 1: ~950 words ✓\n- Proposal 2: 998 words ✓  \n- Proposal 3: 695 words ✓\n\n**Six Required Sections with Specific Deliverables:**\n\nAll three proposals cover the 6 sections, but with varying completeness:\n\n**Section 1 (Target customer):** All three identify the same specific segment with pain, budget, and timing. Proposal 2 adds market size quantification.\n\n**Section 2 (Pricing):** All have $89/month pricing. Proposals 2 and 3 provide more rigorous ROI calculations using CNCF incident frequency data vs. Proposal 1's generic outage cost estimates.\n\n**Section 3 (Distribution):** \n- Proposal 1: Incident response engagement in forums\n- Proposal 2: Job posting outreach (more systematic)\n- Proposal 3: Same as Proposal 1\n\n**Section 4 (First 6 months):** All have 3 milestones, but Proposal 2 provides the most justified metrics using industry benchmarks.\n\n**Section 5 (What you won't do):** All have 3 items with rationales, but Proposal 2's are most specifically tied to target customer constraints.\n\n**Section 6 (Biggest risk):** All identify the admission controller risk, but Proposal 2 provides the most actionable mitigation strategy.\n\n**Numbers Justified:**\n- Proposal 1: Some numbers sourced, but ROI calculation uses generic estimates\n- Proposal 2: Most numbers have specific sources (CNCF, Outreach.io, Tomasz Tunguz)\n- Proposal 3: Better than 1, but less comprehensive than 2\n\n**Specific vs. Generic Advice:**\n- Proposal 1: Reasonably specific to Kubernetes config management\n- Proposal 2: Most specific - ties exclusions directly to target customer maturity\n- Proposal 3: Similar to 1, but less detailed\n\n## Key Differentiators\n\n**Proposal 2 strengths:**\n- Most rigorous number justification\n- More systematic distribution approach\n- Better-defined success criteria\n- Most specific \"what you won't do\" rationales\n\n**Proposal 1 strengths:**\n- Clear and focused\n- Good incident-based distribution strategy\n- Solid risk identification\n\n**Proposal 3 weaknesses:**\n- Essentially combines elements from 1 and 2 but less thoroughly\n- Shorter length means less depth in justifications\n\n**RANKING: 2, 1, 3**\n\nProposal 2 best accomplishes the task with the most justified numbers, specific advice, and comprehensive coverage of requirements. Proposal 1 is solid but less rigorous. Proposal 3 appears to be a hybrid that doesn't fully leverage the word count allowance for depth."
+    },
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "Let me evaluate each proposal against the constraints:\n\n## Constraint Analysis\n\n**Word Count:**\n- Proposal 1: ~950 words ✓\n- Proposal 2: 998 words ✓ \n- Proposal 3: 695 words ✓\n\n**Required Sections Coverage:**\n\nAll three proposals cover the 6 required sections. However, they differ in completeness:\n\n**Section 1 (Target Customer):**\n- Proposal 1: Has all required elements ✓\n- Proposal 2: Adds market size quantification ✓+\n- Proposal 3: Same as Proposal 2 ✓+\n\n**Section 2 (Pricing):**\n- Proposal 1: Price point and ROI, but ROI calculation seems inflated ✓/-\n- Proposal 2: More realistic ROI calculation with better sourcing ✓+\n- Proposal 3: Same as Proposal 2 ✓+\n\n**Section 3 (Distribution):**\n- Proposal 1: Specific channel and tactics ✓\n- Proposal 2: Different specific channel (job posting outreach) with metrics ✓+\n- Proposal 3: Same as Proposal 1 ✓\n\n**Section 4 (Milestones):**\n- Proposal 1: 3 milestones with success criteria ✓\n- Proposal 2: Better justified numbers and clearer metrics ✓+\n- Proposal 3: Mix of Proposal 1 and 2 approaches ✓\n\n**Section 5 (What You Won't Do):**\n- Proposal 1: 3 items with rationales ✓\n- Proposal 2: More specific rationales tied to target customer ✓+\n- Proposal 3: Mix of both approaches ✓\n\n**Section 6 (Biggest Risk):**\n- Proposal 1: Risk, mitigation, metric ✓\n- Proposal 2: More detailed and specific ✓+\n- Proposal 3: Same as Proposal 2 ✓+\n\n**Number Justification:**\n- Proposal 1: Some numbers justified, but ROI calculation questionable\n- Proposal 2: Better sourcing and more realistic calculations\n- Proposal 3: Same as Proposal 2\n\n**Specificity (Not Generic):**\n- Proposal 1: Highly specific to Kubernetes config management ✓\n- Proposal 2: Even more specific with job posting strategy ✓+\n- Proposal 3: Same level as Proposal 1 ✓\n\n## Key Differences:\n\n**Proposal 2** stands out for:\n- More realistic ROI calculations\n- Better justified numbers throughout\n- More innovative distribution strategy (job posting outreach)\n- More specific rationales in \"What You Won't Do\"\n- Uses full word count allowance effectively\n\n**Proposal 1** is solid but:\n- Has questionable ROI math ($11,200 annually vs $89/month doesn't equal 12.5x ROI)\n- Less detailed justifications\n\n**Proposal 3** appears to be:\n- A hybrid of 1 and 2, taking some elements from each\n- Shorter and less detailed than Proposal 2\n- Missing some of the stronger justifications from Proposal 2\n\nRANKING: 2, 1, 3\n\nProposal 2 is the strongest with better justified numbers, more realistic calculations, and innovative distribution strategy. Proposal 1 is solid but has weaker financial justifications. Proposal 3 appears to be a less complete hybrid of the other two."
+    }
+  ],
+  "elapsed": 93.5
+}

@@ -1,0 +1,52 @@
+{
+  "pass": 18,
+  "winner": "B",
+  "scores": {
+    "A": 6,
+    "B": 7,
+    "AB": 5
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "A",
+        "B"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "Looking at each proposal against the constraints:\n\n## Word Count Analysis:\n- **Proposal 1**: 647 words ✓\n- **Proposal 2**: 598 words ✓  \n- **Proposal 3**: 587 words ✓\n\nAll three meet the word count constraint.\n\n## Section Coverage:\nAll three proposals cover the 6 required sections with appropriate deliverables.\n\n## Number Justification:\n- **Proposal 1**: Numbers are reasonably justified with clear logic (engineer time costs, deployment frequency, ROI calculations)\n- **Proposal 2**: Similar justification to Proposal 1, but slightly less detailed\n- **Proposal 3**: Weakest justification - uses vague phrases like \"based on common deployment failure patterns\" and \"$50+ hourly\" without clear sourcing\n\n## Specificity to Product:\n- **Proposal 1**: Highly specific - focuses on GitOps workflows, ArgoCD/Flux integration, environment-specific validation, GitHub Actions marketplace strategy\n- **Proposal 2**: Moderately specific - covers GitOps but less detailed on unique positioning\n- **Proposal 3**: Least specific - uses more generic terms like \"config drift\" and \"environment parity\" that could apply to many tools\n\n## Key Differentiators:\n\n**Proposal 1 Strengths:**\n- Most sophisticated distribution strategy (GitHub Actions marketplace with specific targeting)\n- Best risk analysis (GitHub competition threat with multi-platform mitigation)\n- Clearest customer segmentation (Series A/B with specific employee counts)\n- Most detailed \"what you won't do\" section with strong rationales\n\n**Proposal 2 Weaknesses:**\n- Nearly identical to Proposal 1 but less detailed throughout\n- Weaker distribution tactics\n- Less comprehensive risk mitigation\n\n**Proposal 3 Weaknesses:**\n- Least scalable distribution strategy (manual outreach vs. marketplace)\n- Lowest pricing without strong justification for the discount\n- Weakest number justification\n- Most generic positioning\n\n**RANKING: 1, 2, 3**\n\nProposal 1 is clearly the strongest with the most specific, well-justified strategy. Proposal 2 is competent but derivative. Proposal 3, while meeting basic requirements, lacks the specificity and rigor of the others."
+    },
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "Let me evaluate each proposal against the constraints:\n\n## Constraint Analysis\n\n**Word Count (≤1000 words):**\n- Proposal 1: 587 words ✓\n- Proposal 2: 598 words ✓  \n- Proposal 3: 647 words ✓\n\n**All 6 sections with specified deliverables:**\n- All three proposals cover the required sections ✓\n\n**Numbers justified:**\n- Proposal 1: Mixed - some justified ($50+ hourly from $100k salaries), others not (20% failure rate)\n- Proposal 2: Poor - most numbers unjustified ($75-150 value, 2-3 failures monthly, 10% conversion rate)\n- Proposal 3: Poor - same unjustified numbers as Proposal 2\n\n**Advice specific to this product:**\n- Proposal 1: Strong - free config audits, specific community monitoring, GitOps integrations\n- Proposal 2: Moderate - GitHub Actions focus is relevant but somewhat generic\n- Proposal 3: Moderate - combines elements from both but less focused\n\n## Detailed Evaluation\n\n**Proposal 1 Strengths:**\n- Most specific tactics (monitoring r/kubernetes for \"kubectl diff\" discussions)\n- Addresses the 5k GitHub stars constraint explicitly\n- Realistic milestones for 3-person team\n- Best risk mitigation (GitOps tool integrations vs generic CLI)\n\n**Proposal 1 Weaknesses:**\n- Some unjustified numbers (20% deployment failure rate)\n- Could be more specific about GitHub Actions integration\n\n**Proposal 2 Strengths:**\n- Clear GitHub Actions distribution strategy\n- Logical pricing justification structure\n- Good focus on GitOps workflows\n\n**Proposal 2 Weaknesses:**\n- Many unjustified numbers throughout\n- More generic advice that could apply to other dev tools\n- Doesn't address existing 5k star community\n\n**Proposal 3 Weaknesses:**\n- Appears to be a hybrid of Proposals 1 and 2\n- Inherits the unjustified numbers from Proposal 2\n- Less focused strategy due to trying to combine approaches\n- Longest of the three proposals\n\n**Proposal 3 Strengths:**\n- Attempts to address the open-source community issue\n- Comprehensive distribution approach\n\n## Final Assessment\n\nProposal 1 best accomplishes the task with the most specific, actionable advice tailored to this exact product. It has the most realistic approach for a 3-person team and directly addresses the constraint about existing GitHub stars.\n\nProposal 2 has a solid foundation but suffers from too many unjustified numbers and more generic advice.\n\nProposal 3 tries to combine the best of both but ends up less focused and inherits the weaknesses of Proposal 2.\n\n**RANKING: 1, 2, 3**"
+    },
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "Let me evaluate each proposal against the constraints:\n\n## Word Count Constraint (≤1000 words)\n- **Proposal 1**: 598 words ✓\n- **Proposal 2**: 647 words ✓  \n- **Proposal 3**: 587 words ✓\n\n## Coverage of 6 Required Sections\nAll three proposals cover the required sections with appropriate deliverables.\n\n## Number Justification\n- **Proposal 1**: Mixed - some numbers justified (ROI calculation), others not (budget ranges, conversion rates)\n- **Proposal 2**: Poor - includes unjustified statistics like \"10% install conversion rate\" and specific budget ranges without sources\n- **Proposal 3**: Better - provides reasoning for most numbers (20% failure rate, $50+ hourly cost based on startup salaries)\n\n## Specificity to Kubernetes Config CLI Tool\n- **Proposal 1**: Good - focuses on GitOps validation, ArgoCD deployment failures, GitHub Actions integration\n- **Proposal 2**: Good - similar specificity with GitOps focus and Kubernetes-specific pain points\n- **Proposal 3**: Excellent - most specific with \"kubectl diff,\" \"kustomize validation,\" free config audits, and environment drift focus\n\n## Key Differentiators\n\n**Proposal 1 Strengths:**\n- Clean, well-structured presentation\n- Realistic pricing and ROI justification\n- Good risk mitigation strategy\n\n**Proposal 1 Weaknesses:**\n- Some unjustified numbers (budget ranges, conversion rates)\n- GitHub Actions strategy may be harder to execute for 3-person team\n\n**Proposal 2 Strengths:**\n- Comprehensive coverage\n- Good customer segmentation\n\n**Proposal 2 Weaknesses:**\n- Most unjustified numbers\n- Less realistic execution for small team\n- Some generic advice\n\n**Proposal 3 Strengths:**\n- Most realistic for 3-person team execution\n- Best number justification\n- Most specific tactics (free config audits, community monitoring)\n- Addresses open-source monetization challenge directly\n- Lower pricing reflects realistic value positioning\n\n**Proposal 3 Weaknesses:**\n- Slightly less polished presentation\n- Lower revenue targets (though more realistic)\n\n**RANKING: 3, 1, 2**\n\nProposal 3 best accomplishes the task with the most justified numbers, specific-to-product advice, and realistic execution plan for a 3-person team. Proposal 1 is well-executed but has some unjustified numbers and less realistic distribution strategy. Proposal 2 has the most unjustified statistics and generic elements."
+    }
+  ],
+  "elapsed": 82.9
+}
