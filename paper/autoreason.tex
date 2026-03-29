@@ -34,7 +34,7 @@
 
 \section*{Abstract}
 
-We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. The method constructs a subjective fitness function through independent blind evaluation, extending the autoresearch paradigm. Autoreason uses fresh isolated agents per role, blind judge panels with Borda count aggregation, and conservative tiebreaking. Across 5 task types, autoreason ranked first or second in every 7-judge blind comparison, winning 3 of 5 tasks outright. Monte Carlo analysis (5 independent runs) shows 80\% convergence rate with consistent output quality despite variable convergence speed. We additionally ran autoreason on the writing of this paper, discovering that ground-truth context for the critic eliminates hallucination. We find that the method's advantage is task-dependent: autoreason excels on tasks with genuine tradeoffs and stakeholder tensions, while direct critique-and-revise can outperform on tasks with more objectively verifiable requirements.
+We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. The method constructs a subjective fitness function through independent blind evaluation, extending the autoresearch paradigm. Autoreason uses fresh isolated agents per role, blind judge panels with Borda count aggregation, and conservative tiebreaking. Across 5 task types, autoreason ranked first or second in every 7-judge blind comparison, winning 3 of 5 tasks outright. Monte Carlo analysis (5 independent runs) shows 80\% convergence rate with consistent output quality despite variable convergence speed. We additionally ran autoreason on the writing of this paper, discovering that ground-truth context for the critic eliminates hallucination. We find that the method's advantage is task-dependent and iteration-dependent: autoreason excels on tasks with genuine tradeoffs, while critique-and-revise can outperform on tasks with concrete requirements. Critically, a single autoreason pass does not outperform simpler baselines---the value emerges from iterative convergence.
 
 \section{Introduction}
 
@@ -42,7 +42,7 @@ LLMs exhibit systematic failures when iterating on subjective work: sycophancy, 
 
 We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} to subjective domains. Each iteration produces three competing versions---the incumbent (A), an adversarial revision (B), and a synthesis (AB)---evaluated by a blind judge panel. The method constructs a fitness function through the evaluation process itself.
 
-We distinguish two modes. \textbf{v1 (quick pass)}: a single cycle through critic $\to$ B $\to$ AB $\to$ judge. Five LLM calls. \textbf{v2 (convergence loop)}: repeats with a full judge panel until the incumbent survives consecutive challenges. All experiments use v2.
+We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to$ AB $\to$ judge (5 LLM calls). \textbf{Convergence loop}: repeats the cycle with a full judge panel until the incumbent survives consecutive challenges. As we show in Section~\ref{sec:v1}, the single pass does not outperform simpler baselines---autoreason's value emerges from iteration.
 
 \section{Method}
 
@@ -55,6 +55,16 @@ We distinguish two modes. \textbf{v1 (quick pass)}: a single cycle through criti
 \textbf{Judge Panel}: 3 fresh agents rank A, B, AB via Borda count (3/2/1 points). Randomized labels and order. Conservative tiebreak: incumbent wins ties. Convergence at 2 consecutive A wins.
 
 Every role is a fresh, isolated agent. The original task prompt anchors all evaluation.
+
+\subsection{Formal Framing}
+
+Let $d_t$ denote the incumbent document at pass $t$. Each pass produces candidates $\{d_t, B(d_t), S(d_t, B(d_t))\}$ where $B$ is the adversarial revision operator and $S$ is the synthesis operator. A judge panel $J$ defines a stochastic preference relation: $J(x, y) \in [0,1]$ is the probability that $x$ is ranked above $y$. The winner at each pass is selected by Borda aggregation over $n$ independent judges:
+
+$$d_{t+1} = \arg\max_{c \in \{A, B, AB\}} \sum_{i=1}^{n} (3 - r_i(c))$$
+
+where $r_i(c)$ is judge $i$'s rank for candidate $c$, with ties broken in favor of the incumbent $d_t$. The system converges when $d_{t+1} = d_t$ for $k$ consecutive passes.
+
+This is a Markov chain over document states. Convergence corresponds to an absorbing state under the judge's preference relation. By the Condorcet jury theorem, if each judge independently selects the better document with probability $p > 0.5$, panel accuracy increases monotonically with $n$---justifying the panel over a single judge. However, when judges share systematic biases (same model family), effective independence is lower than $n$, bounding the panel's advantage. The connection to Policy-Space Response Oracles~\cite{psro} is direct: each pass adds a new candidate to the empirical game, and the conservative tiebreak approximates a regularized best-response dynamic that favors stability.
 
 \section{Experiments}
 
@@ -149,6 +159,33 @@ We ran Task 1 with a constrained prompt (1000-word limit, 6 required sections wi
 
 This reveals that scope constraints and convergence are orthogonal problems. Constraints stabilize output length but enable more targeted critique.
 
+\subsection{Single-Pass Evaluation}
+\label{sec:v1}
+
+To test whether a single autoreason cycle adds value without iteration, we ran one pass of each method on all 5 tasks from the same initial output, evaluated by a 7-judge blind panel.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Method} & \textbf{Calls} & \textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{T5} \\
+\midrule
+Harsh critic & 1 & \textbf{30} & \textbf{31} & 23 & \textbf{30} & \textbf{31} \\
+Critique \& rev. & 1 & \textbf{30} & 30 & \textbf{31} & 28 & 23 \\
+Autoreason & 5 & 24 & 22 & 24 & 17 & 24 \\
+Improve this & 1 & 14 & 14 & 18 & 23 & 20 \\
+Conservative & 1 & 7 & 8 & 9 & 7 & 7 \\
+\bottomrule
+\end{tabular}
+\caption{Single-pass Borda scores. Autoreason uses 5 calls (critic $\to$ B $\to$ AB $\to$ 3-judge pick) vs 1 call for baselines. Bold = winner per task.}
+\label{tab:v1}
+\end{table}
+
+Single-pass autoreason averaged 22.2 Borda, placing 3rd on 4 of 5 tasks. Harsh critic (29.0) and critique-and-revise (28.4) both outperformed it at one-fifth the cost. The A/B/AB structure spreads 5 calls across shallow roles; a single deep call to ``find every flaw and rewrite'' produces a better result when there is no iteration to compound the advantage of role separation.
+
+\textbf{The value of autoreason is in the loop.} The iterative convergence loop (avg Borda 27.8, rank 1.4 across 5 tasks) substantially outperforms all single-pass methods including autoreason's own single pass. The judge's protection against bad revisions only compounds over multiple passes---on a single pass, the overhead of splitting roles is not justified.
+
 \section{Writing This Paper}
 
 We ran autoreason on this paper (Claude Opus 4, 3 Opus judges, ground-truth context for all roles). Converged in 9 passes.
@@ -183,6 +220,8 @@ Autoreason demonstrates that systematic isolation and blind evaluation can const
 \bibitem{slopcodebench} G. Orlanski et al. SlopCodeBench: Benchmarking how coding agents degrade over iterative tasks. \textit{arXiv:2603.24755}, 2026.
 \bibitem{ace} J. Zhang et al. ACE: Agentic context engineering. \textit{ICLR}, 2026.
 \bibitem{llmcouncil} A. Karpathy. LLM Council, 2025.
+
+\bibitem{psro} M. Lanctot et al. A unified game-theoretic approach to multiagent reinforcement learning. \textit{NeurIPS}, 2017.
 \end{thebibliography}
 
 \onecolumn
