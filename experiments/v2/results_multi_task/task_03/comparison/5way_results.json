@@ -1,0 +1,17 @@
+{
+  "borda": {
+    "autoreason": 29,
+    "conservative": 15,
+    "improve_this": 8,
+    "harsh_critic": 27,
+    "critique_and_revise": 26
+  },
+  "first_place": {
+    "autoreason": 3,
+    "conservative": 0,
+    "improve_this": 0,
+    "harsh_critic": 2,
+    "critique_and_revise": 2
+  },
+  "num_judges": 7
+}

@@ -1,0 +1,49 @@
+{
+  "pass": 2,
+  "winner": "B",
+  "scores": {
+    "A": 5,
+    "B": 7,
+    "AB": 6
+  },
+  "valid_judges": 3,
+  "elapsed": 247.3,
+  "judge_details": [
+    {
+      "ranking": [
+        "A",
+        "B",
+        "AB"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      }
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      }
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      }
+    }
+  ]
+}

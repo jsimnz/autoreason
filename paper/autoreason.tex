@@ -4,7 +4,6 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{caption}
-\usepackage{subcaption}
 \usepackage{float}
 \usepackage{xcolor}
 \usepackage{titlesec}
@@ -35,170 +34,148 @@
 
 \section*{Abstract}
 
-We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. Building on the autoresearch paradigm, autoreason addresses fundamental limitations of LLMs when iterating on subjective work: sycophancy, overcriticism, overcompromise, authorship bias, scope drift, and context collapse. Our approach uses fresh isolated agents per iteration, blind evaluation panels with ranked choice voting and Borda count aggregation, and conservative tiebreaking. In experiments on go-to-market strategy generation, autoreason achieved unanimous first-place preference (7/7 judges, 35/35 Borda) in a 5-way comparison against four baseline methods. We additionally ran autoreason on the writing of this paper itself, converging in 9 passes with ground-truth fact-checking.
+We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. The method constructs a subjective fitness function through independent blind evaluation, extending the autoresearch paradigm. Autoreason uses fresh isolated agents per role, blind judge panels with Borda count aggregation, and conservative tiebreaking. Across 5 task types, autoreason ranked first or second in every 7-judge blind comparison, winning 3 of 5 tasks outright. Monte Carlo analysis (5 independent runs) shows 80\% convergence rate with consistent output quality despite variable convergence speed. We additionally ran autoreason on the writing of this paper, discovering that ground-truth context for the critic eliminates hallucination. We find that the method's advantage is task-dependent: autoreason excels on tasks with genuine tradeoffs and stakeholder tensions, while direct critique-and-revise can outperform on tasks with more objectively verifiable requirements.
 
 \section{Introduction}
 
-Large language models exhibit systematic failures when iterating on subjective work. Given a document and instructions to improve it, LLMs demonstrate sycophancy (strengthening existing arguments regardless of merit), overcriticism (finding flaws where none exist), overcompromise (attempting to satisfy contradictory feedback), authorship bias (preferring their own outputs), scope drift (expanding beyond original intent), and context collapse (losing track of quality through extended interaction).
+LLMs exhibit systematic failures when iterating on subjective work: sycophancy, overcriticism, overcompromise, authorship bias, scope drift, and context collapse. These failures persist across prompting strategies---even in code generation, iterative refinement leads to progressive degradation~\cite{slopcodebench}.
 
-These failures persist despite sophisticated prompting strategies. Recent work demonstrates that even in objective domains like code generation, iterative refinement with critique leads to degradation rather than improvement~\cite{slopcodebench}. The problem is more acute in subjective domains where no ground truth exists to anchor evaluation.
+We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} to subjective domains. Each iteration produces three competing versions---the incumbent (A), an adversarial revision (B), and a synthesis (AB)---evaluated by a blind judge panel. The method constructs a fitness function through the evaluation process itself.
 
-We present autoreason, extending Karpathy's autoresearch paradigm~\cite{autoresearch} to domains requiring subjective judgment rather than objective metrics. By treating each iteration as a fresh competition between three framings---conservative (A), adversarial (B), and synthetic (AB)---with blind evaluation, autoreason constructs a subjective fitness function through the evaluation process itself.
+We distinguish two modes. \textbf{v1 (quick pass)}: a single cycle through critic $\to$ B $\to$ AB $\to$ judge. Five LLM calls. \textbf{v2 (convergence loop)}: repeats with a full judge panel until the incumbent survives consecutive challenges. All experiments use v2.
 
 \section{Method}
 
-Autoreason implements a three-way competition each iteration:
+\textbf{Critic}: A fresh agent identifies problems in the current incumbent A. Finds problems only---no fixes. Optionally receives ground-truth data for fact-checking.
 
-\textbf{Critic Phase}: A fresh LLM agent receives the current best document (A) and task description, then identifies problems. Each critic is a new API call with no conversation history. The critic finds problems only---it does not suggest fixes.
+\textbf{Author B}: A fresh agent revises A based on the critique. Sees the task, A, and the critique. No drafting history.
 
-\textbf{Response Phase}: Two separate fresh agents produce alternatives:
-\begin{itemize}
-\item \textbf{B (Adversarial revision)}: Receives the task, incumbent A, and the critique. Revises A to address valid criticisms.
-\item \textbf{AB (Synthesis)}: Receives the task and both A and B with randomized labels. Keeps the strongest elements of each.
-\end{itemize}
+\textbf{Synthesizer}: A fresh agent receives A and B with randomized labels. Produces AB by taking the strongest elements of each.
 
-\textbf{Judge Phase}: A panel of 3 fresh judge agents performs blind evaluation. Each judge receives all three documents (A, B, AB) in randomized order with randomized labels. Judges rank best to worst. Rankings aggregated via Borda count (3 for first, 2 for second, 1 for third). Conservative tiebreak: incumbent A wins ties.
+\textbf{Judge Panel}: 3 fresh agents rank A, B, AB via Borda count (3/2/1 points). Randomized labels and order. Conservative tiebreak: incumbent wins ties. Convergence at 2 consecutive A wins.
 
-Every role is a fresh, isolated agent with no shared context. The original task prompt serves as the anchor throughout---judges evaluate ``which version best accomplishes the task as described.'' The system converges when A wins 2 consecutive passes.
-
-We distinguish two modes. \textbf{v1 (quick pass)}: a single cycle through critic $\to$ B $\to$ AB $\to$ judge. Five LLM calls, suitable for lower-stakes or cost-sensitive use. Can use a single judge instead of a panel. \textbf{v2 (convergence loop)}: repeats the cycle with a full judge panel until the incumbent survives consecutive challenges. All experiments in this paper use v2. v1 is one iteration of v2.
+Every role is a fresh, isolated agent. The original task prompt anchors all evaluation.
 
 \section{Experiments}
 
-We evaluated autoreason on go-to-market strategy generation for an open-source Kubernetes CLI tool (5k GitHub stars, no revenue, 3-person team). All experiments used claude-sonnet-4-20250514 (temp=0.8 authors, 0.3 judges).
+Five tasks: (1) go-to-market strategy, (2) notification system design, (3) remote work policy, (4) competitive positioning document, (5) incident response process. All experiments used claude-sonnet-4-20250514 (temp=0.8 authors, 0.3 judges). Each task ran autoreason to convergence plus four baselines (conservative, improve\_this, harsh\_critic, critique\_and\_revise) at 15 passes each from the same initial output, evaluated by a 7-judge blind panel.
 
-\subsection{Main Experiment}
+\section{Results}
 
-We ran 26 passes ($\sim$160 LLM calls, $\sim$65 min). Figure~\ref{fig:trajectory} shows the full trajectory. The system achieved 2 consecutive incumbent wins at passes 14--15 and 24--25. Winner distribution: A 31\%, B 19\%, AB 50\%.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\columnwidth]{fig_trajectory.png}
-\caption{\textbf{Autoreason v2 trajectory (26 passes).} Top: Borda scores per pass. Middle: word count showing bloat/prune oscillation. Bottom: winner per pass. Dashed lines mark convergence points.}
-\label{fig:trajectory}
-\end{figure}
-
-\subsection{5-Way Baseline Comparison}
-
-All methods started from the same initial output (847 words), 15 passes, same model. A 7-judge blind panel ranked all five (Table~\ref{tab:baselines}, Figure~\ref{fig:baselines}).
+\subsection{Multi-Task Comparison}
 
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{@{}lccr@{}}
+\begin{tabular}{@{}lccccc@{}}
 \toprule
-\textbf{Method} & \textbf{Borda} & \textbf{1st} & \textbf{Words} \\
+\textbf{Method} & \textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{T5} \\
 \midrule
-\textbf{Autoreason} & \textbf{35/35} & \textbf{7/7} & 1,800 \\
-Conservative & 21 & 0 & 862 \\
-Improve\_this & 18 & 0 & 2,116 \\
-Harsh\_critic & 18 & 0 & 1,961 \\
-Critique \& revise & 13 & 0 & 2,507 \\
+\textbf{Autoreason} & \textbf{35} & 19 & \textbf{29} & 25 & \textbf{31} \\
+Critique \& rev. & 13 & \textbf{22} & 26 & \textbf{32} & 19 \\
+Harsh critic & 18 & 19 & 27 & 20 & 26 \\
+Conservative & 21 & 19 & 15 & 18 & 15 \\
+Improve this & 18 & 11 & 8 & 10 & 14 \\
 \bottomrule
 \end{tabular}
-\caption{7-judge blind panel. Autoreason: perfect score, unanimous first place. Conservative outranks all iterative baselines.}
-\label{tab:baselines}
+\caption{Borda scores (max 35) across 5 tasks. Bold = winner. Autoreason won tasks 1, 3, 5. Critique-and-revise won tasks 2, 4.}
+\label{tab:multi}
 \end{table}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_baseline.png}
-\caption{\textbf{Baseline comparison: Borda scores and word counts.} Autoreason: perfect score, 7/7 first place. Conservative (barely changed) outranks all iterative baselines. Dashed line marks initial word count (847).}
-\label{fig:baselines}
+\includegraphics[width=\columnwidth]{fig_multi_task.png}
+\caption{\textbf{5-way blind panel across all tasks.} Autoreason wins 3/5, never below 2nd place. Critique-and-revise wins 2/5. Improve\_this is consistently worst.}
+\label{fig:multi}
 \end{figure}
+
+Autoreason won 3 of 5 tasks (1, 3, 5) and placed second on the other two. Critique-and-revise won tasks 2 and 4. The pattern: autoreason excels on tasks with genuine tradeoffs (strategy, policy, cross-timezone incident response) where the A/B/AB structure surfaces different valid perspectives. Critique-and-revise wins on tasks with more concrete technical requirements (system design, competitive positioning) where a direct find-and-fix loop is more efficient.
+
+Improve\_this ranked last or near-last on every task. Conservative performed inconsistently---second on task 1, but 4th--5th elsewhere.
+
+\subsection{Convergence Behavior}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_wordcount.png}
-\caption{\textbf{Word count trajectories over 15 passes.} Conservative flatlines, autoreason stabilizes, all iterative baselines bloat. Critique-and-revise bloats most, scores worst.}
-\label{fig:wordcount}
+\includegraphics[width=\columnwidth]{fig_convergence_all.png}
+\caption{\textbf{Convergence speed varies by task.} All 5 tasks converged at threshold 2. Task 5 (incident response) required 28 passes.}
+\label{fig:conv}
 \end{figure}
 
-\subsection{Convergence Threshold}
+All tasks converged at threshold 2 (consecutive A wins), requiring 9--28 passes. Task complexity correlates with convergence time: simple policy tasks converge faster than multi-stakeholder operational processes.
 
-Pass 15 (first convergence) defeated pass 25 (second convergence) 6--1 in a 7-judge blind panel (Figure~\ref{fig:convergence}). Ten additional passes degraded quality.
+\subsection{Trajectory Analysis}
+
+Figure~\ref{fig:tree} shows the full trajectory for Task 1 as a tree, where vertical position represents cumulative drift from the initial version. A wins produce horizontal movement (no drift). B wins drift upward by 1 unit, AB by 0.5. Unchosen alternatives are shown as faded branches.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\columnwidth]{fig_convergence.png}
-\caption{\textbf{First convergence is the quality ceiling.} Pass 15 vs 25: 6--1. Additional passes are noise at best.}
-\label{fig:convergence}
+\includegraphics[width=\columnwidth]{fig_trajectory_tree.png}
+\caption{\textbf{Trajectory tree for Task 1 (26 passes).} The path shows where each pass's winner came from. Flat segments = A surviving. Upward jumps = displacement. Stars mark 2-consecutive A-win points.}
+\label{fig:tree}
 \end{figure}
 
-\subsection{Baseline Visibility}
+The trajectory reveals a key tension. At pass 15, A had won twice consecutively (convergence). But 11 more passes followed with B winning 5 of them. Were those later B wins genuine improvements or noise?
 
-Autoreason vs critique-and-revise: with initial output shown as baseline, 7--0 unanimous. Without baseline, 3--2. Judges need a reference point to detect drift.
+We tested directly: a 7-judge panel comparing pass 15 vs pass 25 output chose pass 15 by 6--1. The later passes were churn, not improvement. This validates the convergence threshold but raises an important question about judge accuracy within the loop.
 
-\subsection{Qualitative Improvement}
+\subsection{Judge Accuracy}
 
-Initial output: \$49/user pricing, \$100K MRR target. After 14 passes: quantified pain (\$15K/incident $\times$ 6/yr), team pricing (\$1,499/mo), validation (50+ interviews, 75\% pilot success), unit economics (CAC \$2K, LTV \$54K).
+The judges are accurate \textit{on average across a panel} but noisy \textit{per individual pass}. At pass 16, the same architecture that correctly identified the pass 15 output as strong nonetheless picked AB over A by one Borda point. This is not a failure of the method---it's inherent stochasticity in LLM evaluation. The convergence threshold filters this noise: requiring consecutive wins means a single noisy pass can't cause premature convergence, while sustained noise (as in passes 17--21) represents genuine ambiguity about which framing is better rather than clear improvement.
 
-\section{Writing This Paper with Autoreason}
+\subsection{Monte Carlo Analysis}
 
-We ran autoreason on the writing of this paper, providing a second experimental domain. Claude Opus 4 for all roles. 3 Opus judges. All agents received the full experimental data as ground-truth context.
-
-\subsection{Ground-Truth Critic}
-
-Without ground-truth access, the initial Opus generation hallucinated an ablation study, fabricated confidence intervals, reported wrong model names, and described the A/B/AB roles incorrectly (Figure~\ref{fig:hallucination}). With ground-truth access, the critic caught all of these on pass 1.
+Five independent runs of Task 1 tested convergence reliability (Figure~\ref{fig:mc}).
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\columnwidth]{fig_hallucination.png}
-\caption{\textbf{Ground-truth context eliminates hallucination.} The critic with access to actual experimental data caught 4 fabricated claims on the first pass.}
-\label{fig:hallucination}
+\includegraphics[width=\columnwidth]{fig_monte_carlo.png}
+\caption{\textbf{Monte Carlo: 5 runs, same task.} 4/5 converged (80\%). Convergence speed varies widely (6--17 passes). Final word counts cluster around 1450--1660.}
+\label{fig:mc}
 \end{figure}
 
-\subsection{Convergence}
+4 of 5 runs converged (80\%). Convergence pass varied: 6, 8, 14, 17. One run hit the 30-pass cap without converging. Despite this variance in path length, final word counts clustered tightly (1451--1660), suggesting the loop reaches a similar quality ceiling regardless of the path taken. The convergence threshold is a practical stopping rule, not a guarantee of optimality.
 
-The paper converged in 9 passes (54 Opus calls, $\sim$40 min). Figure~\ref{fig:paper_run} shows the trajectory.
+\subsection{Constrained Tasks}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\columnwidth]{fig_paper_run.png}
-\caption{\textbf{Paper autoreason trajectory (9 passes).} Five consecutive AB wins (passes 3--7) drove improvement. A then won passes 8--9 decisively (scores 9 and 8), converging.}
-\label{fig:paper_run}
-\end{figure}
+We ran Task 1 with a constrained prompt (1000-word limit, 6 required sections with specific deliverables). The constraint eliminated word count oscillation entirely (all outputs 600--800 words vs 847--2500 unconstrained). However, it made convergence harder---B won 18 of 25 passes (72\%) because specific constraints give the critic a verifiable checklist. The loop never converged in 25 passes.
 
-\subsection{Judge Panel Integrity}
+This reveals that scope constraints and convergence are orthogonal problems. Constraints stabilize output length but enable more targeted critique.
 
-An earlier run with a mixed panel (Opus + Sonnet + Gemini) failed to converge after 11 passes. Gemini's ranking format failed our parser, reducing the effective panel to 2 judges (Figure~\ref{fig:judge_integrity}). With 2 judges, Borda scores compressed and convergence became impossible. Once fixed to 3 Opus judges, the same incumbent converged in 2 passes.
+\section{Writing This Paper}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\columnwidth]{fig_judge_integrity.png}
-\caption{\textbf{A broken judge prevents convergence.} Same incumbent: $>$11 passes with 2 working judges vs 2 passes with 3.}
-\label{fig:judge_integrity}
-\end{figure}
+We ran autoreason on this paper (Claude Opus 4, 3 Opus judges, ground-truth context for all roles). Converged in 9 passes.
+
+\textbf{Ground-truth critic.} Without ground-truth access, the initial generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions. With ground-truth access (actual experiment data), the critic caught all four on pass 1. This suggests a general pattern: the author writes from understanding, the critic verifies against evidence---mirroring peer review.
+
+\textbf{Judge panel integrity.} An earlier run with a broken Gemini parser reduced the effective panel to 2 judges, preventing convergence for 11 passes. Once fixed to 3 working judges, the same incumbent converged in 2 passes. Panel integrity is a prerequisite for convergence.
 
 \section{Related Work}
 
-\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function. Autoreason extends this to subjective domains. \textbf{SlopCodeBench}~\cite{slopcodebench} shows agents produce progressively worse code each iteration---prompting doesn't fix it. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation.
+\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function. Autoreason extends this to subjective domains. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation.
 
 \section{Discussion}
 
-\textbf{Bloat/prune oscillation} signals underdetermined tasks. AB adds complexity, B prunes it. Word counts: 847 $\to$ 1800 $\to$ 1644 $\to$ 1758 over 26 passes.
+\textbf{Task-dependent advantage.} Autoreason is not universally superior. It excels where genuine tradeoffs exist between competing valid perspectives---strategy, policy, process design. For tasks with concrete, verifiable requirements, simpler methods can suffice. The recommendation: use autoreason when you don't know which framing will produce the best result; use critique-and-revise when the improvement direction is clear.
 
-\textbf{Conservative beats naive iteration.} Doing almost nothing outperformed 15 passes of ``improve this,'' ``harsh critic,'' and ``critique and revise.'' Structural protection is necessary for iterative refinement.
+\textbf{Convergence as practical stopping rule.} The threshold does not guarantee optimality. It filters noise---a single stochastic judge panel can't cause premature stopping, and post-convergence passes on Task 1 produced no improvement (pass 15 beat pass 25, 6--1). But the Monte Carlo results show 20\% non-convergence at 30 passes, meaning some runs need a cap.
 
-\textbf{Ground-truth context} eliminates hallucination. The author writes from understanding; the critic verifies against evidence---mirroring peer review.
+\textbf{Bloat/prune oscillation} signals underdetermined scope. Constraining scope eliminates this but makes convergence harder by giving the critic concrete criteria to enforce.
 
-\textbf{Beyond subjective domains.} Code can pass tests while degrading~\cite{slopcodebench}. Autoreason could complement objective metrics with quality evaluation.
+\textbf{Ground-truth context} eliminates hallucination when reference material exists. The pattern generalizes beyond paper writing to any domain with source documents.
 
-\textbf{Limitations.} Single task domain for main experiment. No statistical significance testing. No ablations. All results from Anthropic models.
+\textbf{Limitations.} All results from one model family (Anthropic). No human evaluation. No ablation studies isolating individual components. Judge accuracy within the loop is noisy per-pass.
 
 \section{Conclusion}
 
-Autoreason demonstrates that systematic isolation and blind evaluation can construct effective fitness functions for subjective domains. The method achieved unanimous preference over four baselines and wrote a version of this paper through 9 passes of self-refinement. The primary obstacle to LLM self-improvement in subjective domains is not capability but evaluation methodology.
+Autoreason demonstrates that systematic isolation and blind evaluation can construct useful fitness functions for subjective domains. Across 5 tasks, it ranked first or second in every comparison. The method's advantage is clearest on tasks with genuine ambiguity---where the A/B/AB structure surfaces perspectives that a single revision loop cannot explore. The primary insight: the obstacle to LLM self-improvement in subjective domains is not capability but evaluation methodology.
 
 \begin{thebibliography}{9}
 \small
-\bibitem{autoresearch} A. Karpathy. Autoresearch, 2024. \url{https://github.com/karpathy/autoresearch}
-
+\bibitem{autoresearch} A. Karpathy. Autoresearch, 2024.
 \bibitem{slopcodebench} G. Orlanski et al. SlopCodeBench: Benchmarking how coding agents degrade over iterative tasks. \textit{arXiv:2603.24755}, 2026.
-
-\bibitem{ace} J. Zhang et al. ACE: Agentic context engineering for iterative rewriting. \textit{ICLR}, 2026.
-
-\bibitem{llmcouncil} A. Karpathy. LLM Council, 2025. \url{https://github.com/karpathy/llm-council}
+\bibitem{ace} J. Zhang et al. ACE: Agentic context engineering. \textit{ICLR}, 2026.
+\bibitem{llmcouncil} A. Karpathy. LLM Council, 2025.
 \end{thebibliography}
 
 \end{document}

@@ -7,42 +7,34 @@
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Method}{1}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}Experiments}{1}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Main Experiment}{1}{subsection.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Autoreason v2 trajectory (26 passes).} Top: Borda scores per pass. Middle: word count showing bloat/prune oscillation. Bottom: winner per pass. Dashed lines mark convergence points.}}{1}{figure.caption.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Results}{1}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Multi-Task Comparison}{1}{subsection.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Borda scores (max 35) across 5 tasks. Bold = winner. Autoreason won tasks 1, 3, 5. Critique-and-revise won tasks 2, 4.}}{1}{table.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:trajectory}{{1}{1}{\textbf {Autoreason v2 trajectory (26 passes).} Top: Borda scores per pass. Middle: word count showing bloat/prune oscillation. Bottom: winner per pass. Dashed lines mark convergence points}{figure.caption.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}5-Way Baseline Comparison}{2}{subsection.3.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces 7-judge blind panel. Autoreason: perfect score, unanimous first place. Conservative outranks all iterative baselines.}}{2}{table.caption.2}\protected@file@percent }
-\newlabel{tab:baselines}{{1}{2}{7-judge blind panel. Autoreason: perfect score, unanimous first place. Conservative outranks all iterative baselines}{table.caption.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Baseline comparison: Borda scores and word counts.} Autoreason: perfect score, 7/7 first place. Conservative (barely changed) outranks all iterative baselines. Dashed line marks initial word count (847).}}{2}{figure.caption.3}\protected@file@percent }
-\newlabel{fig:baselines}{{2}{2}{\textbf {Baseline comparison: Borda scores and word counts.} Autoreason: perfect score, 7/7 first place. Conservative (barely changed) outranks all iterative baselines. Dashed line marks initial word count (847)}{figure.caption.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Word count trajectories over 15 passes.} Conservative flatlines, autoreason stabilizes, all iterative baselines bloat. Critique-and-revise bloats most, scores worst.}}{2}{figure.caption.4}\protected@file@percent }
-\newlabel{fig:wordcount}{{3}{2}{\textbf {Word count trajectories over 15 passes.} Conservative flatlines, autoreason stabilizes, all iterative baselines bloat. Critique-and-revise bloats most, scores worst}{figure.caption.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Convergence Threshold}{2}{subsection.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {First convergence is the quality ceiling.} Pass 15 vs 25: 6--1. Additional passes are noise at best.}}{2}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:convergence}{{4}{2}{\textbf {First convergence is the quality ceiling.} Pass 15 vs 25: 6--1. Additional passes are noise at best}{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Baseline Visibility}{2}{subsection.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Qualitative Improvement}{2}{subsection.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Writing This Paper with Autoreason}{2}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Ground-Truth Critic}{2}{subsection.4.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Ground-truth context eliminates hallucination.} The critic with access to actual experimental data caught 4 fabricated claims on the first pass.}}{2}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:hallucination}{{5}{2}{\textbf {Ground-truth context eliminates hallucination.} The critic with access to actual experimental data caught 4 fabricated claims on the first pass}{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Convergence}{2}{subsection.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Paper autoreason trajectory (9 passes).} Five consecutive AB wins (passes 3--7) drove improvement. A then won passes 8--9 decisively (scores 9 and 8), converging.}}{2}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:paper_run}{{6}{2}{\textbf {Paper autoreason trajectory (9 passes).} Five consecutive AB wins (passes 3--7) drove improvement. A then won passes 8--9 decisively (scores 9 and 8), converging}{figure.caption.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Judge Panel Integrity}{2}{subsection.4.3}\protected@file@percent }
+\newlabel{tab:multi}{{1}{1}{Borda scores (max 35) across 5 tasks. Bold = winner. Autoreason won tasks 1, 3, 5. Critique-and-revise won tasks 2, 4}{table.caption.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {5-way blind panel across all tasks.} Autoreason wins 3/5, never below 2nd place. Critique-and-revise wins 2/5. Improve\_this is consistently worst.}}{1}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:multi}{{1}{1}{\textbf {5-way blind panel across all tasks.} Autoreason wins 3/5, never below 2nd place. Critique-and-revise wins 2/5. Improve\_this is consistently worst}{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Convergence Behavior}{2}{subsection.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Convergence speed varies by task.} All 5 tasks converged at threshold 2. Task 5 (incident response) required 28 passes.}}{2}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:conv}{{2}{2}{\textbf {Convergence speed varies by task.} All 5 tasks converged at threshold 2. Task 5 (incident response) required 28 passes}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Trajectory Analysis}{2}{subsection.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Trajectory tree for Task 1 (26 passes).} The path shows where each pass's winner came from. Flat segments = A surviving. Upward jumps = displacement. Stars mark 2-consecutive A-win points.}}{2}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:tree}{{3}{2}{\textbf {Trajectory tree for Task 1 (26 passes).} The path shows where each pass's winner came from. Flat segments = A surviving. Upward jumps = displacement. Stars mark 2-consecutive A-win points}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Judge Accuracy}{2}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Monte Carlo Analysis}{2}{subsection.4.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Monte Carlo: 5 runs, same task.} 4/5 converged (80\%). Convergence speed varies widely (6--17 passes). Final word counts cluster around 1450--1660.}}{2}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:mc}{{4}{2}{\textbf {Monte Carlo: 5 runs, same task.} 4/5 converged (80\%). Convergence speed varies widely (6--17 passes). Final word counts cluster around 1450--1660}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Constrained Tasks}{2}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Writing This Paper}{2}{section.5}\protected@file@percent }
 \citation{autoresearch}
 \citation{slopcodebench}
 \citation{ace}
 \citation{llmcouncil}
-\citation{slopcodebench}
 \bibcite{autoresearch}{1}
 \bibcite{slopcodebench}{2}
 \bibcite{ace}{3}
 \bibcite{llmcouncil}{4}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textbf  {A broken judge prevents convergence.} Same incumbent: $>$11 passes with 2 working judges vs 2 passes with 3.}}{3}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:judge_integrity}{{7}{3}{\textbf {A broken judge prevents convergence.} Same incumbent: $>$11 passes with 2 working judges vs 2 passes with 3}{figure.caption.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Related Work}{3}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{3}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{3}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Related Work}{3}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{3}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{3}{section.8}\protected@file@percent }
 \gdef \@abspage@last{3}
