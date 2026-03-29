@@ -1,0 +1,16 @@
+{
+  "borda": {
+    "autoreason_v1": 24,
+    "improve_this": 18,
+    "critique_and_revise": 31,
+    "conservative": 9,
+    "harsh_critic": 23
+  },
+  "first_place": {
+    "autoreason_v1": 1,
+    "improve_this": 1,
+    "critique_and_revise": 5,
+    "conservative": 0,
+    "harsh_critic": 0
+  }
+}
