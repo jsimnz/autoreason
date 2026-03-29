@@ -93,6 +93,13 @@ Autoreason won 3 of 5 tasks (1, 3, 5) and placed second on the other two. Critiq
 
 Improve\_this ranked last or near-last on every task. Conservative performed inconsistently---second on task 1, but 4th--5th elsewhere.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{fig_summary.png}
+\caption{\textbf{Aggregate performance.} Autoreason averages 27.8 Borda (rank 1.4) across 5 tasks, never dropping below 2nd. Critique-and-revise averages 22.4 (rank 2.0). Improve\_this averages 12.2 (rank 4.4).}
+\label{fig:summary}
+\end{figure}
+
 \subsection{Convergence Behavior}
 
 \begin{figure}[H]
@@ -177,5 +184,18 @@ Autoreason demonstrates that systematic isolation and blind evaluation can const
 \bibitem{ace} J. Zhang et al. ACE: Agentic context engineering. \textit{ICLR}, 2026.
 \bibitem{llmcouncil} A. Karpathy. LLM Council, 2025.
 \end{thebibliography}
+
+\onecolumn
+\appendix
+\section{Trajectory Trees}
+
+Figure~\ref{fig:appendix} shows trajectory trees for all experiments: 5 task types and 5 Monte Carlo runs. Vertical position represents cumulative drift from the initial version (B wins shift up 1 unit, AB shifts up 0.5, A stays flat). Unchosen alternatives shown as faded branches.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{fig_appendix_trajectories.png}
+\caption{\textbf{All trajectories.} Tasks 2--3 converge quickly (10--12 passes). Task 5 requires 28 passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task, with 1 of 5 failing to converge at the 30-pass cap.}
+\label{fig:appendix}
+\end{figure}
 
 \end{document}
