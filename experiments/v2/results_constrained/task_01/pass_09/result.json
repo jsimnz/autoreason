@@ -1,0 +1,52 @@
+{
+  "pass": 9,
+  "winner": "B",
+  "scores": {
+    "A": 7,
+    "B": 8,
+    "AB": 3
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "Let me evaluate each proposal against the constraints:\n\n## Word Count Analysis:\n- **Proposal 1**: 987 words ✓\n- **Proposal 2**: ~950 words ✓  \n- **Proposal 3**: ~850 words ✓\n\n## Section Coverage Analysis:\n\n**Proposal 1**: ✓ All 6 sections with required deliverables\n**Proposal 2**: ✓ All 6 sections with required deliverables  \n**Proposal 3**: ✓ All 6 sections with required deliverables\n\n## Number Justification Analysis:\n\n**Proposal 1**: \n- Budget range sourced to \"typical 2-4% of engineering spend\"\n- Salary data attributed to \"Glassdoor 2024 median\"\n- ROI calculation clearly explained\n- Risk metric has baseline (15-20 issues monthly)\n✓ Well justified\n\n**Proposal 2**:\n- CNCF Survey 2023 statistic cited\n- Bessemer 2024 threshold referenced\n- Stack Overflow 2024 salary data\n- OpenView 2024 conversion rates\n✓ Well justified\n\n**Proposal 3**:\n- Mix of justified (Glassdoor 2024, OpenView 2024) and unjustified numbers\n- Some calculations lack clear sourcing\n⚠ Partially justified\n\n## Specificity Analysis:\n\n**Proposal 1**:\n- Kubernetes 1.28+ API deprecations (specific)\n- kubectl plugin ecosystem focus (specific)\n- SIG-CLI participation strategy (specific)\n✓ Highly specific\n\n**Proposal 2**:\n- Semantic vs syntax validation distinction (specific)\n- In-app telemetry conversion strategy (specific)\n- kubectl roadmap monitoring (specific)\n✓ Highly specific\n\n**Proposal 3**:\n- Combines elements from both above proposals\n- Less depth in some areas (distribution tactics)\n- Some generic elements mixed with specific ones\n⚠ Moderately specific\n\n## Key Differentiators:\n\n**Proposal 1** has the most sophisticated risk mitigation strategy with specific SIG-CLI engagement and measurable GitHub issue tracking.\n\n**Proposal 2** has the strongest conversion strategy with detailed telemetry-driven upgrade prompts and trial mechanics.\n\n**Proposal 3** appears to be a hybrid that combines elements from the other two but with less depth and some inconsistencies in number justification.\n\n**RANKING: 1, 2, 3**\n\nProposal 1 edges out Proposal 2 due to more sophisticated risk analysis and cleaner execution throughout. Proposal 2 is very strong but slightly less polished. Proposal 3, while competent, appears derivative and has weaker number justification."
+    },
+    {
+      "ranking": [
+        "A",
+        "B",
+        "AB"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "Let me evaluate each proposal against the constraints:\n\n## Word Count Analysis:\n- **Proposal 1**: ~950 words ✓\n- **Proposal 2**: 987 words ✓  \n- **Proposal 3**: ~920 words ✓\n\n## Section Coverage Analysis:\n\nAll three proposals cover the 6 required sections with specified deliverables.\n\n## Number Justification Analysis:\n\n**Proposal 1**: \n- CNCF Survey 2023 (67% stat) ✓\n- Bessemer 2024 threshold ✓\n- Stack Overflow 2024 salary data ✓\n- OpenView 2024 conversion rates ✓\n- All calculations clearly sourced\n\n**Proposal 2**:\n- Glassdoor 2024 median salary ✓\n- General budget ranges with reasoning ✓\n- GitHub issue baseline provided ✓\n- Some calculations simplified but justified\n\n**Proposal 3**:\n- CNCF Survey 2023 ✓\n- Glassdoor 2024 salary ✓\n- OpenView 2024 conversion rates ✓\n- Mix of specific and general justifications\n\n## Specificity Analysis:\n\n**Proposal 1**:\n- Distinguishes semantic vs syntax validation ✓\n- Kubernetes 1.28+ deprecations ✓\n- kubectl plugin strategy ✓\n- KEP monitoring ✓\n- Highly specific throughout\n\n**Proposal 2**:\n- kubectl ecosystem focus ✓\n- Krew plugin index strategy ✓\n- SIG-CLI participation ✓\n- CLI-native rationale ✓\n- Good specificity\n\n**Proposal 3**:\n- Combines elements from both above\n- kubectl ecosystem + telemetry approach ✓\n- Specific Kubernetes pain points ✓\n- Mixed specificity levels\n\n## Key Differentiators:\n\n**Proposal 1** has the most comprehensive sourcing and clearest ROI calculation ($270 saved vs $149 cost). The risk mitigation is most actionable (KEP monitoring).\n\n**Proposal 2** has strong kubectl ecosystem focus but less detailed ROI justification and some generic elements.\n\n**Proposal 3** appears to blend elements from the other two but lacks the depth of justification found in Proposal 1.\n\n**RANKING: 1, 2, 3**\n\nProposal 1 best accomplishes the task with superior number justification, most specific advice, and clearest strategic thinking while staying within all constraints."
+    },
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "Looking at each proposal against the constraints:\n\n## Word Count Analysis:\n- **Proposal 1**: 987 words ✓\n- **Proposal 2**: ~1,050 words ✗ (exceeds limit)\n- **Proposal 3**: ~950 words ✓\n\n## Section Coverage:\nAll three proposals cover the 6 required sections with specified deliverables.\n\n## Number Justification:\n- **Proposal 1**: Uses general ranges with clear attribution (Glassdoor 2024, typical percentages). Conservative approach.\n- **Proposal 2**: Claims specific statistics (\"90 minutes per deployment cycle\", \"CNCF Survey 2023, 67%\") without proper sourcing.\n- **Proposal 3**: Similar unsourced claims as Proposal 2, plus references questionable sources like \"Bessemer 2024 State of Cloud threshold.\"\n\n## Specificity (Non-Generic Advice):\n- **Proposal 1**: Excellent specificity - kubectl plugin ecosystem, Krew index, specific Kubernetes API deprecations, SIG-CLI participation\n- **Proposal 2**: Good specificity but some generic elements remain\n- **Proposal 3**: Least specific - more generic developer tool conversion tactics\n\n## Key Differentiators:\n\n**Proposal 1 Strengths:**\n- Stays within word limit\n- Most conservative with number claims\n- Highly specific to kubectl/Kubernetes ecosystem\n- Clear focus on plugin architecture strategy\n\n**Proposal 2 Weaknesses:**\n- Exceeds word count (critical constraint violation)\n- Makes unsourced statistical claims\n- Some generic advice mixed in\n\n**Proposal 3 Weaknesses:**\n- References questionable data sources\n- Less specific distribution strategy\n- Generic conversion tactics\n\n**RANKING: 1, 3, 2**\n\nProposal 1 is best because it meets all hard constraints (word count, justified numbers) while providing the most specific, actionable advice. Proposal 3 ranks second despite weaker specificity because it stays within word limits. Proposal 2 ranks worst due to the critical word count violation, which disqualifies it regardless of content quality."
+    }
+  ],
+  "elapsed": 84.1
+}

@@ -1,0 +1,52 @@
+{
+  "pass": 6,
+  "winner": "B",
+  "scores": {
+    "A": 5,
+    "B": 9,
+    "AB": 4
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "Looking at each proposal against the constraints:\n\n## Word Count Analysis:\n- **Proposal 1**: ~950 words ✓\n- **Proposal 2**: ~650 words ✓  \n- **Proposal 3**: ~750 words ✓\n\n## Section Coverage:\nAll three proposals cover the 6 required sections with specified deliverables.\n\n## Number Justification:\n- **Proposal 1**: Excellent - cites CNCF Survey 2023, Bessemer 2024, Stack Overflow 2024, interviews with 12 users\n- **Proposal 2**: Good - cites State of DevOps Report 2023, Robert Half 2024, Calendly benchmarks, ChartMogul data\n- **Proposal 3**: Good - similar sourcing to Proposal 2 but with some data from Proposal 1\n\n## Specificity to Kubernetes CLI Tool:\n- **Proposal 1**: Highly specific - mentions kubectl dry-run, YAML validation, Kubernetes security incidents, GitOps tools by name, kubectl vs GitOps workflows\n- **Proposal 2**: Moderately specific - mentions kubectl, kustomize, helm, but some generic developer tool advice\n- **Proposal 3**: Moderately specific - combines elements from both but less cohesive\n\n## Key Differentiators:\n\n**Proposal 1 Strengths:**\n- Most Kubernetes-specific advice throughout\n- Best justified ROI based on actual user interviews\n- Most compelling \"why now\" with security incidents\n- Sophisticated risk mitigation with pivot strategy\n- Pricing at $199 better matches stated budget threshold\n\n**Proposal 2 Strengths:**\n- Clean, concise execution\n- Good GitHub Issues distribution strategy\n- Solid benchmarking sources\n\n**Proposal 3 Weaknesses:**\n- Appears to be a hybrid of the other two proposals\n- Less cohesive strategy\n- Pricing inconsistency ($149 vs $200 budget threshold mentioned)\n\n**RANKING: 1, 2, 3**\n\nProposal 1 best accomplishes the task with the most specific, well-justified strategy tailored to a Kubernetes CLI tool. Proposal 2 is solid but more generic. Proposal 3 feels like an incomplete merge of the other two."
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "Looking at each proposal against the constraints:\n\n## Word Count Analysis:\n- **Proposal 1**: ~950 words ✓\n- **Proposal 2**: ~650 words ✓  \n- **Proposal 3**: ~650 words ✓\n\n## Section Coverage:\nAll three proposals cover the 6 required sections with specified deliverables.\n\n## Number Justification:\n- **Proposal 1**: Excellent - cites CNCF Survey 2023, Bessemer 2024, Stack Overflow 2024, specific user interviews\n- **Proposal 2**: Good - cites same sources plus Robert Half 2024, Calendly benchmarks, ChartMogul data\n- **Proposal 3**: Good - similar sourcing to Proposal 2\n\n## Specificity to Kubernetes CLI Tool:\n\n**Proposal 1**: Highly specific\n- Targets kubectl-based deployments specifically\n- Mentions Kubernetes security incidents (3CX, CircleCI)\n- Won't do GitOps integrations (Flux/ArgoCD) - very tool-specific\n- Risk about GitOps adoption eliminating kubectl workflows\n\n**Proposal 2**: Moderately specific\n- Similar targeting but less detailed on Kubernetes-specific constraints\n- Same GitOps risk but less developed mitigation\n\n**Proposal 3**: Least specific\n- More generic infrastructure team targeting\n- Risk about managed K8s services is relevant but less precise\n- \"Won't do\" items are more generic (freemium, enterprise features, conferences)\n\n## Key Differentiators:\n\n**Proposal 1** stands out for:\n- Most sophisticated risk analysis (GitOps adoption threat)\n- Strongest evidence base (actual user interviews mentioned)\n- Most Kubernetes-specific constraints and reasoning\n- Better developed \"why now\" with security incidents\n\n**Proposal 2** is solid but:\n- Nearly identical to Proposal 1 in many sections\n- Slightly less developed risk mitigation\n\n**Proposal 3** is weakest because:\n- More generic advice that could apply to many dev tools\n- Less compelling \"why now\" reasoning\n- Weaker risk identification (managed services vs. GitOps adoption)\n\n**RANKING: 1, 2, 3**\n\nProposal 1 best accomplishes the task with the most specific, well-justified strategy tailored to this exact product and market situation."
+    },
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "Looking at each proposal against the constraints:\n\n## Word Count Analysis:\n- **Proposal 1**: ~650 words ✓\n- **Proposal 2**: ~750 words ✓  \n- **Proposal 3**: ~850 words ✓\n\n## Section Coverage:\nAll three proposals cover the 6 required sections with specified deliverables.\n\n## Number Justification:\n- **Proposal 1**: Strong - cites Robert Half 2024, Calendly benchmarks, ChartMogul data\n- **Proposal 2**: Strong - same sources as Proposal 1 plus CNCF Survey 2023\n- **Proposal 3**: Strongest - uses actual user interviews (\"12 startups using our open-source tool\") plus external sources\n\n## Specificity to Kubernetes CLI Tool:\n\n**Proposal 1**: \n- Good: GitHub Issues monitoring in kubectl/kustomize/helm repos\n- Good: Multi-environment config promotion focus\n- Weak: Some generic elements (budget thresholds, conversion rates)\n\n**Proposal 2**: \n- Good: Same GitHub strategy as Proposal 1\n- Good: Mentions kubectl-specific workflows\n- Weak: Very similar to Proposal 1, some generic startup advice\n\n**Proposal 3**: \n- Excellent: Job posting analysis for companies hiring DevOps/Platform engineers\n- Excellent: \"Kubernetes configs contain sensitive infrastructure details\" - highly specific constraint\n- Excellent: kubectl vs GitOps tracking strategy\n- Strong: Security incidents creating compliance urgency\n\n## Key Differentiators:\n\n**Proposal 3 stands out** because:\n- Uses actual user research (\"interviews with 12 startups using our open-source tool\")\n- Distribution strategy targets companies actively scaling infrastructure (job postings)\n- Risk mitigation includes specific pivot strategy with measurable triggers\n- \"Won't do\" section addresses Kubernetes-specific constraints (on-premise requirement)\n\n**Proposal 1 vs 2**: Nearly identical strategies and content, with Proposal 2 adding slightly more context but no meaningful differentiation.\n\n**RANKING: 3, 1, 2**\n\nProposal 3 provides the most Kubernetes-specific insights, evidence-based assumptions, and actionable strategy. Proposal 1 is solid but more generic. Proposal 2 is essentially Proposal 1 with minor additions that don't add significant value."
+    }
+  ],
+  "elapsed": 87.8
+}
