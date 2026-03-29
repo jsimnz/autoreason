@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 """
-Run autoreason on the paper itself.
-
-Opus author / mixed judge panel (Opus + Sonnet + Gemini 2.5 Pro via OpenRouter).
-Fresh agents per role, convergence at 2 consecutive A wins.
+Continue autoreason paper run from saved incumbent.
+3 Opus judges, no OpenRouter dependency.
 """
 
-import argparse
 import asyncio
 import json
 import os
@@ -31,14 +28,11 @@ import litellm
 litellm.suppress_debug_info = True
 
 # ---------------------------------------------------------------------------
-# Config
-# ---------------------------------------------------------------------------
-
 AUTHOR_MODEL = "anthropic/claude-opus-4-20250514"
 JUDGE_MODELS = [
     "anthropic/claude-opus-4-20250514",
-    "anthropic/claude-sonnet-4-20250514",
-    "openrouter/google/gemini-2.5-pro",
+    "anthropic/claude-opus-4-20250514",
+    "anthropic/claude-opus-4-20250514",
 ]
 AUTHOR_TEMP = 0.7
 JUDGE_TEMP = 0.3
@@ -47,9 +41,6 @@ MAX_PASSES = 15
 CONVERGENCE_THRESHOLD = 2
 
 # ---------------------------------------------------------------------------
-# System prompts
-# ---------------------------------------------------------------------------
-
 AUTHOR_A_SYSTEM = (
     "You are a senior ML researcher writing a concise, rigorous research paper. "
     "Write clearly and directly for a technical audience. Every sentence must earn its place. "
@@ -84,11 +75,6 @@ JUDGE_SYSTEM = (
 )
 
 # ---------------------------------------------------------------------------
-# Prompts
-# ---------------------------------------------------------------------------
-
-GENERATE_A = "{task_prompt}\n\nWrite the complete paper now."
-
 STRAWMAN_PROMPT = """Here is a research paper draft:
 
 ---
@@ -174,10 +160,6 @@ RANKING: [best], [second], [worst]
 Where each slot is 1, 2, or 3 corresponding to the draft numbers above."""
 
 
-# ---------------------------------------------------------------------------
-# LLM call wrapper
-# ---------------------------------------------------------------------------
-
 async def call_llm(system, user, model, temperature, max_tokens, max_retries=5):
     for attempt in range(max_retries):
         try:
@@ -202,10 +184,6 @@ async def call_llm(system, user, model, temperature, max_tokens, max_retries=5):
     raise RuntimeError(f"Failed after {max_retries} retries")
 
 
-# ---------------------------------------------------------------------------
-# Judge helpers
-# ---------------------------------------------------------------------------
-
 def randomize_for_judge(version_a, version_b, version_ab):
     versions = [("A", version_a), ("B", version_b), ("AB", version_ab)]
     random.shuffle(versions)
@@ -222,7 +200,6 @@ def parse_ranking(text, order_map):
         line = line.strip().strip("*").strip().lstrip("#").strip()
         if line.upper().startswith("RANKING:"):
             raw = line.split(":", 1)[1].strip()
-            # Extract digits, handling [1], [2], [3] and plain 1, 2, 3
             nums = [c for c in raw if c in ("1", "2", "3")]
             if len(nums) >= 2:
                 return [order_map.get(n, n) for n in nums]
@@ -242,14 +219,9 @@ def aggregate_rankings(rankings):
     return ranked[0], scores, valid
 
 
-# ---------------------------------------------------------------------------
-# Single pass
-# ---------------------------------------------------------------------------
-
-async def run_pass(task_prompt, current_a, pass_num, pass_dir):
+async def run_pass(task_prompt, experiment_context, current_a, pass_num, pass_dir):
     pass_dir.mkdir(parents=True, exist_ok=True)
 
-    # Check resume
     result_file = pass_dir / "result.json"
     if result_file.exists():
         existing = json.loads(result_file.read_text())
@@ -264,25 +236,18 @@ async def run_pass(task_prompt, current_a, pass_num, pass_dir):
     t0 = time.time()
     (pass_dir / "version_a.md").write_text(current_a)
 
-    # Load experiment context for strawman fact-checking
-    context_path = Path(__file__).parent / "experiment_context.md"
-    experiment_context = context_path.read_text() if context_path.exists() else ""
-
-    # Strawman (with ground truth access)
     print(f"    → Strawman (Opus, with ground truth)...")
     strawman = await call_llm(STRAWMAN_SYSTEM,
                                STRAWMAN_PROMPT.format(version_a=current_a, experiment_context=experiment_context),
                                AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
     (pass_dir / "strawman.md").write_text(strawman)
 
-    # Author B
     print(f"    → Author B (Opus)...")
     version_b = await call_llm(AUTHOR_B_SYSTEM,
                                 AUTHOR_B_PROMPT.format(task_prompt=task_prompt, version_a=current_a, strawman=strawman),
                                 AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
     (pass_dir / "version_b.md").write_text(version_b)
 
-    # Synthesizer
     print(f"    → Synthesizer (Opus)...")
     if random.random() < 0.5:
         vx, vy = current_a, version_b
@@ -293,11 +258,9 @@ async def run_pass(task_prompt, current_a, pass_num, pass_dir):
                                  AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
     (pass_dir / "version_ab.md").write_text(version_ab)
 
-    # Judge panel (mixed models)
-    print(f"    → Judge panel ({len(JUDGE_MODELS)} judges: {', '.join(m.split('/')[-1] for m in JUDGE_MODELS)})...")
+    print(f"    → Judge panel (3x Opus)...")
     judge_tasks = []
     judge_orders = []
-
     for jmodel in JUDGE_MODELS:
         proposals, order_map = randomize_for_judge(current_a, version_b, version_ab)
         judge_orders.append(order_map)
@@ -311,23 +274,21 @@ async def run_pass(task_prompt, current_a, pass_num, pass_dir):
 
     rankings = []
     judge_details = []
-    for j, (response, order_map, jmodel) in enumerate(zip(judge_responses, judge_orders, JUDGE_MODELS)):
-        model_short = jmodel.split("/")[-1]
+    for j, (response, order_map) in enumerate(zip(judge_responses, judge_orders)):
         if isinstance(response, Exception):
-            print(f"      {model_short}: ERROR - {response}")
+            print(f"      Judge {j+1}: ERROR - {response}")
             rankings.append(None)
-            judge_details.append({"error": str(response), "model": jmodel})
+            judge_details.append({"error": str(response)})
         else:
             ranking = parse_ranking(response, order_map)
             rankings.append(ranking)
             judge_details.append({
                 "ranking": ranking,
-                "model": jmodel,
                 "presentation_order": order_map,
                 "raw_response": response,
             })
             rank_str = " > ".join(ranking) if ranking else "PARSE_ERROR"
-            print(f"      {model_short}: {rank_str}")
+            print(f"      Judge {j+1}: {rank_str}")
 
     winner, scores, valid = aggregate_rankings(rankings)
     elapsed = time.time() - t0
@@ -339,6 +300,7 @@ async def run_pass(task_prompt, current_a, pass_num, pass_dir):
         "pass": pass_num,
         "winner": winner,
         "scores": scores,
+        "num_valid_judges": len(valid),
         "judge_details": judge_details,
         "elapsed_seconds": round(elapsed, 1),
     }
@@ -348,50 +310,32 @@ async def run_pass(task_prompt, current_a, pass_num, pass_dir):
     return winner, winner_text, result
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
-
 async def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--max-passes", type=int, default=MAX_PASSES)
-    parser.add_argument("--dry-run", action="store_true")
-    args = parser.parse_args()
-
     root = Path(__file__).parent
     task_prompt = (root / "task_prompt.md").read_text().strip()
-    out_dir = root / "autoreason_run"
+    experiment_context = (root / "experiment_context.md").read_text()
+
+    out_dir = root / "autoreason_run_v2"
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"Autoreason paper generation")
-    print(f"Author: {AUTHOR_MODEL} (temp={AUTHOR_TEMP})")
-    print(f"Judges: {', '.join(m.split('/')[-1] for m in JUDGE_MODELS)} (temp={JUDGE_TEMP})")
-    print(f"Max passes: {args.max_passes}, convergence: {CONVERGENCE_THRESHOLD}")
-    print()
+    # Start from saved incumbent (pass 10/11 from previous run)
+    current_a = (root / "autoreason_run_v2" / "current_a.md").read_text()
 
-    # Initial A
-    init_file = out_dir / "initial_a.md"
-    if init_file.exists():
-        print("  Using existing initial A")
-        current_a = init_file.read_text()
-    elif args.dry_run:
-        print("  [DRY RUN]")
-        return
-    else:
-        print("  Generating initial A (Opus)...")
-        current_a = await call_llm(AUTHOR_A_SYSTEM, GENERATE_A.format(task_prompt=task_prompt),
-                                    AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
-        init_file.write_text(current_a)
-        print(f"  Initial A: {len(current_a.split())} words")
+    print(f"Continuing autoreason paper run")
+    print(f"Author: {AUTHOR_MODEL}")
+    print(f"Judges: 3x Opus")
+    print(f"Starting from pass 11 incumbent ({len(current_a.split())} words)")
+    print(f"Convergence: {CONVERGENCE_THRESHOLD} consecutive A wins")
+    print()
 
     consecutive_a = 0
     history = []
 
-    for pass_num in range(1, args.max_passes + 1):
+    for pass_num in range(12, 12 + MAX_PASSES):
         print(f"\n  ━━━ Pass {pass_num} (streak: {consecutive_a}/{CONVERGENCE_THRESHOLD}) ━━━")
 
         winner, winner_text, result = await run_pass(
-            task_prompt, current_a, pass_num, out_dir / f"pass_{pass_num:02d}"
+            task_prompt, experiment_context, current_a, pass_num, out_dir / f"pass_{pass_num:02d}"
         )
 
         history.append({"pass": pass_num, "winner": winner, "scores": result.get("scores", {})})
@@ -404,7 +348,7 @@ async def main():
             (out_dir / f"incumbent_after_pass_{pass_num:02d}.md").write_text(current_a)
 
         if consecutive_a >= CONVERGENCE_THRESHOLD:
-            print(f"\n  ✔ Converged after {pass_num} passes")
+            print(f"\n  ✔ Converged after pass {pass_num}")
             break
 
     (out_dir / "final_paper.md").write_text(current_a)

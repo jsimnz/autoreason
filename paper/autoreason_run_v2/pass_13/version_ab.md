@@ -1,12 +1,8 @@
-I'll revise the paper to address each identified problem. Here are the changes:
-
 # Autoreason: Autoresearch for Subjective Domains
 
 **Abstract**
 
-We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. Building on autoresearch paradigms, autoreason addresses systematic failures in LLM self-improvement: sycophancy, overcriticism, overcompromise, authorship bias, scope drift, and context collapse. Our method employs fresh isolated agents per role, blind judge panels with ranked choice voting and Borda count aggregation, and conservative tiebreaking. In a single experiment on go-to-market strategy generation, autoreason achieved the highest Borda score (35/35) and all first-place rankings (7/7) against four baseline methods after 15 iterations. The approach ran for 26 passes, achieving 2 consecutive incumbent wins at passes 14-15 and 24-25 but never reaching 3 consecutive wins. We present this as an exploratory study of one approach to subjective iteration, not a validated general method.
-
-**[Fix for Problem 11: Changed "fundamental failures" to "systematic failures" and added caveat about this being an exploratory study]**
+We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. Building on autoresearch paradigms, autoreason addresses systematic failures in LLM self-improvement: sycophancy, overcriticism, overcompromise, authorship bias, scope drift, and context collapse. Our method employs fresh isolated agents per role, blind judge panels with ranked choice voting and Borda count aggregation, and conservative tiebreaking where incumbents win ties. In a single experiment on go-to-market strategy generation, autoreason achieved the highest Borda score (35/35) and all first-place rankings (7/7 judges) against four baseline methods after 15 iterations. The approach ran for 26 passes without reaching the predefined convergence threshold of 3 consecutive incumbent wins, achieving 2 consecutive wins at passes 14-15 and 24-25. We present this as an exploratory study of one approach to subjective iteration, not a validated general method.
 
 ## 1. Introduction
 
@@ -17,8 +13,6 @@ These failures persist across prompting strategies. Recent work demonstrates tha
 The problem is particularly acute in subjective domains—strategy documents, creative writing, analysis, and planning—where no ground truth metric exists. Without an objective fitness function, traditional autoresearch approaches cannot be applied directly. Human evaluation remains the gold standard but is expensive and slow.
 
 We present autoreason, a method that constructs a subjective fitness function through independent blind evaluation. By isolating each role into fresh agents and aggregating preferences across judge panels, autoreason achieved iterative improvement in our test case. We emphasize this represents initial exploration on a single task, not a comprehensively validated approach.
-
-**[Fix for Problem 7: Added emphasis that this is a test case, not a validated general approach]**
 
 ## 2. Method
 
@@ -39,17 +33,15 @@ Each pass consists of four phases:
 
 **Judge Phase**: A panel of three fresh judge agents independently evaluates A, B, and AB in randomized order. Judges receive only the original task and the three candidates, with no indication of which is incumbent, challenger, or synthesis. Each judge provides a complete ranking from best to worst. Judges use temperature 0.3 for more consistent evaluation. We use standard Borda count scoring where first place receives 2 points, second place receives 1 point, and third place receives 0 points.
 
-**Aggregation**: Rankings are aggregated by summing Borda scores across all judges. The candidate with the highest total score becomes the new incumbent. In case of equal total scores across judges, the current incumbent A wins (conservative tiebreak).
+**Aggregation**: Rankings are aggregated by summing Borda scores across all judges. The candidate with the highest total score becomes the new incumbent. In case of equal total scores across judges, the current incumbent A wins (conservative tiebreak). This tiebreaking rule is essential to prevent oscillation between equivalent solutions.
 
 ### 2.2 Convergence
 
-The system tracks consecutive wins by the incumbent A. We defined convergence as 3 consecutive A wins. Our experiment achieved 2 consecutive A wins at passes 14-15 and 24-25 but never reached the 3-consecutive threshold. The fact that AB won approximately 50% of passes suggests the system continued finding viable improvements throughout the experiment.
-
-**[Fix for Problem 2: Clarified that convergence was defined as 3 consecutive wins and was never reached]**
+The system tracks consecutive wins by the incumbent A, resetting the count when A loses. We defined convergence as 3 consecutive A wins, though our experiment never reached this threshold. The system achieved 2 consecutive wins at two points (passes 14-15 and 24-25). The fact that AB won approximately 50% of passes suggests the system continued finding viable improvements throughout the experiment.
 
 ### 2.3 Design Rationale
 
-Each design choice addresses a specific failure mode observed in preliminary experiments:
+Each design choice addresses specific failure modes observed in preliminary experiments involving approximately 1,800 LLM calls that revealed positional bias, single judge noise, and shared context contamination:
 
 **Fresh isolated agents** prevent context accumulation and authorship bias. An author who remembers creating A will be biased when creating B. A judge who knows the iteration history loses calibration.
 
@@ -57,11 +49,7 @@ Each design choice addresses a specific failure mode observed in preliminary exp
 
 **Judge panels** reduce single-judge noise and provide more robust preferences through aggregation. We chose 3 judges for the iterative process as a balance between robustness and computational cost, though we acknowledge this choice was not empirically validated.
 
-**[Fix for Problem 10: Added acknowledgment that 3 judges was not empirically validated]**
-
 **Three candidates (A/B/AB)** allow the system to explore both incremental improvements (B) and synthetic combinations (AB), increasing the chance of finding better solutions. We did not test alternative configurations.
-
-**[Fix for Problem 10: Acknowledged we didn't test other configurations]**
 
 **Conservative tiebreak** prevents oscillation between equally good alternatives and provides a stability mechanism.
 
@@ -75,13 +63,9 @@ All experiments used claude-sonnet-4-20250514 with temperature 0.8 for authors a
 
 Each pass required approximately 6 LLM calls (1 strawman, 2 authors, 3 judges), totaling approximately 156 calls for 26 passes.
 
-**[Fix for Problem 8: Provided breakdown of LLM calls]**
-
 ### 3.2 Main Experiment
 
-We ran the full autoreason process for 26 passes. The system achieved 2 consecutive incumbent wins at passes 14-15 and 24-25 but never reached the convergence threshold of 3 consecutive incumbent wins.
-
-**[Fix for Problem 2: Removed contradictory statements about convergence]**
+We ran the full autoreason process for 26 passes. The system never reached the convergence threshold of 3 consecutive incumbent wins, achieving at most 2 consecutive incumbent wins at passes 14-15 and 24-25.
 
 The win/loss trajectory showed early rapid improvement, word count oscillation in middle passes, and eventual quality plateau.
 
@@ -94,9 +78,7 @@ We compared autoreason's pass 15 output against four baseline methods, each give
 - **Harsh_critic**: Iterative improvement with aggressive criticism
 - **Critique_and_revise**: Structured critique followed by revision
 
-A panel of 7 fresh judges (not used in the main experiment) evaluated all five outputs using ranked choice voting with standard Borda count scoring (4 points for 1st place, 3 for 2nd, 2 for 3rd, 1 for 4th, 0 for 5th, maximum 35 points per method). We selected pass 15 as it represented the first occurrence of 2 consecutive incumbent wins. We acknowledge this selection was made after observing the results.
-
-**[Fix for Problem 6: Acknowledged post-hoc selection]**
+A panel of 7 fresh judges (not used in the main experiment) evaluated all five outputs using ranked choice voting with standard Borda count scoring (4 points for 1st place, 3 for 2nd, 2 for 3rd, 1 for 4th, 0 for 5th, maximum 35 points per method). We selected pass 15 as it represented the first occurrence of 2 consecutive incumbent wins. We acknowledge this selection was made after observing the results, introducing potential selection bias.
 
 ### 3.4 Temporal Comparison
 
@@ -106,15 +88,11 @@ To test whether continued iteration affected quality, we compared outputs from p
 
 We tested whether judges needed a baseline for drift detection by comparing autoreason output against an adversarial version (a deliberately degraded output) with and without the original task output shown for reference.
 
-**[Fix for Problem 9: Clarified what "adversarial" means]**
-
 ## 4. Results
 
 ### 4.1 Baseline Comparison
 
 Autoreason's pass 15 output achieved the highest Borda score (35/35) and received all 7 first-place votes. The conservative baseline scored 21/35, improve_this and harsh_critic both scored 18/35, and critique_and_revise scored 13/35.
-
-**[Fix for Problem 1: Removed implication that only autoreason got first-place votes, just stated the facts]**
 
 Word counts revealed length inflation across methods: from 847 words at pass 1, autoreason reached 1,800 words by pass 15, while improve_this reached 2,116, harsh_critic 1,961, and critique_and_revise ballooned to 2,507. The conservative baseline remained concise at 862 words.
 
@@ -122,13 +100,9 @@ Word counts revealed length inflation across methods: from 847 words at pass 1, 
 
 Pass 15 beat pass 25 by a 6-1 margin among judges, suggesting that continued iteration beyond the first stable point may not improve quality. Pass 26 (which AB won) contained approximately 1,617 words, showing continued variation.
 
-**[Fix for Problem 3: Kept "approximately" to reflect the ground truth's "~"]**
-
 ### 4.3 Baseline Visibility
 
-With the original task baseline shown, judges preferred autoreason output 7-0 against the adversarial version. Without baseline shown, the preference was 3-2.
-
-**[Fix for Problem 9: Clarified the comparison was against adversarial version]**
+With the original task baseline shown, judges preferred autoreason output 7-0 against the adversarial version. Without baseline shown, the preference was 3-2. This suggests judges benefit from reference points when detecting quality drift.
 
 ### 4.4 Qualitative Improvements
 
@@ -138,8 +112,6 @@ The initial output contained generic targets and unsupported metrics ("$49/user 
 
 Recent research has explored various approaches to LLM self-improvement and multi-agent systems. The autoresearch paradigm demonstrates success in objective domains with clear metrics. SlopCodeBench (Orlanski et al. 2026) shows that iterative refinement fails even for code generation. Work on ACE context collapse (Zhang et al. ICLR 2026) identifies how LLMs lose quality baselines with accumulated context. LLM Council explores multi-agent deliberation architectures. Our use of blind evaluation panels builds on established peer review practices rather than representing a novel contribution.
 
-**[Fix for Problem 11: Acknowledged that blind review is not novel]**
-
 ## 6. Discussion
 
 ### 6.1 Bloat/Prune Oscillation
@@ -148,9 +120,7 @@ Word count variation between passes (ranging from approximately 1,600 to 2,100 w
 
 ### 6.2 Convergence Patterns
 
-Our experiment achieved 2 consecutive incumbent wins at passes 14-15 and 24-25 but never reached the predefined convergence threshold of 3 consecutive incumbent wins. The fact that AB won approximately 50% of passes suggests the synthesis mechanism successfully found improvements even late in the process. Whether this represents oscillation between equally viable solutions or indicates the method doesn't converge requires testing across multiple tasks.
-
-**[Fix for Problem 2: Clarified convergence was never reached]**
+Our experiment never reached the predefined convergence threshold of 3 consecutive incumbent wins, achieving at most 2 consecutive wins at passes 14-15 and 24-25. The fact that AB won approximately 50% of passes could represent either successful synthesis of improvements or oscillation between equally viable solutions. The failure to converge after 26 passes raises questions about whether this approach can reach stable endpoints or if the 3-consecutive-win threshold was too stringent for this task.
 
 ### 6.3 Judge Calibration
 
@@ -162,21 +132,13 @@ Autoreason may prove valuable even in domains with objective metrics. Metrics of
 
 ### 6.5 Limitations
 
-This work represents an exploratory study of a single task domain (go-to-market strategy) with one experimental run. We did not perform statistical significance testing, analyze inter-rater agreement, or test alternative numbers of candidates beyond our A/B/AB design. With only 7 judges and no significance testing, we cannot make statistical claims about the results.
+This work represents an exploratory study of a single task domain (go-to-market strategy) with one experimental run. We did not perform statistical significance testing, analyze inter-rater agreement among the 3-judge panels, or test alternative numbers of candidates beyond our A/B/AB design. With only 7 judges and no significance testing, all reported differences are descriptive rather than inferential.
 
-**[Fix for Problems 4, 5, 7: Explicitly acknowledged all missing elements]**
-
-The specific prompts used for each role and baseline method are not included due to space constraints but are necessary for reproduction. The baseline methods (improve_this, harsh_critic, critique_and_revise) represent our interpretations of common prompting patterns; other implementations might yield different results.
-
-**[Fix for Problem 4: Acknowledged prompts are missing but necessary]**
+The specific prompts used for each role and baseline method are not included, limiting reproducibility. The baseline methods (improve_this, harsh_critic, critique_and_revise) represent our interpretations of common prompting patterns; other implementations might yield different results.
 
 All results come from a single model (claude-sonnet-4-20250514) and may not generalize to other LLMs. The method's effectiveness on other subjective tasks (creative writing, analysis, etc.) remains untested.
 
-**[Fix for Problem 7: Acknowledged single model limitation]**
-
-We did not systematically analyze judge agreement patterns within the 3-judge panels or validate our choice of 3 judges versus other panel sizes.
-
-**[Fix for Problems 5, 10: Acknowledged missing inter-rater analysis and unjustified panel size]**
+We did not systematically analyze judge agreement patterns within the 3-judge panels or validate our choice of 3 judges versus other panel sizes. The temperature settings (0.8 for authors, 0.3 for judges) and convergence threshold were chosen without systematic exploration.
 
 ## 7. Conclusion
 
@@ -184,10 +146,6 @@ Autoreason demonstrates one approach to iterative refinement in subjective domai
 
 Our single experiment on go-to-market strategy generation showed the highest Borda score (35/35) and all first-place rankings (7/7 judges) in a 5-way comparison. The method required approximately 156 LLM calls over 26 passes, achieving 2 consecutive incumbent wins twice but never reaching 3 consecutive wins.
 
-**[Fix for Problems 1, 2, 8: Corrected claims about results and LLM calls]**
-
 The key insight—that isolation prevents context contamination—emerged from preliminary experiments with approximately 1,800 LLM calls that revealed issues with positional bias, single judge noise, and shared context contamination.
 
-This exploratory work suggests promise but requires extensive validation. Future work should test across diverse domains, include statistical validation, analyze optimal judge panel sizes, test alternative candidate configurations, and provide complete methodological details for reproducibility. Only through such systematic investigation can we determine whether autoreason represents a reliable approach to subjective iteration or merely an interesting result on a single task.
-
-**[Fix for Problems 5, 7, 11: Emphasized this is exploratory work requiring validation, not a proven general method]**
+This exploratory work on a single task suggests potential but cannot support general claims. Future work should test across diverse domains, include statistical validation, analyze optimal judge panel sizes, test alternative candidate configurations, compare to human iteration patterns, and provide complete methodological details for reproducibility. Only through such systematic investigation can we determine whether autoreason represents a reliable approach to subjective iteration or merely an interesting observation from one experiment.

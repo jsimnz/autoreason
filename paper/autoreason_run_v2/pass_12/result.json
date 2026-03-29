@@ -1,0 +1,52 @@
+{
+  "pass": 12,
+  "winner": "A",
+  "scores": {
+    "A": 8,
+    "B": 3,
+    "AB": 7
+  },
+  "num_valid_judges": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "A",
+        "B"
+      ],
+      "presentation_order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw_response": "I'll evaluate each draft against the stated task requirements.\n\n## Draft 1 Evaluation\n\n**Handles Well:**\n- Accurate data reporting (all numbers match the requirements exactly)\n- Proper acknowledgment of limitations and single-task nature\n- Clear structure following all required sections\n- Conservative, scientifically appropriate tone without overreaching claims\n- Correct Borda count calculations and explanations\n- Comprehensive limitations section that addresses reproducibility concerns\n\n**Handles Poorly:**\n- Somewhat verbose and repetitive in places\n- Could be more concise while maintaining accuracy\n- Some sections feel padded despite the instruction to avoid filler\n\n**Writing Quality:**\n- Clear, professional academic writing\n- Appropriate hedging and qualification of claims\n- Good use of experimental evidence without fabrication\n- Maintains scientific integrity throughout\n\n## Draft 2 Evaluation\n\n**Handles Well:**\n- Good narrative flow and readability\n- Engaging introduction that sets up the problem well\n- Clear explanation of the method and design rationale\n- Appropriate use of experimental data\n\n**Handles Poorly:**\n- Makes several unsupported claims (e.g., \"systematic failures,\" design validation from preliminary experiments)\n- Fabricates information about 1,800 preliminary LLM calls not in the requirements\n- Less thorough limitations section\n- Some overstatement of findings and generalizability\n\n**Writing Quality:**\n- More engaging prose but at the cost of accuracy\n- Good structure but includes unsupported assertions\n- Takes more liberties with interpretation than warranted\n\n## Draft 3 Evaluation\n\n**Handles Well:**\n- Explicitly shows corrections to problems (though this meta-commentary shouldn't be in a final paper)\n- Eventually arrives at accurate content after corrections\n- Properly acknowledges limitations\n\n**Handles Poorly:**\n- The format is completely inappropriate for a research paper - it's a revision document, not a paper\n- Contains extensive meta-commentary about changes that would never appear in a published work\n- The actual paper content is buried within revision notes\n- Fails to deliver a clean, readable research paper as requested\n\n**Writing Quality:**\n- The underlying content (when extracted from revision notes) appears sound\n- However, the presentation format makes it unsuitable as a research paper\n- The meta-commentary disrupts any academic flow\n\n## Overall Assessment\n\nDraft 1 best accomplishes the stated task. It:\n- Follows all requirements precisely\n- Reports data accurately without fabrication\n- Maintains appropriate scientific skepticism\n- Delivers a complete, publication-ready paper\n- Acknowledges limitations thoroughly\n\nDraft 2 is more engaging but takes unwarranted liberties with the data and makes unsupported claims, violating the core requirement not to fabricate information.\n\nDraft 3 completely misunderstands the assignment by delivering a revision document rather than a research paper.\n\n**RANKING: 1, 2, 3**"
+    },
+    {
+      "ranking": [
+        "A",
+        "AB",
+        "B"
+      ],
+      "presentation_order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw_response": "I'll evaluate each draft against the stated task requirements.\n\n## DRAFT 1 EVALUATION\n\n**Handles Well:**\n- Comprehensive coverage of all required sections\n- Accurate reporting of experimental numbers (35/35 Borda, 7/7 first place, etc.)\n- Strong limitations section that acknowledges the exploratory nature\n- Clear explanation of the A/B/AB method and design rationale\n- Good use of specific qualitative examples (generic $49/user vs quantified $15K/incident)\n\n**Handles Poorly:**\n- Overly cautious tone throughout, constantly hedging claims\n- Doesn't cite SlopCodeBench as required (removes it entirely)\n- Misses some required facts (v1 experiments with ~1800 LLM calls)\n- Writing is somewhat repetitive with disclaimers\n- Doesn't fully embrace the \"direct and confident\" tone requested\n\n**Writing Quality:**\n- Clear but overly defensive\n- Well-structured but verbose with caveats\n- Good use of evidence but undermines it with constant hedging\n\n## DRAFT 2 EVALUATION\n\n**Handles Well:**\n- Attempts to fix problems identified in a systematic revision\n- Maintains accurate experimental numbers\n- Includes proper limitations section\n- Clear method explanation\n\n**Handles Poorly:**\n- Still removes SlopCodeBench citation entirely (task requires citing it)\n- Extremely cautious tone, even more hedged than Draft 1\n- Misses v1 experiments mention\n- The revision notes take up significant space without being part of the actual paper\n- Doesn't achieve the confident, direct tone requested\n\n**Writing Quality:**\n- Overly focused on disclaimers and limitations\n- Less cohesive due to piecemeal revision approach\n- Undermines its own findings with excessive hedging\n\n## DRAFT 3 EVALUATION\n\n**Handles Well:**\n- Includes all required sections with proper coverage\n- Cites SlopCodeBench as required\n- Mentions v1 experiments (~1800 LLM calls)\n- More confident tone while still acknowledging limitations appropriately\n- Better balance between presenting results and noting exploratory nature\n- Clearer explanation of convergence patterns and design rationale\n\n**Handles Poorly:**\n- Still includes future citations (Orlanski et al. 2026, Zhang et al. ICLR 2026) which shouldn't exist\n- Could be slightly more direct in some claims\n- Some redundancy in limitations discussion\n\n**Writing Quality:**\n- Most direct and confident of the three drafts\n- Well-structured argumentation\n- Good balance of evidence presentation and appropriate caveats\n- Clearest explanation of the method and its motivation\n\n## RANKING: 3, 1, 2\n\nDraft 3 best accomplishes the stated task by including all required elements (including SlopCodeBench citation and v1 experiments), maintaining a more confident tone as requested, and presenting the work as a legitimate contribution while appropriately noting its exploratory nature. Draft 1 is second - it's comprehensive but overly cautious and omits some required elements. Draft 2 is worst due to its extreme hedging, missing required citations, and the distraction of revision notes."
+    },
+    {
+      "ranking": [
+        "A",
+        "AB",
+        "B"
+      ],
+      "presentation_order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw_response": "I'll evaluate each draft against the stated task requirements.\n\n## Draft 1 Evaluation\n\n**Handles Well:**\n- Accurate data reporting (all numbers match the requirements exactly)\n- Proper acknowledgment of limitations and single-task nature\n- Clear structure following all required sections\n- Appropriate academic tone without overreach\n- Good use of the qualitative comparison data\n- Correctly implements the conservative, cautious framing\n\n**Handles Poorly:**\n- Somewhat verbose and repetitive in places\n- Could be more concise in explaining the method\n- Some sections feel padded despite the instruction to avoid filler\n\n**Writing Quality:**\n- Clear and professional\n- Good flow between sections\n- Appropriate use of experimental evidence\n- Maintains consistent cautious tone throughout\n\n## Draft 2 Evaluation\n\n**Handles Well:**\n- Excellent conciseness and clarity\n- Strong explanation of the A/B/AB loop and design rationale\n- Good integration of experimental data\n- Clear presentation of results\n- Maintains appropriate scope limitations\n\n**Handles Poorly:**\n- Makes some unsupported claims (e.g., \"systematic failures\" in abstract)\n- Slightly overreaches in some interpretations\n- Less thorough in acknowledging limitations compared to Draft 1\n\n**Writing Quality:**\n- Very clear and direct writing\n- Excellent organization\n- Good use of subsections\n- Engaging while remaining academic\n\n## Draft 3 Evaluation\n\n**Handles Well:**\n- Starts with a revision framework that shows attention to accuracy\n- Eventually corrects many issues\n- Good attention to not overstating claims\n\n**Handles Poorly:**\n- The format is completely wrong - it's presented as a revision/correction document rather than a paper\n- Doesn't actually present a complete, readable paper\n- The meta-commentary about changes disrupts the flow entirely\n- Fails to deliver the requested 2-page research paper format\n\n**Writing Quality:**\n- While the corrections are thoughtful, this isn't a research paper - it's a revision log\n- Cannot be evaluated as a complete paper since it's not in the proper format\n\n## Overall Assessment\n\nDraft 2 best accomplishes the stated task. It presents a complete, well-structured research paper that covers all required sections with clarity and appropriate detail. While it has some minor overreach issues, it effectively communicates the method, experiments, and results.\n\nDraft 1 is solid but overly cautious and somewhat verbose, leading to less engaging prose despite being accurate.\n\nDraft 3 fails to deliver a research paper at all - it's a revision document that would need to be completely reformatted to meet the task requirements.\n\n**RANKING: 2, 1, 3**"
+    }
+  ],
+  "elapsed_seconds": 283.6
+}
