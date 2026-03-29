@@ -61,6 +61,8 @@ Autoreason implements a three-way competition each iteration:
 
 Every role is a fresh, isolated agent with no shared context. The original task prompt serves as the anchor throughout---judges evaluate ``which version best accomplishes the task as described.'' The system converges when A wins 2 consecutive passes.
 
+We distinguish two modes. \textbf{v1 (quick pass)}: a single cycle through critic $\to$ B $\to$ AB $\to$ judge. Five LLM calls, suitable for lower-stakes or cost-sensitive use. Can use a single judge instead of a panel. \textbf{v2 (convergence loop)}: repeats the cycle with a full judge panel until the incumbent survives consecutive challenges. All experiments in this paper use v2. v1 is one iteration of v2.
+
 \section{Experiments}
 
 We evaluated autoreason on go-to-market strategy generation for an open-source Kubernetes CLI tool (5k GitHub stars, no revenue, 3-person team). All experiments used claude-sonnet-4-20250514 (temp=0.8 authors, 0.3 judges).
