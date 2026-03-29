@@ -112,9 +112,14 @@ Find real problems with this paper. Focus on:
 
 Do NOT propose fixes. Just the problems."""
 
-AUTHOR_B_PROMPT = """ORIGINAL TASK:
+AUTHOR_B_PROMPT="""ORIGINAL TASK:
 ---
 {task_prompt}
+---
+
+GROUND TRUTH EXPERIMENTAL DATA (use this to ensure accuracy):
+---
+{experiment_context}
 ---
 
 Here is a paper draft and the problems identified by a reviewer.
@@ -131,11 +136,17 @@ REVIEWER PROBLEMS:
 
 Revise the paper to address these problems.
 For each change, state which problem it fixes.
-Do not make changes that aren't motivated by an identified problem."""
+Do not make changes that aren't motivated by an identified problem.
+Ensure all numbers and claims match the ground truth data above."""
 
 SYNTHESIZER_PROMPT = """ORIGINAL TASK:
 ---
 {task_prompt}
+---
+
+GROUND TRUTH EXPERIMENTAL DATA (use this to ensure accuracy):
+---
+{experiment_context}
 ---
 
 Here are two versions of a research paper. Treat them as equal inputs.
@@ -151,7 +162,8 @@ VERSION Y:
 ---
 
 Produce a synthesis that keeps the strongest elements from both.
-Pick the best version of each section and make them cohere."""
+Pick the best version of each section and make them cohere.
+Ensure all numbers and claims match the ground truth data above."""
 
 JUDGE_PROMPT = """ORIGINAL TASK:
 ---
@@ -275,21 +287,21 @@ async def run_pass(task_prompt, current_a, pass_num, pass_dir):
                                AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
     (pass_dir / "critic.md").write_text(critic)
 
-    # Author B
-    print(f"    → Author B (Opus)...")
+    # Author B (with ground truth)
+    print(f"    → Author B (Opus, with ground truth)...")
     version_b = await call_llm(AUTHOR_B_SYSTEM,
-                                AUTHOR_B_PROMPT.format(task_prompt=task_prompt, version_a=current_a, critic=critic),
+                                AUTHOR_B_PROMPT.format(task_prompt=task_prompt, version_a=current_a, critic=critic, experiment_context=experiment_context),
                                 AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
     (pass_dir / "version_b.md").write_text(version_b)
 
-    # Synthesizer
-    print(f"    → Synthesizer (Opus)...")
+    # Synthesizer (with ground truth)
+    print(f"    → Synthesizer (Opus, with ground truth)...")
     if random.random() < 0.5:
         vx, vy = current_a, version_b
     else:
         vx, vy = version_b, current_a
     version_ab = await call_llm(SYNTHESIZER_SYSTEM,
-                                 SYNTHESIZER_PROMPT.format(task_prompt=task_prompt, version_x=vx, version_y=vy),
+                                 SYNTHESIZER_PROMPT.format(task_prompt=task_prompt, version_x=vx, version_y=vy, experiment_context=experiment_context),
                                  AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
     (pass_dir / "version_ab.md").write_text(version_ab)
 
