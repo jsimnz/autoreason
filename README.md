@@ -83,8 +83,9 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
         ▼ ══════════════════ LOOP ══════════════════
         │
    ┌────┴──────┐
-   │ Critic  │   fresh agent, sees only current A
+   │ Critic    │   fresh agent, sees current A
    └────┬──────┘   finds problems — no fixes
+                   (optional: ground-truth data for fact-checking)
         │
    ┌────┴──────┐
    │ Author B  │   fresh agent, sees task + A + critique
@@ -173,6 +174,20 @@ Compared the incumbent at pass 15 (first convergence) vs pass 25 (second converg
 Full trajectory data, analysis, and design space matrix: [RESULTS.md](RESULTS.md)
 
 Shareable project overview: [OVERVIEW.md](OVERVIEW.md)
+
+## Ground-Truth Critic
+
+When the domain has reference material — experimental data, source documents, specs, a codebase — the critic should receive it. This turns the critic from "find things that sound wrong" into "verify every claim against the actual data."
+
+We discovered this while running autoreason on the writing of this paper. Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions. With ground-truth access (the actual experiment results and methodology docs), the critic caught all four on the first pass.
+
+The pattern:
+- **Critic** gets the artifact AND the ground-truth data. Verifies claims against reality.
+- **Author B and Synthesizer** also get ground-truth data to ensure revisions stay accurate.
+- **Author A** (initial generation) works from the task prompt only — this is intentional. The first draft represents what the model "thinks" it knows. The critic then corrects it against what's actually true.
+- **Judges** see the task prompt and the versions only. They evaluate quality, not accuracy — accuracy is the critic's job.
+
+This mirrors real peer review: the reviewer checks the supplementary materials and tries to reproduce claims. The author writes from understanding; the reviewer verifies against evidence.
 
 ## Prior Experiments (v1)
 

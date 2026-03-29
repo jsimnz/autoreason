@@ -475,7 +475,10 @@ async def main():
         config["max_passes"] = args.max_passes
 
     tasks = []
-    for f in sorted((root / "tasks").glob("task_*.md")):
+    tasks_dir = root / "tasks"
+    if not tasks_dir.exists():
+        tasks_dir = root.parent.parent / "tasks"
+    for f in sorted(tasks_dir.glob("task_*.md")):
         tasks.append((f.stem, f.read_text().strip()))
 
     if not tasks:
