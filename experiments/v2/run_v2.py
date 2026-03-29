@@ -4,7 +4,7 @@ Autoreason v2 experiment runner.
 
 Key changes from v1:
 - Iterative loop: passes repeat until incumbent (A) wins 3 consecutive times
-- Fresh isolated agents per role (no shared context between strawman, author B, synthesizer)
+- Fresh isolated agents per role (no shared context between critic, author B, synthesizer)
 - 3-judge panel with ranked choice evaluation
 - Original prompt as anchor for judges (not a rubric — the task defines "better")
 - Reasoning required before ranking
@@ -49,7 +49,7 @@ import yaml
 # System prompts — each role gets its own, no bleed
 # ---------------------------------------------------------------------------
 
-STRAWMAN_SYSTEM = (
+CRITIC_SYSTEM = (
     "You are a critical reviewer. Your only job is to find real problems "
     "with the proposal you are given. Be specific and concrete. Do not "
     "suggest fixes or improvements — only identify weaknesses."
@@ -88,7 +88,7 @@ JUDGE_SYSTEM = (
 
 GENERATE_A = "{task_prompt}\n\nProduce a complete, detailed proposal."
 
-STRAWMAN_PROMPT = """Here is a proposal:
+CRITIC_PROMPT = """Here is a proposal:
 
 ---
 {version_a}
@@ -116,7 +116,7 @@ CURRENT PROPOSAL:
 
 PROBLEMS FOUND:
 ---
-{strawman}
+{critic}
 ---
 
 Revise the proposal to address these problems.
@@ -278,7 +278,7 @@ async def run_pass(task_prompt, current_a, pass_num, pass_dir, config, dry_run=F
             return winner, winner_text, existing
     
     if dry_run:
-        print(f"    ↳ [DRY RUN] Would run: 1 strawman + 1 author_b + 1 synthesizer + {num_judges} judges = {3 + num_judges} LLM calls")
+        print(f"    ↳ [DRY RUN] Would run: 1 critic + 1 author_b + 1 synthesizer + {num_judges} judges = {3 + num_judges} LLM calls")
         return "DRY", current_a, {}
     
     t0 = time.time()
@@ -286,20 +286,20 @@ async def run_pass(task_prompt, current_a, pass_num, pass_dir, config, dry_run=F
     # Save current A
     (pass_dir / "version_a.md").write_text(current_a)
     
-    # Step 1: Strawman (fresh agent, only sees version A)
-    print(f"    → Strawman...")
-    strawman = await call_llm(
-        STRAWMAN_SYSTEM,
-        STRAWMAN_PROMPT.format(version_a=current_a),
+    # Step 1: Critic (fresh agent, only sees version A)
+    print(f"    → Critic...")
+    critic = await call_llm(
+        CRITIC_SYSTEM,
+        CRITIC_PROMPT.format(version_a=current_a),
         model, temp, max_tok
     )
-    (pass_dir / "strawman.md").write_text(strawman)
+    (pass_dir / "critic.md").write_text(critic)
     
-    # Step 2: Author B (fresh agent, sees task + A + strawman, no drafting history)
+    # Step 2: Author B (fresh agent, sees task + A + critic, no drafting history)
     print(f"    → Author B...")
     version_b = await call_llm(
         AUTHOR_B_SYSTEM,
-        AUTHOR_B_PROMPT.format(task_prompt=task_prompt, version_a=current_a, strawman=strawman),
+        AUTHOR_B_PROMPT.format(task_prompt=task_prompt, version_a=current_a, critic=critic),
         model, temp, max_tok
     )
     (pass_dir / "version_b.md").write_text(version_b)

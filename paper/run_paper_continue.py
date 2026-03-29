@@ -47,7 +47,7 @@ AUTHOR_A_SYSTEM = (
     "Use actual numbers from experiments. Do not hedge or pad."
 )
 
-STRAWMAN_SYSTEM = (
+CRITIC_SYSTEM = (
     "You are a critical peer reviewer for a top ML venue. You have access to the actual "
     "experimental data and methodology. Your job is to find real problems with this paper — "
     "hallucinated or incorrect numbers, wrong methodology descriptions, weak arguments, "
@@ -75,7 +75,7 @@ JUDGE_SYSTEM = (
 )
 
 # ---------------------------------------------------------------------------
-STRAWMAN_PROMPT = """Here is a research paper draft:
+CRITIC_PROMPT = """Here is a research paper draft:
 
 ---
 {version_a}
@@ -112,7 +112,7 @@ CURRENT DRAFT:
 
 REVIEWER PROBLEMS:
 ---
-{strawman}
+{critic}
 ---
 
 Revise the paper to address these problems.
@@ -236,15 +236,15 @@ async def run_pass(task_prompt, experiment_context, current_a, pass_num, pass_di
     t0 = time.time()
     (pass_dir / "version_a.md").write_text(current_a)
 
-    print(f"    → Strawman (Opus, with ground truth)...")
-    strawman = await call_llm(STRAWMAN_SYSTEM,
-                               STRAWMAN_PROMPT.format(version_a=current_a, experiment_context=experiment_context),
+    print(f"    → Critic (Opus, with ground truth)...")
+    critic = await call_llm(CRITIC_SYSTEM,
+                               CRITIC_PROMPT.format(version_a=current_a, experiment_context=experiment_context),
                                AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
-    (pass_dir / "strawman.md").write_text(strawman)
+    (pass_dir / "critic.md").write_text(critic)
 
     print(f"    → Author B (Opus)...")
     version_b = await call_llm(AUTHOR_B_SYSTEM,
-                                AUTHOR_B_PROMPT.format(task_prompt=task_prompt, version_a=current_a, strawman=strawman),
+                                AUTHOR_B_PROMPT.format(task_prompt=task_prompt, version_a=current_a, critic=critic),
                                 AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
     (pass_dir / "version_b.md").write_text(version_b)
 

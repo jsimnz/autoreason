@@ -61,9 +61,9 @@ The core insight is that each role must be performed by a fresh, isolated agent 
 
 Each pass consists of four phases:
 
-\textbf{Strawman Phase}: A fresh critic agent receives the original task and the current incumbent A. The critic identifies potential weaknesses, areas for improvement, or missing elements without seeing any prior criticism or iteration history.
+\textbf{Critic Phase}: A fresh critic agent receives the original task and the current incumbent A. The critic identifies potential weaknesses, areas for improvement, or missing elements without seeing any prior criticism or iteration history.
 
-\textbf{Author Phase}: Two fresh author agents work independently. The first receives the original task, incumbent A, and the strawman critique to generate challenger B. The second receives the same inputs plus both A and B to create synthesis AB. Neither author has knowledge of previous iterations or judge feedback. Authors use temperature 0.8 to encourage creative exploration.
+\textbf{Author Phase}: Two fresh author agents work independently. The first receives the original task, incumbent A, and the critic critique to generate challenger B. The second receives the same inputs plus both A and B to create synthesis AB. Neither author has knowledge of previous iterations or judge feedback. Authors use temperature 0.8 to encourage creative exploration.
 
 \textbf{Judge Phase}: A panel of three fresh judge agents independently evaluates A, B, and AB in randomized order. Judges receive only the original task and the three candidates, with no indication of which is incumbent, challenger, or synthesis. Each judge provides a complete ranking from best to worst. Judges use temperature 0.3 for more consistent evaluation. We use standard Borda count scoring where first place receives 2 points, second place receives 1 point, and third place receives 0 points.
 
@@ -93,7 +93,7 @@ We evaluated autoreason on go-to-market strategy generation for an open-source K
 
 \subsection{Experimental Setup}
 
-All experiments used claude-sonnet-4-20250514 with temperature 0.8 for authors and 0.3 for judges. The v2 architecture employed 3-judge panels with Borda count aggregation and conservative tiebreaking. Each pass required approximately 6 LLM calls (1 strawman, 2 authors, 3 judges), totaling approximately 156 calls for 26 passes.
+All experiments used claude-sonnet-4-20250514 with temperature 0.8 for authors and 0.3 for judges. The v2 architecture employed 3-judge panels with Borda count aggregation and conservative tiebreaking. Each pass required approximately 6 LLM calls (1 critic, 2 authors, 3 judges), totaling approximately 156 calls for 26 passes.
 
 \subsection{Main Experiment}
 

@@ -37,8 +37,8 @@ litellm.suppress_debug_info = True
 AUTHOR_MODEL = "anthropic/claude-opus-4-20250514"
 JUDGE_MODELS = [
     "anthropic/claude-opus-4-20250514",
-    "anthropic/claude-sonnet-4-20250514",
-    "openrouter/google/gemini-2.5-pro",
+    "anthropic/claude-opus-4-20250514",
+    "anthropic/claude-opus-4-20250514",
 ]
 AUTHOR_TEMP = 0.7
 JUDGE_TEMP = 0.3
@@ -56,7 +56,7 @@ AUTHOR_A_SYSTEM = (
     "Use actual numbers from experiments. Do not hedge or pad."
 )
 
-STRAWMAN_SYSTEM = (
+CRITIC_SYSTEM = (
     "You are a critical peer reviewer for a top ML venue. You have access to the actual "
     "experimental data and methodology. Your job is to find real problems with this paper — "
     "hallucinated or incorrect numbers, wrong methodology descriptions, weak arguments, "
@@ -89,7 +89,7 @@ JUDGE_SYSTEM = (
 
 GENERATE_A = "{task_prompt}\n\nWrite the complete paper now."
 
-STRAWMAN_PROMPT = """Here is a research paper draft:
+CRITIC_PROMPT = """Here is a research paper draft:
 
 ---
 {version_a}
@@ -126,7 +126,7 @@ CURRENT DRAFT:
 
 REVIEWER PROBLEMS:
 ---
-{strawman}
+{critic}
 ---
 
 Revise the paper to address these problems.
@@ -264,21 +264,21 @@ async def run_pass(task_prompt, current_a, pass_num, pass_dir):
     t0 = time.time()
     (pass_dir / "version_a.md").write_text(current_a)
 
-    # Load experiment context for strawman fact-checking
+    # Load experiment context for critic fact-checking
     context_path = Path(__file__).parent / "experiment_context.md"
     experiment_context = context_path.read_text() if context_path.exists() else ""
 
-    # Strawman (with ground truth access)
-    print(f"    → Strawman (Opus, with ground truth)...")
-    strawman = await call_llm(STRAWMAN_SYSTEM,
-                               STRAWMAN_PROMPT.format(version_a=current_a, experiment_context=experiment_context),
+    # Critic (with ground truth access)
+    print(f"    → Critic (Opus, with ground truth)...")
+    critic = await call_llm(CRITIC_SYSTEM,
+                               CRITIC_PROMPT.format(version_a=current_a, experiment_context=experiment_context),
                                AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
-    (pass_dir / "strawman.md").write_text(strawman)
+    (pass_dir / "critic.md").write_text(critic)
 
     # Author B
     print(f"    → Author B (Opus)...")
     version_b = await call_llm(AUTHOR_B_SYSTEM,
-                                AUTHOR_B_PROMPT.format(task_prompt=task_prompt, version_a=current_a, strawman=strawman),
+                                AUTHOR_B_PROMPT.format(task_prompt=task_prompt, version_a=current_a, critic=critic),
                                 AUTHOR_MODEL, AUTHOR_TEMP, MAX_TOKENS)
     (pass_dir / "version_b.md").write_text(version_b)
 

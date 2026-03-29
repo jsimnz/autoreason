@@ -12,7 +12,7 @@ Autoreason is an iterative refinement method for LLM-generated content where no 
                       └──┬──┘
                          │
                     ┌────┴────┐
-                    │strawman │  find problems
+                    │critic │  find problems
                     └────┬────┘
             ┌────────────┼──────────────┐
             ▼            ▼              ▼
@@ -54,7 +54,7 @@ The output is shaped more by how you prompt than by what's actually better. Ther
 | Failure Mode | Architectural Fix |
 |---|---|
 | **Sycophancy** | The incumbent (A) competes against adversarial alternatives — the judge picks the best version, not the most polished one |
-| **Overcriticism** | The strawman only finds problems. A separate Author B decides which criticisms are valid enough to act on. If the critique was wrong, the judge picks A and the criticism is discarded |
+| **Overcriticism** | The critic only finds problems. A separate Author B decides which criticisms are valid enough to act on. If the critique was wrong, the judge picks A and the criticism is discarded |
 | **Overcompromise** | The synthesizer (AB) is one of three options, not the default. If the synthesis hedged too much, the judge picks A or B instead |
 | **Authorship bias** | Every role is a fresh agent with no shared context. Author B never saw Author A's drafting process. The synthesizer doesn't know which version came first |
 | **Scope drift** | Judges evaluate against the original task prompt — "which version best accomplishes what was asked for" — not "which is most thorough" |
@@ -62,7 +62,7 @@ The output is shaped more by how you prompt than by what's actually better. Ther
 
 ## Two Modes
 
-**Quick pass (v1)** — A single cycle: generate A, strawman it, revise to B, synthesize AB, judge picks the best. Five LLM calls, ~2 minutes. Prevents the worst failure modes without the cost of iteration. Use this when you want "make this better without overcorrecting" — the agent equivalent of getting one round of peer review. Drift is prevented structurally: the original is always a candidate, so overcorrection gets caught by comparison rather than compounding through sequential revision.
+**Quick pass (v1)** — A single cycle: generate A, critic it, revise to B, synthesize AB, judge picks the best. Five LLM calls, ~2 minutes. Prevents the worst failure modes without the cost of iteration. Use this when you want "make this better without overcorrecting" — the agent equivalent of getting one round of peer review. Drift is prevented structurally: the original is always a candidate, so overcorrection gets caught by comparison rather than compounding through sequential revision.
 
 **Convergence loop (v2)** — Repeats the cycle until the incumbent survives consecutive passes. Every role is a fresh isolated agent, judged by a 3-judge blind panel. More rigorous and more expensive. Use this when you need confidence that the output has survived sustained adversarial pressure — where there's no test suite or specification to anchor correctness, and the stakes justify the token cost.
 
@@ -83,7 +83,7 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
         ▼ ══════════════════ LOOP ══════════════════
         │
    ┌────┴──────┐
-   │ Strawman  │   fresh agent, sees only current A
+   │ Critic  │   fresh agent, sees only current A
    └────┬──────┘   finds problems — no fixes
         │
    ┌────┴──────┐

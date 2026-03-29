@@ -106,7 +106,7 @@ AB systematically adds complexity. B systematically prunes it. When the task is 
 A won on tiebreak at passes 3, 6, and 12. Without the conservative rule (incumbent wins ties), these would have gone to B or AB and the loop would have been even less stable. The tiebreak is doing real work in favoring stability over churn.
 
 #### 5. Fresh Agents Per Role Prevent Authorship Bias
-B's resurgence at passes 17-21 — after being nearly irrelevant for 15 passes — shows that fresh agents aren't captive to the trajectory. A persistent author B would have learned to defer to the synthesis pattern. Fresh agents evaluate the strawman's critique on its merits.
+B's resurgence at passes 17-21 — after being nearly irrelevant for 15 passes — shows that fresh agents aren't captive to the trajectory. A persistent author B would have learned to defer to the synthesis pattern. Fresh agents evaluate the critic's critique on its merits.
 
 #### 6. Judge Panel Disagreement Is Informative
 When judges split (e.g., pass 6: three-way tie), it signals genuine ambiguity rather than a clear winner. The Borda count handles this gracefully — close scores mean close quality — but the disagreement itself could be fed back to the next pass as useful signal.
@@ -132,7 +132,7 @@ The strongest evidence that autoreason works is comparing the initial generation
 - Unit economics: CAC $2K, LTV $54K, LTV:CAC 27:1, 90% gross margin
 - Product section describes actual features (live cluster validation, diff analysis, policy management) not just pricing tiers
 
-The adversarial process didn't just polish the prose — it forced the proposal to get concrete. The most telling change: the initial version claims $100K MRR by Q4 with 3 people. The converged version says $25K MRR by Q4 and lays out a realistic hiring plan. The strawman repeatedly attacked the unrealistic assumptions, and Author B had to replace them with defensible numbers.
+The adversarial process didn't just polish the prose — it forced the proposal to get concrete. The most telling change: the initial version claims $100K MRR by Q4 with 3 people. The converged version says $25K MRR by Q4 and lays out a realistic hiring plan. The critic repeatedly attacked the unrealistic assumptions, and Author B had to replace them with defensible numbers.
 
 Full artifacts: `experiments/v2/results_v2/task_01/initial_a.md` and `experiments/v2/results_v2/task_01/pass_14/version_a.md`
 
@@ -242,9 +242,9 @@ Tracking all dimensions and permutations, tested and untested.
 ### Agent Isolation
 | Setup | Status | Notes |
 |-------|--------|-------|
-| Shared agent across roles | v1 | Original design. Single agent does strawman + revision + synthesis. |
-| Fresh agent per role per pass | v2 ✔ | Each strawman, author B, synthesizer, judge is isolated. Confirmed: prevents authorship bias, allows B to re-emerge after long absence. |
-| Persistent agent per role (fresh per pass) | Untested | Strawman agent remembers previous attacks. Could avoid repeating critiques but might also learn to pull punches. |
+| Shared agent across roles | v1 | Original design. Single agent does critic + revision + synthesis. |
+| Fresh agent per role per pass | v2 ✔ | Each critic, author B, synthesizer, judge is isolated. Confirmed: prevents authorship bias, allows B to re-emerge after long absence. |
+| Persistent agent per role (fresh per pass) | Untested | Critic agent remembers previous attacks. Could avoid repeating critiques but might also learn to pull punches. |
 
 ### Judge Setup
 | Setup | Status | Notes |

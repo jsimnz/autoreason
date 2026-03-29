@@ -33,7 +33,7 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
         ▼ ══════════════════ LOOP ══════════════════
         │
    ┌────┴──────┐
-   │ Strawman  │   fresh agent, sees only current A
+   │ Critic  │   fresh agent, sees only current A
    └────┬──────┘   finds problems — no fixes
         │
    ┌────┴──────┐
@@ -57,7 +57,7 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
 
 Why each piece matters:
 
-- **Fresh agents per role** prevent authorship bias. An agent that wrote version A will unconsciously defend it even while "incorporating feedback." A fresh agent treats the strawman's critique on its merits.
+- **Fresh agents per role** prevent authorship bias. An agent that wrote version A will unconsciously defend it even while "incorporating feedback." A fresh agent treats the critic's critique on its merits.
 
 - **Original task prompt as anchor** keeps judges evaluating "which version best accomplishes what was asked for" rather than "which sounds most impressive." The task defines what "better" means.
 
@@ -151,5 +151,5 @@ Everything lives in `~/autoreason-experiment/`:
 - `run_v2.py` — the iterative loop runner
 - `config_v2.yaml` — model, temperature, judge count, convergence settings
 - `tasks/` — task prompts
-- `results_v2/` — all artifacts per pass (versions A/B/AB, strawman, judge responses)
+- `results_v2/` — all artifacts per pass (versions A/B/AB, critic, judge responses)
 - `RESULTS.md` — detailed findings + full design space matrix of tested/untested permutations

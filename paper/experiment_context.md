@@ -14,7 +14,7 @@ Autoreason is an iterative refinement method for LLM-generated content where no 
                     └──┬──┘
                        │
                   ┌────┴────┐
-                  │strawman │  find problems
+                  │critic │  find problems
                   └────┬────┘
             ┌──────────┼──────────┐
             ▼          ▼          ▼
@@ -158,7 +158,7 @@ AB systematically adds complexity. B systematically prunes it. When the task is 
 A won on tiebreak at passes 3, 6, and 12. Without the conservative rule (incumbent wins ties), these would have gone to B or AB and the loop would have been even less stable. The tiebreak is doing real work in favoring stability over churn.
 
 #### 5. Fresh Agents Per Role Prevent Authorship Bias
-B's resurgence at passes 17-21 — after being nearly irrelevant for 15 passes — shows that fresh agents aren't captive to the trajectory. A persistent author B would have learned to defer to the synthesis pattern. Fresh agents evaluate the strawman's critique on its merits.
+B's resurgence at passes 17-21 — after being nearly irrelevant for 15 passes — shows that fresh agents aren't captive to the trajectory. A persistent author B would have learned to defer to the synthesis pattern. Fresh agents evaluate the critic's critique on its merits.
 
 #### 6. Judge Panel D
 
