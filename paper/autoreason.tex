@@ -28,7 +28,7 @@
 \twocolumn[{
 \begin{center}
 {\Large\bfseries Autoreason: Autoresearch for Subjective Domains}\\[4pt]
-{\normalsize shl0ms $\cdot$ Nous Research}\\[2pt]
+{\normalsize shl0ms}\\[2pt]
 {\small\url{https://github.com/NousResearch/autoreason}}\\[6pt]
 \end{center}
 }]
@@ -100,21 +100,16 @@ Critique \& revise & 13 & 0 & 2,507 \\
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}[t]{0.48\columnwidth}
-\centering
-\includegraphics[width=\textwidth]{fig_baseline.png}
-\caption{Borda scores and word counts.}
-\label{fig:borda}
-\end{subfigure}
-\hfill
-\begin{subfigure}[t]{0.48\columnwidth}
-\centering
-\includegraphics[width=\textwidth]{fig_wordcount.png}
-\caption{Word count trajectories over 15 passes.}
-\label{fig:wordcount}
-\end{subfigure}
-\caption{\textbf{Baseline comparison.} Conservative flatlines, autoreason stabilizes, all iterative baselines bloat. Critique-and-revise bloats most, scores worst.}
+\includegraphics[width=\columnwidth]{fig_baseline.png}
+\caption{\textbf{Baseline comparison: Borda scores and word counts.} Autoreason: perfect score, 7/7 first place. Conservative (barely changed) outranks all iterative baselines. Dashed line marks initial word count (847).}
 \label{fig:baselines}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{fig_wordcount.png}
+\caption{\textbf{Word count trajectories over 15 passes.} Conservative flatlines, autoreason stabilizes, all iterative baselines bloat. Critique-and-revise bloats most, scores worst.}
+\label{fig:wordcount}
 \end{figure}
 
 \subsection{Convergence Threshold}
