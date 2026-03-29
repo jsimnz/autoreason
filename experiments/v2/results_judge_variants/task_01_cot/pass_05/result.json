@@ -1,0 +1,12 @@
+{
+  "pass": 5,
+  "winner": "A",
+  "scores": {
+    "A": 8,
+    "B": 3,
+    "AB": 7
+  },
+  "valid": 3,
+  "variant": "cot",
+  "elapsed": 213.5
+}
