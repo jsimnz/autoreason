@@ -1,0 +1,167 @@
+[
+  {
+    "pass": 1,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 6,
+      "AB": 9
+    },
+    "raw_winner": "AB",
+    "margin_applied": false
+  },
+  {
+    "pass": 2,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 6,
+      "AB": 9
+    },
+    "raw_winner": "AB",
+    "margin_applied": false
+  },
+  {
+    "pass": 3,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 7,
+      "AB": 8
+    },
+    "raw_winner": "AB",
+    "margin_applied": false
+  },
+  {
+    "pass": 4,
+    "winner": "B",
+    "scores": {
+      "A": 5,
+      "B": 7,
+      "AB": 6
+    },
+    "raw_winner": "B",
+    "margin_applied": false
+  },
+  {
+    "pass": 5,
+    "winner": "AB",
+    "scores": {
+      "A": 5,
+      "B": 6,
+      "AB": 7
+    },
+    "raw_winner": "AB",
+    "margin_applied": false
+  },
+  {
+    "pass": 6,
+    "winner": "B",
+    "scores": {
+      "A": 5,
+      "B": 7,
+      "AB": 6
+    },
+    "raw_winner": "B",
+    "margin_applied": false
+  },
+  {
+    "pass": 7,
+    "winner": "AB",
+    "scores": {
+      "A": 4,
+      "B": 6,
+      "AB": 8
+    },
+    "raw_winner": "AB",
+    "margin_applied": false
+  },
+  {
+    "pass": 8,
+    "winner": "AB",
+    "scores": {
+      "A": 5,
+      "B": 5,
+      "AB": 8
+    },
+    "raw_winner": "AB",
+    "margin_applied": false
+  },
+  {
+    "pass": 9,
+    "winner": "B",
+    "scores": {
+      "A": 4,
+      "B": 9,
+      "AB": 5
+    },
+    "raw_winner": "B",
+    "margin_applied": false
+  },
+  {
+    "pass": 10,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 7,
+      "AB": 8
+    },
+    "raw_winner": "AB",
+    "margin_applied": false
+  },
+  {
+    "pass": 11,
+    "winner": "A",
+    "scores": {
+      "A": 7,
+      "B": 6,
+      "AB": 5
+    },
+    "raw_winner": "A",
+    "margin_applied": false
+  },
+  {
+    "pass": 12,
+    "winner": "AB",
+    "scores": {
+      "A": 4,
+      "B": 7,
+      "AB": 7
+    },
+    "raw_winner": "AB",
+    "margin_applied": false
+  },
+  {
+    "pass": 13,
+    "winner": "B",
+    "scores": {
+      "A": 4,
+      "B": 9,
+      "AB": 5
+    },
+    "raw_winner": "B",
+    "margin_applied": false
+  },
+  {
+    "pass": 14,
+    "winner": "A",
+    "scores": {
+      "A": 7,
+      "B": 4,
+      "AB": 7
+    },
+    "raw_winner": "A",
+    "margin_applied": false
+  },
+  {
+    "pass": 15,
+    "winner": "A",
+    "scores": {
+      "A": 6,
+      "B": 6,
+      "AB": 6
+    },
+    "raw_winner": "A",
+    "margin_applied": false
+  }
+]

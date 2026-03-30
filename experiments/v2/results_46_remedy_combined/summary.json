@@ -1,0 +1,204 @@
+{
+  "experiment": "combined",
+  "modifications": "margin=2 + scope-aware judges + plateau(window=5, threshold=6)",
+  "model": "anthropic/claude-sonnet-4-6",
+  "task": "task_02",
+  "total_passes": 17,
+  "converged": true,
+  "converge_reason": "consecutive A wins (2)",
+  "final_words": 2450,
+  "a_wins": 3,
+  "ab_wins": 12,
+  "b_wins": 2,
+  "margin_overrides": 2,
+  "trajectory": "B -> AB -> AB -> AB -> AB -> B -> AB -> AB -> AB -> AB -> AB -> AB -> A -> AB -> AB -> A -> A",
+  "history": [
+    {
+      "pass": 1,
+      "winner": "B",
+      "scores": {
+        "A": 3,
+        "B": 8,
+        "AB": 7
+      },
+      "raw_winner": "B",
+      "margin_applied": false
+    },
+    {
+      "pass": 2,
+      "winner": "AB",
+      "scores": {
+        "A": 4,
+        "B": 7,
+        "AB": 7
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 3,
+      "winner": "AB",
+      "scores": {
+        "A": 4,
+        "B": 6,
+        "AB": 8
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 4,
+      "winner": "AB",
+      "scores": {
+        "A": 3,
+        "B": 7,
+        "AB": 8
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 5,
+      "winner": "AB",
+      "scores": {
+        "A": 3,
+        "B": 7,
+        "AB": 8
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 6,
+      "winner": "B",
+      "scores": {
+        "A": 3,
+        "B": 8,
+        "AB": 7
+      },
+      "raw_winner": "B",
+      "margin_applied": false
+    },
+    {
+      "pass": 7,
+      "winner": "AB",
+      "scores": {
+        "A": 3,
+        "B": 7,
+        "AB": 8
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 8,
+      "winner": "AB",
+      "scores": {
+        "A": 3,
+        "B": 6,
+        "AB": 9
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 9,
+      "winner": "AB",
+      "scores": {
+        "A": 3,
+        "B": 7,
+        "AB": 8
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 10,
+      "winner": "AB",
+      "scores": {
+        "A": 5,
+        "B": 6,
+        "AB": 7
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 11,
+      "winner": "AB",
+      "scores": {
+        "A": 5,
+        "B": 6,
+        "AB": 7
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 12,
+      "winner": "AB",
+      "scores": {
+        "A": 5,
+        "B": 5,
+        "AB": 8
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 13,
+      "winner": "A",
+      "scores": {
+        "A": 6,
+        "B": 5,
+        "AB": 7
+      },
+      "raw_winner": "AB",
+      "margin_applied": true
+    },
+    {
+      "pass": 14,
+      "winner": "AB",
+      "scores": {
+        "A": 3,
+        "B": 7,
+        "AB": 8
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 15,
+      "winner": "AB",
+      "scores": {
+        "A": 3,
+        "B": 6,
+        "AB": 9
+      },
+      "raw_winner": "AB",
+      "margin_applied": false
+    },
+    {
+      "pass": 16,
+      "winner": "A",
+      "scores": {
+        "A": 6,
+        "B": 6,
+        "AB": 6
+      },
+      "raw_winner": "A",
+      "margin_applied": false
+    },
+    {
+      "pass": 17,
+      "winner": "A",
+      "scores": {
+        "A": 6,
+        "B": 5,
+        "AB": 7
+      },
+      "raw_winner": "AB",
+      "margin_applied": true
+    }
+  ]
+}

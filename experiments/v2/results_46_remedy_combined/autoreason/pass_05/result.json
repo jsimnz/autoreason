@@ -1,0 +1,16 @@
+{
+  "pass": 5,
+  "winner": "AB",
+  "raw_winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 7,
+    "AB": 8
+  },
+  "valid": 3,
+  "elapsed": 321.5,
+  "margin_applied": false,
+  "words_a": 2252,
+  "words_b": 2274,
+  "words_ab": 2252
+}

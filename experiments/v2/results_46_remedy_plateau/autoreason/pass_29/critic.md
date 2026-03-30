@@ -1,0 +1,31 @@
+Here are the real problems found in this document:
+
+**1. §0.3 is truncated.**
+The interaction analysis table cuts off mid-row after "Option A (two dedicated engineers)" with no content in the Effect column and no subsequent rows. The document explicitly calls §0.3 "the authoritative analysis" that "decision owners must consult before making or logging their selections." That section is incomplete. This is the same class of defect the revision notes claim to have fixed in row 1.
+
+**2. The revision notes table claims completeness it cannot verify.**
+The header disclaimer says the table "makes no completeness claims" and that missing sections are defects "regardless of what this table says." But the table lists 19 resolved problems and implies the document is now sound. The truncated §0.3 is not listed as an open issue, meaning the revision process itself failed to catch it. The disclaimer does not neutralize the false impression of completeness created by the table's framing.
+
+**3. The plain-language summary obligation for Decision B is defined by wholesale reference, not by actual text.**
+§0.2 says "the same priority-ordered window-start rules defined in §0.1 apply to Decision B, substituting 'Decision B'... throughout." This means the acknowledgment requirement, the follow-up obligation, the Taylor Okonkwo notification chain, and the consequence for non-delivery all apply to Decision B only by implication. If any of those provisions are ambiguous when applied to Decision B — for example, who plays Taylor Okonkwo's role for Alex Chen, since Taylor is Jordan's manager, not Alex's — there is no authoritative text to consult.
+
+**4. Morgan Singh's conflict rule has a timing gap.**
+The rule suspends Morgan's tiebreaker authority when Morgan has an "active process defect logged against Alex Chen." But Morgan is also the party responsible for logging process defects under §0.1's non-delivery consequence. If Morgan logs the defect against Alex, that act of logging simultaneously triggers the conflict rule that suspends Morgan's tiebreaker authority. Morgan is then required to notify the executive sponsor "within one business day of the disagreement being logged" — but the disagreement and the defect may be logged at different times, and the rule does not address what happens if the defect is logged after the disagreement. The suspension's activation point is ambiguous.
+
+**5. The quorum definition produces a degenerate outcome it does not address.**
+§0.6 defines quorum as "majority of available non-recused members, more than half rounded up. If pool is one member, that member alone constitutes quorum." But the document also establishes that the executive sponsor acts as tiebreaker when Morgan is suspended, that Morgan recuses when escalation concerns Morgan's conduct, and that Taylor has notification and confirmation roles. If recusals and unavailability combine to produce a pool of zero members, the quorum rule has no answer. The one-member fallback does not extend to zero.
+
+**6. The feasibility assessment consequence in §0.3 is unreachable.**
+Row 12 of the revision notes says §0.3 contains a binding feasibility rule: if Option Y is found not achievable after Decision B has already resolved as Option Y, the engineering lead notifies the steering committee and Decision B may be reopened. But §0.3 is truncated before it defines any feasibility assessment timeline, trigger, or ownership. The rule referenced in the revision notes either does not appear in the document or appears in the missing portion of §0.3. Either way, the binding rule is absent from the authoritative section.
+
+**7. Alex Chen has the summary delivery obligation for both decisions on the same one-business-day timeline.**
+§0.2 states "the engineering lead carries the summary delivery obligation for Decision B on the same timeline as for Decision A." Alex must deliver two separate plain-language summaries — each requiring non-technical descriptions, cost and staffing implications, and default rationale — within one business day of the issue date. The document treats this as unproblematic but does not acknowledge the compounded burden or address what happens if one summary is delivered on time and the other is not.
+
+**8. The "active defect" definition is circular in the Morgan conflict rule.**
+The rule says a defect is "active" if it "has been logged per §0.4 and has not been resolved or closed." But the document does not define what constitutes resolution or closure of a defect, who has authority to declare a defect resolved, or what the process is. Morgan's tiebreaker suspension therefore has an entry condition but no defined exit condition, meaning it could persist indefinitely.
+
+**9. The asynchronous steering committee participation rule conflicts with the consolidation provision.**
+§0.6 requires all available non-recused members to post a substantive written contribution within a two-business-day window. §0.2 permits the steering committee to consolidate Decision A and Decision B into a single proceeding "at its discretion" without altering individual deadlines. If the two decisions have different suspension start dates, their two-business-day windows are not coterminous. The consolidation provision does not explain which window governs the consolidated proceeding or whether members must post once or twice.
+
+**10. The executive sponsor and project coordinator fields are referenced as enforcement-critical but never populated.**
+Row 5 of the revision notes says §0.4 contains explicit enforcement language that the document cannot reach final form while either field contains placeholder text. The document as presented does not show those fields or confirm they have been filled. The executive sponsor is invoked in at least six distinct procedural roles — tiebreaker when Morgan is suspended, recusal determiner for Morgan, recipient of Morgan's conflict notification, delegate designator, fallback for Taylor's adjudicative functions, and steering committee participant. If the executive sponsor field is still a placeholder, every one of those procedural paths is broken.
