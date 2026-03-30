@@ -449,11 +449,18 @@ Plateau & 35 & 2 & 22 & 11 & No \\
 \label{tab:remedies}
 \end{table}
 
-The margin requirement is the effective fix. Both experiments that included it converged (passes 15 and 17); both without it did not. In the combined experiment, the margin rule overrode 2 of 17 passes where AB would have won by 1~Borda point, creating the consecutive-win windows that the baseline could never produce. The margin-only experiment converged without any overrides---potentially stochastic, but the combined result confirms the mechanism.
+The margin requirement is the effective fix (Figure~\ref{fig:remedies}). Both experiments that included it converged (passes 15 and 17); both without it did not. In the combined experiment, the margin rule overrode 2 of 17 passes where AB would have won by 1~Borda point, creating the consecutive-win windows that the baseline could never produce. The margin-only experiment converged without any overrides---potentially stochastic, but the combined result confirms the mechanism.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{fig_remedies.pdf}
+\caption{Scaling remedy results. Left: cumulative A win rate over passes (solid = converged, dashed = did not). Right: passes to convergence (* = did not converge, killed at cap). Only experiments including the margin requirement terminated.}
+\label{fig:remedies}
+\end{figure}
 
 Scope-aware judges had no effect: AB still won 25 of 35~passes (71\%) despite explicit anti-bloat instructions. The stronger model's AB syntheses are preferred for reasons beyond verbosity. Plateau detection could never trigger because A's scores remained at 3--4 throughout---the incumbent is genuinely weaker per pass, not just losing on close calls.
 
-The implication: the scaling failure is not about evaluation bias or stopping criteria. It is about the fundamental asymmetry between a static incumbent and fresh challengers with access to a critique. The margin requirement works because it raises the bar for displacement, giving the incumbent stability it cannot earn on pure quality alone. This is a design tradeoff: the margin rule accepts occasional false convergence (keeping a beatable incumbent) in exchange for eventual termination.
+The diagnosis is specific: the scaling failure is not about evaluation bias or stopping criteria. It is about the structural asymmetry between a static incumbent and fresh challengers with access to a critique. The margin requirement works because it raises the bar for displacement, giving the incumbent stability it cannot earn on pure quality alone. This is a design tradeoff---the margin rule accepts occasional false convergence (keeping a beatable incumbent) in exchange for eventual termination. Whether the converged output under the margin rule is actually good (as opposed to merely stable) requires a separate quality evaluation, which we leave to future work.
 
 \section{Writing This Paper}
 \label{sec:paper}
