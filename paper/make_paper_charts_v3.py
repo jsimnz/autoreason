@@ -9,6 +9,23 @@ import numpy as np
 import json
 from pathlib import Path
 
+# ── Match paper typography ──────────────────────────────────────────
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Palatino', 'Palatino Linotype', 'URW Palladio L', 'DejaVu Serif'],
+    'font.size': 11,
+    'axes.titlesize': 13,
+    'axes.labelsize': 12,
+    'xtick.labelsize': 10,
+    'ytick.labelsize': 10,
+    'legend.fontsize': 10,
+    'figure.dpi': 300,
+    'savefig.dpi': 300,
+    'axes.linewidth': 0.8,
+    'lines.linewidth': 2.0,
+    'lines.markersize': 8,
+})
+
 out = '/root/autoreason-experiment/paper'
 colors = {'A': '#4A90D9', 'B': '#E85D75', 'AB': '#7B68AE'}
 
@@ -71,7 +88,7 @@ ax2.grid(axis='y', alpha=0.15)
 ax2.invert_yaxis()
 
 plt.tight_layout()
-plt.savefig(f'{out}/fig_summary.png', dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig(f'{out}/fig_summary.pdf', dpi=300, bbox_inches='tight', facecolor='white')
 print("Saved fig_summary.png")
 
 
@@ -103,7 +120,7 @@ for i in range(1, 6):
     if hist_file.exists():
         history = json.loads(hist_file.read_text())
         traj = [h['winner'] for h in history]
-        conv = '✔' if traj[-1] == 'A' and len(traj) >= 2 and traj[-2] == 'A' else '✗'
+        conv = 'Y' if traj[-1] == 'A' and len(traj) >= 2 and traj[-2] == 'A' else 'N'
         trajectories[f'MC Run {i} ({len(traj)} passes, {conv})'] = traj
 
 def draw_tree(ax, winners, title):
@@ -164,5 +181,5 @@ fig.legend(handles=legend_patches, loc='lower center', ncol=3, fontsize=9,
 
 plt.tight_layout()
 plt.subplots_adjust(bottom=0.05, top=0.95, hspace=0.55)
-plt.savefig(f'{out}/fig_appendix_trajectories.png', dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig(f'{out}/fig_appendix_trajectories.pdf', dpi=300, bbox_inches='tight', facecolor='white')
 print("Saved fig_appendix_trajectories.png")

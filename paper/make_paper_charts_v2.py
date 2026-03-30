@@ -7,6 +7,23 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
 
+# ── Match paper typography ──────────────────────────────────────────
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Palatino', 'Palatino Linotype', 'URW Palladio L', 'DejaVu Serif'],
+    'font.size': 11,
+    'axes.titlesize': 13,
+    'axes.labelsize': 12,
+    'xtick.labelsize': 10,
+    'ytick.labelsize': 10,
+    'legend.fontsize': 10,
+    'figure.dpi': 300,
+    'savefig.dpi': 300,
+    'axes.linewidth': 0.8,
+    'lines.linewidth': 2.0,
+    'lines.markersize': 8,
+})
+
 out = '/root/autoreason-experiment/paper'
 
 colors = {'A': '#4A90D9', 'B': '#E85D75', 'AB': '#7B68AE'}
@@ -47,7 +64,7 @@ ax.legend(fontsize=9, loc='upper right')
 ax.grid(axis='y', alpha=0.15)
 
 plt.tight_layout()
-plt.savefig(f'{out}/fig_multi_task.png', dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig(f'{out}/fig_multi_task.pdf', dpi=300, bbox_inches='tight', facecolor='white')
 print("Saved fig_multi_task.png")
 
 # =========================================================================
@@ -89,7 +106,7 @@ ax2.text(5.3, np.mean(mc_words), f'mean: {int(np.mean(mc_words))}', fontsize=8, 
 
 fig.suptitle('Monte Carlo: 5 Independent Runs of Task 1', fontsize=13, fontweight='bold', y=1.02)
 plt.tight_layout()
-plt.savefig(f'{out}/fig_monte_carlo.png', dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig(f'{out}/fig_monte_carlo.pdf', dpi=300, bbox_inches='tight', facecolor='white')
 print("Saved fig_monte_carlo.png")
 
 # =========================================================================
@@ -130,7 +147,7 @@ for i, w in enumerate(winners):
 
 for p in [15, 25]:
     ax.axvline(x=p, color='#4A90D9', linewidth=1, linestyle='--', alpha=0.3, zorder=1)
-ax.annotate('★ 2/2', xy=(15, y[15]), xytext=(15, y[15]-1.5),
+ax.annotate('* 2/2', xy=(15, y[15]), xytext=(15, y[15]-1.5),
             fontsize=9, ha='center', color='#4A90D9', fontweight='bold',
             arrowprops=dict(arrowstyle='->', color='#4A90D9', lw=1.2, alpha=0.6))
 
@@ -149,7 +166,7 @@ legend_patches = [
 ax.legend(handles=legend_patches, loc='upper left', fontsize=10, framealpha=0.9)
 
 plt.tight_layout()
-plt.savefig(f'{out}/fig_trajectory_tree.png', dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig(f'{out}/fig_trajectory_tree.pdf', dpi=300, bbox_inches='tight', facecolor='white')
 print("Saved fig_trajectory_tree.png")
 
 # =========================================================================
@@ -171,5 +188,5 @@ ax.set_title('Convergence Speed Across Tasks (threshold = 2 consecutive A wins)'
 ax.set_ylim(0, 35)
 ax.grid(axis='y', alpha=0.15)
 plt.tight_layout()
-plt.savefig(f'{out}/fig_convergence_all.png', dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig(f'{out}/fig_convergence_all.pdf', dpi=300, bbox_inches='tight', facecolor='white')
 print("Saved fig_convergence_all.png")

@@ -77,7 +77,7 @@ for i, w in enumerate(winners):
 
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.08)
-plt.savefig('/root/autoreason-experiment/paper/fig_paper_run.png', dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig('/root/autoreason-experiment/paper/fig_paper_run.png', dpi=300, bbox_inches='tight', facecolor='white')
 print("Saved fig_paper_run.png")
 
 
@@ -109,7 +109,7 @@ ax.text(1, 0.8, 'all claims verified\nagainst actual data',
         ha='center', fontsize=8, color='#666666', style='italic')
 
 plt.tight_layout()
-plt.savefig('/root/autoreason-experiment/paper/fig_hallucination.png', dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig('/root/autoreason-experiment/paper/fig_hallucination.png', dpi=300, bbox_inches='tight', facecolor='white')
 print("Saved fig_hallucination.png")
 
 
@@ -136,5 +136,5 @@ ax2.set_title('3 working judges\n(all Opus)', fontsize=11, fontweight='bold')
 fig.suptitle('Judge Panel Integrity Affects Convergence', fontsize=13, fontweight='bold', y=1.02)
 
 plt.tight_layout()
-plt.savefig('/root/autoreason-experiment/paper/fig_judge_integrity.png', dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig('/root/autoreason-experiment/paper/fig_judge_integrity.png', dpi=300, bbox_inches='tight', facecolor='white')
 print("Saved fig_judge_integrity.png")
