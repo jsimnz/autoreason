@@ -1,0 +1,33 @@
+Here are the real problems with this proposal:
+
+## Architectural Problems
+
+**The P0 isolation via separate table solves the wrong problem.** Separating `notification_outbox_p0` from `notification_outbox` prevents poller contention, but P0 messages (auth OTPs) still share the same PostgreSQL instance as P1/P2 workloads. A slow P1/P2 write storm or long-running P1/P2 query can cause lock contention or autovacuum pressure that delays the P0 poller's reads. The table separation doesn't create the database-level isolation the P0 SLA actually requires.
+
+**The Redis AOF persistence assumption is underspecified but treated as a correctness guarantee.** The proposal says Redis is AOF-persisted but never specifies `appendfsync` policy. With `appendfsync everysec` (the common default), you can lose up to one second of enqueued notification IDs on a crash. The proposal explicitly states "PostgreSQL as system of record" and "Redis durability becomes a performance decision, not a correctness one" — but then the outbox poller marks rows `relayed_at` after writing to Redis. If Redis crashes after the write but before the commit, the outbox row is marked relayed but the queue entry is gone. The outbox recovery depends on Redis not losing data, which contradicts the stated architectural principle.
+
+**The idempotency mechanism is promised but not delivered.** Section 2.2 explicitly says "The mechanism — including the race condition that a naive constraint-only approach does not handle — is specified completely in Section 3.3." Section 3.3 is referenced repeatedly throughout the document but never appears. This is the most critical correctness component in the design and it's missing.
+
+**P2-to-P1 assist mode creates an unacknowledged P0 starvation risk.** The document carefully specifies P2 assisting P1, but never addresses what happens to P0 if the P0 poller instance fails. There's no described fallback for the dedicated P0 poller — no mention of health checks, restart behavior, or whether general fleet instances can assist P0 under any condition. A single-instance dedicated poller with no fallback is a single point of failure for auth OTPs.
+
+## Operational Problems
+
+**The cross-training mitigation contradicts the delivery timeline.** The proposal says E1 and E2 co-build queue infrastructure together in month 1 rather than in parallel, and E3/E4 do the same for the preference system. But the document also says the working system ships in month 2. If both pairs are co-building (not parallelizing), the month-2 deadline requires two separate subsystems to be completed sequentially by two people in one month. The mitigation for the staffing risk directly undermines the delivery schedule, and the proposal doesn't acknowledge this tension.
+
+**The 4-engineer on-call rotation in month 2 is described as a mitigation but is itself a risk.** Four engineers rotating on-call for a newly launched production system means each engineer is primary on-call roughly one week in four. E3, whose domain is preference management, will be primary on-call for the queue infrastructure and delivery pipeline they didn't build. The proposal says E3 will have "enough context to execute runbooks and escalate correctly" — but runbooks for a system that just launched in month 2 will be incomplete, and escalation at 3am means waking E1 or E2, negating the rotation benefit.
+
+**The dead-letter queue runbook and drain procedure are mentioned but not described.** The proposal quantifies three DLQs as part of the operational surface and estimates 4–6 engineer-hours/month for maintenance, but never specifies what a DLQ drain procedure actually does. For P0 dead-lettered OTPs specifically, the drain procedure has security implications — replaying a stale OTP could be a vulnerability. This is deferred to Section 3.6, which also doesn't appear in the document.
+
+## Scale and Cost Problems
+
+**The 17 notifications/user/day figure is applied to DAU but sourced from engaged-user benchmarks.** The proposal acknowledges this but doesn't follow the logic far enough. If the top 20% of users generate 60% of volume, and those users are all in the DAU cohort, then the per-user rate for DAU is not 17 — it's closer to 25-30 for the active segment. The 6x burst ceiling is presented as a hedge, but it's a hedge against fleet-average burst, not against the high-activity cohort's burst behavior, which the document itself says could be 8-10x their personal average.
+
+**The SMS cost analysis is internally inconsistent.** The proposal states blended international SMS cost is $0.02–$0.04/message and daily volume is 1M messages, giving $20,000–$40,000/day. It then says SMS requires spend caps before launch. But 1M SMS/day at that cost is $7–14M/month. For a 10M MAU social app, this is implausible as a channel allocation — 2% of notifications being SMS at that cost would dominate the infrastructure budget. Either the volume estimate is wrong, the channel split is wrong, or the use case (auth + high-priority only) contradicts the 1M/day volume figure. These three things cannot all be true simultaneously.
+
+**The 4-instance poller fleet calculation is referenced but not shown.** The proposal claims "17× headroom over peak sustained load" and says "full calculation in Section 3.2." Section 3.2 does not appear. This is the second critical section promised and not delivered.
+
+## Process Problems
+
+**Three of the most important decisions are deferred to sign-off items with no fallback specified if sign-off doesn't happen.** SMS spend caps, OTP escalation paths, and the push-fail/in-app-disabled behavior are all listed as requiring sign-off before implementation. The proposal says OTP escalation "must be resolved before month 2 because OTPs are P0 and launch with the system." But there's no specified consequence if product and security don't provide input in time — no described delay to the launch, no fallback behavior, no owner accountable for driving the decision. The sign-off requirement is stated without any process for enforcing it.
+
+**The document references its own sections that don't exist.** Sections 3.2, 3.3, 3.4, and 3.6 are all cited for critical specifications and none of them appear. This is not a minor omission — 3.3 contains the idempotency mechanism that the entire correctness argument depends on, and 3.6 contains the OTP escalation path that is explicitly called out as a launch blocker. The document as written cannot be implemented.
