@@ -424,9 +424,23 @@ The implication: autoreason's convergence mechanism assumes the incumbent can ev
 
 We ran autoreason on this paper using claude-opus-4 (all roles) with 3 Opus judges. All agents received actual experimental data as ground-truth context. Converged in 9~passes: AB$\to$A$\to$AB$\to$AB$\to$AB$\to$AB$\to$AB$\to$A$\to$A.
 
-\textbf{Ground-truth critic.}\enspace Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions. With ground-truth access, the critic caught all four on pass~1. The author writes from understanding; the critic verifies against evidence---mirroring peer review.
+\textbf{Ground-truth critic.}\enspace Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions (Figure~\ref{fig:hallucination}). With ground-truth access, the critic caught all four on pass~1. The author writes from understanding; the critic verifies against evidence---mirroring peer review.
 
-\textbf{Judge panel integrity.}\enspace An earlier run with a mixed panel (Opus + Sonnet + Gemini) failed to converge for 11~passes because Gemini's output format failed our ranking parser, reducing the effective panel to 2~judges. Once fixed to 3 working judges, the same incumbent converged in 2~passes. Panel integrity is a prerequisite for convergence---a broken judge doesn't add noise, it prevents equilibrium.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{fig_hallucination.pdf}
+\caption{Ground-truth critic eliminates hallucination. Without reference data, the initial draft contained 4 fabricated claims. With ground-truth access, all claims were verified on pass~1.}
+\label{fig:hallucination}
+\end{figure}
+
+\textbf{Judge panel integrity.}\enspace An earlier run with a mixed panel (Opus + Sonnet + Gemini) failed to converge for 11~passes because Gemini's output format failed our ranking parser, reducing the effective panel to 2~judges. Once fixed to 3 working judges, the same incumbent converged in 2~passes (Figure~\ref{fig:integrity}). Panel integrity is a prerequisite for convergence---a broken judge doesn't add noise, it prevents equilibrium.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{fig_judge_integrity.pdf}
+\caption{Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes.}
+\label{fig:integrity}
+\end{figure}
 
 \section{Related Work}
 
@@ -440,7 +454,14 @@ We ran autoreason on this paper using claude-opus-4 (all roles) with 3 Opus judg
 
 \textbf{Convergence as practical stopping rule.}\enspace The threshold does not guarantee optimality. It filters noise. Post-convergence passes on Task~1 produced no improvement (pass~15 beat pass~25, 6--1). The Monte Carlo results show 20\% non-convergence at 30~passes, meaning some runs need a cap. The Elo analysis confirms quality plateaus early regardless of whether the consecutive-wins threshold is met.
 
-\textbf{Bloat/prune oscillation}\enspace signals underdetermined scope. Constraining scope eliminates this but makes convergence harder by giving the critic concrete criteria to enforce.
+\textbf{Bloat/prune oscillation}\enspace signals underdetermined scope. Constraining scope eliminates this but makes convergence harder by giving the critic concrete criteria to enforce. Figure~\ref{fig:wordcount} shows the structural story: autoreason grows steadily then stabilizes, while baselines either stagnate (conservative) or bloat monotonically (critique-and-revise).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{fig_wordcount.pdf}
+\caption{Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat.}
+\label{fig:wordcount}
+\end{figure}
 
 \textbf{Model scaling is not free.}\enspace The Sonnet~4.6 result (Section~\ref{sec:scaling}) suggests autoreason may require architectural adaptation as models improve. The current design assumes a convergence ceiling exists within the model's capability range. Stronger models may push that ceiling beyond what the loop can reach before synthesis drift accumulates. Promising directions include score-based plateau detection (exit when the incumbent's Borda score stabilizes rather than requiring consecutive wins), asymmetric evaluation (requiring AB to win by a margin rather than just edge out~A), and tiered model configurations where a stronger model judges outputs from a weaker author. The problem is fundamentally about calibrating the stopping criterion to the model's improvement capacity.
 
