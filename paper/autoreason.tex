@@ -107,7 +107,6 @@ We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to
                 minimum height=0.7cm, minimum width=2.0cm,
                 font=\small, text=black, line width=0.6pt},
     box/.default=NavyBlue,
-    agentlabel/.style={font=\scriptsize\itshape, text=MedGray},
     arr/.style={->, thick, color=#1!70},
     arr/.default=NavyBlue,
     dasharr/.style={->, densely dashed, thick, color=#1!50},
@@ -117,56 +116,55 @@ We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to
 % ── Task prompt anchor ──
 \node[box=MedGray, minimum width=3.2cm, fill=LightGray, draw=MedGray!60]
     (task) {\textbf{Task Prompt}};
-\node[agentlabel, below=0.05cm of task] {anchor for all roles};
 
 % ── Incumbent A ──
-\node[box, below=0.7cm of task] (A) {\textbf{Incumbent A}};
+\node[box, below=0.55cm of task] (A) {\textbf{Incumbent A}};
 
 % ── Critic ──
 \node[box=red!70!black, right=1.8cm of A] (critic) {\textbf{Critic}};
-\node[agentlabel, below=0.05cm of critic] {find problems only};
 
 % ── Author B ──
 \node[box=red!70!black, right=1.8cm of critic] (authorB) {\textbf{Author B}};
-\node[agentlabel, below=0.05cm of authorB] {revise based on critique};
 
 % ── Synthesizer ──
 \node[box=purple!70!black, right=1.8cm of authorB] (synth) {\textbf{Synthesizer}};
-\node[agentlabel, below=0.05cm of synth] {best of A + B};
 
-% ── Three candidates ──
-\node[box, below=1.2cm of synth, xshift=-2.4cm] (candA) {\textsf{A}};
-\node[box=red!70!black, right=0.8cm of candA] (candB) {\textsf{B}};
-\node[box=purple!70!black, right=0.8cm of candB] (candAB) {\textsf{AB}};
+% ── Three candidates: A, AB, B order ──
+\node[box, below=1.3cm of synth, xshift=-2.4cm] (candA) {\textsf{A}};
+\node[box=purple!70!black, right=0.8cm of candA] (candAB) {\textsf{AB}};
+\node[box=red!70!black, right=0.8cm of candAB] (candB) {\textsf{B}};
 
 % ── Judge panel ──
-\node[box=NavyBlue, below=0.8cm of candB, minimum width=4.8cm, minimum height=0.9cm]
-    (judge) {\textbf{Judge Panel} {\scriptsize (3 judges, blind, Borda)}};
-\node[agentlabel, below=0.05cm of judge] {randomized labels + order};
+\node[box=NavyBlue, below=0.9cm of candAB, minimum width=4.8cm, minimum height=0.9cm]
+    (judge) {\textbf{Judge Panel} {\scriptsize (3 blind judges, Borda count)}};
 
 % ── Winner decision ──
 \node[box=NavyBlue, below=0.8cm of judge, minimum width=2.4cm] (winner) {\textbf{Winner}};
 
 % ── Convergence check ──
-\node[box=MedGray, fill=LightGray, draw=MedGray!60, below left=0.7cm and 0.4cm of winner,
+\node[box=MedGray, fill=LightGray, draw=MedGray!60, below left=0.7cm and 0.6cm of winner,
       minimum width=2.0cm] (conv) {Converged?};
-\node[font=\small\bfseries, text=green!50!black, below left=0.05cm and -0.1cm of conv] (yes) {yes $\to$ done};
 
-% ── Arrows: main flow ──
+% ── Arrows: main pipeline (top row) ──
 \draw[arr] (task) -- (A);
-\draw[arr] (A) -- (critic) node[midway, above, font=\scriptsize] {current A};
-\draw[arr=red!70!black] (critic) -- (authorB) node[midway, above, font=\scriptsize] {critique};
-\draw[arr=purple!70!black] (authorB) -- (synth) node[midway, above, font=\scriptsize] {A + B};
+\draw[arr] (A) -- (critic);
+\draw[arr=red!70!black] (critic) -- (authorB);
+\draw[arr=purple!70!black] (authorB) -- (synth);
 
-% ── Arrows: candidates down ──
-\draw[dasharr] (A.south) -- ++(0,-0.4) -| (candA.north);
-\draw[dasharr=red!70!black] (authorB.south) -- ++(0,-0.25) -| (candB.north);
+% ── Edge labels on pipeline arrows ──
+\node[font=\scriptsize, text=NavyBlue!70, above=0.08cm] at ($(A.east)!0.5!(critic.west)$) {current A};
+\node[font=\scriptsize, text=red!60!black, above=0.08cm] at ($(critic.east)!0.5!(authorB.west)$) {critique};
+\node[font=\scriptsize, text=purple!60!black, above=0.08cm] at ($(authorB.east)!0.5!(synth.west)$) {A + B};
+
+% ── Arrows: candidates down (dashed) ──
+\draw[dasharr] (A.south) -- ++(0,-0.5) -| (candA.north);
 \draw[dasharr=purple!70!black] (synth.south) -- (candAB.north);
+\draw[dasharr=red!70!black] (authorB.south) -- ++(0,-0.35) -| (candB.north);
 
 % ── Arrows: candidates to judge ──
-\draw[arr] (candA.south) -- ++(0,-0.15) -| ([xshift=-0.6cm]judge.north);
-\draw[arr=red!70!black] (candB.south) -- (judge.north);
-\draw[arr=purple!70!black] (candAB.south) -- ++(0,-0.15) -| ([xshift=0.6cm]judge.north);
+\draw[arr] (candA.south) -- ++(0,-0.2) -| ([xshift=-0.6cm]judge.north);
+\draw[arr=purple!70!black] (candAB.south) -- (judge.north);
+\draw[arr=red!70!black] (candB.south) -- ++(0,-0.2) -| ([xshift=0.6cm]judge.north);
 
 % ── Judge to winner ──
 \draw[arr] (judge) -- (winner);
@@ -174,31 +172,45 @@ We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to
 % ── Winner to convergence check ──
 \draw[arr=MedGray] (winner) -- (conv);
 
-% ── Loop back arrow ──
+% ── Loop back arrow: route along far left, clear of all elements ──
+\coordinate (loopleft) at ([xshift=-2.0cm]A.west);
 \draw[arr=MedGray, line width=1.2pt]
-    (conv.west) -- ++(-0.6,0) |- ([yshift=-0.15cm]A.south west)
-    node[pos=0.25, left, font=\scriptsize\itshape, text=MedGray] {no: winner $\to$ new A};
+    (conv.west) -| (loopleft) -- (A.west);
+\node[font=\scriptsize, text=MedGray, rotate=90, anchor=south]
+    at ([xshift=-2.0cm, yshift=-0.2cm]A.west) {winner $\to$ new A};
 
-% ── Fresh agent badges ──
+% ── Convergence exit ──
+\node[font=\small\bfseries, text=green!50!black, below=0.15cm of conv] {$k{=}2$ A wins $\to$ \textrm{done}};
+
+% ── Fresh agent badges: positioned clearly above each role ──
 \begin{scope}[every node/.style={font=\tiny, rounded corners=1.5pt,
     fill=NavyBlue!10, draw=NavyBlue!30, inner sep=1.5pt, text=NavyBlue!80}]
-    \node[above right=-0.08cm and -0.2cm of critic] {fresh};
-    \node[above right=-0.08cm and -0.2cm of authorB] {fresh};
-    \node[above right=-0.08cm and -0.2cm of synth] {fresh};
-    \node[above right=-0.08cm and 0.4cm of judge] {fresh $\times 3$};
+    \node[above=0.12cm of critic] {fresh agent};
+    \node[above=0.12cm of authorB] {fresh agent};
+    \node[above=0.12cm of synth] {fresh agent};
+    \node[below right=0.08cm and 0.15cm of judge.south east,
+          anchor=north west] {fresh $\times$ 3};
 \end{scope}
+
+% ── Role descriptions: positioned below candidates, clear of arrows ──
+\node[font=\scriptsize\itshape, text=MedGray, anchor=west]
+    at ([yshift=-0.22cm]candA.south west) {unchanged};
+\node[font=\scriptsize\itshape, text=MedGray, anchor=center]
+    at ([yshift=-0.22cm]candAB.south) {synthesis};
+\node[font=\scriptsize\itshape, text=MedGray, anchor=east]
+    at ([yshift=-0.22cm]candB.south east) {revision};
 
 % ── Loop region background ──
 \begin{scope}[on background layer]
-\node[fit=(critic)(candA)(candAB)(judge)(winner)(conv),
+\node[fit=(critic)(candA)(candB)(judge)(winner)(conv),
       rounded corners=6pt, fill=NavyBlue!3, draw=NavyBlue!15,
-      inner sep=10pt, line width=0.5pt] (loopbg) {};
-\node[font=\scriptsize\scshape, text=NavyBlue!40,
-      anchor=north east] at (loopbg.north east) {iteration loop};
+      inner xsep=12pt, inner ysep=10pt, line width=0.5pt] (loopbg) {};
+\node[font=\scriptsize\scshape, text=NavyBlue!35,
+      anchor=north east] at ([xshift=-2pt, yshift=-2pt]loopbg.north east) {iteration loop};
 \end{scope}
 
 \end{tikzpicture}
-\caption{The autoreason loop. Each pass produces three candidates from the incumbent: the unchanged original~(A), an adversarial revision~(B), and a synthesis~(AB). A blind judge panel selects the winner. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent---no shared context.}
+\caption{The autoreason loop. Each pass produces three candidates from the incumbent: the unchanged original~(A), a synthesis~(AB), and an adversarial revision~(B). A blind judge panel selects the winner via Borda count. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent with no shared context.}
 \label{fig:method}
 \end{figure*}
 
@@ -208,7 +220,7 @@ We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to
 
 \textbf{Synthesizer.}\enspace A fresh agent receives A and B with randomized labels. Produces AB by taking the strongest elements of each.
 
-\textbf{Judge Panel.}\enspace 3 fresh agents rank A, B, AB via Borda count (3/2/1 points). Randomized labels and presentation order. Conservative tiebreak: incumbent wins ties. Convergence at $k{=}2$ consecutive A wins.
+\textbf{Judge Panel.}\enspace 3 fresh agents rank A, AB, B via Borda count (3/2/1 points). Randomized labels and presentation order. Conservative tiebreak: incumbent wins ties. Convergence at $k{=}2$ consecutive A wins.
 
 Every role is a fresh, isolated agent with no shared context. The original task prompt anchors all evaluation. Exact prompts are provided in Appendix~\ref{app:prompts}.
 
