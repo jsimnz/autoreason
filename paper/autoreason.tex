@@ -34,7 +34,7 @@
 
 \section*{Abstract}
 
-We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. The method constructs a subjective fitness function through independent blind evaluation, extending the autoresearch paradigm. Autoreason uses fresh isolated agents per role, blind judge panels with Borda count aggregation, and conservative tiebreaking. Across 5 task types with claude-sonnet-4, autoreason ranked first or second in every 7-judge blind comparison, winning 3 of 5 tasks outright (avg Borda 27.8/35, avg rank 1.4). Chain-of-thought judging reduces convergence time by 3x. Monte Carlo analysis shows 80\% convergence rate with consistent output quality. Retroactive game-theoretic analysis confirms fully transitive preferences and ELO plateau, validating the convergence mechanism. We find the method's advantage is task-dependent and iteration-dependent: autoreason excels on tasks with genuine tradeoffs, while a single autoreason pass does not outperform simpler baselines.
+We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. The method constructs a subjective fitness function through independent blind evaluation, extending the autoresearch paradigm. Autoreason uses fresh isolated agents per role, blind judge panels with Borda count aggregation, and conservative tiebreaking. Across 5 task types with claude-sonnet-4, autoreason ranked first or second in every 7-judge blind comparison, winning 3 of 5 tasks outright (avg Borda 27.8/35, avg rank 1.4). Chain-of-thought judging reduces convergence time by 3x. Monte Carlo analysis shows 80\% convergence rate with consistent output quality. Retroactive game-theoretic analysis confirms fully transitive preferences and ELO plateau, validating the convergence mechanism. We find the method's advantage is task-dependent and iteration-dependent: autoreason excels on tasks with genuine tradeoffs, while a single autoreason pass does not outperform simpler baselines. A scaling experiment with a stronger model (Sonnet 4.6) reveals a failure mode where synthesis consistently outcompetes the incumbent, preventing convergence entirely and producing worse final output than all baselines---suggesting the architecture may require adaptation as model capabilities increase.
 
 \section{Introduction}
 
@@ -74,6 +74,29 @@ All experiments used claude-sonnet-4-20250514 (temp=0.8 authors, 0.3 judges, max
 
 \section{Results}
 
+\subsection{Single-Pass Evaluation}
+\label{sec:v1}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Method} & \textbf{Calls} & \textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{T5} \\
+\midrule
+Harsh critic & 1 & \textbf{30} & \textbf{31} & 23 & \textbf{30} & \textbf{31} \\
+Critique \& rev. & 1 & \textbf{30} & 30 & \textbf{31} & 28 & 23 \\
+Autoreason & 5 & 24 & 22 & 24 & 17 & 24 \\
+Improve this & 1 & 14 & 14 & 18 & 23 & 20 \\
+Conservative & 1 & 7 & 8 & 9 & 7 & 7 \\
+\bottomrule
+\end{tabular}
+\caption{Single-pass Borda scores. Bold = winner per task.}
+\label{tab:v1}
+\end{table}
+
+Single-pass autoreason averaged 22.2 Borda, placing 3rd on 4/5 tasks. Harsh critic (29.0) and critique-and-revise (28.4) both outperformed it at 1/5th the cost. On a single pass, splitting work across five agents is not justified---simpler methods that concentrate effort into one strong revision win. \textbf{The question is whether iteration changes this.}
+
 \subsection{Multi-Task Comparison}
 
 \begin{table}[H]
@@ -90,11 +113,13 @@ Conservative & 21 & 19 & 15 & 18 & 15 \\
 Improve this & 18 & 11 & 8 & 10 & 14 \\
 \bottomrule
 \end{tabular}
-\caption{Borda scores (max 35) across 5 tasks. Bold = winner. Autoreason won tasks 1, 3, 5. Critique-and-revise won tasks 2, 4.}
+\caption{Borda scores (max 35) across 5 tasks, all methods at 15 iterative passes. Bold = winner. Autoreason won tasks 1, 3, 5. Critique-and-revise won tasks 2, 4.}
 \label{tab:multi}
 \end{table}
 
-Autoreason won 3 of 5 tasks and placed second on the other two (avg Borda 27.8, avg rank 1.4). Critique-and-revise won tasks 2 and 4. The pattern: autoreason excels on tasks with genuine tradeoffs (strategy, policy, cross-timezone incident response) where the A/B/AB structure surfaces different valid perspectives. Critique-and-revise wins on tasks with concrete technical requirements (system design, competitive positioning) where a direct find-and-fix loop is more efficient.
+With iteration, autoreason won 3 of 5 tasks and placed second on the other two (avg Borda 27.8, avg rank 1.4). The iterative loop (avg 27.8) outperforms all single-pass methods (best: 29.0). The judge's protection against bad revisions compounds over passes---each iteration either improves the incumbent or leaves it unchanged, while baselines accumulate drift unchecked.
+
+The pattern: autoreason excels on tasks with genuine tradeoffs (strategy, policy, cross-timezone incident response) where the A/B/AB structure surfaces different valid perspectives. Critique-and-revise wins on tasks with concrete technical requirements (system design, competitive positioning) where a direct find-and-fix loop is more efficient.
 
 \begin{figure}[H]
 \centering
@@ -121,17 +146,6 @@ Figure~\ref{fig:tree} shows the Task 1 trajectory as a tree, where vertical posi
 \caption{\textbf{Trajectory tree, Task 1 (26 passes).} Stars mark convergence points. Post-convergence activity is noise.}
 \label{fig:tree}
 \end{figure}
-
-\subsection{Retroactive Game-Theoretic Analysis}
-\label{sec:retro}
-
-We analyzed all 91 passes across 5 tasks plus Monte Carlo runs:
-
-\textbf{Transitivity.} Only 1 Condorcet cycle in 91 passes (1.1\%). Judge preferences are almost perfectly transitive, confirming Borda aggregation is appropriate and the spoiler problem~\cite{arrow} is theoretical, not practical.
-
-\textbf{ELO ratings.} Tracking incumbent ELO across Task 1 passes, ratings plateau at $\sim$1540 by pass 5--10. ELO at pass 15 (1547) vs pass 25 (1560)---barely different, confirming early convergence.
-
-\textbf{Pairwise dominance.} Across all 5-way comparisons, autoreason wins 18/20 pairwise matchups (90\%). The ordering is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics.
 
 \subsection{Chain-of-Thought Judges}
 \label{sec:cot}
@@ -162,32 +176,49 @@ On Task 2 (autoreason's weakest task), CoT improved autoreason from Borda 19 (ti
 
 Five independent runs of Task 1 tested convergence reliability. 4/5 converged (80\%). Convergence pass varied: 6, 8, 14, 17. One run hit the 30-pass cap without converging. Final word counts clustered tightly (1451--1660) despite variable path length, suggesting the loop reaches a similar quality ceiling regardless of path.
 
+\subsection{Retroactive Game-Theoretic Analysis}
+\label{sec:retro}
+
+We analyzed all 91 passes across 5 tasks plus Monte Carlo runs:
+
+\textbf{Transitivity.} Only 1 Condorcet cycle in 91 passes (1.1\%). Judge preferences are almost perfectly transitive, confirming Borda aggregation is appropriate and the spoiler problem~\cite{arrow} is theoretical, not practical.
+
+\textbf{ELO ratings.} Tracking incumbent ELO across Task 1 passes, ratings plateau at $\sim$1540 by pass 5--10. ELO at pass 15 (1547) vs pass 25 (1560)---barely different, confirming early convergence.
+
+\textbf{Pairwise dominance.} Across all 5-way comparisons, autoreason wins 18/20 pairwise matchups (90\%). The ordering is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics.
+
 \subsection{Constrained Tasks}
 
 Task 1 with a constrained prompt (1000-word limit, 6 required sections with specific deliverables) ran for 25 passes (the maximum) without converging. B won 18 of 25 passes (72\%). The constraint eliminated word count oscillation (all outputs 600--800 words vs 847--2500 unconstrained) but made convergence harder---specific constraints give the critic a verifiable checklist that always finds violations. Whether the loop would have converged given more passes is unknown.
 
-\subsection{Single-Pass Evaluation}
-\label{sec:v1}
+\subsection{Model Scaling: Sonnet 4.6}
+\label{sec:scaling}
+
+We ran autoreason on Task 2 using claude-sonnet-4-6 (a stronger model released after our main experiments) with CoT judges to test whether model capability improves convergence. The result was a complete reversal: autoreason came last.
 
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{@{}lcccccc@{}}
+\begin{tabular}{@{}lcc@{}}
 \toprule
-\textbf{Method} & \textbf{Calls} & \textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{T5} \\
+\textbf{Method} & \textbf{Borda} & \textbf{1st Place} \\
 \midrule
-Harsh critic & 1 & \textbf{30} & \textbf{31} & 23 & \textbf{30} & \textbf{31} \\
-Critique \& rev. & 1 & \textbf{30} & 30 & \textbf{31} & 28 & 23 \\
-Autoreason & 5 & 24 & 22 & 24 & 17 & 24 \\
-Improve this & 1 & 14 & 14 & 18 & 23 & 20 \\
-Conservative & 1 & 7 & 8 & 9 & 7 & 7 \\
+Critique \& rev. & \textbf{31} & 3 \\
+Improve this & 30 & 4 \\
+Harsh critic & 23 & 0 \\
+Conservative & 14 & 0 \\
+Autoreason & 7 & 0 \\
 \bottomrule
 \end{tabular}
-\caption{Single-pass Borda scores. Bold = winner per task.}
-\label{tab:v1}
+\caption{Sonnet 4.6 on Task 2. Autoreason ran 50 passes without converging; all baselines ran 15 passes. CoT judges.}
+\label{tab:scaling}
 \end{table}
 
-Single-pass autoreason averaged 22.2 Borda, placing 3rd on 4/5 tasks. Harsh critic (29.0) and critique-and-revise (28.4) both outperformed it at 1/5th the cost. \textbf{The value of autoreason is in the loop.} The iterative loop (avg 27.8) outperforms all single-pass methods. The judge's protection against bad revisions compounds over passes---on a single pass, splitting roles is not justified.
+Over 50 passes, A won only 6 times (12\%). AB dominated with 30+ wins; B took the remainder. The loop never approached convergence---A never won two consecutive passes. The stronger model produced AB syntheses so consistently preferred by judges that the incumbent could never survive a challenge.
+
+This failure mode is structurally different from the bloat/prune oscillation observed with Sonnet 4. With the weaker model, A occasionally won on close calls and tiebreaks, creating windows for convergence. With Sonnet 4.6, both B and AB were reliably superior to A on every pass, and judges were decisive enough (scores of 8--9 for AB) to never let A through.
+
+The implication: autoreason's convergence mechanism assumes the incumbent can eventually become good enough that fresh challengers cannot improve on it. When the model is capable enough that synthesis reliably produces a better version, this assumption breaks down. Potential remedies include raising the synthesis bar (requiring AB to demonstrate clear improvement rather than marginal combination), penalizing scope expansion in the judge prompt, or adaptive convergence criteria that detect quality plateaus through score distributions rather than consecutive wins. Whether these modifications recover autoreason's advantage with stronger models remains an open question.
 
 \section{Writing This Paper}
 \label{sec:paper}
@@ -212,11 +243,13 @@ We ran autoreason on this paper using claude-opus-4 (all roles) with 3 Opus judg
 
 \textbf{Bloat/prune oscillation} signals underdetermined scope. Constraining scope eliminates this but makes convergence harder by giving the critic concrete criteria to enforce.
 
+\textbf{Model scaling is not free.} The Sonnet 4.6 result (Section~\ref{sec:scaling}) suggests autoreason may require architectural adaptation as models improve. The current design assumes a convergence ceiling exists within the model's capability range. Stronger models may push that ceiling beyond what the loop can reach before synthesis drift accumulates. Promising directions include score-based plateau detection (exit when the incumbent's Borda score stabilizes rather than requiring consecutive wins), asymmetric evaluation (requiring AB to win by a margin rather than just edge out A), and tiered model configurations where a stronger model judges outputs from a weaker author. The problem is fundamentally about calibrating the stopping criterion to the model's improvement capacity.
+
 \textbf{Limitations.} All results from one model family (Anthropic). No human evaluation. No ablation studies isolating individual components. The constrained task experiment was capped at 25 passes---we cannot claim it would never converge. The paper-writing experiment used a different model (Opus) than the main experiments (Sonnet), limiting direct comparability.
 
 \section{Conclusion}
 
-Autoreason demonstrates that systematic isolation and blind evaluation can construct useful fitness functions for subjective domains. Across 5 tasks, it ranked first or second in every comparison. Chain-of-thought judging accelerates convergence 3x. Retroactive analysis confirms fully transitive preferences and early quality plateau. The method's advantage is clearest on tasks with genuine ambiguity, and its value requires iteration---a single pass does not justify the overhead. The primary insight: the obstacle to LLM self-improvement in subjective domains is not capability but evaluation methodology.
+Autoreason demonstrates that systematic isolation and blind evaluation can construct useful fitness functions for subjective domains. Across 5 tasks with Sonnet 4, it ranked first or second in every comparison. Chain-of-thought judging accelerates convergence 3x. Retroactive analysis confirms fully transitive preferences and early quality plateau. The method's advantage is clearest on tasks with genuine ambiguity, and its value requires iteration---a single pass does not justify the overhead. However, the Sonnet 4.6 scaling result shows this is not a solved problem: stronger models can break the convergence mechanism entirely, producing worse output than all baselines after 50 passes. The architecture will likely need to adapt as models improve---the current design occupies a capability sweet spot rather than a universal solution. The primary insight remains: the obstacle to LLM self-improvement in subjective domains is not capability but evaluation methodology. Getting that methodology right is harder than it looks, and model scaling changes what ``right'' means.
 
 \begin{thebibliography}{99}
 \small

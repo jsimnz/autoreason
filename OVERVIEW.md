@@ -55,101 +55,46 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
         ▼  loop until streak = 2
 ```
 
-Why each piece matters:
+## Results
 
-- **Fresh agents per role** prevent authorship bias. An agent that wrote version A will unconsciously defend it even while "incorporating feedback." A fresh agent treats the critic's critique on its merits.
+Tested across 5 tasks with claude-sonnet-4. Each task ran autoreason to convergence plus four baselines (conservative, improve_this, harsh_critic, critique_and_revise) at 15 iterative passes, evaluated by a 7-judge blind panel.
 
-- **Original task prompt as anchor** keeps judges evaluating "which version best accomplishes what was asked for" rather than "which sounds most impressive." The task defines what "better" means.
+**A single autoreason pass loses to simpler methods.** Harsh critic and critique-and-revise both outperform it at 1/5th the cost. But with iteration:
 
-- **Ranked choice (not scoring)** avoids injecting our assumptions about which dimensions matter. No rubric. The task prompt is the rubric.
+| Method | Avg Borda (max 35) | Avg Rank | Tasks Won |
+|---|---|---|---|
+| **autoreason** | **27.8** | **1.4** | **3/5** |
+| critique & revise | 22.4 | 2.0 | 2/5 |
+| harsh critic | 22.0 | 2.6 | 0/5 |
+| conservative | 17.6 | 3.6 | 0/5 |
+| improve this | 12.2 | 4.4 | 0/5 |
 
-- **Conservative tiebreak** — incumbent wins ties. New versions must earn a clear win. Favors stability over churn.
+Autoreason won 3/5 tasks and never placed below 2nd. It excels on tasks with genuine tradeoffs (strategy, policy, incident response). Critique-and-revise wins on tasks with concrete technical requirements (system design, competitive positioning).
 
-- **3-judge panel** averages out individual judge biases. Each judge gets a different random ordering of the versions.
+**Chain-of-thought judges** reduce convergence from 14 passes to 5 (3x) with no architecture changes — just adding "think step by step about each version" to the judge prompt.
 
-## What We Found
+**Continuing past convergence hurts.** Pass 15 output beat pass 25 by 6–1 in a blind panel. The first convergence point is the quality ceiling.
 
-We ran 26 passes on a go-to-market strategy task (claude-sonnet-4, 3-judge panel, Borda count aggregation).
+**Monte Carlo analysis** (5 independent runs): 80% convergence rate, final outputs cluster tightly regardless of path length.
 
-### It Works for Quality Improvement
+**Game-theoretic validation**: nearly perfect transitivity (1.1% Condorcet cycle rate), ELO plateau by pass 5–10, fully transitive pairwise dominance across all methods.
 
-Pass 1: judges unanimously picked the revised version over the initial generation (9-3-6 Borda score). The method's value as a refinement mechanism is clear — the first few passes produce genuine, measurable improvement.
+### Model Scaling: A Cautionary Result
 
-### It Surfaces a Real Structural Problem
+With a stronger model (claude-sonnet-4-6), autoreason came dead last (Borda 7/35) after 50 passes without converging. The stronger model produced AB syntheses so consistently preferred by judges that the incumbent could never survive. The convergence mechanism assumes the incumbent can eventually become good enough that challengers can't improve on it — with a sufficiently capable model, this assumption breaks. Whether architectural modifications (score-based plateau detection, asymmetric evaluation, tiered models) can recover the advantage remains open.
 
-After ~10 passes, the loop entered a **bloat/prune oscillation**:
+## The Qualitative Story
 
-- The synthesizer (AB) systematically adds detail. Judges reward thoroughness.
-- Author B systematically prunes it. Fresh agents working from critique alone strip the bloat.
-- The incumbent swings between "comprehensive" and "focused" without settling.
+The initial Task 1 output was a generic startup playbook: $49/user pricing, $100K MRR with 3 people, no customer validation. After 14 passes of adversarial pressure, the converged version had: quantified customer pain ($15K/incident × 6/yr), team-based pricing ($1,499/mo matching how teams actually buy), validation from 50+ customer interviews, competitive positioning against named tools, and realistic unit economics (CAC $2K, LTV $54K).
 
-Word count tells the story: 847 → 1800 → 1644 → 1758 across 26 passes.
+The adversarial process didn't polish the prose — it forced the proposal to get concrete. It killed the unrealistic revenue numbers.
 
-This isn't a bug — it's a signal that the task itself is underdetermined along the scope dimension. When you ask for "a strategy" without specifying depth or length, there's no stable answer to "how detailed should this be?" The loop honestly reflects that ambiguity.
+## Paper
 
-### The Convergence Threshold Matters
-
-We set convergence at 3 consecutive incumbent wins. Never reached it. But the loop hit 2 consecutive wins twice (passes 14-15 and 24-25), both times broken by 1 Borda point. A threshold of 2 would have converged at pass 15 — arguably the right stopping point based on the quality plateau.
-
-### Fresh Agents Are Essential
-
-Author B re-emerged as the dominant winner at passes 17-21 after being nearly irrelevant for 15 passes. A persistent agent would have learned to defer to the synthesis pattern. Fresh agents can't be captured by the trajectory.
-
-### Conservative Tiebreak Is Load-Bearing
-
-The incumbent won on tiebreak 3 times in 26 passes. Without that rule, each would have been an unnecessary incumbent change. Small rule, real impact on stability.
-
-## Trajectory (26 Passes)
-
-```
-Pass  Winner  Scores (A/B/AB)  Notes
-────  ──────  ───────────────  ─────
-  1   B       3 / 9 / 6        Unanimous. Initial A clearly weakest.
-  2   AB      4 / 6 / 8
-  3   A       7 / 7 / 4        Tiebreak.
-  4   AB      6 / 3 / 9        Unanimous AB.
-  5   AB      5 / 5 / 8
-  6   A       6 / 6 / 6        Perfect 3-way tie. Tiebreak.
-  7   AB      4 / 6 / 8
-  8   AB      5 / 5 / 8
-  9   A       7 / 6 / 5        First clean A win.
- 10   AB      5 / 5 / 8
- 11   AB      5 / 6 / 7        Margins narrowing.
- 12   A       7 / 4 / 7        Tiebreak.
- 13   AB      7 / 3 / 8
- 14   A       8 / 6 / 4        Strongest A score.
- 15   A       7 / 4 / 7      ★ 2 consecutive — would converge here at threshold=2
- 16   AB      7 / 3 / 8        Breaks streak by 1 point.
- 17   B       6 / 7 / 5        B returns. Regime shift.
- 18   AB      5 / 5 / 8
- 19   B       4 / 8 / 6        B pruning bloat.
- 20   B       4 / 8 / 6
- 21   B       4 / 9 / 5
- 22   AB      5 / 6 / 7
- 23   AB      5 / 5 / 8
- 24   A       9 / 5 / 4        Strongest A score ever.
- 25   A       7 / 5 / 6      ★ 2 consecutive again
- 26   AB      4 / 6 / 8        Broken again. Run killed here.
-```
-
-Winner distribution: A 31%, B 19%, AB 50%
-
-## What's Next
-
-In priority order:
-
-1. **Convergence threshold = 2** — rerun to confirm pass 15 is the right stopping point
-2. **Constrained task prompt** — add scope/length guidance, test if oscillation disappears
-3. **Mixed-model judge panel** (sonnet + gpt-4o + gemini) — decorrelate judge biases
-4. **Monte Carlo** — run the same task N times to test if the loop converges to the same place or different local optima
-5. **Different task types** — generalizability across domains
+A 6-page paper covering all experiments: `paper/autoreason.pdf` ([source](paper/autoreason.tex)). The paper was itself written using autoreason with claude-opus-4 and ground-truth critic access to prevent hallucination.
 
 ## Code
 
-Everything lives in `~/autoreason-experiment/`:
+Everything lives in this repo. See [README.md](README.md) for setup and running instructions.
 
-- `run_v2.py` — the iterative loop runner
-- `config_v2.yaml` — model, temperature, judge count, convergence settings
-- `tasks/` — task prompts
-- `results_v2/` — all artifacts per pass (versions A/B/AB, critic, judge responses)
-- `RESULTS.md` — detailed findings + full design space matrix of tested/untested permutations
+Full findings, trajectory data, and design space matrix: [RESULTS.md](RESULTS.md)

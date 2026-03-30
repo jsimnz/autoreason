@@ -60,14 +60,6 @@ The output is shaped more by how you prompt than by what's actually better. Ther
 | **Scope drift** | Judges evaluate against the original task prompt — "which version best accomplishes what was asked for" — not "which is most thorough" |
 | **Context collapse** | The original task prompt is the anchor throughout all passes. The incumbent (A) is always a candidate, so the loop can revert to stability at any point |
 
-## Two Modes
-
-**Quick pass (v1)** — A single cycle: generate A, critic it, revise to B, synthesize AB, judge picks the best. Five LLM calls, ~2 minutes. Prevents the worst failure modes without the cost of iteration. Use this when you want "make this better without overcorrecting" — the agent equivalent of getting one round of peer review. Drift is prevented structurally: the original is always a candidate, so overcorrection gets caught by comparison rather than compounding through sequential revision.
-
-**Convergence loop (v2)** — Repeats the cycle until the incumbent survives consecutive passes. Every role is a fresh isolated agent, judged by a 3-judge blind panel. More rigorous and more expensive. Use this when you need confidence that the output has survived sustained adversarial pressure — where there's no test suite or specification to anchor correctness, and the stakes justify the token cost.
-
-Both modes share the same core architecture. v1 is one iteration of v2.
-
 ## v2 Architecture
 
 Every role is a fresh, isolated agent with no shared context. The artifact is the thread of continuity, not the agent's memory.
@@ -124,81 +116,90 @@ ORIGINAL TASK PROMPT (anchor — seen by all roles)
 | **Anchor** | Last known good commit | Original task prompt |
 | **Drift prevention** | Objective metric | Blind judges + incumbent always a candidate |
 
-## Key Findings
+## Key Results
 
-Tested over 26 passes on a go-to-market strategy task (claude-sonnet-4, 3-judge panel).
+Tested across 5 tasks (go-to-market strategy, notification system design, remote work policy, competitive positioning, incident response) with claude-sonnet-4. Each task ran autoreason to convergence plus four baselines at 15 iterative passes each, evaluated by a 7-judge blind panel.
 
-**The loop produces genuinely better output.** The initial generation (pass 0) is a generic startup playbook — round-number revenue targets with no backing, boilerplate distribution channels, per-user pricing that doesn't match how teams actually buy. The converged version (pass 14-15, where A survived 2 consecutive passes) is a fundamentally different document:
+### Iteration Is Where the Value Lives
 
-| Dimension | Initial (pass 0) | Converged (pass 14-15) |
+A single autoreason pass (5 LLM calls) loses to simpler methods. Harsh critic and critique-and-revise both outperform it at 1/5th the cost. But with iteration, the picture reverses:
+
+| Method | Avg Borda (max 35) | Avg Rank | Tasks Won |
+|---|---|---|---|
+| **autoreason** | **27.8** | **1.4** | **3/5** |
+| critique & revise | 22.4 | 2.0 | 2/5 |
+| harsh critic | 22.0 | 2.6 | 0/5 |
+| conservative | 17.6 | 3.6 | 0/5 |
+| improve this | 12.2 | 4.4 | 0/5 |
+
+Autoreason won tasks 1, 3, 5 and placed second on 2 and 4 — never below 2nd. It excels on tasks with genuine tradeoffs (strategy, policy, cross-timezone incident response). Critique-and-revise wins on tasks with concrete technical requirements (system design, competitive positioning) where a direct find-and-fix loop is more efficient.
+
+### Qualitative Improvement
+
+The initial Task 1 output was a generic startup playbook. After 14 passes:
+
+| Dimension | Initial (pass 0) | Converged (pass 14) |
 |---|---|---|
 | Target | "Mid-market engineering teams (50-500 employees)" | Platform engineering at 200-1000 employee companies, quantified pain (6 incidents/year × $15K = $90K cost) |
 | Pricing | $49/user/month (generic SaaS) | $1,499/month per team up to 50 devs (matches actual buying motion) |
 | Revenue target | $100K MRR by Q4 with 3 people | $25K MRR by Q4, growing to 8 people with quarterly hires |
-| Validation | None | 50+ customer interviews, pilot results, 75% showed incident reduction in 30 days |
-| Competitive positioning | "Focus on superior UX" | Specific differentiation against OPA/Gatekeeper, ArgoCD, Flux |
+| Validation | None | 50+ customer interviews, pilot results, 75% incident reduction in 30 days |
 | Unit economics | Not mentioned | CAC $2K, LTV $54K, LTV:CAC 27:1, 90% gross margin |
 
-The initial version reads like an LLM generated a strategy from the prompt alone. The converged version reads like someone who talked to customers and thought about the mechanics. 14 rounds of adversarial pressure forced the proposal to get concrete instead of staying safely vague. The most telling change: the adversarial process killed the unrealistic revenue numbers.
+The adversarial process didn't just polish the prose — it forced the proposal to get concrete. The most telling change: the adversarial process killed the unrealistic revenue numbers.
 
-**Fresh agents prevent authorship bias.** Author B re-emerged as winner at passes 17-21 after 15 passes of irrelevance. A persistent agent would have learned to defer.
+### Chain-of-Thought Judges (3x Faster Convergence)
 
-**Bloat/prune oscillation.** On tasks with ambiguous scope, the synthesizer (AB) adds complexity while Author B prunes it. Word counts: 847 → 1800 → 1644 → 1758. The loop oscillates between "comprehensive" and "focused" without settling — a real signal that the task is underdetermined.
+Adding "think step by step about each version" to the judge prompt — no architecture changes — reduced convergence from 14 passes to 5 on Task 1. CoT judges produce more decisive scores (A winning at 8–9 vs baseline's 6–7). The reasoning step acts as a debiasing mechanism: judges must articulate specific strengths before committing to a ranking.
 
-**Conservative tiebreak is load-bearing.** Incumbent wins ties. Removed 3 unnecessary churn events in 26 passes.
+### Convergence and Stopping
 
-![Trajectory](experiments/v2/trajectory_chart.png)
+All 5 tasks converged at threshold k=2, requiring 9–28 passes. Continuing past convergence hurts: a 7-judge panel preferred the pass 15 output over pass 25 by 6–1. The first convergence point is the quality ceiling.
 
-### Baseline Comparison: 7-Judge Blind Panel
+Monte Carlo analysis (5 independent runs, same task): 80% convergence rate. Final word counts clustered tightly (1451–1660) despite variable path lengths — the loop reaches a similar quality ceiling regardless of the path taken.
 
-All 5 methods start from the same initial output, run 15 passes with the same model. Judges see the original task, the initial output, and all 5 finals with randomized labels.
+### Game-Theoretic Validation
 
-![Baseline Comparison](experiments/v2/baseline_comparison.png)
+Retroactive analysis across 91 passes: only 1 Condorcet cycle (1.1% — nearly perfect transitivity). ELO ratings plateau by pass 5–10. Pairwise dominance is fully transitive: autoreason > critique-and-revise > harsh_critic > conservative > improve_this. No rock-paper-scissors dynamics.
 
-| Method | Borda Score (max 35) | 1st Place | Final Words |
-|---|---|---|---|
-| **autoreason** | **35** | **7/7** | 1800 |
-| conservative | 21 | 0 | 862 |
-| improve_this | 18 | 0 | 2116 |
-| harsh_critic | 18 | 0 | 1961 |
-| critique_and_revise | 13 | 0 | 2507 |
+### Model Scaling: A Failure Mode
 
-Autoreason won unanimously. Conservative (barely changed the initial output) beat all three iterative baselines — doing almost nothing is better than iterating without structural protection. Critique and revise, the method most people actually use, came dead last.
+Running autoreason with a stronger model (claude-sonnet-4-6) on Task 2 produced a complete reversal: **autoreason came dead last** (Borda 7/35, zero first-place votes). Over 50 passes, A won only 6 times (12%). The stronger model produced AB syntheses so consistently preferred by judges that the incumbent could never survive a challenge.
 
-![Word Count Trajectories](experiments/v2/word_count_trajectories.png)
+This is structurally different from the bloat/prune oscillation. With Sonnet 4, A occasionally won on close calls and tiebreaks, creating windows for convergence. With 4.6, judges were decisive enough (scores of 8–9 for AB) to never let A through.
 
-### Does Continuing Past Convergence Help?
+The implication: the convergence mechanism assumes the incumbent can eventually become good enough that fresh challengers cannot improve on it. When the model is capable enough that synthesis reliably produces a better version, this assumption breaks. Potential remedies: score-based plateau detection, requiring AB to win by a margin, tiered model configs (stronger judge, weaker author). Open question.
 
-Compared the incumbent at pass 15 (first convergence) vs pass 25 (second convergence). 7-judge blind panel: pass 15 won 6-1. Ten extra passes degraded quality. The first convergence point is the quality ceiling.
+### Constrained Tasks
 
-Full trajectory data, analysis, and design space matrix: [RESULTS.md](RESULTS.md)
-
-Shareable project overview: [OVERVIEW.md](OVERVIEW.md)
+Adding a 1000-word limit and 6 required sections eliminated word count oscillation but made convergence harder — specific constraints give the critic a verifiable checklist that always finds violations. B won 18 of 25 passes (72%). Whether the loop would have converged given more passes is unknown.
 
 ## Ground-Truth Critic
 
 When the domain has reference material — experimental data, source documents, specs, a codebase — the critic should receive it. This turns the critic from "find things that sound wrong" into "verify every claim against the actual data."
 
-We discovered this while running autoreason on the writing of this paper. Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions. With ground-truth access (the actual experiment results and methodology docs), the critic caught all four on the first pass.
+We discovered this while running autoreason on the paper itself. Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions. With ground-truth access (the actual experiment results), the critic caught all four on the first pass.
 
 The pattern:
 - **Critic** gets the artifact AND the ground-truth data. Verifies claims against reality.
 - **Author B and Synthesizer** also get ground-truth data to ensure revisions stay accurate.
-- **Author A** (initial generation) works from the task prompt only — this is intentional. The first draft represents what the model "thinks" it knows. The critic then corrects it against what's actually true.
+- **Author A** (initial generation) works from the task prompt only — the first draft represents what the model "thinks" it knows. The critic corrects it against what's actually true.
 - **Judges** see the task prompt and the versions only. They evaluate quality, not accuracy — accuracy is the critic's job.
 
-This mirrors real peer review: the reviewer checks the supplementary materials and tries to reproduce claims. The author writes from understanding; the reviewer verifies against evidence.
+## Design Decisions
 
-## Prior Experiments (v1)
+| Decision | What We Chose | Why |
+|---|---|---|
+| Agent isolation | Fresh per role per pass | Prevents authorship bias. B re-emerged at passes 17-21 after 15 passes of irrelevance — a persistent agent would have learned to defer |
+| Judge panel | 3 same-model judges | Averages out individual biases. Correlated biases remain (all sonnet) — mixed-model panels untested |
+| Evaluation | Ranked choice + Borda count | No rubric injection. The task prompt is the rubric |
+| Tiebreak | Conservative (incumbent wins) | Removed 3 unnecessary churn events in 26 passes |
+| Convergence | 2 consecutive A wins | Threshold of 3 was too strict (never reached in 26 passes). 2 converges at the quality plateau |
+| Judge prompting | Chain-of-thought | 3x faster convergence, more decisive scores, no architecture changes |
 
-The v2 architecture was informed by ~1,800 LLM calls of earlier experiments that exposed specific problems:
+## Paper
 
-- **Positional bias.** When the judge saw versions labeled "Version A (original)" and "Version B (revised)," it systematically favored B. Renaming them to neutral labels (Proposal 1, 2, 3) and randomizing presentation order eliminated this. This is why v2 judges see randomized numeric labels.
-- **Single judge noise.** One judge's idiosyncratic preferences dominated outcomes. Runs with the same inputs produced different winners depending on which quirks the judge fixated on. This led to the 3-judge panel with Borda count aggregation.
-- **Shared context contamination.** When the same agent served as both author and judge, it rubber-stamped its own revisions. The judge always agreed with the changes it had just made. This is why v2 uses fresh, isolated agents for every role.
-- **No convergence signal.** v1 ran a fixed number of independent single-pass trials (Monte Carlo) but had no iterative loop. You could see that autoreason outputs were better than baselines, but couldn't answer "when should you stop?" v2 introduces the convergence loop to answer this.
-
-Code and data from these experiments live in `experiments/v1/` and `experiments/prior/`.
+The 6-page paper (`paper/autoreason.tex`) covers all experiments and was itself written using autoreason with claude-opus-4. See `paper/autoreason.pdf`.
 
 ## Repository Structure
 
@@ -206,18 +207,17 @@ Code and data from these experiments live in `experiments/v1/` and `experiments/
 ├── README.md              ← you are here
 ├── OVERVIEW.md            ← shareable intro (starts with Karpathy hook)
 ├── RESULTS.md             ← full findings, trajectory data, design space matrix
+├── paper/                 ← LaTeX paper + charts
 ├── tasks/                 ← task prompts used across all experiments
 ├── experiments/
 │   ├── v2/                ← current: iterative loop, judge panel, fresh agents
 │   │   ├── run_v2.py
 │   │   ├── config_v2.yaml
-│   │   ├── results_v2/   ← all artifacts per pass
-│   │   ├── make_chart.py
-│   │   └── trajectory_chart.png
+│   │   ├── results_v2/          ← 5-task results
+│   │   ├── results_multi_task/  ← multi-task comparison
+│   │   ├── results_46_task02/   ← sonnet 4.6 scaling experiment
+│   │   └── ...
 │   ├── v1/                ← original: single-pass, single judge, Monte Carlo
-│   │   ├── run.py
-│   │   ├── config.yaml
-│   │   └── results/
 │   └── prior/             ← exploratory experiments (blind eval, comparison, matrix)
 ```
 
@@ -243,19 +243,15 @@ Uses [litellm](https://docs.litellm.ai/) for model routing — any supported pro
 | Anthropic | `anthropic/claude-sonnet-4-20250514` | `ANTHROPIC_API_KEY` |
 | OpenAI | `openai/gpt-4o` | `OPENAI_API_KEY` |
 | OpenRouter | `openrouter/anthropic/claude-sonnet-4` | `OPENROUTER_API_KEY` |
-| Nous Portal | `openrouter/nousresearch/hermes-3-llama-3.1-405b` | `OPENROUTER_API_KEY` |
 | Google | `gemini/gemini-2.5-pro` | `GEMINI_API_KEY` |
 | Any OpenAI-compatible | `openai/model-name` + `api_base` | `OPENAI_API_KEY` |
 
-Mixed-model judge panels (e.g., sonnet for authors, gpt-4o + gemini + hermes for judges) are a planned experiment for decorrelating judge biases.
+## Open Questions
 
-## Next Experiments
-
-1. Convergence threshold 2 — confirm pass 15 was the right stopping point
-2. Constrained task prompt — test if scope constraints eliminate oscillation
-3. Mixed-model judge panel (sonnet + gpt-4o + gemini) — decorrelate judge biases
-4. Monte Carlo — N runs same task, test convergence consistency
-5. Different task types — generalizability
+1. **Mixed-model judge panel** (sonnet + gpt-4o + gemini) — would decorrelated biases change convergence behavior?
+2. **Model scaling** — can architectural modifications (score-based plateau detection, asymmetric evaluation, tiered models) recover autoreason's advantage with stronger models?
+3. **Human evaluation** — do human judges agree with LLM judges on which outputs are better?
+4. **Other model families** — all current results are Anthropic. Does the method generalize to GPT-4o, Gemini, open-weight models?
 
 ## License
 

@@ -1,0 +1,25 @@
+Here are the real problems with this proposal:
+
+**The validation timeline is structurally broken.**
+The 14-day review is supposed to replace assumptions with measurements, but the document acknowledges that day-14 data "may not represent fully stable steady-state behavior" because the product may still be growing. Yet the decision rules treat day-14 measurements as the new authoritative baseline for provisioning adjustments. The 60-day review is described as a check on whether day-14 was representative, but if day-14 triggers a "reduce instances" decision, you've already cut capacity before the 60-day check confirms whether that reduction was safe. The two reviews aren't actually coordinated into a coherent decision process.
+
+**The 2× headroom argument undermines itself.**
+The document argues that provisioning to a 6× worst-case is unjustified because it's "an estimate of an estimate." But 2× headroom is also an estimate of an estimate — the document never establishes why 2× handles "any single assumption being substantially wrong" or "two assumptions being modestly wrong simultaneously." These are assertions, not calculations. The document explicitly states all three assumptions are correlated in the upward direction, which means the failure mode it most needs to defend against (all three wrong simultaneously) is also the most likely failure mode, not an edge case.
+
+**The legal review contingency creates a delivery illusion.**
+The contingency says if the legal review deadline is missed, SMS and email "ship in the final sprint with reduced scope if necessary." But the legal review is supposed to gate compliance verification for TCPA, CAN-SPAM, and GDPR. Shipping SMS and email in the final sprint under time pressure, after a delayed legal review, is precisely the scenario where compliance corners get cut. The contingency frames a compliance risk as a scheduling adjustment.
+
+**The DM clarification dependency is load-bearing but unresolved.**
+The document says infrastructure purchasing cannot proceed on the low-end DM assumption after the deadline, but then uses the low-end assumption for all downstream calculations including the provisioning target. The document simultaneously says "a decision must be made" and "this decision is invalid without the clarification." If infrastructure purchasing happens before the clarification arrives — which is the likely outcome in a six-month timeline with a four-person team — the document's own rules say that purchase requires explicit project lead sign-off acknowledging the risk. There is no mechanism ensuring that sign-off actually happens or is recorded anywhere findable.
+
+**The escalation chain has a single-point-of-failure problem it doesn't actually solve.**
+The simultaneous unavailability procedure requires the most senior available engineer to contact the product lead within 24 hours. But the product lead's name is a placeholder that must be filled in before distribution. If the document is distributed before that field is populated — which the preface says is a blocking defect but provides no enforcement mechanism for — the escalation chain terminates at an unnamed person. The "blocking defect" designation has no teeth.
+
+**The Tier 1 channel fallback sequence is expensive and probably wrong.**
+The document says SMS is included in Tier 1 because "security events are the one category where reaching the user outweighs per-notification cost." But the sequence is push → SMS → email, meaning SMS fires before email for every Tier 1 event where push fails. At 10M MAU, push failure rates of even 1–2% on security events would generate substantial SMS volume. The document never estimates this cost, never establishes what push failure rates are expected, and never questions whether email should come before SMS for users who have email configured. The cost decision is implicit and unexamined.
+
+**The 20% Tier 3 "immediate" preference threshold is presented as a trigger but functions as a limit.**
+The document says if more than 20% of users select immediate Tier 3 delivery, a review is triggered. But the review process produces no constraint on user preference selection — users can still choose immediate delivery. The review just recalculates throughput. If 40% of users want immediate Tier 3, the system has to handle it regardless of what the review concludes. The threshold isn't a control mechanism; it's a measurement alarm that doesn't connect to any corrective action other than re-provisioning.
+
+**The document is incomplete and distributed as if it isn't.**
+Section 1.2.2 cuts off mid-sentence: "Delivered within 2 minutes of—". The table of contents lists sections through §1.10, but the document ends partway through §1.2. A reader cannot evaluate the failure handling design (§1.10), infrastructure choices (§1.9), or preference management (§1.8) because they don't exist yet. The document's status is "Draft" but it presents itself with the procedural apparatus of a final design — named owners, enforcement mechanisms, calendar events, sign-off requirements — applied to content that is substantially missing.
