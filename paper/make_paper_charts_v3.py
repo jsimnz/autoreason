@@ -64,32 +64,37 @@ for mk in method_keys:
 
 bar_colors = ['#4A90D9', '#7B68AE', '#E85D75', '#7B9E6B', '#E8A838']
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.5))
+# Sort by score descending for clean visual
+method_labels_clean = ['Autoreason', 'Critique &\nRevise', 'Harsh\nCritic', 'Conservative', 'Improve\nThis']
+order = np.argsort(avg_borda)  # ascending
+labels_sorted = [method_labels_clean[i] for i in order]
+scores_sorted = [avg_borda[i] for i in order]
+ranks_sorted = [avg_ranks[i] for i in order]
+colors_sorted = [bar_colors[i] for i in order]
 
-# Average Borda
-bars1 = ax1.bar(methods, avg_borda, color=bar_colors, alpha=0.85, width=0.6)
-for bar, score in zip(bars1, avg_borda):
-    ax1.text(bar.get_x() + bar.get_width()/2, score + 0.3, f'{score:.1f}',
-             ha='center', fontsize=10, fontweight='bold')
-ax1.set_ylabel('Average Borda Score', fontsize=11)
-ax1.set_title('Mean Borda Across 5 Tasks', fontsize=12, fontweight='bold')
-ax1.set_ylim(0, 35)
-ax1.grid(axis='y', alpha=0.15)
+fig, ax = plt.subplots(figsize=(8, 3.5))
 
-# Average Rank (lower is better)
-bars2 = ax2.bar(methods, avg_ranks, color=bar_colors, alpha=0.85, width=0.6)
-for bar, rank in zip(bars2, avg_ranks):
-    ax2.text(bar.get_x() + bar.get_width()/2, rank + 0.05, f'{rank:.1f}',
-             ha='center', fontsize=10, fontweight='bold')
-ax2.set_ylabel('Average Rank (lower = better)', fontsize=11)
-ax2.set_title('Mean Rank Across 5 Tasks', fontsize=12, fontweight='bold')
-ax2.set_ylim(0, 5.5)
-ax2.grid(axis='y', alpha=0.15)
-ax2.invert_yaxis()
+bars = ax.barh(labels_sorted, scores_sorted, color=colors_sorted, alpha=0.88, height=0.55)
+
+for bar, score, rank in zip(bars, scores_sorted, ranks_sorted):
+    # Score label at end of bar
+    ax.text(score + 0.4, bar.get_y() + bar.get_height()/2,
+            f'{score:.1f}',
+            ha='left', va='center', fontsize=11, fontweight='bold')
+    # Rank label inside bar
+    ax.text(1.5, bar.get_y() + bar.get_height()/2,
+            f'rank {rank:.1f}',
+            ha='left', va='center', fontsize=9, color='white', fontstyle='italic')
+
+ax.set_xlabel('Average Borda Score (max 35)', fontsize=12)
+ax.set_xlim(0, 36)
+ax.grid(axis='x', alpha=0.15)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
 
 plt.tight_layout()
 plt.savefig(f'{out}/fig_summary.pdf', dpi=300, bbox_inches='tight', facecolor='white')
-print("Saved fig_summary.png")
+print("Saved fig_summary.pdf")
 
 
 # =========================================================================
