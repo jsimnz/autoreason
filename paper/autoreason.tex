@@ -82,7 +82,7 @@
 
 % ── Abstract ───────────────────────────────────────────────────────
 \noindent\textbf{\scshape Abstract.}\enspace
-We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. The method constructs a subjective fitness function through independent blind evaluation, extending the autoresearch paradigm. Autoreason uses fresh isolated agents per role, blind judge panels with Borda count aggregation, and conservative tiebreaking. Across 5 task types with claude-sonnet-4, autoreason ranked first or second in every 7-judge blind comparison, winning 3 of 5 tasks outright (avg Borda 27.8/35, avg rank 1.4). Chain-of-thought judging reduces convergence time by 3$\times$. Monte Carlo analysis shows 80\% convergence rate with consistent output quality. Retroactive game-theoretic analysis confirms fully transitive preferences and Elo plateau, validating the convergence mechanism. We find the method's advantage is task-dependent and iteration-dependent: autoreason excels on tasks with genuine tradeoffs, while a single autoreason pass does not outperform simpler baselines. A scaling experiment with a stronger model (Sonnet~4.6) reveals a failure mode where synthesis consistently outcompetes the incumbent, preventing convergence entirely. A margin requirement---challengers must win by $\geq$2 Borda points to displace the incumbent---recovers convergence (15--17 passes), while scope-aware judging and plateau detection do not.
+We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. The method constructs a subjective fitness function through independent blind evaluation, extending the autoresearch paradigm. Autoreason uses fresh isolated agents per role, blind judge panels with Borda count aggregation, and conservative tiebreaking. Across 5 task types with claude-sonnet-4, autoreason ranked first or second in every 7-judge blind comparison, winning 3 of 5 tasks outright (avg Borda 27.8/35, avg rank 1.4). Chain-of-thought judging reduces convergence time by 3$\times$. Monte Carlo analysis shows 80\% convergence rate with consistent output quality. Retroactive game-theoretic analysis confirms fully transitive preferences and Elo plateau, validating the convergence mechanism. We find the method's advantage is task-dependent and iteration-dependent: autoreason excels on tasks with genuine tradeoffs, while a single autoreason pass does not outperform simpler baselines. A scaling experiment with a stronger model (Sonnet~4.6) reveals a failure mode where synthesis consistently outcompetes the incumbent, preventing convergence entirely. A margin requirement---challengers must win by $\geq$2 Borda points to displace the incumbent---recovers convergence (15--17 passes), while scope-aware judging and plateau detection do not. However, the converged output still underperforms simpler baselines in a blind quality evaluation, indicating the scaling problem is not fully solved.
 
 \vspace{6pt}
 \hrule
@@ -460,7 +460,35 @@ The margin requirement is the effective fix (Figure~\ref{fig:remedies}). Both ex
 
 Scope-aware judges had no effect: AB still won 25 of 35~passes (71\%) despite explicit anti-bloat instructions. The stronger model's AB syntheses are preferred for reasons beyond verbosity. Plateau detection could never trigger because A's scores remained at 3--4 throughout---the incumbent is genuinely weaker per pass, not just losing on close calls.
 
-The diagnosis is specific: the scaling failure is not about evaluation bias or stopping criteria. It is about the structural asymmetry between a static incumbent and fresh challengers with access to a critique. The margin requirement works because it raises the bar for displacement, giving the incumbent stability it cannot earn on pure quality alone. This is a design tradeoff---the margin rule accepts occasional false convergence (keeping a beatable incumbent) in exchange for eventual termination. Whether the converged output under the margin rule is actually good (as opposed to merely stable) requires a separate quality evaluation, which we leave to future work.
+The diagnosis is specific: the scaling failure is not about evaluation bias or stopping criteria. It is about the structural asymmetry between a static incumbent and fresh challengers with access to a critique. The margin requirement works because it raises the bar for displacement, giving the incumbent stability it cannot earn on pure quality alone.
+
+\textbf{But convergence $\neq$ quality.} A 7-judge blind panel comparing the margin-converged outputs against the same baselines from Table~\ref{tab:scaling} shows that the margin rule produces convergence on mediocre output:
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Method} & \textbf{Borda (max 49)} & \textbf{1st Place} \\
+\midrule
+\rowcolor{TableShade}
+Critique \& rev. & \textbf{43} & 2 \\
+Improve this & 42 & 4 \\
+\rowcolor{TableShade}
+Harsh critic & 39 & 1 \\
+Autoreason (combined) & 26 & 0 \\
+\rowcolor{TableShade}
+Autoreason (margin) & 23 & 0 \\
+Conservative & 12 & 0 \\
+\rowcolor{TableShade}
+Autoreason (baseline) & 11 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Quality evaluation of margin-converged outputs vs baselines (Sonnet~4.6, Task~2, 7 CoT judges). Margin improves over baseline autoreason (23--26 vs 11) but loses to all active baselines.}
+\label{tab:remedy_quality}
+\end{table}
+
+The margin rule roughly doubles the quality of the autoreason output (Borda 23--26 vs 11 for the unmodified baseline), but the converged output still places 4th--5th out of 7. The fundamental problem persists: with Sonnet~4.6, simpler iterative methods produce better final output than autoreason's multi-agent loop. The margin rule solves the termination problem but not the quality problem---the incumbent accumulates synthesis drift across 15--17 passes of near-constant displacement, arriving at convergence via enforced stability rather than genuine quality plateau.
 
 \section{Writing This Paper}
 \label{sec:paper}
@@ -512,7 +540,7 @@ We ran autoreason on this paper using claude-opus-4 (all roles) with 3 Opus judg
 
 \section{Conclusion}
 
-Autoreason demonstrates that systematic isolation and blind evaluation can construct useful fitness functions for subjective domains. Across 5~tasks with Sonnet~4, it ranked first or second in every comparison. Chain-of-thought judging accelerates convergence 3$\times$. Retroactive analysis confirms fully transitive preferences and early quality plateau. The method's advantage is clearest on tasks with genuine ambiguity, and its value requires iteration---a single pass does not justify the overhead. However, the Sonnet~4.6 scaling result shows this is not solved by default: stronger models break the convergence mechanism by producing syntheses that always outcompete the incumbent. A margin requirement---requiring challengers to win by $\geq$2 Borda points---recovers convergence, while scope-aware judging and plateau detection do not. The fix targets the right problem: the structural asymmetry between a static incumbent and fresh challengers, not evaluation bias. The primary insight remains: the obstacle to LLM self-improvement in subjective domains is not capability but evaluation methodology.
+Autoreason demonstrates that systematic isolation and blind evaluation can construct useful fitness functions for subjective domains. Across 5~tasks with Sonnet~4, it ranked first or second in every comparison. Chain-of-thought judging accelerates convergence 3$\times$. Retroactive analysis confirms fully transitive preferences and early quality plateau. The method's advantage is clearest on tasks with genuine ambiguity, and its value requires iteration---a single pass does not justify the overhead. However, the Sonnet~4.6 scaling result shows this is not solved by default: stronger models break the convergence mechanism by producing syntheses that always outcompete the incumbent. A margin requirement recovers convergence, but the converged output still underperforms simpler baselines---the margin rule solves termination but not quality. The scaling problem remains open: autoreason's multi-agent architecture, which excels with Sonnet~4, becomes counterproductive with a stronger model. The primary insight remains: the obstacle to LLM self-improvement in subjective domains is not capability but evaluation methodology. The methodology that works depends on the capability level of the model.
 
 \vspace{4pt}
 \hrule
