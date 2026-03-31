@@ -168,7 +168,7 @@ Without ground-truth access, the initial Opus generation of this paper hallucina
 | Decision | Choice | Rationale |
 |:---|:---|:---|
 | Agent isolation | Fresh per role per pass | B re-emerged at passes 17–21 after 15 passes of irrelevance — a persistent agent would have learned to defer |
-| Judge panel | 3 same-model judges | Averages out individual biases. Correlated biases remain — mixed-model panels untested |
+| Judge panel | 3 same-model judges | Averages out individual biases. Mixed-model panel tested during paper-writing (Gemini parser broke; see paper Section 6) |
 | Evaluation method | Ranked choice + Borda count | No rubric injection. The task prompt is the rubric |
 | Tiebreak | Conservative (incumbent wins) | Removed 3 unnecessary churn events in 26 passes |
 | Convergence threshold | 2 consecutive A wins | Threshold 3 never reached in 26 passes. 2 converges at the quality plateau |

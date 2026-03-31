@@ -2,5 +2,12 @@ __pycache__/
 *.pyc
 .env
 *.log
-__pycache__/
-*.log
+
+# LaTeX build artifacts
+paper/*.aux
+paper/*.log
+paper/*.out
+
+# Raster previews (paper uses vector PDFs)
+paper/autoreason_preview*.png
+paper/fig_*.png
