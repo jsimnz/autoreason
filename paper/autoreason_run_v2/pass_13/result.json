@@ -1,52 +1,13 @@
 {
   "pass": 13,
-  "winner": "A",
+  "winner": "AB",
   "scores": {
-    "A": 8,
-    "B": 5,
-    "AB": 5
+    "A": 5,
+    "AB": 8,
+    "B": 5
   },
-  "num_valid_judges": 3,
-  "judge_details": [
-    {
-      "ranking": [
-        "A",
-        "B",
-        "AB"
-      ],
-      "presentation_order": {
-        "1": "A",
-        "2": "AB",
-        "3": "B"
-      },
-      "raw_response": "I'll evaluate each draft against the stated task requirements.\n\n## Draft 1 Evaluation\n\n**Handles Well:**\n- Clear structure following all required sections\n- Accurate use of experimental data (numbers match ground truth)\n- Good explanation of the A/B/AB architecture and design rationale\n- Strong limitations section acknowledging single-task nature\n- Appropriate academic tone without overselling results\n\n**Handles Poorly:**\n- Inconsistent framing between \"method\" and \"exploratory approach\"\n- Missing some implementation details (e.g., how Borda count works with ties)\n- Doesn't fully explain the \"without baseline: 3-2\" result that appears to be fabricated\n- Could better explain why conservative baseline performed well\n\n**Writing Quality:**\n- Clear and direct prose\n- Good flow between sections\n- Appropriate use of evidence\n- Balanced presentation of results and limitations\n\n## Draft 2 Evaluation\n\n**Handles Well:**\n- Very similar to Draft 1 in structure and content\n- Accurate data usage\n- Good explanation of design choices\n- Acknowledges limitations appropriately\n\n**Handles Poorly:**\n- Same issues as Draft 1 (inconsistent framing, missing details)\n- Includes the \"without baseline: 3-2\" data that doesn't exist in ground truth\n- Nearly identical to Draft 1 with only minor wording differences\n- Doesn't add meaningful improvements over Draft 1\n\n**Writing Quality:**\n- Essentially the same as Draft 1\n- No significant improvements in clarity or argumentation\n- Maintains appropriate academic tone\n\n## Draft 3 Evaluation\n\n**Handles Well:**\n- Explicitly addresses and fixes multiple issues from earlier drafts\n- Consistent framing as \"exploratory approach\" throughout\n- Removes fabricated data (\"without baseline: 3-2\")\n- Adds important clarifications about tiebreaking and Borda scoring\n- Stronger limitations section with specific acknowledgments\n- Better explains convergence failure and alternative interpretations\n\n**Handles Poorly:**\n- The extensive meta-commentary about changes is inappropriate for a final paper\n- While corrections are good, the presentation with [Change: ...] annotations breaks the flow\n- Some overcorrection in hedging language makes claims unnecessarily weak\n\n**Writing Quality:**\n- Core content is improved from Drafts 1&2\n- More precise language and better qualified claims\n- However, the change annotations severely damage readability\n- If annotations were removed, would be the strongest version\n\n## Analysis\n\nDraft 3 demonstrates the best understanding of the task requirements and makes important corrections:\n- Fixes the inconsistent method/approach framing\n- Removes fabricated data\n- Adds missing implementation details\n- Strengthens limitations appropriately\n- Better acknowledges the single-task nature throughout\n\nHowever, Draft 3's presentation with inline change annotations is completely inappropriate for a research paper. These meta-comments about revisions should never appear in a final submission.\n\nDrafts 1 and 2 are nearly identical, with Draft 2 offering no meaningful improvements. Both contain the fabricated \"without baseline: 3-2\" data and have inconsistent framing issues.\n\nIf we could take Draft 3's content without the change annotations, it would be clearly superior. As presented, Draft 1 is the most publication-ready despite its flaws.\n\n**RANKING: 1, 3, 2**"
-    },
-    {
-      "ranking": [
-        "A",
-        "B",
-        "AB"
-      ],
-      "presentation_order": {
-        "1": "A",
-        "2": "B",
-        "3": "AB"
-      },
-      "raw_response": "I'll evaluate each draft against the stated task requirements.\n\n## Draft 1 Evaluation\n\n**Handles Well:**\n- Comprehensive coverage of all required sections with appropriate depth\n- Clear explanation of the A/B/AB method and design rationale\n- Accurate use of experimental numbers throughout\n- Strong limitations section that acknowledges the exploratory nature\n- Good balance between technical detail and readability\n- Proper framing as exploratory work rather than validated method\n\n**Handles Poorly:**\n- Inconsistent framing between \"method\" and \"approach\" throughout\n- Some unsupported generalizations (e.g., \"systematic failures\" without evidence)\n- Includes data not in ground truth (3-2 baseline visibility result)\n- Future dates on citations (2026) seem implausible\n- Slightly verbose in places\n\n**Writing Quality:**\n- Clear, well-structured prose\n- Good flow between sections\n- Appropriate technical tone\n- Evidence is well-integrated\n\n## Draft 2 Evaluation\n\n**Handles Well:**\n- Explicitly addresses the exploratory nature throughout\n- Corrects the LLM call count (160 vs 156)\n- Removes unsupported claims and softens language appropriately\n- Acknowledges selection bias in choosing pass 15\n- Strong discussion of convergence failure\n- Removes fabricated data (3-2 result)\n\n**Handles Poorly:**\n- Overly cautious tone that undermines confidence\n- Excessive hedging weakens the narrative\n- Some corrections create awkward phrasing\n- The constant reminders about \"single experiment\" become repetitive\n- Less engaging to read despite being more accurate\n\n**Writing Quality:**\n- Technically accurate but less compelling\n- Over-correction leads to weak prose in places\n- Good structure maintained\n- Evidence properly qualified\n\n## Draft 3 Evaluation\n\n**Handles Well:**\n- Maintains all required sections\n- Uses experimental numbers accurately\n- Good technical explanations of method\n- Appropriate acknowledgment of limitations\n- Clear writing style\n\n**Handles Poorly:**\n- Retains several issues from Draft 1 (future dates, 3-2 result, \"systematic failures\")\n- Inconsistent framing (exploratory in abstract but confident elsewhere)\n- Doesn't acknowledge selection bias for pass 15\n- Weaker discussion of convergence failure\n- Less comprehensive limitations section\n\n**Writing Quality:**\n- Clear and confident tone\n- Good flow and readability\n- Well-structured arguments\n- But includes inaccuracies that undermine credibility\n\n## Analysis\n\nDraft 1 provides the most comprehensive and well-written paper, with strong technical content and appropriate caveats. However, it includes some unsupported claims and fabricated data.\n\nDraft 2 corrects these issues and adds important acknowledgments (selection bias, parameter choices), but overcorrects into excessive hedging that weakens the paper's impact.\n\nDraft 3 is well-written but retains too many of Draft 1's problems without the compensating depth and nuance.\n\nThe ideal would combine Draft 1's confident technical writing with Draft 2's accuracy corrections, but among these options, Draft 1 best accomplishes the stated task despite its flaws. It provides a complete, technically sound paper that appropriately frames the work as exploratory while maintaining reader engagement. The fabricated data point (3-2) is a significant flaw, but the overall execution is strongest.\n\nRANKING: 1, 2, 3"
-    },
-    {
-      "ranking": [
-        "AB",
-        "A",
-        "B"
-      ],
-      "presentation_order": {
-        "1": "B",
-        "2": "A",
-        "3": "AB"
-      },
-      "raw_response": "I'll evaluate each draft against the stated task requirements.\n\n## Draft 1 Evaluation\n\n**Handles Well:**\n- Clearly acknowledges limitations and single-task nature throughout\n- Properly frames as \"exploratory approach\" rather than validated method\n- Includes most required experimental numbers accurately\n- Good explanation of design rationale with specific failure modes\n- Acknowledges selection bias and lack of statistical testing\n- Strong limitations section that addresses multiple weaknesses\n\n**Handles Poorly:**\n- Inconsistent LLM call counts (160 vs 156)\n- Removes \"without baseline: 3-2\" data claiming it doesn't exist in ground truth (but it was provided)\n- Overly cautious tone that undermines confidence requested in constraints\n- Some hedging phrases weaken the direct writing style\n\n**Writing Quality:**\nThe writing is clear but overly defensive. While acknowledging limitations is important, the constant hedging (\"suggests,\" \"may,\" \"could represent\") detracts from the direct, confident tone requested.\n\n## Draft 2 Evaluation\n\n**Handles Well:**\n- Maintains confident, direct tone as requested\n- Includes all experimental data accurately\n- Good flow and structure throughout\n- Clear explanation of method and design choices\n- Properly cites future papers as requested\n- Concise writing without unnecessary hedging\n\n**Handles Poorly:**\n- Doesn't acknowledge selection bias in choosing pass 15\n- Weaker limitations section - mentions space constraints as excuse\n- Makes stronger claims about judge calibration than warranted\n- Less acknowledgment of single-task limitation\n- Doesn't mention that parameter choices were arbitrary\n\n**Writing Quality:**\nStrong, confident academic writing that meets the \"direct and confident\" requirement. Good use of technical language and clear argumentation.\n\n## Draft 3 Evaluation\n\n**Handles Well:**\n- Best balance of confidence and appropriate caveats\n- Includes all experimental data correctly\n- Acknowledges selection bias and arbitrary parameter choices\n- Strong limitations section without excuses\n- Clear explanation of convergence failure\n- Maintains direct tone while being scientifically responsible\n\n**Handles Poorly:**\n- Still includes future dates in citations (2026)\n- Could be slightly more confident in places\n\n**Writing Quality:**\nExcellent academic writing that balances the requested confident tone with scientific rigor. Clear structure and good use of experimental evidence.\n\n## Analysis Summary\n\nDraft 1 overcorrects by being too cautious and actually removes valid data (the 3-2 result). Draft 2 is too confident and makes excuses rather than acknowledging limitations. Draft 3 strikes the best balance - it's direct and confident while properly acknowledging the exploratory nature and limitations of the work.\n\nAll drafts include the required sections and most experimental data, but they differ in tone, completeness of limitations, and scientific rigor.\n\n**RANKING: 3, 2, 1**"
-    }
-  ],
-  "elapsed_seconds": 305.0
+  "elapsed": 642.9,
+  "words_a": 4623,
+  "words_ab": 4581,
+  "words_b": 4581
 }

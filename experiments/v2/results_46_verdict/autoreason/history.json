@@ -1,0 +1,137 @@
+[
+  {
+    "pass": 1,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "AB": 9,
+      "B": 6
+    }
+  },
+  {
+    "pass": 2,
+    "winner": "B",
+    "scores": {
+      "A": 4,
+      "AB": 6,
+      "B": 8
+    }
+  },
+  {
+    "pass": 3,
+    "winner": "AB",
+    "scores": {
+      "A": 2,
+      "AB": 6,
+      "B": 4
+    }
+  },
+  {
+    "pass": 4,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "AB": 8,
+      "B": 7
+    }
+  },
+  {
+    "pass": 5,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "AB": 8,
+      "B": 7
+    }
+  },
+  {
+    "pass": 6,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "AB": 8,
+      "B": 7
+    }
+  },
+  {
+    "pass": 7,
+    "winner": "AB",
+    "scores": {
+      "A": 5,
+      "AB": 7,
+      "B": 6
+    }
+  },
+  {
+    "pass": 8,
+    "winner": "AB",
+    "scores": {
+      "A": 4,
+      "AB": 8,
+      "B": 6
+    }
+  },
+  {
+    "pass": 9,
+    "winner": "A",
+    "scores": {
+      "A": 6,
+      "AB": 6,
+      "B": 6
+    }
+  },
+  {
+    "pass": 10,
+    "winner": "AB",
+    "scores": {
+      "A": 4,
+      "AB": 9,
+      "B": 5
+    }
+  },
+  {
+    "pass": 11,
+    "winner": "AB",
+    "scores": {
+      "A": 4,
+      "AB": 9,
+      "B": 5
+    }
+  },
+  {
+    "pass": 12,
+    "winner": "AB",
+    "scores": {
+      "A": 5,
+      "AB": 8,
+      "B": 5
+    }
+  },
+  {
+    "pass": 13,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "AB": 9,
+      "B": 6
+    }
+  },
+  {
+    "pass": 14,
+    "winner": "AB",
+    "scores": {
+      "A": 6,
+      "AB": 7,
+      "B": 5
+    }
+  },
+  {
+    "pass": 15,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "AB": 7,
+      "B": 8
+    }
+  }
+]

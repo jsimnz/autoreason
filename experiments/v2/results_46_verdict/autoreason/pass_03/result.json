@@ -1,0 +1,15 @@
+{
+  "pass": 3,
+  "winner": "AB",
+  "scores": {
+    "A": 2,
+    "AB": 6,
+    "B": 4
+  },
+  "valid": 2,
+  "elapsed": 406.0,
+  "words_a": 2266,
+  "words_ab": 2395,
+  "words_b": 2372,
+  "judge_type": "verdict_hierarchical"
+}
