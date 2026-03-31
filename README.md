@@ -11,7 +11,7 @@
 Autoreason is an iterative refinement method for LLM-generated content where no objective metric exists. It constructs a subjective fitness function through independent blind evaluation — the same way science uses peer review where math can use proofs.
 
 > [!NOTE]
-> The [paper](github.com/NousResearch/autoreason/blob/main/paper/autoreason.pdf) covers all experiments and was itself written using autoreason with Opus and ground-truth critic access.
+> The 9-page [paper](paper/autoreason.pdf) covers all 16 experiments, including 8 scaling remedy experiments that identify scope as the root variable. The paper was itself written using autoreason with Opus and ground-truth critic access.
 
 ## How It Works
 
@@ -209,18 +209,19 @@ Uses [litellm](https://docs.litellm.ai/) for model routing. Set the model in `co
 ```
 ├── README.md                ← you are here
 ├── OVERVIEW.md              ← shareable intro
-├── RESULTS.md               ← full findings + design space matrix
-├── paper/                   ← LaTeX paper + charts
+├── RESULTS.md               ← all 16 experiments + design space matrix
+├── paper/                   ← 9-page LaTeX paper + vector figures
 ├── tasks/                   ← task prompts
 ├── experiments/
-│   ├── v2/                  ← iterative loop, judge panel, fresh agents
-│   │   ├── run_v2.py
-│   │   ├── config_v2.yaml
-│   │   ├── results_v2/           ← 5-task results
-│   │   ├── results_multi_task/   ← multi-task comparison
-│   │   ├── results_46_task02/    ← sonnet 4.6 scaling experiment
+│   ├── v2/
+│   │   ├── results_multi_task/          ← 5-task Sonnet 4 results
+│   │   ├── results_monte_carlo/         ← 5 runs of Task 1
+│   │   ├── results_46_task02/           ← Sonnet 4.6 baseline (50 passes)
+│   │   ├── results_46_remedy_*/         ← 4 convergence remedy experiments
+│   │   ├── results_46_v3_*/             ← 4 root-cause experiments
+│   │   ├── results_46_constrained_eval/ ← quality eval of constrained task
 │   │   └── ...
-│   ├── v1/                  ← single-pass, single judge, Monte Carlo
+│   ├── v1/                  ← original single-pass experiments
 │   └── prior/               ← exploratory experiments
 ```
 
