@@ -212,7 +212,7 @@ We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to
 \end{scope}
 
 \end{tikzpicture}
-\caption{The autoreason loop. Each pass produces three candidates from the incumbent: the unchanged original~(A), a synthesis~(AB), and an adversarial revision~(B). A blind judge panel selects the winner via Borda count. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent with no shared context.}
+\caption{The autoreason loop (Figure~\ref{fig:method}). Each pass produces three candidates: the unchanged incumbent~(A), a synthesis~(AB), and an adversarial revision~(B). A blind judge panel selects the winner via Borda count. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent.}
 \label{fig:method}
 \end{figure*}
 
@@ -240,11 +240,11 @@ The connection to PSRO~\cite{psro} is direct: each pass adds a candidate to an e
 
 \section{Experiments}
 
-All experiments used claude-sonnet-4-20250514 (temp=0.8 authors, 0.3 judges, max\_tokens=4096) unless otherwise noted. Five tasks: (1)~go-to-market strategy, (2)~notification system design, (3)~remote work policy, (4)~competitive positioning, (5)~incident response. Each task ran autoreason to convergence ($k{=}2$) plus four baselines (conservative, improve\_this, harsh\_critic, critique\_and\_revise) at 15 passes each from the same initial output, evaluated by a 7-judge blind panel. The paper-writing experiment (Section~\ref{sec:paper}) used claude-opus-4.
+All experiments used claude-sonnet-4-20250514 (temp=0.8 authors, 0.3 judges, max\_tokens=4096) unless otherwise noted. Five tasks: (1)~go-to-market strategy, (2)~notification system design, (3)~remote work policy, (4)~competitive positioning, (5)~incident response. Each task ran autoreason to convergence ($k{=}2$) plus four baselines (conservative, improve\_this, harsh\_critic, critique\_and\_revise) at 15 passes each from the same initial output, evaluated by a 7-judge blind panel. The paper-writing experiment (Section~\ref{sec:paper}) used claude-opus-4. Scaling experiments (Section~\ref{sec:scaling}) used claude-sonnet-4-6.
 
 \section{Results}
 
-\subsection{Single-Pass Evaluation}
+\subsection{Single Pass vs.\ Iteration}
 \label{sec:v1}
 
 \begin{table}[H]
@@ -264,13 +264,9 @@ Improve this & 1 & 14 & 14 & 18 & 23 & 20 \\
 Conservative & 1 & 7 & 8 & 9 & 7 & 7 \\
 \bottomrule
 \end{tabular}
-\caption{Single-pass Borda scores (max~35). Bold indicates winner per task.}
+\caption{Single-pass Borda scores (max~35). Bold indicates task winner. Autoreason places 3rd at 5$\times$ the cost.}
 \label{tab:v1}
 \end{table}
-
-Single-pass autoreason averaged 22.2 Borda, placing 3rd on 4/5~tasks. Harsh critic (29.0) and critique-and-revise (28.4) both outperformed it at 1/5th the cost. On a single pass, splitting work across five agents is not justified---simpler methods that concentrate effort into one strong revision win. \textbf{The question is whether iteration changes this.}
-
-\subsection{Multi-Task Comparison}
 
 \begin{table}[H]
 \centering
@@ -289,25 +285,25 @@ Conservative & 21 & 19 & 15 & 18 & 15 \\
 Improve this & 18 & 11 & 8 & 10 & 14 \\
 \bottomrule
 \end{tabular}
-\caption{Iterative Borda scores (max~35) across 5~tasks at 15~passes. Bold indicates winner. Autoreason won tasks 1, 3,~5; critique-and-revise won tasks 2,~4.}
+\caption{Iterative Borda scores (max~35) at 15~passes. Autoreason wins tasks 1, 3,~5; critique-and-revise wins tasks 2,~4. Compare Table~\ref{tab:v1}: iteration inverts the ranking.}
 \label{tab:multi}
 \end{table}
 
-With iteration, autoreason won 3 of 5~tasks and placed second on the other two (avg Borda 27.8, avg rank 1.4). The iterative loop (avg 27.8) outperforms all single-pass methods (best: 29.0). The judge's protection against bad revisions compounds over passes---each iteration either improves the incumbent or leaves it unchanged, while baselines accumulate drift unchecked.
+Single-pass autoreason averaged 22.2 Borda, placing 3rd on 4/5~tasks (Table~\ref{tab:v1}). With iteration, it won 3 of 5~tasks (avg 27.8, rank 1.4), outperforming all single-pass methods (Table~\ref{tab:multi}, Figure~\ref{fig:multi}). The judge's protection against bad revisions compounds: each pass either improves the incumbent or leaves it unchanged, while baselines accumulate drift unchecked.
 
-The pattern: autoreason excels on tasks with genuine tradeoffs (strategy, policy, cross-timezone incident response) where the A/B/AB structure surfaces different valid perspectives. Critique-and-revise wins on tasks with concrete technical requirements (system design, competitive positioning) where a direct find-and-fix loop is more efficient.
+Autoreason excels on tasks with genuine tradeoffs (strategy, policy, incident response). Critique-and-revise wins on tasks with concrete technical requirements (system design, competitive positioning) where a direct find-and-fix loop is more efficient (Figure~\ref{fig:summary}).
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_multi_task.pdf}
-\caption{Per-task Borda scores for all 5~methods at 15 iterative passes. Autoreason (blue) wins tasks 1, 3,~5; critique-and-revise (purple) wins tasks 2,~4.}
+\caption{Per-task Borda scores at 15 iterative passes.}
 \label{fig:multi}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_summary.pdf}
-\caption{Aggregate performance across 5~tasks (iterative, 15~passes). Autoreason never placed below 2nd on any task.}
+\caption{Aggregate performance. Autoreason (27.8 avg Borda, rank 1.4) never placed below 2nd.}
 \label{fig:summary}
 \end{figure}
 
@@ -315,32 +311,30 @@ The pattern: autoreason excels on tasks with genuine tradeoffs (strategy, policy
 
 The initial Task~1 output was a generic startup playbook: \$49/user pricing, \$100K MRR target with a 3-person team, no customer validation. After 14~passes, the converged output contained quantified pain (\$15K/incident $\times$ 6/yr), team-based pricing (\$1,499/mo matching the actual buying motion), validation from 50+ customer interviews with 75\% pilot success rate, competitive positioning against named tools (OPA/Gatekeeper, ArgoCD, Flux), and unit economics (CAC~\$2K, LTV~\$54K, 90\% gross margin). The adversarial process killed the unrealistic revenue assumptions.
 
-\subsection{Convergence Behavior}
+\subsection{Convergence and Trajectory}
 
-All 5~tasks converged at threshold $k{=}2$, requiring 9--28 passes. Task complexity correlates with convergence time: policy tasks converge faster (10~passes) than multi-stakeholder operational processes (28~passes).
+All 5~tasks converged at threshold $k{=}2$, requiring 9--28 passes (Figure~\ref{fig:convergence}). Policy tasks converge faster (10~passes) than multi-stakeholder operational processes (28~passes).
+
+Figure~\ref{fig:tree} shows the Task~1 trajectory. At pass~15, A had won twice consecutively. Eleven more passes followed---a 7-judge panel comparing pass~15 vs pass~25 chose pass~15 by 6--1. Post-convergence passes are noise.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_convergence_all.pdf}
-\caption{Passes to convergence across all tasks and the paper-writing experiment. Task~5 (incident response, 28~passes) required the most iteration; the paper (9~passes) the least.}
+\caption{Passes to convergence across all tasks. Task~5 required the most (28); the paper (9) the least.}
 \label{fig:convergence}
 \end{figure}
-
-\subsection{Trajectory Analysis}
-
-Figure~\ref{fig:tree} shows the Task~1 trajectory as a tree, where vertical position represents cumulative drift from the initial version. A~wins produce horizontal movement (no drift), B~wins drift up by~1, AB by~0.5. At pass~15, A had won twice consecutively (convergence). But 11 more passes followed with B winning 5 of them. A 7-judge panel comparing pass~15 vs pass~25 chose pass~15 by 6--1---the later passes were churn, not improvement.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_trajectory_tree.pdf}
-\caption{Trajectory tree, Task~1 (26~passes). Stars mark convergence points. Post-convergence activity is noise.}
+\caption{Trajectory tree, Task~1 (26~passes). Stars mark convergence points.}
 \label{fig:tree}
 \end{figure}
 
 \subsection{Chain-of-Thought Judges}
 \label{sec:cot}
 
-Requiring judges to reason step-by-step before ranking dramatically improves convergence speed without changing the generation pipeline.
+Adding ``think step by step about each version'' to the judge prompt---no architecture changes---dramatically improves convergence (Table~\ref{tab:cot}). CoT judges produce scores of 8--9 for A wins (vs baseline's 6--7), acting as a debiasing mechanism: judges must articulate specific strengths before ranking, preventing verbosity bias.
 
 \begin{table}[H]
 \centering
@@ -356,44 +350,28 @@ Chain-of-thought & \textbf{5 passes} & \textbf{8 passes} \\
 Decomposed (3 specialists) & 7 passes & --- \\
 \bottomrule
 \end{tabular}
-\caption{Passes to convergence by judge variant. CoT reduces convergence 3$\times$ on Task~1.}
+\caption{CoT reduces convergence 3$\times$ on Task~1. All subsequent experiments use CoT judges.}
 \label{tab:cot}
 \end{table}
 
-CoT judges produce more decisive scores: A's winning scores were 8--9 (vs baseline's typical 6--7). The reasoning step acts as a debiasing mechanism---judges must articulate specific strengths before committing to a ranking, preventing verbosity bias and pattern-matching.
+\subsection{Robustness}
+\label{sec:retro}
 
-On Task~2 (autoreason's weakest task), CoT improved autoreason from Borda~19 (tied 3rd) to 25 (clear 3rd with 3 first-place votes), though critique-and-revise still won at~30. The task-dependent advantage persists but the gap narrows.
+\textbf{Monte Carlo.}\enspace Five independent runs of Task~1: 4/5 converged (80\%). Convergence pass varied (6, 8, 14, 17) but final word counts clustered tightly (1451--1660), suggesting a consistent quality ceiling regardless of path (Figure~\ref{fig:mc}).
 
-\subsection{Monte Carlo Analysis}
-
-Five independent runs of Task~1 tested convergence reliability. 4/5 converged (80\%). Convergence pass varied: 6, 8, 14, 17. One run hit the 30-pass cap without converging. Final word counts clustered tightly (1451--1660) despite variable path length, suggesting the loop reaches a similar quality ceiling regardless of path.
+\textbf{Game-theoretic validation.}\enspace Across 91~passes: only 1 Condorcet cycle (1.1\%---near-perfect transitivity). Elo ratings plateau by pass 5--10. Pairwise dominance is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_monte_carlo.pdf}
-\caption{Monte Carlo analysis: 5 independent runs of Task~1. Left: passes to convergence (one run hit the 30-pass cap). Right: final word counts cluster tightly despite variable paths.}
+\caption{Monte Carlo: 5 runs of Task~1. Convergence speed varies; final output quality does not.}
 \label{fig:mc}
 \end{figure}
-
-\subsection{Retroactive Game-Theoretic Analysis}
-\label{sec:retro}
-
-We analyzed all 91~passes across 5~tasks plus Monte Carlo runs:
-
-\textbf{Transitivity.}\enspace Only 1 Condorcet cycle in 91~passes (1.1\%). Judge preferences are almost perfectly transitive, confirming Borda aggregation is appropriate and the spoiler problem~\cite{arrow} is theoretical, not practical.
-
-\textbf{Elo ratings.}\enspace Tracking incumbent Elo across Task~1 passes, ratings plateau at ${\sim}$1540 by pass 5--10. Elo at pass~15 (1547) vs pass~25 (1560)---barely different, confirming early convergence.
-
-\textbf{Pairwise dominance.}\enspace Across all 5-way comparisons, autoreason wins 18/20 pairwise matchups (90\%). The ordering is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics.
-
-\subsection{Constrained Tasks}
-
-Task~1 with a constrained prompt (1000-word limit, 6 required sections with specific deliverables) ran for 25~passes without converging. B won 18 of 25~passes (72\%). The constraint eliminated word count oscillation (all outputs 600--800 words) but made convergence harder---specific constraints give the critic a verifiable checklist that always finds violations. This early result hinted at the relationship between scope and convergence that the scaling experiments (Section~\ref{sec:scaling}) would later clarify: the type of constraint matters.
 
 \section{Model Scaling}
 \label{sec:scaling}
 
-We ran autoreason on Task~2 using claude-sonnet-4-6 (a stronger model released after our main experiments) with CoT judges to test whether model capability improves convergence. The initial result was a complete reversal---autoreason came last. Two rounds of remedy experiments then identified the root cause and a fix.
+We ran autoreason on Task~2 using claude-sonnet-4-6 (a stronger model) with CoT judges. The initial result was a complete reversal---autoreason came last (Table~\ref{tab:scaling}). Two rounds of remedy experiments then identified the root cause and a fix.
 
 \begin{table}[H]
 \centering
@@ -411,67 +389,54 @@ Conservative & 14 & 0 \\
 Autoreason & 7 & 0 \\
 \bottomrule
 \end{tabular}
-\caption{Sonnet~4.6 on Task~2. Autoreason ran 50~passes without converging; all baselines ran 15~passes. CoT judges.}
+\caption{Sonnet~4.6, Task~2 (unconstrained). Autoreason ran 50~passes without converging; all baselines ran 15~passes.}
 \label{tab:scaling}
 \end{table}
 
-Over 50~passes, A won only 6~times (12\%). AB dominated with 30+ wins; B took the remainder. The loop never approached convergence---A never won two consecutive passes. The stronger model produced AB syntheses so consistently preferred by judges that the incumbent could never survive a challenge.
+Over 50~passes, A won only 6~times (12\%). AB dominated with 30+ wins. The stronger model produced syntheses so consistently preferred by judges that the incumbent could never survive. This is structurally different from the bloat/prune oscillation with Sonnet~4: with 4.6, judges were decisive enough (scores of 8--9 for AB) to never let A through.
 
-This failure mode is structurally different from the bloat/prune oscillation observed with Sonnet~4. With the weaker model, A occasionally won on close calls and tiebreaks, creating windows for convergence. With Sonnet~4.6, both B and AB were reliably superior to A on every pass, and judges were decisive enough (scores of 8--9 for AB) to never let A through.
+\subsection{Round 1: Convergence Remedies}
 
-\subsection{Remedy Experiments}
-
-We tested four modifications to recover convergence, all on the same setup (Sonnet~4.6, Task~2, CoT judges, 50-pass cap):
-
-\begin{enumerate}[leftmargin=*]
-\item \textbf{Margin requirement}: AB/B must beat A by $\geq$2 Borda points to displace the incumbent; otherwise A survives.
-\item \textbf{Scope-aware judges}: Judge prompt includes the initial version's word count and instructs judges to penalize unjustified expansion.
-\item \textbf{Plateau detection}: Convergence triggers when A's average Borda score over the last 5 passes exceeds~6 (out of~9), regardless of consecutive wins.
-\item \textbf{All three combined}.
-\end{enumerate}
+We tested four modifications (Sonnet~4.6, Task~2, CoT judges, 50-pass cap):
 
 \begin{table}[H]
 \centering
 \small
 \begin{tabular}{@{}lccccc@{}}
 \toprule
-\textbf{Remedy} & \textbf{Passes} & \textbf{A} & \textbf{AB} & \textbf{B} & \textbf{Converged?} \\
+\textbf{Remedy} & \textbf{Passes} & \textbf{A} & \textbf{AB} & \textbf{B} & \textbf{Conv.?} \\
 \midrule
 \rowcolor{TableShade}
-Margin & 15 & 3 & 8 & 4 & \textbf{Yes} (pass 15) \\
-Combined & 17 & 3 & 12 & 2 & \textbf{Yes} (pass 17) \\
+Margin ($\geq$2 pts) & 15 & 3 & 8 & 4 & \textbf{Yes} \\
+All combined & 17 & 3 & 12 & 2 & \textbf{Yes} \\
 \rowcolor{TableShade}
-Scope-aware & 35 & 4 & 25 & 6 & No \\
-Plateau & 35 & 2 & 22 & 11 & No \\
+Scope-aware judges & 35 & 4 & 25 & 6 & No \\
+Plateau detection & 35 & 2 & 22 & 11 & No \\
 \rowcolor{TableShade}
-\textit{Baseline (no fix)} & \textit{50} & \textit{6} & \textit{30+} & \textit{rest} & \textit{No} \\
+\textit{Baseline} & \textit{50} & \textit{6} & \textit{30+} & --- & \textit{No} \\
 \bottomrule
 \end{tabular}
-\caption{Scaling remedy experiments (Sonnet~4.6, Task~2). Only experiments including the margin requirement converged.}
+\caption{Convergence remedies. Only the margin requirement (AB/B must win by $\geq$2 Borda) produces convergence.}
 \label{tab:remedies}
 \end{table}
 
-The margin requirement is the effective fix (Figure~\ref{fig:remedies}). Both experiments that included it converged (passes 15 and 17); both without it did not. In the combined experiment, the margin rule overrode 2 of 17 passes where AB would have won by 1~Borda point, creating the consecutive-win windows that the baseline could never produce. The margin-only experiment converged without any overrides---potentially stochastic, but the combined result confirms the mechanism.
+The margin requirement converged at passes 15 and 17 (Figure~\ref{fig:remedies}). Scope-aware judges and plateau detection had no effect.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_remedies.pdf}
-\caption{Scaling remedy results. Left: cumulative A win rate over passes (solid = converged, dashed = did not). Right: passes to convergence (* = did not converge, killed at cap). Only experiments including the margin requirement terminated.}
+\caption{Left: cumulative A win rate (solid = converged). Right: passes to termination (* = cap).}
 \label{fig:remedies}
 \end{figure}
 
-Scope-aware judges had no effect: AB still won 25 of 35~passes (71\%) despite explicit anti-bloat instructions. The stronger model's AB syntheses are preferred for reasons beyond verbosity. Plateau detection could never trigger because A's scores remained at 3--4 throughout---the incumbent is genuinely weaker per pass, not just losing on close calls.
-
-The diagnosis is specific: the scaling failure is not about evaluation bias or stopping criteria. It is about the structural asymmetry between a static incumbent and fresh challengers with access to a critique. The margin requirement works because it raises the bar for displacement, giving the incumbent stability it cannot earn on pure quality alone.
-
-\textbf{But convergence $\neq$ quality.} A 7-judge blind panel comparing the margin-converged outputs against the same baselines from Table~\ref{tab:scaling} shows that the margin rule produces convergence on mediocre output:
+\textbf{But convergence $\neq$ quality.}\enspace A 7-judge panel showed margin-converged output still places 4th--5th (Table~\ref{tab:remedy_quality}). The margin rule solves termination but not quality---the incumbent accumulates synthesis drift across 15--17 passes of near-constant displacement.
 
 \begin{table}[H]
 \centering
 \small
 \begin{tabular}{@{}lcc@{}}
 \toprule
-\textbf{Method} & \textbf{Borda (max 49)} & \textbf{1st Place} \\
+\textbf{Method} & \textbf{Borda (/49)} & \textbf{1st} \\
 \midrule
 \rowcolor{TableShade}
 Critique \& rev. & \textbf{43} & 2 \\
@@ -486,57 +451,43 @@ Conservative & 12 & 0 \\
 Autoreason (baseline) & 11 & 0 \\
 \bottomrule
 \end{tabular}
-\caption{Quality evaluation of margin-converged outputs vs baselines (Sonnet~4.6, Task~2, 7 CoT judges). Margin improves over baseline autoreason (23--26 vs 11) but loses to all active baselines.}
+\caption{Margin recovers convergence but not quality. Autoreason still loses to all active baselines.}
 \label{tab:remedy_quality}
 \end{table}
 
-The margin rule roughly doubles the quality of the autoreason output (Borda 23--26 vs 11 for the unmodified baseline), but the converged output still places 4th--5th out of 7. The margin rule solves the termination problem but not the quality problem---the incumbent accumulates synthesis drift across 15--17 passes of near-constant displacement.
+\subsection{Round 2: Root Cause}
 
-\subsection{Root Cause: Scope, Not Evaluation}
-
-The margin experiments revealed that the scaling failure is not about how we evaluate but about what we evaluate. We tested three modifications targeting the evaluation side of the loop:
-
-\begin{enumerate}[leftmargin=*]
-\item \textbf{Anchored judges}: Per-pass judges see the initial version alongside A/AB/B, with instructions to be skeptical of unjustified drift.
-\item \textbf{Subtractive synthesis}: Synthesizer instructed to produce the minimal revision rather than the maximal combination. ``If in doubt, prefer the shorter version.''
-\item \textbf{Both combined}.
-\end{enumerate}
-
-We also tested a \textbf{scope-constrained task}: a 500-word startup pitch built from 8 specific facts, where the task itself mechanically limits drift.
+Three evaluation-side modifications (anchored judges, subtractive synthesis, both combined) plus a scope-constrained task (500-word startup pitch from 8 fixed facts):
 
 \begin{table}[H]
 \centering
 \small
 \begin{tabular}{@{}lccccc@{}}
 \toprule
-\textbf{Modification} & \textbf{Passes} & \textbf{A} & \textbf{AB} & \textbf{B} & \textbf{Converged?} \\
+\textbf{Modification} & \textbf{Passes} & \textbf{A} & \textbf{AB} & \textbf{B} & \textbf{Conv.?} \\
 \midrule
 \rowcolor{TableShade}
-\textbf{Constrained task} & \textbf{10} & \textbf{4} & \textbf{6} & \textbf{0} & \textbf{Yes (pass 10)} \\
+\textbf{Constrained task} & \textbf{10} & \textbf{4} & \textbf{6} & \textbf{0} & \textbf{Yes} \\
 Anchored judges & 25 & 4 & 12 & 9 & No \\
 \rowcolor{TableShade}
 Subtractive synth. & 17 & 0 & 10 & 7 & No \\
 Anchored + subtractive & 17 & 1 & 6 & 10 & No \\
-\rowcolor{TableShade}
-\textit{Baseline (no fix)} & \textit{50} & \textit{6} & \textit{30+} & \textit{rest} & \textit{No} \\
 \bottomrule
 \end{tabular}
-\caption{Root-cause experiments (Sonnet~4.6). Constrained task converged cleanly; evaluation-side modifications did not.}
+\caption{Only the constrained task converges. Evaluation-side modifications do not.}
 \label{tab:v3_remedies}
 \end{table}
 
-The constrained task converged at pass~10 with A scoring~9 on the final pass---the strongest convergence with Sonnet~4.6 in any experiment. Word counts stayed within 480--694 throughout (vs 1895--2700 on the unconstrained task). B never won a single pass. The incumbent was genuinely good enough that challengers could not improve it.
+The constrained task converged at pass~10 with A scoring~9---the strongest convergence with Sonnet~4.6 in any experiment. Word counts stayed within 480--694 (vs 1895--2700 unconstrained). B never won a single pass.
 
-No evaluation-side modification achieved convergence. Anchored judges were the most promising (4~A wins in 25 passes, proportionally better than baseline), but skeptical instructions alone could not overcome the synthesis drift. Subtractive synthesis kept word counts tighter (${\sim}$2300 vs ${\sim}$2700) but judges still preferred challengers. The combination was worse than either alone---the overly conservative AB pushed judges toward B (the full revision) instead.
-
-A 7-judge blind panel confirmed that the constrained convergence also produces the best output:
+A 7-judge blind panel confirmed quality (Table~\ref{tab:constrained_quality}):
 
 \begin{table}[H]
 \centering
 \small
 \begin{tabular}{@{}lcc@{}}
 \toprule
-\textbf{Method} & \textbf{Borda (max 35)} & \textbf{1st Place} \\
+\textbf{Method} & \textbf{Borda (/35)} & \textbf{1st} \\
 \midrule
 \rowcolor{TableShade}
 \textbf{Autoreason} & \textbf{30} & \textbf{3} \\
@@ -548,68 +499,64 @@ Harsh critic & 13 & 0 \\
 Critique \& rev. & 10 & 0 \\
 \bottomrule
 \end{tabular}
-\caption{Constrained task quality (Sonnet~4.6, 500-word pitch, 7 CoT judges). Autoreason wins. The aggressive baselines that won the unconstrained task (Table~\ref{tab:scaling}) now place last---they bloated past the 500-word limit.}
+\caption{Constrained task: autoreason wins with Sonnet~4.6. Compare Table~\ref{tab:scaling}: the baselines that won unconstrained now lose---they bloated past the 500-word limit.}
 \label{tab:constrained_quality}
 \end{table}
 
-The ranking inverts relative to the unconstrained task (Figure~\ref{fig:scaling_story}). Critique-and-revise, which won the unconstrained comparison at Borda~31, now places last at~10---it expanded to 932~words, violating the constraint. Autoreason stayed at 632~words (slightly over but controlled). The constrained task penalizes exactly the drift that autoreason's architecture prevents.
+The ranking inverts (Figure~\ref{fig:scaling_story}). Critique-and-revise expanded to 932~words; autoreason stayed at 632. The constrained task penalizes exactly the drift that autoreason's architecture prevents.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.85\textwidth]{fig_scaling_story.pdf}
-\caption{The scaling story with Sonnet~4.6. Left: on an unconstrained task, autoreason places last (red). Right: on a scope-constrained task, the same model and method places first (blue). The baselines that won unconstrained (critique-and-revise, improve-this) now lose---they bloated past the scope constraint. Autoreason's architecture prevents exactly this drift.}
+\caption{The scaling story. Same model (Sonnet~4.6), same method, opposite results. Left: unconstrained task, autoreason last (red). Right: scope-constrained task, autoreason first (blue).}
 \label{fig:scaling_story}
 \end{figure*}
-
-The reframing: autoreason's scaling failure is not about the method but about the task. On scope-ambiguous tasks, the synthesis operator has an unbounded improvement space---there is always something to add, qualify, or combine. On scope-constrained tasks, the improvement space is finite, and the incumbent can reach its ceiling. This distinction explains why autoreason works with Sonnet~4 on unconstrained tasks (the model's ceiling is lower, reachable within the ambiguous scope) but fails with Sonnet~4.6 on unconstrained tasks (the ceiling is higher than what the judges can detect per-pass). The practical implication: autoreason should be paired with explicit scope constraints, especially as models improve.
 
 \section{Writing This Paper}
 \label{sec:paper}
 
-We ran autoreason on this paper using claude-opus-4 (all roles) with 3 Opus judges. All agents received actual experimental data as ground-truth context. Converged in 9~passes: AB$\to$A$\to$AB$\to$AB$\to$AB$\to$AB$\to$AB$\to$A$\to$A.
+We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and ground-truth context (actual experimental data). Converged in 9~passes.
 
-\textbf{Ground-truth critic.}\enspace Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions (Figure~\ref{fig:hallucination}). With ground-truth access, the critic caught all four on pass~1. The author writes from understanding; the critic verifies against evidence---mirroring peer review.
+\textbf{Ground-truth critic.}\enspace Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions (Figure~\ref{fig:hallucination}). With ground-truth access, the critic caught all four on pass~1---mirroring peer review, where the reviewer checks supplementary materials.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_hallucination.pdf}
-\caption{Ground-truth critic eliminates hallucination. Without reference data, the initial draft contained 4 fabricated claims. With ground-truth access, all claims were verified on pass~1.}
+\caption{4 hallucinated claims without ground truth; 0 with it.}
 \label{fig:hallucination}
 \end{figure}
 
-\textbf{Judge panel integrity.}\enspace An earlier run with a mixed panel (Opus + Sonnet + Gemini) failed to converge for 11~passes because Gemini's output format failed our ranking parser, reducing the effective panel to 2~judges. Once fixed to 3 working judges, the same incumbent converged in 2~passes (Figure~\ref{fig:integrity}). Panel integrity is a prerequisite for convergence---a broken judge doesn't add noise, it prevents equilibrium.
+\textbf{Judge panel integrity.}\enspace An earlier mixed panel (Opus + Sonnet + Gemini) failed to converge for 11+ passes because Gemini's output failed our parser, reducing the panel to 2 judges. Fixed to 3 working judges, the same incumbent converged in 2~passes (Figure~\ref{fig:integrity}). A broken judge doesn't add noise---it prevents equilibrium.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_judge_integrity.pdf}
-\caption{Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes.}
+\caption{Broken parser: $>$11 passes, no convergence. 3 working judges: 2 passes.}
 \label{fig:integrity}
 \end{figure}
 
 \section{Related Work}
 
-\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function. Autoreason extends this to subjective domains. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback. \textbf{AI Safety via Debate}~\cite{irving2018} provides theoretical grounding for adversarial evaluation: truth has a natural advantage when agents argue opposing positions before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases (position, verbosity, self-enhancement) in LLM evaluation, motivating our randomization and panel design. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{PSRO}~\cite{psro} provides the game-theoretic framework: each pass adds a candidate to an empirical game.
+\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function; autoreason extends this to subjective domains. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback. \textbf{AI Safety via Debate}~\cite{irving2018} grounds adversarial evaluation: truth has a natural advantage when agents argue before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases motivating our randomization and panel design. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{PSRO}~\cite{psro} provides the game-theoretic framework.
 
 \section{Discussion}
 
-\textbf{Task-dependent advantage.}\enspace Autoreason is not universally superior. It excels where genuine tradeoffs exist between competing valid perspectives. For tasks with concrete, verifiable requirements, simpler methods suffice. The recommendation: use autoreason when you don't know which framing will produce the best result; use critique-and-revise when the improvement direction is clear.
+\textbf{Task-dependent advantage.}\enspace Autoreason is not universally superior. It excels where genuine tradeoffs exist. For tasks with concrete, verifiable requirements, simpler methods suffice. Use autoreason when you don't know which framing will produce the best result; use critique-and-revise when the improvement direction is clear.
 
-\textbf{CoT judges should be the default.}\enspace The single cheapest improvement: adding ``think step by step about each version'' to the judge prompt. No architecture changes, 3$\times$ faster convergence, more decisive scores.
+\textbf{CoT judges should be the default.}\enspace The cheapest improvement: 3$\times$ faster convergence, more decisive scores, no architecture changes.
 
-\textbf{Convergence as practical stopping rule.}\enspace The threshold does not guarantee optimality. It filters noise. Post-convergence passes on Task~1 produced no improvement (pass~15 beat pass~25, 6--1). The Monte Carlo results show 20\% non-convergence at 30~passes, meaning some runs need a cap. The Elo analysis confirms quality plateaus early regardless of whether the consecutive-wins threshold is met.
+\textbf{Convergence as stopping rule.}\enspace The threshold filters noise, not guarantees optimality. Post-convergence passes on Task~1 degraded quality. The Elo analysis confirms plateaus early regardless of whether the threshold is met.
 
-\textbf{Bloat/prune oscillation}\enspace signals underdetermined scope, and scope turns out to be the central variable in autoreason's effectiveness. Figure~\ref{fig:wordcount} shows the structural story: autoreason grows steadily then stabilizes, while baselines either stagnate (conservative) or bloat monotonically (critique-and-revise). With stronger models, this oscillation becomes one-directional drift (Section~\ref{sec:scaling})---but scope constraints eliminate it entirely, restoring both convergence and quality.
+\textbf{Scope is the central variable.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift---but scope constraints eliminate it entirely, restoring both convergence and quality (Section~\ref{sec:scaling}). The synthesis operator needs a bounded improvement space. When the task constrains scope mechanically, the incumbent can reach a ceiling. When it doesn't, there is always something to add.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_wordcount.pdf}
-\caption{Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat.}
+\caption{Word count trajectories (15 passes, same start). Autoreason (solid) grows controllably; baselines stagnate or bloat.}
 \label{fig:wordcount}
 \end{figure}
 
-\textbf{Model scaling is a scope problem.}\enspace Two rounds of remedy experiments (Section~\ref{sec:scaling}) systematically eliminated alternative hypotheses. The failure is not about stopping criteria (margin requirement converges but produces mediocre output), evaluation bias (anchored judges don't converge), or synthesis design (subtractive synthesis doesn't converge). It is about scope: on a constrained 500-word pitch task, Sonnet~4.6 converges cleanly in 10~passes with A scoring~9 on the final pass. The synthesis operator needs a bounded improvement space. When the task constrains scope mechanically, the incumbent can reach a ceiling. When it doesn't, there is always something to add.
-
-\textbf{Limitations.}\enspace All results from one model family (Anthropic). No human evaluation. No ablation studies isolating individual components. The constrained-task result (Section~\ref{sec:scaling}) is from a single task and model pair---generalization across diverse constrained tasks and model families remains untested. The paper-writing experiment used a different model (Opus) than the main experiments (Sonnet), limiting direct comparability. The scaling remedy experiments each ran once; Monte Carlo replication would strengthen the convergence claims.
+\textbf{Limitations.}\enspace All results from one model family (Anthropic). No human evaluation. The constrained-task result is from a single task---generalization untested. The paper-writing experiment used Opus, not Sonnet. Scaling remedy experiments each ran once; Monte Carlo replication would strengthen the claims.
 
 \section{Conclusion}
 

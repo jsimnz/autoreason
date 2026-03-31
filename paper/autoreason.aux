@@ -10,58 +10,47 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2}Method}{1}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Formal Framing}{1}{subsection.2.1}\protected@file@percent }
 \citation{psro}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The autoreason loop. Each pass produces three candidates from the incumbent: the unchanged original~(A), a synthesis~(AB), and an adversarial revision~(B). A blind judge panel selects the winner via Borda count. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent with no shared context.}}{2}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The autoreason loop (Figure~\ref {fig:method}). Each pass produces three candidates: the unchanged incumbent~(A), a synthesis~(AB), and an adversarial revision~(B). A blind judge panel selects the winner via Borda count. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent.}}{2}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:method}{{1}{2}{The autoreason loop. Each pass produces three candidates from the incumbent: the unchanged original~(A), a synthesis~(AB), and an adversarial revision~(B). A blind judge panel selects the winner via Borda count. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent with no shared context}{figure.caption.1}{}}
+\newlabel{fig:method}{{1}{2}{The autoreason loop (Figure~\ref {fig:method}). Each pass produces three candidates: the unchanged incumbent~(A), a synthesis~(AB), and an adversarial revision~(B). A blind judge panel selects the winner via Borda count. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent}{figure.caption.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Experiments}{2}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Results}{2}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Single-Pass Evaluation}{2}{subsection.4.1}\protected@file@percent }
-\newlabel{sec:v1}{{4.1}{2}{Single-Pass Evaluation}{subsection.4.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Single-pass Borda scores (max~35). Bold indicates winner per task.}}{2}{table.caption.2}\protected@file@percent }
-\newlabel{tab:v1}{{1}{2}{Single-pass Borda scores (max~35). Bold indicates winner per task}{table.caption.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Multi-Task Comparison}{3}{subsection.4.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Iterative Borda scores (max~35) across 5~tasks at 15~passes. Bold indicates winner. Autoreason won tasks 1, 3,~5; critique-and-revise won tasks 2,~4.}}{3}{table.caption.3}\protected@file@percent }
-\newlabel{tab:multi}{{2}{3}{Iterative Borda scores (max~35) across 5~tasks at 15~passes. Bold indicates winner. Autoreason won tasks 1, 3,~5; critique-and-revise won tasks 2,~4}{table.caption.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Per-task Borda scores for all 5~methods at 15 iterative passes. Autoreason (blue) wins tasks 1, 3,~5; critique-and-revise (purple) wins tasks 2,~4.}}{3}{figure.caption.4}\protected@file@percent }
-\newlabel{fig:multi}{{2}{3}{Per-task Borda scores for all 5~methods at 15 iterative passes. Autoreason (blue) wins tasks 1, 3,~5; critique-and-revise (purple) wins tasks 2,~4}{figure.caption.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Aggregate performance across 5~tasks (iterative, 15~passes). Autoreason never placed below 2nd on any task.}}{3}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:summary}{{3}{3}{Aggregate performance across 5~tasks (iterative, 15~passes). Autoreason never placed below 2nd on any task}{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Qualitative Improvement}{3}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Convergence Behavior}{3}{subsection.4.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Passes to convergence across all tasks and the paper-writing experiment. Task~5 (incident response, 28~passes) required the most iteration; the paper (9~passes) the least.}}{3}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:convergence}{{4}{3}{Passes to convergence across all tasks and the paper-writing experiment. Task~5 (incident response, 28~passes) required the most iteration; the paper (9~passes) the least}{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Trajectory Analysis}{3}{subsection.4.5}\protected@file@percent }
-\citation{arrow}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Trajectory tree, Task~1 (26~passes). Stars mark convergence points. Post-convergence activity is noise.}}{4}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:tree}{{5}{4}{Trajectory tree, Task~1 (26~passes). Stars mark convergence points. Post-convergence activity is noise}{figure.caption.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Chain-of-Thought Judges}{4}{subsection.4.6}\protected@file@percent }
-\newlabel{sec:cot}{{4.6}{4}{Chain-of-Thought Judges}{subsection.4.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Passes to convergence by judge variant. CoT reduces convergence 3$\times $ on Task~1.}}{4}{table.caption.8}\protected@file@percent }
-\newlabel{tab:cot}{{3}{4}{Passes to convergence by judge variant. CoT reduces convergence 3$\times $ on Task~1}{table.caption.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Monte Carlo Analysis}{4}{subsection.4.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Monte Carlo analysis: 5 independent runs of Task~1. Left: passes to convergence (one run hit the 30-pass cap). Right: final word counts cluster tightly despite variable paths.}}{4}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:mc}{{6}{4}{Monte Carlo analysis: 5 independent runs of Task~1. Left: passes to convergence (one run hit the 30-pass cap). Right: final word counts cluster tightly despite variable paths}{figure.caption.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Retroactive Game-Theoretic Analysis}{4}{subsection.4.8}\protected@file@percent }
-\newlabel{sec:retro}{{4.8}{4}{Retroactive Game-Theoretic Analysis}{subsection.4.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Constrained Tasks}{4}{subsection.4.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Single Pass vs.\ Iteration}{2}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:v1}{{4.1}{2}{Single Pass vs.\ Iteration}{subsection.4.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Single-pass Borda scores (max~35). Bold indicates task winner. Autoreason places 3rd at 5$\times $ the cost.}}{2}{table.caption.2}\protected@file@percent }
+\newlabel{tab:v1}{{1}{2}{Single-pass Borda scores (max~35). Bold indicates task winner. Autoreason places 3rd at 5$\times $ the cost}{table.caption.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Iterative Borda scores (max~35) at 15~passes. Autoreason wins tasks 1, 3,~5; critique-and-revise wins tasks 2,~4. Compare Table~\ref {tab:v1}: iteration inverts the ranking.}}{2}{table.caption.3}\protected@file@percent }
+\newlabel{tab:multi}{{2}{2}{Iterative Borda scores (max~35) at 15~passes. Autoreason wins tasks 1, 3,~5; critique-and-revise wins tasks 2,~4. Compare Table~\ref {tab:v1}: iteration inverts the ranking}{table.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Per-task Borda scores at 15 iterative passes.}}{3}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:multi}{{2}{3}{Per-task Borda scores at 15 iterative passes}{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Aggregate performance. Autoreason (27.8 avg Borda, rank 1.4) never placed below 2nd.}}{3}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:summary}{{3}{3}{Aggregate performance. Autoreason (27.8 avg Borda, rank 1.4) never placed below 2nd}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Qualitative Improvement}{3}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Convergence and Trajectory}{3}{subsection.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Passes to convergence across all tasks. Task~5 required the most (28); the paper (9) the least.}}{3}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:convergence}{{4}{3}{Passes to convergence across all tasks. Task~5 required the most (28); the paper (9) the least}{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Trajectory tree, Task~1 (26~passes). Stars mark convergence points.}}{3}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:tree}{{5}{3}{Trajectory tree, Task~1 (26~passes). Stars mark convergence points}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Chain-of-Thought Judges}{3}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:cot}{{4.4}{3}{Chain-of-Thought Judges}{subsection.4.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces CoT reduces convergence 3$\times $ on Task~1. All subsequent experiments use CoT judges.}}{3}{table.caption.8}\protected@file@percent }
+\newlabel{tab:cot}{{3}{3}{CoT reduces convergence 3$\times $ on Task~1. All subsequent experiments use CoT judges}{table.caption.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Robustness}{3}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:retro}{{4.5}{3}{Robustness}{subsection.4.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Monte Carlo: 5 runs of Task~1. Convergence speed varies; final output quality does not.}}{4}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:mc}{{6}{4}{Monte Carlo: 5 runs of Task~1. Convergence speed varies; final output quality does not}{figure.caption.9}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Model Scaling}{4}{section.5}\protected@file@percent }
 \newlabel{sec:scaling}{{5}{4}{Model Scaling}{section.5}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Sonnet~4.6 on Task~2. Autoreason ran 50~passes without converging; all baselines ran 15~passes. CoT judges.}}{5}{table.caption.10}\protected@file@percent }
-\newlabel{tab:scaling}{{4}{5}{Sonnet~4.6 on Task~2. Autoreason ran 50~passes without converging; all baselines ran 15~passes. CoT judges}{table.caption.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Remedy Experiments}{5}{subsection.5.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Scaling remedy experiments (Sonnet~4.6, Task~2). Only experiments including the margin requirement converged.}}{5}{table.caption.11}\protected@file@percent }
-\newlabel{tab:remedies}{{5}{5}{Scaling remedy experiments (Sonnet~4.6, Task~2). Only experiments including the margin requirement converged}{table.caption.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Scaling remedy results. Left: cumulative A win rate over passes (solid = converged, dashed = did not). Right: passes to convergence (* = did not converge, killed at cap). Only experiments including the margin requirement terminated.}}{5}{figure.caption.12}\protected@file@percent }
-\newlabel{fig:remedies}{{7}{5}{Scaling remedy results. Left: cumulative A win rate over passes (solid = converged, dashed = did not). Right: passes to convergence (* = did not converge, killed at cap). Only experiments including the margin requirement terminated}{figure.caption.12}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Quality evaluation of margin-converged outputs vs baselines (Sonnet~4.6, Task~2, 7 CoT judges). Margin improves over baseline autoreason (23--26 vs 11) but loses to all active baselines.}}{5}{table.caption.13}\protected@file@percent }
-\newlabel{tab:remedy_quality}{{6}{5}{Quality evaluation of margin-converged outputs vs baselines (Sonnet~4.6, Task~2, 7 CoT judges). Margin improves over baseline autoreason (23--26 vs 11) but loses to all active baselines}{table.caption.13}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Root Cause: Scope, Not Evaluation}{6}{subsection.5.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Root-cause experiments (Sonnet~4.6). Constrained task converged cleanly; evaluation-side modifications did not.}}{6}{table.caption.14}\protected@file@percent }
-\newlabel{tab:v3_remedies}{{7}{6}{Root-cause experiments (Sonnet~4.6). Constrained task converged cleanly; evaluation-side modifications did not}{table.caption.14}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Constrained task quality (Sonnet~4.6, 500-word pitch, 7 CoT judges). Autoreason wins. The aggressive baselines that won the unconstrained task (Table~\ref {tab:scaling}) now place last---they bloated past the 500-word limit.}}{6}{table.caption.15}\protected@file@percent }
-\newlabel{tab:constrained_quality}{{8}{6}{Constrained task quality (Sonnet~4.6, 500-word pitch, 7 CoT judges). Autoreason wins. The aggressive baselines that won the unconstrained task (Table~\ref {tab:scaling}) now place last---they bloated past the 500-word limit}{table.caption.15}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Writing This Paper}{6}{section.6}\protected@file@percent }
-\newlabel{sec:paper}{{6}{6}{Writing This Paper}{section.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Sonnet~4.6, Task~2 (unconstrained). Autoreason ran 50~passes without converging; all baselines ran 15~passes.}}{4}{table.caption.10}\protected@file@percent }
+\newlabel{tab:scaling}{{4}{4}{Sonnet~4.6, Task~2 (unconstrained). Autoreason ran 50~passes without converging; all baselines ran 15~passes}{table.caption.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Round 1: Convergence Remedies}{4}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Convergence remedies. Only the margin requirement (AB/B must win by $\geq $2 Borda) produces convergence.}}{4}{table.caption.11}\protected@file@percent }
+\newlabel{tab:remedies}{{5}{4}{Convergence remedies. Only the margin requirement (AB/B must win by $\geq $2 Borda) produces convergence}{table.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Left: cumulative A win rate (solid = converged). Right: passes to termination (* = cap).}}{4}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:remedies}{{7}{4}{Left: cumulative A win rate (solid = converged). Right: passes to termination (* = cap)}{figure.caption.12}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Margin recovers convergence but not quality. Autoreason still loses to all active baselines.}}{4}{table.caption.13}\protected@file@percent }
+\newlabel{tab:remedy_quality}{{6}{4}{Margin recovers convergence but not quality. Autoreason still loses to all active baselines}{table.caption.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Round 2: Root Cause}{4}{subsection.5.2}\protected@file@percent }
 \citation{autoresearch}
 \citation{slopcodebench}
 \citation{ace}
@@ -72,36 +61,42 @@
 \citation{zheng2023}
 \citation{llmcouncil}
 \citation{psro}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces The scaling story with Sonnet~4.6. Left: on an unconstrained task, autoreason places last (red). Right: on a scope-constrained task, the same model and method places first (blue). The baselines that won unconstrained (critique-and-revise, improve-this) now lose---they bloated past the scope constraint. Autoreason's architecture prevents exactly this drift.}}{7}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:scaling_story}{{8}{7}{The scaling story with Sonnet~4.6. Left: on an unconstrained task, autoreason places last (red). Right: on a scope-constrained task, the same model and method places first (blue). The baselines that won unconstrained (critique-and-revise, improve-this) now lose---they bloated past the scope constraint. Autoreason's architecture prevents exactly this drift}{figure.caption.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Ground-truth critic eliminates hallucination. Without reference data, the initial draft contained 4 fabricated claims. With ground-truth access, all claims were verified on pass~1.}}{7}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:hallucination}{{9}{7}{Ground-truth critic eliminates hallucination. Without reference data, the initial draft contained 4 fabricated claims. With ground-truth access, all claims were verified on pass~1}{figure.caption.17}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes.}}{7}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:integrity}{{10}{7}{Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes}{figure.caption.18}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Related Work}{7}{section.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Only the constrained task converges. Evaluation-side modifications do not.}}{5}{table.caption.14}\protected@file@percent }
+\newlabel{tab:v3_remedies}{{7}{5}{Only the constrained task converges. Evaluation-side modifications do not}{table.caption.14}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Constrained task: autoreason wins with Sonnet~4.6. Compare Table~\ref {tab:scaling}: the baselines that won unconstrained now lose---they bloated past the 500-word limit.}}{5}{table.caption.15}\protected@file@percent }
+\newlabel{tab:constrained_quality}{{8}{5}{Constrained task: autoreason wins with Sonnet~4.6. Compare Table~\ref {tab:scaling}: the baselines that won unconstrained now lose---they bloated past the 500-word limit}{table.caption.15}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Writing This Paper}{5}{section.6}\protected@file@percent }
+\newlabel{sec:paper}{{6}{5}{Writing This Paper}{section.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces 4 hallucinated claims without ground truth; 0 with it.}}{5}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:hallucination}{{9}{5}{4 hallucinated claims without ground truth; 0 with it}{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Broken parser: $>$11 passes, no convergence. 3 working judges: 2 passes.}}{5}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:integrity}{{10}{5}{Broken parser: $>$11 passes, no convergence. 3 working judges: 2 passes}{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Related Work}{5}{section.7}\protected@file@percent }
 \bibcite{autoresearch}{1}
 \bibcite{slopcodebench}{2}
 \bibcite{ace}{3}
 \bibcite{selfrefine}{4}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces The scaling story. Same model (Sonnet~4.6), same method, opposite results. Left: unconstrained task, autoreason last (red). Right: scope-constrained task, autoreason first (blue).}}{6}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:scaling_story}{{8}{6}{The scaling story. Same model (Sonnet~4.6), same method, opposite results. Left: unconstrained task, autoreason last (red). Right: scope-constrained task, autoreason first (blue)}{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{6}{section.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Word count trajectories (15 passes, same start). Autoreason (solid) grows controllably; baselines stagnate or bloat.}}{6}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:wordcount}{{11}{6}{Word count trajectories (15 passes, same start). Autoreason (solid) grows controllably; baselines stagnate or bloat}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{6}{section.9}\protected@file@percent }
 \bibcite{huang2023}{5}
 \bibcite{irving2018}{6}
 \bibcite{bai2022}{7}
 \bibcite{zheng2023}{8}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{8}{section.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat.}}{8}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:wordcount}{{11}{8}{Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat}{figure.caption.19}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{8}{section.9}\protected@file@percent }
 \bibcite{llmcouncil}{9}
 \bibcite{psro}{10}
 \bibcite{arrow}{11}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Prompts}{10}{appendix.A}\protected@file@percent }
-\newlabel{app:prompts}{{A}{10}{Prompts}{appendix.A}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Critic}{10}{subsection.A.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Author B}{10}{subsection.A.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Synthesizer}{10}{subsection.A.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Judge (Baseline)}{10}{subsection.A.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Judge (Chain-of-Thought)}{10}{subsection.A.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B}Trajectory Trees}{10}{appendix.B}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task.}}{11}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:appendix}{{12}{11}{All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task}{figure.caption.20}{}}
-\gdef \@abspage@last{11}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Prompts}{8}{appendix.A}\protected@file@percent }
+\newlabel{app:prompts}{{A}{8}{Prompts}{appendix.A}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Critic}{8}{subsection.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Author B}{8}{subsection.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Synthesizer}{8}{subsection.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Judge (Baseline)}{8}{subsection.A.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Judge (Chain-of-Thought)}{8}{subsection.A.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Trajectory Trees}{8}{appendix.B}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task.}}{9}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:appendix}{{12}{9}{All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task}{figure.caption.20}{}}
+\gdef \@abspage@last{9}
