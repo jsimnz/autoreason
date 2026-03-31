@@ -96,7 +96,10 @@ Tested across 5 tasks with claude-sonnet-4 (go-to-market strategy, notification 
 
 ### The value is in the loop
 
-A single autoreason pass (5 LLM calls) **loses** to simpler methods — harsh critic and critique-and-revise both outperform it at 1/5th the cost. With iteration, the picture reverses:
+> [!IMPORTANT]
+> A single autoreason pass (5 LLM calls) **loses** to simpler methods at 1/5th the cost. The method only justifies itself through iteration.
+
+With iteration, the picture reverses:
 
 | Method | Avg Borda | Avg Rank | Tasks Won |
 |:---|---:|---:|---:|
