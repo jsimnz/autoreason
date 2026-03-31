@@ -461,7 +461,7 @@ Autoreason (baseline) & 11 & 0 \\
 
 \subsection{Round 2: Root Cause}
 
-Three evaluation-side modifications (anchored judges, subtractive synthesis, both combined) plus a scope-constrained task (500-word startup pitch from 8 fixed facts). The constrained task differs from Task~2 in both scope constraints and content, so this comparison isolates the effect of bounded scope only in combination with a task change:
+Four evaluation-side modifications plus a scope-constrained task (500-word startup pitch from 8 fixed facts):
 
 \begin{table}[H]
 \centering
@@ -476,11 +476,15 @@ Anchored judges & 25 & 4 & 12 & 9 & No \\
 \rowcolor{TableShade}
 Subtractive synth. & 17 & 0 & 10 & 7 & No \\
 Anchored + subtractive & 17 & 1 & 6 & 10 & No \\
+\rowcolor{TableShade}
+Verdict hierarchical~\cite{verdict} & 15 & 1 & 12 & 2 & No \\
 \bottomrule
 \end{tabular}
-\caption{Only the constrained task converges. Evaluation-side modifications do not.}
+\caption{Only the constrained task converges. Evaluation-side modifications, including hierarchical judge verification, do not.}
 \label{tab:v3_remedies}
 \end{table}
+
+We also tested hierarchical judge verification inspired by Verdict~\cite{verdict}: each judge's ranking is reviewed by a verifier that checks whether the reasoning reflects genuine quality differences or just length/detail preference, repeated 3 times with Borda aggregation. This produced 1~A win in 15~passes (7\%), worse than the baseline's 12\%. The verifier consistently confirmed the original judge's preference for AB, indicating that the per-pass preference is correct locally; the problem is trajectory-level drift that no single-pass evaluation can detect.
 
 The constrained task converged at pass~10 with A scoring~9, the strongest convergence with Sonnet~4.6 in any experiment. Word counts stayed within 480--694 (vs 1895--2700 unconstrained). B never won a single pass.
 
@@ -541,7 +545,7 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 \section{Related Work}
 
-\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function; autoreason extends this to subjective domains. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback. \textbf{AI Safety via Debate}~\cite{irving2018} grounds adversarial evaluation: truth has a natural advantage when agents argue before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases motivating our randomization and panel design. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{PSRO}~\cite{psro} provides game-theoretic framing for iterative strategy generation, loosely analogous to our pass structure.
+\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function; autoreason extends this to subjective domains. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback. \textbf{AI Safety via Debate}~\cite{irving2018} grounds adversarial evaluation: truth has a natural advantage when agents argue before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases motivating our randomization and panel design. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{PSRO}~\cite{psro} provides game-theoretic framing for iterative strategy generation, loosely analogous to our pass structure. \textbf{Verdict}~\cite{verdict} scales judge-time compute through hierarchical verification and debate-aggregation; we tested its rank-then-verify pattern and found it does not address the scope problem (Section~\ref{sec:scaling}).
 
 \section{Discussion}
 
@@ -584,6 +588,7 @@ The practical recommendation: pair autoreason with explicit scope constraints (w
 \bibitem{zheng2023} L. Zheng et al. Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena. \textit{NeurIPS}, 2023. \textit{arXiv:2306.05685}.
 \bibitem{llmcouncil} LLM Council, 2025.
 \bibitem{psro} M. Lanctot et al. A unified game-theoretic approach to multiagent reinforcement learning. \textit{NeurIPS}, 2017.
+\bibitem{verdict} R. Nair et al. Verdict: Scalable judge-time compute via hierarchical verification. \textit{arXiv:2502.18018}, 2025.
 \bibitem{arrow} K. Arrow. \textit{Social Choice and Individual Values}. Wiley, 1951.
 \end{thebibliography}
 
