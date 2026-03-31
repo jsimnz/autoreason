@@ -134,13 +134,11 @@ The adversarial process didn't polish prose — it forced the proposal to get co
 
 ### Model scaling: scope is the fix
 
-> [!WARNING]
-> With claude-sonnet-4-6 (stronger model) on an unconstrained task, autoreason came **dead last** (Borda 7/35, zero first-place votes, 50 passes without converging).
+> [!CAUTION]
+> **The problem.** With claude-sonnet-4-6 (stronger model) on an unconstrained task, autoreason came **dead last** (Borda 7/35, zero first-place votes, 50 passes without converging). Eight remedy experiments ruled out evaluation bias, stopping criteria, and synthesis design. The root cause is **scope**: the synthesis operator has an unbounded improvement space.
 
-Eight remedy experiments identified the root cause as **scope**, not evaluation methodology. Margin requirements recover convergence but not quality. Anchored judges, subtractive synthesis, scope-aware judges, and plateau detection all failed.
-
-> [!NOTE]
-> On a **scope-constrained task** (500-word startup pitch from 8 fixed facts), the same Sonnet 4.6 model converged in 10 passes and **won the blind quality comparison** (Borda 30/35, 3 first-place) against all baselines — the same baselines that beat autoreason unconstrained.
+> [!TIP]
+> **The fix.** On a **scope-constrained task** (500-word startup pitch from 8 fixed facts), the same Sonnet 4.6 model converged in 10 passes and **won the blind quality comparison** (Borda 30/35, 3 first-place) against all baselines — the same baselines that beat autoreason unconstrained.
 
 The synthesis operator needs a bounded improvement space. When scope is mechanically limited, the incumbent can reach a ceiling. When it isn't, there is always something to add. The practical recommendation: pair autoreason with explicit scope constraints, especially as models improve.
 
