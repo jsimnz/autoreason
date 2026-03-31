@@ -82,9 +82,9 @@
 
 % ── Abstract ───────────────────────────────────────────────────────
 \noindent\textbf{\scshape Abstract.}\enspace
-We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. Each iteration produces three competing versions of a document---the incumbent, an adversarial revision, and a synthesis---evaluated by a blind judge panel. Fresh isolated agents, Borda count aggregation, and conservative tiebreaking construct a subjective fitness function through the evaluation process itself. With claude-sonnet-4 across 5~task types, autoreason ranked first or second in every 7-judge blind comparison, winning 3/5~outright. Chain-of-thought judging accelerates convergence 3$\times$; Monte Carlo analysis confirms 80\% convergence with consistent quality; game-theoretic analysis validates fully transitive preferences.
+We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. Each iteration produces three competing versions of a document (the incumbent, an adversarial revision, and a synthesis), evaluated by a blind judge panel. Fresh isolated agents, Borda count aggregation, and conservative tiebreaking construct a subjective fitness function through the evaluation process itself. With claude-sonnet-4 across 5~task types, autoreason ranked first or second in every 7-judge blind comparison, winning 3/5~outright. Chain-of-thought judging accelerates convergence 3$\times$; Monte Carlo analysis confirms 80\% convergence with consistent quality; game-theoretic analysis validates fully transitive preferences.
 
-With a stronger model (Sonnet~4.6), the method fails on open-ended tasks---synthesis consistently outcompetes the incumbent, preventing convergence. Eight remedy experiments identify the root cause as \textit{scope}, not evaluation methodology. On a scope-constrained task (500-word pitch), the same stronger model converges in 10~passes and wins a blind comparison against all baselines---the same baselines that dominated the unconstrained version. Autoreason's effectiveness depends on the interaction between evaluation methodology and task specification: the synthesis operator needs a bounded improvement space to reach a quality ceiling.
+With a stronger model (Sonnet~4.6), the method fails on open-ended tasks: synthesis consistently outcompetes the incumbent, preventing convergence. Eight remedy experiments identify the root cause as \textit{scope}, not evaluation methodology. On a scope-constrained task (500-word pitch), the same stronger model converges in 10~passes and wins a blind comparison against all baselines---the same baselines that dominated the unconstrained version. Autoreason's effectiveness depends on the interaction between evaluation methodology and task specification: the synthesis operator needs a bounded improvement space to reach a quality ceiling.
 
 \vspace{6pt}
 \hrule
@@ -92,11 +92,11 @@ With a stronger model (Sonnet~4.6), the method fails on open-ended tasks---synth
 
 \section{Introduction}
 
-LLMs exhibit systematic failures when iterating on subjective work: sycophancy, overcriticism, overcompromise, authorship bias, scope drift, and context collapse. These failures persist across prompting strategies---even in code generation, iterative refinement leads to progressive degradation~\cite{slopcodebench}. Self-Refine~\cite{selfrefine} demonstrates that single-agent critique-and-revise loops can improve outputs but provides no mechanism to detect when revisions make things worse. Huang et al.~\cite{huang2023} show LLMs cannot reliably self-correct without external feedback, motivating our external judge panel.
+LLMs exhibit systematic failures when iterating on subjective work: sycophancy, overcriticism, overcompromise, authorship bias, scope drift, and context collapse. These failures persist across prompting strategies. Even in code generation, iterative refinement leads to progressive degradation~\cite{slopcodebench}. Self-Refine~\cite{selfrefine} demonstrates that single-agent critique-and-revise loops can improve outputs but provides no mechanism to detect when revisions make things worse. Huang et al.~\cite{huang2023} show LLMs cannot reliably self-correct without external feedback, motivating our external judge panel.
 
-We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} to subjective domains. Each iteration produces three competing versions---the incumbent~(A), an adversarial revision~(B), and a synthesis~(AB)---evaluated by a blind judge panel. The method constructs a fitness function through the evaluation process itself, analogous to how science uses peer review where math can use proofs.
+We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} to subjective domains. Each iteration produces three competing versions, the incumbent~(A), an adversarial revision~(B), and a synthesis~(AB), evaluated by a blind judge panel. The method constructs a fitness function through the evaluation process itself, analogous to how science uses peer review where math can use proofs.
 
-We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to$ AB $\to$ judge (5~LLM calls). \textbf{Convergence loop}: repeats the cycle with a full judge panel until the incumbent survives consecutive challenges. As we show in Section~\ref{sec:v1}, the single pass does not outperform simpler baselines---autoreason's value emerges from iteration. We further show that with stronger models, the method's effectiveness depends on task scope: scope constraints restore convergence and quality where unconstrained tasks fail (Section~\ref{sec:scaling}).
+We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to$ AB $\to$ judge (5~LLM calls). \textbf{Convergence loop}: repeats the cycle with a full judge panel until the incumbent survives consecutive challenges. As we show in Section~\ref{sec:v1}, the single pass does not outperform simpler baselines; autoreason's value emerges from iteration. We further show that with stronger models, the method's effectiveness depends on task scope: scope constraints restore convergence and quality where unconstrained tasks fail (Section~\ref{sec:scaling}).
 
 \section{Method}
 
@@ -216,7 +216,7 @@ We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to
 \label{fig:method}
 \end{figure*}
 
-\textbf{Critic.}\enspace A fresh agent identifies problems in the current incumbent~A. Finds problems only---no fixes. Optionally receives ground-truth data for fact-checking (Section~\ref{sec:paper}).
+\textbf{Critic.}\enspace A fresh agent identifies problems in the current incumbent~A. Finds problems only; no fixes. Optionally receives ground-truth data for fact-checking (Section~\ref{sec:paper}).
 
 \textbf{Author~B.}\enspace A fresh agent revises A based on the critique. Sees the task, A, and the critique. No drafting history.
 
@@ -315,7 +315,7 @@ The initial Task~1 output was a generic startup playbook: \$49/user pricing, \$1
 
 All 5~tasks converged at threshold $k{=}2$, requiring 9--28 passes (Figure~\ref{fig:convergence}). Policy tasks converge faster (10~passes) than multi-stakeholder operational processes (28~passes).
 
-Figure~\ref{fig:tree} shows the Task~1 trajectory. At pass~15, A had won twice consecutively. Eleven more passes followed---a 7-judge panel comparing pass~15 vs pass~25 chose pass~15 by 6--1. Post-convergence passes are noise.
+Figure~\ref{fig:tree} shows the Task~1 trajectory. At pass~15, A had won twice consecutively. Eleven more passes followed. A 7-judge panel comparing pass~15 vs pass~25 chose pass~15 by 6--1. Post-convergence passes are noise.
 
 \begin{figure}[H]
 \centering
@@ -334,7 +334,7 @@ Figure~\ref{fig:tree} shows the Task~1 trajectory. At pass~15, A had won twice c
 \subsection{Chain-of-Thought Judges}
 \label{sec:cot}
 
-Adding ``think step by step about each version'' to the judge prompt---no architecture changes---dramatically improves convergence (Table~\ref{tab:cot}). CoT judges produce scores of 8--9 for A wins (vs baseline's 6--7), acting as a debiasing mechanism: judges must articulate specific strengths before ranking, preventing verbosity bias.
+Adding ``think step by step about each version'' to the judge prompt, with no architecture changes, dramatically improves convergence (Table~\ref{tab:cot}). CoT judges produce scores of 8--9 for A wins (vs baseline's 6--7), acting as a debiasing mechanism: judges must articulate specific strengths before ranking, preventing verbosity bias.
 
 \begin{table}[H]
 \centering
@@ -359,7 +359,7 @@ Decomposed (3 specialists) & 7 passes & --- \\
 
 \textbf{Monte Carlo.}\enspace Five independent runs of Task~1: 4/5 converged (80\%). Convergence pass varied (6, 8, 14, 17) but final word counts clustered tightly (1451--1660), suggesting a consistent quality ceiling regardless of path (Figure~\ref{fig:mc}).
 
-\textbf{Game-theoretic validation.}\enspace Across 91~passes: only 1 Condorcet cycle (1.1\%---near-perfect transitivity). Elo ratings plateau by pass 5--10. Pairwise dominance is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics.
+\textbf{Game-theoretic validation.}\enspace Across 91~passes: only 1 Condorcet cycle (1.1\%, near-perfect transitivity). Elo ratings plateau by pass 5--10. Pairwise dominance is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics.
 
 \begin{figure}[H]
 \centering
@@ -371,7 +371,7 @@ Decomposed (3 specialists) & 7 passes & --- \\
 \section{Model Scaling}
 \label{sec:scaling}
 
-We ran autoreason on Task~2 using claude-sonnet-4-6 (a stronger model) with CoT judges. The initial result was a complete reversal---autoreason came last (Table~\ref{tab:scaling}). Two rounds of remedy experiments then identified the root cause and a fix.
+We ran autoreason on Task~2 using claude-sonnet-4-6 (a stronger model) with CoT judges. The initial result was a complete reversal: autoreason came last (Table~\ref{tab:scaling}). Two rounds of remedy experiments then identified the root cause and a fix.
 
 \begin{table}[H]
 \centering
@@ -429,7 +429,7 @@ The margin requirement converged at passes 15 and 17 (Figure~\ref{fig:remedies})
 \label{fig:remedies}
 \end{figure}
 
-\textbf{But convergence $\neq$ quality.}\enspace A 7-judge panel showed margin-converged output still places 4th--5th (Table~\ref{tab:remedy_quality}). The margin rule solves termination but not quality---the incumbent accumulates synthesis drift across 15--17 passes of near-constant displacement.
+\textbf{But convergence $\neq$ quality.}\enspace A 7-judge panel showed margin-converged output still places 4th--5th (Table~\ref{tab:remedy_quality}). The margin rule solves termination but not quality; the incumbent accumulates synthesis drift across 15--17 passes of near-constant displacement.
 
 \begin{table}[H]
 \centering
@@ -478,7 +478,7 @@ Anchored + subtractive & 17 & 1 & 6 & 10 & No \\
 \label{tab:v3_remedies}
 \end{table}
 
-The constrained task converged at pass~10 with A scoring~9---the strongest convergence with Sonnet~4.6 in any experiment. Word counts stayed within 480--694 (vs 1895--2700 unconstrained). B never won a single pass.
+The constrained task converged at pass~10 with A scoring~9, the strongest convergence with Sonnet~4.6 in any experiment. Word counts stayed within 480--694 (vs 1895--2700 unconstrained). B never won a single pass.
 
 A 7-judge blind panel confirmed quality (Table~\ref{tab:constrained_quality}):
 
@@ -499,7 +499,7 @@ Harsh critic & 13 & 0 \\
 Critique \& rev. & 10 & 0 \\
 \bottomrule
 \end{tabular}
-\caption{Constrained task: autoreason wins with Sonnet~4.6. Compare Table~\ref{tab:scaling}: the baselines that won unconstrained now lose---they bloated past the 500-word limit.}
+\caption{Constrained task: autoreason wins with Sonnet~4.6. Compare Table~\ref{tab:scaling}: the baselines that won unconstrained now lose (they bloated past the 500-word limit).}
 \label{tab:constrained_quality}
 \end{table}
 
@@ -517,7 +517,7 @@ The ranking inverts (Figure~\ref{fig:scaling_story}). Critique-and-revise expand
 
 We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and ground-truth context (actual experimental data). Converged in 9~passes.
 
-\textbf{Ground-truth critic.}\enspace Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions (Figure~\ref{fig:hallucination}). With ground-truth access, the critic caught all four on pass~1---mirroring peer review, where the reviewer checks supplementary materials.
+\textbf{Ground-truth critic.}\enspace Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions (Figure~\ref{fig:hallucination}). With ground-truth access, the critic caught all four on pass~1. This mirrors peer review, where the reviewer checks supplementary materials.
 
 \begin{figure}[H]
 \centering
@@ -526,7 +526,7 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 \label{fig:hallucination}
 \end{figure}
 
-\textbf{Judge panel integrity.}\enspace An earlier mixed panel (Opus + Sonnet + Gemini) failed to converge for 11+ passes because Gemini's output failed our parser, reducing the panel to 2 judges. Fixed to 3 working judges, the same incumbent converged in 2~passes (Figure~\ref{fig:integrity}). A broken judge doesn't add noise---it prevents equilibrium.
+\textbf{Judge panel integrity.}\enspace An earlier mixed panel (Opus + Sonnet + Gemini) failed to converge for 11+ passes because Gemini's output failed our parser, reducing the panel to 2 judges. Fixed to 3 working judges, the same incumbent converged in 2~passes (Figure~\ref{fig:integrity}). A broken judge does not add noise; it prevents equilibrium.
 
 \begin{figure}[H]
 \centering
@@ -547,7 +547,7 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 \textbf{Convergence as stopping rule.}\enspace The threshold filters noise, not guarantees optimality. Post-convergence passes on Task~1 degraded quality. The Elo analysis confirms plateaus early regardless of whether the threshold is met.
 
-\textbf{Scope is the central variable.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift---but scope constraints eliminate it entirely, restoring both convergence and quality (Section~\ref{sec:scaling}). The synthesis operator needs a bounded improvement space. When the task constrains scope mechanically, the incumbent can reach a ceiling. When it doesn't, there is always something to add.
+\textbf{Scope is the central variable.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift. Scope constraints eliminate it entirely, restoring both convergence and quality (Section~\ref{sec:scaling}). The synthesis operator needs a bounded improvement space. When the task constrains scope mechanically, the incumbent can reach a ceiling. When it doesn't, there is always something to add.
 
 \begin{figure}[H]
 \centering
@@ -556,7 +556,7 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 \label{fig:wordcount}
 \end{figure}
 
-\textbf{Limitations.}\enspace All results from one model family (Anthropic). No human evaluation. The constrained-task result is from a single task---generalization untested. The paper-writing experiment used Opus, not Sonnet. Scaling remedy experiments each ran once; Monte Carlo replication would strengthen the claims.
+\textbf{Limitations.}\enspace All results from one model family (Anthropic). No human evaluation. The constrained-task result is from a single task; generalization is untested. The paper-writing experiment used Opus, not Sonnet. Scaling remedy experiments each ran once; Monte Carlo replication would strengthen the claims.
 
 \section{Conclusion}
 
