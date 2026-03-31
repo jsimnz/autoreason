@@ -11,7 +11,7 @@
 Autoreason is an iterative refinement method for LLM-generated content where no objective metric exists. It constructs a subjective fitness function through independent blind evaluation — the same way science uses peer review where math can use proofs.
 
 > [!NOTE]
-> The 6-page paper (`paper/autoreason.pdf`) covers all experiments and was itself written using autoreason with claude-opus-4 and ground-truth critic access.
+> The 6-page paper (`paper/autoreason.pdf`) covers all experiments and was itself written using autoreason with claude-opus-4.6 and ground-truth critic access.
 
 ## How It Works
 
