@@ -94,7 +94,7 @@ LLMs exhibit systematic failures when iterating on subjective work: sycophancy, 
 
 We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} to subjective domains. Each iteration produces three competing versions---the incumbent~(A), an adversarial revision~(B), and a synthesis~(AB)---evaluated by a blind judge panel. The method constructs a fitness function through the evaluation process itself, analogous to how science uses peer review where math can use proofs.
 
-We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to$ AB $\to$ judge (5~LLM calls). \textbf{Convergence loop}: repeats the cycle with a full judge panel until the incumbent survives consecutive challenges. As we show in Section~\ref{sec:v1}, the single pass does not outperform simpler baselines---autoreason's value emerges from iteration.
+We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to$ AB $\to$ judge (5~LLM calls). \textbf{Convergence loop}: repeats the cycle with a full judge panel until the incumbent survives consecutive challenges. As we show in Section~\ref{sec:v1}, the single pass does not outperform simpler baselines---autoreason's value emerges from iteration. We further show that with stronger models, the method's effectiveness depends on task scope: scope constraints restore convergence and quality where unconstrained tasks fail (Section~\ref{sec:scaling}).
 
 \section{Method}
 
@@ -391,7 +391,7 @@ Task~1 with a constrained prompt (1000-word limit, 6 required sections with spec
 \subsection{Model Scaling: Sonnet 4.6}
 \label{sec:scaling}
 
-We ran autoreason on Task~2 using claude-sonnet-4-6 (a stronger model released after our main experiments) with CoT judges to test whether model capability improves convergence. The result was a complete reversal: autoreason came last.
+We ran autoreason on Task~2 using claude-sonnet-4-6 (a stronger model released after our main experiments) with CoT judges to test whether model capability improves convergence. The initial result was a complete reversal---autoreason came last. Two rounds of remedy experiments then identified the root cause and a fix.
 
 \begin{table}[H]
 \centering
@@ -550,7 +550,14 @@ Critique \& rev. & 10 & 0 \\
 \label{tab:constrained_quality}
 \end{table}
 
-The ranking inverts relative to the unconstrained task. Critique-and-revise, which won the unconstrained comparison at Borda~31, now places last at~10---it expanded to 932~words, violating the constraint. Autoreason stayed at 632~words (slightly over but controlled). The constrained task penalizes exactly the drift that autoreason's architecture prevents.
+The ranking inverts relative to the unconstrained task (Figure~\ref{fig:scaling_story}). Critique-and-revise, which won the unconstrained comparison at Borda~31, now places last at~10---it expanded to 932~words, violating the constraint. Autoreason stayed at 632~words (slightly over but controlled). The constrained task penalizes exactly the drift that autoreason's architecture prevents.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_scaling_story.pdf}
+\caption{The scaling story with Sonnet~4.6. Left: on an unconstrained task, autoreason places last (red). Right: on a scope-constrained task, the same model and method places first (blue). The baselines that won unconstrained (critique-and-revise, improve-this) now lose---they bloated past the scope constraint. Autoreason's architecture prevents exactly this drift.}
+\label{fig:scaling_story}
+\end{figure*}
 
 The reframing: autoreason's scaling failure is not about the method but about the task. On scope-ambiguous tasks, the synthesis operator has an unbounded improvement space---there is always something to add, qualify, or combine. On scope-constrained tasks, the improvement space is finite, and the incumbent can reach its ceiling. This distinction explains why autoreason works with Sonnet~4 on unconstrained tasks (the model's ceiling is lower, reachable within the ambiguous scope) but fails with Sonnet~4.6 on unconstrained tasks (the ceiling is higher than what the judges can detect per-pass). The practical implication: autoreason should be paired with explicit scope constraints, especially as models improve.
 
@@ -589,7 +596,7 @@ We ran autoreason on this paper using claude-opus-4 (all roles) with 3 Opus judg
 
 \textbf{Convergence as practical stopping rule.}\enspace The threshold does not guarantee optimality. It filters noise. Post-convergence passes on Task~1 produced no improvement (pass~15 beat pass~25, 6--1). The Monte Carlo results show 20\% non-convergence at 30~passes, meaning some runs need a cap. The Elo analysis confirms quality plateaus early regardless of whether the consecutive-wins threshold is met.
 
-\textbf{Bloat/prune oscillation}\enspace signals underdetermined scope. Constraining scope eliminates this but makes convergence harder by giving the critic concrete criteria to enforce. Figure~\ref{fig:wordcount} shows the structural story: autoreason grows steadily then stabilizes, while baselines either stagnate (conservative) or bloat monotonically (critique-and-revise).
+\textbf{Bloat/prune oscillation}\enspace signals underdetermined scope, and scope turns out to be the central variable in autoreason's effectiveness. Figure~\ref{fig:wordcount} shows the structural story: autoreason grows steadily then stabilizes, while baselines either stagnate (conservative) or bloat monotonically (critique-and-revise). With stronger models, this oscillation becomes one-directional drift (Section~\ref{sec:scaling})---but scope constraints eliminate it entirely, restoring both convergence and quality.
 
 \begin{figure}[H]
 \centering
@@ -600,7 +607,7 @@ We ran autoreason on this paper using claude-opus-4 (all roles) with 3 Opus judg
 
 \textbf{Model scaling is a scope problem.}\enspace Two rounds of remedy experiments (Section~\ref{sec:scaling}) systematically eliminated alternative hypotheses. The failure is not about stopping criteria (margin requirement converges but produces mediocre output), evaluation bias (anchored judges don't converge), or synthesis design (subtractive synthesis doesn't converge). It is about scope: on a constrained 500-word pitch task, Sonnet~4.6 converges cleanly in 10~passes with A scoring~9 on the final pass. The synthesis operator needs a bounded improvement space. When the task constrains scope mechanically, the incumbent can reach a ceiling. When it doesn't, there is always something to add.
 
-\textbf{Limitations.}\enspace All results from one model family (Anthropic). No human evaluation. No ablation studies isolating individual components. The constrained task experiment was capped at 25~passes---we cannot claim it would never converge. The paper-writing experiment used a different model (Opus) than the main experiments (Sonnet), limiting direct comparability.
+\textbf{Limitations.}\enspace All results from one model family (Anthropic). No human evaluation. No ablation studies isolating individual components. The constrained-task result (Section~\ref{sec:scaling}) is from a single task and model pair---generalization across diverse constrained tasks and model families remains untested. The paper-writing experiment used a different model (Opus) than the main experiments (Sonnet), limiting direct comparability. The scaling remedy experiments each ran once; Monte Carlo replication would strengthen the convergence claims.
 
 \section{Conclusion}
 

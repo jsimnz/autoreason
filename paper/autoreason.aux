@@ -72,34 +72,36 @@
 \citation{zheng2023}
 \citation{llmcouncil}
 \citation{psro}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Ground-truth critic eliminates hallucination. Without reference data, the initial draft contained 4 fabricated claims. With ground-truth access, all claims were verified on pass~1.}}{7}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:hallucination}{{8}{7}{Ground-truth critic eliminates hallucination. Without reference data, the initial draft contained 4 fabricated claims. With ground-truth access, all claims were verified on pass~1}{figure.caption.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes.}}{7}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:integrity}{{9}{7}{Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes}{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces The scaling story with Sonnet~4.6. Left: on an unconstrained task, autoreason places last (red). Right: on a scope-constrained task, the same model and method places first (blue). The baselines that won unconstrained (critique-and-revise, improve-this) now lose---they bloated past the scope constraint. Autoreason's architecture prevents exactly this drift.}}{7}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:scaling_story}{{8}{7}{The scaling story with Sonnet~4.6. Left: on an unconstrained task, autoreason places last (red). Right: on a scope-constrained task, the same model and method places first (blue). The baselines that won unconstrained (critique-and-revise, improve-this) now lose---they bloated past the scope constraint. Autoreason's architecture prevents exactly this drift}{figure.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Ground-truth critic eliminates hallucination. Without reference data, the initial draft contained 4 fabricated claims. With ground-truth access, all claims were verified on pass~1.}}{7}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:hallucination}{{9}{7}{Ground-truth critic eliminates hallucination. Without reference data, the initial draft contained 4 fabricated claims. With ground-truth access, all claims were verified on pass~1}{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes.}}{7}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:integrity}{{10}{7}{Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes}{figure.caption.18}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Related Work}{7}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{7}{section.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat.}}{7}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:wordcount}{{10}{7}{Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat}{figure.caption.18}{}}
 \bibcite{autoresearch}{1}
 \bibcite{slopcodebench}{2}
 \bibcite{ace}{3}
 \bibcite{selfrefine}{4}
 \bibcite{huang2023}{5}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{8}{section.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat.}}{8}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:wordcount}{{11}{8}{Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{8}{section.8}\protected@file@percent }
 \bibcite{irving2018}{6}
 \bibcite{bai2022}{7}
 \bibcite{zheng2023}{8}
 \bibcite{llmcouncil}{9}
 \bibcite{psro}{10}
 \bibcite{arrow}{11}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{8}{section.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A}Prompts}{9}{appendix.A}\protected@file@percent }
-\newlabel{app:prompts}{{A}{9}{Prompts}{appendix.A}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Critic}{9}{subsection.A.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Author B}{9}{subsection.A.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Synthesizer}{9}{subsection.A.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Judge (Baseline)}{9}{subsection.A.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Judge (Chain-of-Thought)}{9}{subsection.A.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B}Trajectory Trees}{9}{appendix.B}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task.}}{10}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:appendix}{{11}{10}{All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task}{figure.caption.19}{}}
-\gdef \@abspage@last{10}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Prompts}{10}{appendix.A}\protected@file@percent }
+\newlabel{app:prompts}{{A}{10}{Prompts}{appendix.A}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Critic}{10}{subsection.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Author B}{10}{subsection.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Synthesizer}{10}{subsection.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Judge (Baseline)}{10}{subsection.A.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Judge (Chain-of-Thought)}{10}{subsection.A.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Trajectory Trees}{10}{appendix.B}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task.}}{11}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:appendix}{{12}{11}{All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task}{figure.caption.20}{}}
+\gdef \@abspage@last{11}
