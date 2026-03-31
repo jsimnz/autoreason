@@ -1,0 +1,105 @@
+{
+  "experiment": "constrained",
+  "modifications": "constrained task (500w pitch)",
+  "model": "anthropic/claude-sonnet-4-6",
+  "total_passes": 10,
+  "converged": true,
+  "converge_reason": "consecutive A wins (2)",
+  "final_words": 632,
+  "a_wins": 4,
+  "ab_wins": 6,
+  "b_wins": 0,
+  "trajectory": "A -> AB -> AB -> AB -> AB -> AB -> A -> AB -> A -> A",
+  "history": [
+    {
+      "pass": 1,
+      "winner": "A",
+      "scores": {
+        "A": 9,
+        "AB": 4,
+        "B": 5
+      }
+    },
+    {
+      "pass": 2,
+      "winner": "AB",
+      "scores": {
+        "A": 5,
+        "AB": 9,
+        "B": 4
+      }
+    },
+    {
+      "pass": 3,
+      "winner": "AB",
+      "scores": {
+        "A": 5,
+        "AB": 9,
+        "B": 4
+      }
+    },
+    {
+      "pass": 4,
+      "winner": "AB",
+      "scores": {
+        "A": 7,
+        "AB": 8,
+        "B": 3
+      }
+    },
+    {
+      "pass": 5,
+      "winner": "AB",
+      "scores": {
+        "A": 4,
+        "AB": 8,
+        "B": 6
+      }
+    },
+    {
+      "pass": 6,
+      "winner": "AB",
+      "scores": {
+        "A": 3,
+        "AB": 8,
+        "B": 7
+      }
+    },
+    {
+      "pass": 7,
+      "winner": "A",
+      "scores": {
+        "A": 7,
+        "AB": 7,
+        "B": 4
+      }
+    },
+    {
+      "pass": 8,
+      "winner": "AB",
+      "scores": {
+        "A": 5,
+        "AB": 7,
+        "B": 6
+      }
+    },
+    {
+      "pass": 9,
+      "winner": "A",
+      "scores": {
+        "A": 8,
+        "AB": 5,
+        "B": 5
+      }
+    },
+    {
+      "pass": 10,
+      "winner": "A",
+      "scores": {
+        "A": 9,
+        "AB": 6,
+        "B": 3
+      }
+    }
+  ]
+}

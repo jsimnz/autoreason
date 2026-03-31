@@ -1,0 +1,14 @@
+{
+  "pass": 4,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "AB": 7,
+    "B": 8
+  },
+  "valid": 3,
+  "elapsed": 339.4,
+  "words_a": 2076,
+  "words_ab": 2090,
+  "words_b": 2246
+}
