@@ -132,14 +132,17 @@ The adversarial process didn't polish prose — it forced the proposal to get co
 
 > **Game-theoretic validation** across 91 passes: 1.1% Condorcet cycle rate (near-perfect transitivity). ELO plateau by pass 5–10. Fully transitive pairwise dominance.
 
-### Model scaling: a failure mode
+### Model scaling: scope is the fix
 
 > [!WARNING]
-> With claude-sonnet-4-6 (stronger model), autoreason came **dead last** — Borda 7/35, zero first-place votes after 50 passes without converging.
+> With claude-sonnet-4-6 (stronger model) on an unconstrained task, autoreason came **dead last** (Borda 7/35, zero first-place votes, 50 passes without converging).
 
-The stronger model produced AB syntheses so consistently preferred by judges that the incumbent could never survive. The convergence mechanism assumes A can eventually become good enough that challengers can't improve on it. With a sufficiently capable model, this assumption breaks.
+Eight remedy experiments identified the root cause as **scope**, not evaluation methodology. Margin requirements recover convergence but not quality. Anchored judges, subtractive synthesis, scope-aware judges, and plateau detection all failed.
 
-Potential remedies: score-based plateau detection, requiring AB to win by a margin, tiered model configs (stronger judge, weaker author). Open question.
+> [!NOTE]
+> On a **scope-constrained task** (500-word startup pitch from 8 fixed facts), the same Sonnet 4.6 model converged in 10 passes and **won the blind quality comparison** (Borda 30/35, 3 first-place) against all baselines — the same baselines that beat autoreason unconstrained.
+
+The synthesis operator needs a bounded improvement space. When scope is mechanically limited, the incumbent can reach a ceiling. When it isn't, there is always something to add. The practical recommendation: pair autoreason with explicit scope constraints, especially as models improve.
 
 ---
 
@@ -174,10 +177,10 @@ Without ground-truth access, the initial Opus generation of this paper hallucina
 
 ## Open Questions
 
-1. **Mixed-model judge panel** — would decorrelated biases (sonnet + gpt-4o + gemini) change convergence behavior?
-2. **Model scaling** — can architectural modifications recover autoreason's advantage with stronger models?
+1. **Constrained task generalization** — the scope-constraint fix is from one task (500-word pitch). Does it hold across diverse constrained tasks (executive summaries, code reviews, design docs with page limits)?
+2. **Mixed-model judge panel** — would decorrelated biases (sonnet + gpt-4o + gemini) change convergence behavior?
 3. **Human evaluation** — do human judges agree with LLM judges?
-4. **Other model families** — all current results are Anthropic. Does the method generalize?
+4. **Other model families** — all current results are Anthropic. Does the method generalize to GPT, Gemini, open-weight models?
 
 ---
 

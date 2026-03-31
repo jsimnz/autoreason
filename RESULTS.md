@@ -1,316 +1,227 @@
 # Autoreason Experiment Results
 
-## v2 Experiment: Task 01 — Go-to-Market Strategy
-
-**Task:** Propose a go-to-market strategy for an open-source developer tool (CLI for managing Kubernetes configs) with 5k GitHub stars, no revenue, 3-person team.
-
-**Config:** claude-sonnet-4-20250514 for both author (temp=0.8) and judge (temp=0.3). 3-judge panel, Borda count, conservative tiebreak. Convergence threshold: 3 consecutive A wins.
-
-**Duration:** 26 passes (~2.5 min/pass, ~65 min total, ~160 LLM calls)
-
-### Full Trajectory
-
-```
-Pass  Winner  Scores (A/B/AB)  Streak  Notes
-────  ──────  ───────────────  ──────  ─────
-  1   B       3 / 9 / 6        0/3    Unanimous B. Initial A clearly weakest.
-  2   AB      4 / 6 / 8        0/3    Synthesis improves on B.
-  3   A       7 / 7 / 4        1/3    Tiebreak to A (A=B=7, conservative rule).
-  4   AB      6 / 3 / 9        0/3    Unanimous AB. Strong synthesis.
-  5   AB      5 / 5 / 8        0/3    AB continues winning.
-  6   A       6 / 6 / 6        1/3    Perfect 3-way tie. Tiebreak to A.
-  7   AB      4 / 6 / 8        0/3
-  8   AB      5 / 5 / 8        0/3
-  9   A       7 / 6 / 5        1/3    First clean A win on merit.
- 10   AB      5 / 5 / 8        0/3
- 11   AB      5 / 6 / 7        0/3    Margins narrowing.
- 12   A       7 / 4 / 7        1/3    Tiebreak to A.
- 13   AB      7 / 3 / 8        0/3
- 14   A       8 / 6 / 4        1/3    Strongest A score yet.
- 15   A       7 / 4 / 7        2/3    ★ Two consecutive A wins!
- 16   AB      7 / 3 / 8        0/3    AB breaks the streak by 1 point.
- 17   B       6 / 7 / 5        0/3    First B win since pass 1. Regime shift.
- 18   AB      5 / 5 / 8        0/3
- 19   B       4 / 8 / 6        0/3    B dominant — pruning bloat.
- 20   B       4 / 8 / 6        0/3    B wins again.
- 21   B       4 / 9 / 5        0/3    B streak: 3 of last 5 passes.
- 22   AB      5 / 6 / 7        0/3    AB recovers.
- 23   AB      5 / 5 / 8        0/3
- 24   A       9 / 5 / 4        1/3    Strongest A score ever.
- 25   A       7 / 5 / 6        2/3    ★ Two consecutive again!
- 26   AB      4 / 6 / 8        0/3    AB breaks the streak again.
-```
-
-**Winner distribution:** A: 8 wins (31%), B: 5 wins (19%), AB: 13 wins (50%)
-
-### Phase Analysis
-
-**Phase 1 — Rapid Improvement (Passes 1–5)**
-Initial A is clearly weak. B and AB win easily with strong margins. The loop is finding genuine improvements. This is the high-value phase.
-
-**Phase 2 — Quality Plateau (Passes 6–16)**
-A starts surviving, mostly on close calls and tiebreaks. Scores tighten. Passes 14-15 reach 2/3 consecutive A wins but can't lock the third. The incumbent is strong but the synthesis still finds marginal improvements.
-
-**Phase 3 — Bloat/Prune Oscillation (Passes 17–26)**
-B re-emerges as a winner (passes 17, 19, 20, 21) after being absent since pass 1. Then the cycle restarts: AB adds complexity, judges reward it, B strips it back. Second 2/3 streak at passes 24-25, broken again.
-
-### Word Count Analysis
-
-The incumbent's word count tells the structural story:
-
-```
-Pass   Words   Winner   Effect
-────   ─────   ──────   ──────
-  1     847    B        Fresh start
-  2    1079    AB       +27% growth
-  3    1172    A(tie)   Held
-  4    1172    AB       Synthesis adds
-  5    1246    AB       +6%
-  6    1340    A(tie)   Held
-  7    1340    AB       Grows
-  8    1574    AB       +17%
-  9    1705    A        Held (plateau?)
- 10    1705    AB       Growth
- 11    1752    AB       +3%
- 12    1622    A        Held (slight shrink)
- 13    1622    AB       Grows
- 14    1800    A        Held (peak)
- 15    1800    A        Held ★
- 16    1800    AB       Grows
- 17    1839    B        ← B starts pruning
- 18    2037    AB       Spike to peak
- 19    1707    B        -16% prune
- 20    1644    B        -4% prune
- 21    2008    B        Grows (new B is larger?)
- 22    1702    AB       Shrinks
- 23    1639    AB
- 24    1758    A        Held
- 25    1758    A        Held ★
- 26    ~1617   AB       Slight shrink
-```
+Full data and analysis. For the narrative, see `paper/autoreason.pdf`.
 
-**Key insight:** The loop oscillates between two attractors — "comprehensive" (AB adds detail, judges reward thoroughness) and "focused" (B strips back to essentials, judges reward clarity). When the task prompt doesn't specify desired scope or length, there's no stable equilibrium between these attractors.
+---
 
-### Key Findings
+## Summary of All Experiments
 
-#### 1. The Loop Works for Quality Improvement
-Early passes show genuine, unanimous improvement. Pass 1 is a clear B win (9 vs 3 vs 6). The incumbent after 5-10 passes is meaningfully better than the initial generation. Autoreason's value as a refinement mechanism is confirmed.
+| Experiment | Model | Task | Passes | Converged? | Key Finding |
+|:---|:---|:---|---:|:---|:---|
+| Multi-task (5 tasks) | Sonnet 4 | T1–T5 | 9–28 | Yes (all) | Autoreason wins 3/5, never below 2nd |
+| Single-pass (5 tasks) | Sonnet 4 | T1–T5 | 1 | N/A | Autoreason loses to simpler methods |
+| CoT judges | Sonnet 4 | T1, T2 | 5, 8 | Yes | 3× faster convergence |
+| Monte Carlo (5 runs) | Sonnet 4 | T1 | 6–30 | 4/5 | Consistent quality ceiling |
+| Constrained (Sonnet 4) | Sonnet 4 | T1 | 25 | No | Checklist constraints prevent convergence |
+| Scaling baseline | Sonnet 4.6 | T2 | 50 | No | Autoreason dead last (Borda 7/35) |
+| Remedy: margin | Sonnet 4.6 | T2 | 15 | Yes | Converges but quality still loses |
+| Remedy: scope-aware | Sonnet 4.6 | T2 | 35 | No | No effect |
+| Remedy: plateau | Sonnet 4.6 | T2 | 35 | No | A scores too low to trigger |
+| Remedy: combined | Sonnet 4.6 | T2 | 17 | Yes | Margin rule does the work |
+| Remedy: margin quality | Sonnet 4.6 | T2 | — | — | Borda 23–26/49, still loses to baselines |
+| Remedy: anchored judges | Sonnet 4.6 | T2 | 25 | No | Best unconstrained (4 A wins) but no convergence |
+| Remedy: subtractive synth | Sonnet 4.6 | T2 | 17 | No | 0 A wins |
+| Remedy: anchored+subtractive | Sonnet 4.6 | T2 | 17 | No | Worse than either alone |
+| **Constrained (Sonnet 4.6)** | **Sonnet 4.6** | **Pitch** | **10** | **Yes** | **Autoreason wins (Borda 30/35, 3 first)** |
+| Paper-writing | Opus 4 | Paper | 9 | Yes | Ground-truth critic eliminates hallucination |
 
-#### 2. Convergence Threshold of 3 May Be Too Strict
-Twice the loop reached 2/3 consecutive A wins (passes 14-15 and 24-25). Both times AB broke the streak by 1 Borda point. With ranked choice across 3 judges, a single judge ranking AB above A is enough to prevent convergence. A threshold of 2 consecutive wins would have converged at pass 15 — arguably the right point given the quality plateau was already reached.
+**Total: ~$85 in API costs across all experiments.**
 
-#### 3. The Bloat/Prune Oscillation Is a Structural Finding
-AB systematically adds complexity. B systematically prunes it. When the task is ambiguous about scope, these two forces create a stable oscillation rather than a stable equilibrium. This isn't a bug in the method — it's a real signal that the task itself is underdetermined along the scope dimension.
+---
 
-#### 4. Conservative Tiebreak Is Load-Bearing
-A won on tiebreak at passes 3, 6, and 12. Without the conservative rule (incumbent wins ties), these would have gone to B or AB and the loop would have been even less stable. The tiebreak is doing real work in favoring stability over churn.
+## Sonnet 4: Multi-Task Results (5 tasks, iterative)
 
-#### 5. Fresh Agents Per Role Prevent Authorship Bias
-B's resurgence at passes 17-21 — after being nearly irrelevant for 15 passes — shows that fresh agents aren't captive to the trajectory. A persistent author B would have learned to defer to the synthesis pattern. Fresh agents evaluate the critic's critique on its merits.
+| Method | T1 | T2 | T3 | T4 | T5 | Avg | Rank |
+|:---|---:|---:|---:|---:|---:|---:|---:|
+| **Autoreason** | **35** | 19 | **29** | 25 | **31** | **27.8** | **1.4** |
+| Critique & revise | 13 | **22** | 26 | **32** | 19 | 22.4 | 2.0 |
+| Harsh critic | 18 | 19 | 27 | 20 | 26 | 22.0 | 2.6 |
+| Conservative | 21 | 19 | 15 | 18 | 15 | 17.6 | 3.6 |
+| Improve this | 18 | 11 | 8 | 10 | 14 | 12.2 | 4.4 |
 
-#### 6. Judge Panel Disagreement Is Informative
-When judges split (e.g., pass 6: three-way tie), it signals genuine ambiguity rather than a clear winner. The Borda count handles this gracefully — close scores mean close quality — but the disagreement itself could be fed back to the next pass as useful signal.
+Autoreason won tasks 1 (GTM strategy), 3 (remote work policy), 5 (incident response). Critique-and-revise won tasks 2 (notification system) and 4 (competitive positioning).
 
-### Qualitative Comparison: Initial vs Converged Output
+Pattern: autoreason excels on tasks with genuine tradeoffs where the A/B/AB structure surfaces different valid perspectives. Critique-and-revise wins on tasks with concrete technical requirements where a direct find-and-fix loop is more efficient.
 
-The strongest evidence that autoreason works is comparing the initial generation (pass 0, 847 words) against the incumbent at passes 14-15 (1800 words), the point where the loop would have converged with a threshold of 2 consecutive A wins.
+## Single-Pass Results (1 pass each)
 
-**Initial generation (pass 0)** reads like a generic LLM-generated startup playbook:
-- Vague targeting: "Mid-market engineering teams (50-500 employees)"
-- Pricing from thin air: $49/user/month, $149/user/month with no justification
-- Boilerplate distribution: KubeCon talks, blog posts, podcast appearances
-- Fantasy revenue: $100K MRR by Q4 with a 3-person team, no unit economics
-- Generic competitive strategy: "Focus on superior UX and community relationships"
-- No customer validation evidence
+| Method | Calls | T1 | T2 | T3 | T4 | T5 | Avg |
+|:---|---:|---:|---:|---:|---:|---:|---:|
+| Harsh critic | 1 | **30** | **31** | 23 | **30** | **31** | 29.0 |
+| Critique & revise | 1 | **30** | 30 | **31** | 28 | 23 | 28.4 |
+| Autoreason | 5 | 24 | 22 | 24 | 17 | 24 | 22.2 |
+| Improve this | 1 | 14 | 14 | 18 | 23 | 20 | 17.8 |
+| Conservative | 1 | 7 | 8 | 9 | 7 | 7 | 7.6 |
 
-**Converged version (pass 14-15)** reads like a document informed by actual market research:
-- Specific targeting: platform engineering at 200-1000 employee companies, with quantified pain (6 incidents/year × $15K = $90K annual cost)
-- Pricing that matches the buying motion: $1,499/month per team (up to 50 devs), not per-user
-- Revenue targets grounded in reality: $25K MRR by Q4, growing team from 3 to 8 people with specific quarterly hires
-- Customer validation: 50+ interviews, pilot program with 15 developers and 8 companies, 75% showed measurable incident reduction in 30 days
-- Competitive positioning against specific tools: OPA/Gatekeeper (pre-deployment vs cluster-only), ArgoCD/Flux (validation before GitOps deployment), kubectl (comprehensive vs basic validation)
-- Unit economics: CAC $2K, LTV $54K, LTV:CAC 27:1, 90% gross margin
-- Product section describes actual features (live cluster validation, diff analysis, policy management) not just pricing tiers
+Single-pass autoreason loses at 5× the cost. The value is in the loop.
 
-The adversarial process didn't just polish the prose — it forced the proposal to get concrete. The most telling change: the initial version claims $100K MRR by Q4 with 3 people. The converged version says $25K MRR by Q4 and lays out a realistic hiring plan. The critic repeatedly attacked the unrealistic assumptions, and Author B had to replace them with defensible numbers.
+## Chain-of-Thought Judges
 
-Full artifacts: `experiments/v2/results_v2/task_01/initial_a.md` and `experiments/v2/results_v2/task_01/pass_14/version_a.md`
+| Judge Variant | Task 1 | Task 2 |
+|:---|---:|---:|
+| Baseline (holistic) | 14–15 passes | 12 passes |
+| **Chain-of-thought** | **5 passes** | **8 passes** |
+| Decomposed (3 specialists) | 7 passes | — |
 
-### Open Questions
+CoT judges produce more decisive scores (A wins at 8–9 vs baseline's 6–7). The reasoning step acts as a debiasing mechanism. All subsequent experiments use CoT judges.
 
-1. **Does convergence threshold of 2 produce better stopping points?** The data suggests yes for this task.
+## Monte Carlo (5 runs, Task 1)
 
-2. **Would a length/scope anchor help?** If the judge prompt included "the original version was ~850 words; significant expansion or contraction from this baseline should be justified," the bloat/prune oscillation might dampen.
+| Run | Passes | Converged? | Final Words |
+|:---|---:|:---|---:|
+| 1 | 30 | No (cap) | 1654 |
+| 2 | 6 | Yes | 1453 |
+| 3 | 14 | Yes | 1451 |
+| 4 | 17 | Yes | 1618 |
+| 5 | 8 | Yes | 1660 |
 
-3. **Does a mixed model panel (sonnet + gpt-4o + gemini) converge faster?** Correlated biases in same-model judges may explain why AB consistently wins — the model may systematically prefer "more complete" outputs when evaluating its own family's work.
+80% convergence rate. Final word counts cluster tightly (1451–1660) despite variable path length, suggesting a consistent quality ceiling.
 
-4. **What happens with a more constrained task prompt?** E.g., "Propose a go-to-market strategy in under 1000 words." Would the scope constraint eliminate the oscillation?
+## Game-Theoretic Analysis (91 passes)
 
-5. **Is there a quality ceiling?** The incumbent after pass 14 (A's strongest win, score=8) may be near the ceiling for this model on this task. Further passes may just be noise around that ceiling.
+- **Transitivity**: 1 Condorcet cycle in 91 passes (1.1%). Near-perfect.
+- **Elo plateau**: Ratings stabilize at ~1540 by pass 5–10. Pass 15 (1547) vs pass 25 (1560), barely different.
+- **Pairwise dominance**: Fully transitive: autoreason > critique-and-revise > harsh_critic > conservative > improve_this. 90% win rate (18/20 matchups).
 
-6. **Would feeding judge disagreement back to the author help?** When judges split, telling the next author "judges disagreed on whether X or Y was better" might help resolve the underlying tension.
+---
 
-### Recommendations for v3
+## Sonnet 4.6: Scaling Failure + Remedies
 
-1. **Default convergence threshold to 2.** Upgrade to 3 only for high-stakes tasks where extra stability is worth the cost.
+### Baseline (unconstrained, Task 2)
 
-2. **Add word count tracking to the judge prompt.** Not as a constraint, but as context: "Version A is N words. Evaluate whether each version's length is appropriate for the task."
+50 passes, no convergence. A won 6 times (12%). AB dominated with 30+ wins.
 
-3. **Try a mixed-model judge panel.** At minimum test whether convergence behavior differs with diverse judges.
+7-judge blind panel:
 
-4. **Log judge reasoning for analysis.** The current data captures rankings but not the reasoning. Understanding why judges prefer AB (thoroughness? coherence? just length?) would inform design changes.
+| Method | Borda (/35) | 1st |
+|:---|---:|---:|
+| Critique & revise | **31** | 3 |
+| Improve this | 30 | 4 |
+| Harsh critic | 23 | 0 |
+| Conservative | 14 | 0 |
+| Autoreason | 7 | 0 |
 
-5. **Add an early-exit heuristic.** If the incumbent has survived 2 of the last 3 passes (even non-consecutively), the loop is likely near its ceiling. Consider exiting or switching to a verification mode.
+### Round 1: Convergence Remedies
 
+| Remedy | Passes | A | AB | B | Converged? |
+|:---|---:|---:|---:|---:|:---|
+| Margin (≥2 pts) | 15 | 3 | 8 | 4 | **Yes** |
+| All combined | 17 | 3 | 12 | 2 | **Yes** |
+| Scope-aware judges | 35 | 4 | 25 | 6 | No |
+| Plateau detection | 35 | 2 | 22 | 11 | No |
+| *Baseline* | *50* | *6* | *30+* | *rest* | *No* |
 
-## Baseline Comparison: Autoreason vs 4 Iterative Prompting Strategies
+Only the margin requirement produced convergence. But convergence ≠ quality:
 
-All methods start from the same initial output (847 words), run 15 passes with the same model (claude-sonnet-4, temp=0.8). Autoreason uses the v2 architecture (fresh agents, 3-judge panel, convergence at pass 14-15). Baselines use a single agent iterating on its own output.
+| Method | Borda (/49) | 1st |
+|:---|---:|---:|
+| Critique & revise | **43** | 2 |
+| Improve this | 42 | 4 |
+| Harsh critic | 39 | 1 |
+| Autoreason (combined) | 26 | 0 |
+| Autoreason (margin) | 23 | 0 |
+| Conservative | 12 | 0 |
+| Autoreason (baseline) | 11 | 0 |
 
-### Methods Tested
+Margin roughly doubles quality over baseline (23–26 vs 11) but still loses to all active baselines.
 
-| Method | Prompt Strategy | Final Words |
-|---|---|---|
-| **autoreason** | A/B/AB + blind judge panel, fresh agents | 1800 |
-| **conservative** | "Make changes only if necessary" | 862 |
-| **improve_this** | "Improve this. Make it stronger and more thorough." | 2116 |
-| **harsh_critic** | "Find every flaw. Rewrite from scratch to be bulletproof." | 1961 |
-| **critique_and_revise** | "Find problems, then fix them." (standard adversarial) | 2507 |
+### Round 2: Root Cause
 
-### Word Count Trajectories
+| Modification | Passes | A | AB | B | Converged? |
+|:---|---:|---:|---:|---:|:---|
+| **Constrained task** | **10** | **4** | **6** | **0** | **Yes** |
+| Anchored judges | 25 | 4 | 12 | 9 | No |
+| Subtractive synthesis | 17 | 0 | 10 | 7 | No |
+| Anchored + subtractive | 17 | 1 | 6 | 10 | No |
 
-![Word Count Trajectories](experiments/v2/word_count_trajectories.png)
+Only the constrained task converged. Anchored judges were the most promising unconstrained modification (4 A wins in 25 passes) but not enough.
 
-The trajectories reveal each method's structural bias:
-- **conservative** barely moves (847 → 862). Prevents drift but also prevents improvement.
-- **autoreason** grows steadily then stabilizes (847 → 1800). The bloat/prune oscillation keeps it in check.
-- **improve_this** instantly bloats then plateaus (847 → 2196 → ~2100). Pure sycophancy adds everything, removes nothing.
-- **harsh_critic** bloats aggressively then oscillates (847 → 2391 → ~2000). Maximum adversarial pressure creates maximum instability.
-- **critique_and_revise** bloats monotonically and never comes back (847 → 2507). The standard approach is the worst bloater.
+### Constrained Task Quality
 
-### 7-Judge Blind Panel Results
+| Method | Borda (/35) | 1st |
+|:---|---:|---:|
+| **Autoreason** | **30** | **3** |
+| Improve this | 27 | 2 |
+| Conservative | 25 | 2 |
+| Harsh critic | 13 | 0 |
+| Critique & revise | 10 | 0 |
 
-Each judge saw the original task, the initial output, and all 5 final versions with randomized labels. Judges ranked all 5 from best to worst. Borda count scoring (5 points for 1st, 4 for 2nd, etc.).
+Rankings invert vs unconstrained. Critique-and-revise (winner unconstrained at 31) now last at 10. It expanded to 932 words, violating the 500-word constraint. Autoreason stayed at 632 words.
 
-![Baseline Comparison](experiments/v2/baseline_comparison.png)
+### Root Cause Diagnosis
 
-| Method | Borda Score (max 35) | 1st Place Votes (out of 7) |
-|---|---|---|
-| **autoreason** | **35** | **7** |
-| conservative | 21 | 0 |
-| improve_this | 18 | 0 |
-| harsh_critic | 18 | 0 |
-| critique_and_revise | 13 | 0 |
+The scaling failure is about scope, not evaluation:
+- Margin requirement: converges but not quality (termination ≠ quality)
+- Scope-aware judges: no effect (AB preferred for reasons beyond verbosity)
+- Plateau detection: can't trigger (A scores consistently 3–4)
+- Anchored judges: slight improvement but insufficient
+- Subtractive synthesis: no effect
+- **Constrained task: converges AND wins quality comparison**
 
-**Autoreason won unanimously.** Every judge ranked it first. Perfect Borda score.
+The synthesis operator needs a bounded improvement space. When scope is mechanically limited, the incumbent can reach a ceiling. When it isn't, there is always something to add.
 
-The most striking result is that **conservative (barely changed) beat all three iterative baselines**. Doing almost nothing produced a better output than "improve this," "harsh critic," or "critique and revise." The baselines all drifted in different ways, and the judges saw through every one of them.
+---
 
-**Critique and revise came dead last** — the method most people actually use for iterative refinement produced the worst output of all five approaches.
+## Paper-Writing Experiment (Opus 4)
 
-### Adversarial Comparison Detail
+Ran autoreason on the paper itself using claude-opus-4 with 3 Opus judges and ground-truth context. Converged in 9 passes: AB→A→AB→AB→AB→AB→AB→A→A.
 
-Two separate judge panels compared autoreason vs critique_and_revise directly:
+**Ground-truth critic**: Without reference data, the initial draft hallucinated 4 claims (fabricated ablation study, fake confidence intervals, wrong model names, incorrect role descriptions). With ground-truth access, the critic caught all 4 on pass 1.
 
-- **5 judges, no initial output shown:** Autoreason 3, Adversarial 2. Judges who preferred adversarial cited simplicity and realism for a small team.
-- **7 judges, initial output shown as baseline:** Autoreason 7, Adversarial 0. Unanimous. Once judges could see where both started, the adversarial version's drift became obvious. Two judges noted the adversarial output contained critique artifacts — fragments of the "find problems" step leaked into the final output (context collapse).
+**Judge panel integrity**: A mixed panel (Opus + Sonnet + Gemini) failed for 11+ passes because Gemini's output failed the ranking parser, reducing the panel to 2 judges. Fixed to 3 working judges, convergence in 2 passes.
 
-Providing the initial output as baseline completely changed the result. Judges need a reference point to evaluate improvement vs drift.
-
-## Pass 15 vs Pass 25: Does Continuing Help?
-
-The v2 run reached 2 consecutive A wins twice: passes 14-15 and passes 24-25. We compared the incumbents from both convergence points.
-
-![Pass 15 vs Pass 25](experiments/v2/pass15_vs_pass25.png)
-
-| Convergence Point | Words | Judge Votes (out of 7) |
-|---|---|---|
-| Pass 15 (first) | 1800 | **6** |
-| Pass 25 (second) | 1758 | 1 |
-
-**The first convergence point produced better output.** 10 additional passes didn't improve quality — they degraded it. Pass 15 had stronger customer validation evidence and more grounded financials. Pass 25 had churned through the bloat/prune oscillation and lost some of the specificity that made pass 15 strong.
-
-The one dissenting judge preferred pass 25's more conservative revenue targets ($120K vs $300K ARR) as more realistic for a 3-person team.
-
-**Conclusion:** Convergence threshold of 2 consecutive A wins is correct. The first convergence point is the quality ceiling. Additional passes are noise at best, degradation at worst.
-
+---
 
 ## Design Space
 
-Tracking all dimensions and permutations, tested and untested.
+| Dimension | Tested | Notes |
+|:---|:---|:---|
+| Agent isolation: shared | v1 | Single agent, authorship bias |
+| Agent isolation: fresh per role | v2 | Confirmed: B re-emerges after 15 passes |
+| Judges: single | v1 | Noisy |
+| Judges: 3 same-model | v2 | Stable. Correlated biases remain |
+| Judges: mixed-model | Paper exp. | Gemini parser broke; untested properly |
+| Evaluation: pick one | v1 | Loses information |
+| Evaluation: ranked + Borda | v2 | Rich signal |
+| Tiebreak: conservative | v2 | Load-bearing (3 saves in 26 passes) |
+| Convergence: k=3 | v2 initial | Too strict (never reached) |
+| Convergence: k=2 | v2 final | Correct for Sonnet 4 |
+| Convergence: margin ≥2 | Remedy | Recovers convergence with 4.6, not quality |
+| Convergence: plateau | Remedy | Failed (A scores too low) |
+| Judge: holistic | v2 initial | Slow convergence |
+| Judge: CoT | v2 | 3× faster, should be default |
+| Judge: decomposed | v2 | 2× faster, more complex |
+| Judge: scope-aware | Remedy | No effect |
+| Judge: anchored | Remedy | Slight improvement, not enough |
+| Synthesis: additive | v2 | Default. Drift vector with strong models |
+| Synthesis: subtractive | Remedy | No effect |
+| Task: unconstrained | v2 | Works with Sonnet 4, fails with 4.6 |
+| Task: constrained (checklist) | v2 | Prevents convergence (critic finds violations) |
+| **Task: constrained (scope)** | **Remedy** | **Works with Sonnet 4.6. The fix.** |
 
-### Agent Isolation
-| Setup | Status | Notes |
-|-------|--------|-------|
-| Shared agent across roles | v1 | Original design. Single agent does critic + revision + synthesis. |
-| Fresh agent per role per pass | v2 ✔ | Each critic, author B, synthesizer, judge is isolated. Confirmed: prevents authorship bias, allows B to re-emerge after long absence. |
-| Persistent agent per role (fresh per pass) | Untested | Critic agent remembers previous attacks. Could avoid repeating critiques but might also learn to pull punches. |
+---
 
-### Judge Setup
-| Setup | Status | Notes |
-|-------|--------|-------|
-| Single judge | v1 | Noisy. Single judge's biases dominate. |
-| 3-judge same model | v2 ✔ | Stable signal. But correlated biases (all sonnet) may explain AB's systematic advantage. |
-| 5-judge same model | Untested | Better signal, 50% more judge tokens per pass. |
-| 3-judge mixed model (sonnet + gpt-4o + gemini) | Untested | **High priority.** Decorrelated biases should reduce systematic preference for any version type. |
+## Repository Structure
 
-### Evaluation Method
-| Method | Status | Notes |
-|--------|--------|-------|
-| Pick one winner | v1 | Loses information about relative quality. |
-| Ranked choice + Borda | v2 ✔ | Rich signal. Score differentials are informative (8-6-4 vs 6-6-6). |
-| Scored rubric | Discussed, rejected | Rubrics inject evaluator assumptions about which dimensions matter. Task prompt should define "better." |
-| Scored without rubric | Discussed, rejected | Just ranking with extra steps. |
-| Majority vote | Untested | Simpler but loses magnitude-of-preference signal. |
-
-### Tiebreak
-| Rule | Status | Notes |
-|------|--------|-------|
-| Conservative (incumbent wins) | v2 ✔ | Load-bearing. Removed 3 unnecessary churn events in 26 passes. |
-| No tiebreak (random) | Untested | Would increase churn on close calls. |
-| No tiebreak (challenger wins) | Untested | Aggressive. Would bias toward novelty. |
-
-### Convergence
-| Criterion | Status | Notes |
-|-----------|--------|-------|
-| Fixed N runs, no iteration | v1 | No convergence concept. |
-| 3 consecutive A wins | v2 ✔ | Too strict. Never reached in 26 passes. Hit 2/3 twice. |
-| 2 consecutive A wins | **Recommended** | Would have converged at pass 15 — the quality plateau. |
-| 2-of-last-3 heuristic | Untested | More forgiving. Would catch cases where A wins pass N, loses N+1 on a close call, wins N+2. |
-| Score-based plateau detection | Untested | Exit when A's Borda score exceeds threshold (e.g., 7+) for N passes regardless of wins. |
-
-### Anchoring
-| Anchor | Status | Notes |
-|--------|--------|-------|
-| Task prompt only | v2 ✔ | Works but doesn't prevent scope drift on vague tasks. |
-| Task prompt + scope calibration | Untested | Give judges awareness of initial version's scope/length. May dampen bloat/prune oscillation. |
-| Task prompt + judge disagreement feedback | Untested | Feed split opinions back to next author as "judges disagreed on X." Could help resolve tensions. |
-| Constrained task prompt (e.g., "under 1000 words") | Untested | **High priority.** Would test whether scope constraints eliminate oscillation entirely. |
-
-### Repetition / Monte Carlo
-| Setup | Status | Notes |
-|-------|--------|-------|
-| N independent single-pass runs | v1 ✔ | Tests judge consistency within one pass. |
-| Single iterative run | v2 ✔ | Tests convergence behavior. |
-| N iterative runs, same task | Untested | **High priority.** Tests whether the loop converges to the same place or different local optima. |
-| N iterative runs, varied tasks | Untested | Tests generalizability across task types. |
-
-### Priority Order for Next Experiments
-1. Same task, convergence threshold 2 — confirm pass 15 was the right stopping point
-2. Same task, constrained scope — test if bloat/prune oscillation disappears
-3. Same task, mixed-model judge panel — test if decorrelated judges change convergence
-4. Multiple iterative runs, same task — Monte Carlo to test convergence consistency
-5. Different task types — generalizability
-
-
-## v1 Experiments (Prior Work)
-
-See `results/` and `results_comparison/` directories for earlier single-pass experiments. Key findings from v1:
-
-- Severe positional and label bias in non-blind evaluation
-- Randomized labels and presentation order are essential
-- Single judge is noisy; panel improves signal
-- The method consistently improves objection-handling dimensions
-- Rubric scoring and head-to-head comparison measure different things (unresolved)
-
-These findings informed the v2 design (blind panel, ranked choice, no rubric).
+```
+experiments/
+├── v2/
+│   ├── results_v2/                  Task 1 (26 passes, original)
+│   ├── results_multi_task/          Tasks 1–5
+│   ├── results_v1_comparison/       Single-pass comparison
+│   ├── results_v1_lite/             v1 comparison (lite)
+│   ├── results_monte_carlo/         5 runs of Task 1
+│   ├── results_46_task02/           Sonnet 4.6 baseline (50 passes)
+│   ├── results_46_remedy_margin/    Margin requirement
+│   ├── results_46_remedy_scope/     Scope-aware judges
+│   ├── results_46_remedy_plateau/   Plateau detection
+│   ├── results_46_remedy_combined/  All three combined
+│   ├── results_46_remedy_eval/      7-judge quality eval of margin outputs
+│   ├── results_46_v3_anchored/      Anchored judges
+│   ├── results_46_v3_subtractive/   Subtractive synthesis
+│   ├── results_46_v3_anchored_subtractive/  Both
+│   ├── results_46_v3_constrained/   500-word pitch (converged!)
+│   └── results_46_constrained_eval/ 7-judge quality eval of constrained
+├── v1/                              Original single-pass experiments
+└── prior/                           Exploratory experiments
+```

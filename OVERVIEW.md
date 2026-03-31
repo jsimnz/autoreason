@@ -83,13 +83,15 @@ Five tasks (strategy, system design, policy, positioning, incident response) · 
 
 Initial output: generic startup playbook ($49/user pricing, $100K MRR with 3 people, no validation). After 14 passes: quantified customer pain ($15K/incident × 6/yr), team-based pricing ($1,499/mo), 50+ customer interviews, competitive positioning against named tools, realistic unit economics (CAC $2K, LTV $54K). The adversarial process killed the unrealistic numbers.
 
-### Model scaling: a cautionary result
+### Model scaling: scope is the fix
 
-With claude-sonnet-4-6 (stronger model), autoreason came **dead last** (Borda 7/35) after 50 passes without converging. The stronger model produced AB syntheses so consistently preferred by judges that the incumbent could never survive. The convergence mechanism may require adaptation as models improve — score-based plateau detection, asymmetric evaluation, or tiered model configs. Open question.
+With claude-sonnet-4-6 (stronger model) on an unconstrained task, autoreason came **dead last** (Borda 7/35) after 50 passes. Eight remedy experiments identified the root cause as scope, not evaluation: margin requirements, anchored judges, subtractive synthesis, scope-aware judges, and plateau detection all failed to recover quality.
+
+On a **scope-constrained task** (500-word startup pitch from 8 fixed facts), the same model converged in 10 passes and **won the blind quality comparison** (Borda 30/35) against all baselines. The synthesis operator needs a bounded improvement space. Pair autoreason with explicit scope constraints as models improve.
 
 ## Paper
 
-Six pages covering all experiments: [`paper/autoreason.pdf`](paper/autoreason.pdf). The paper was itself written using autoreason with claude-opus-4 and ground-truth critic access.
+Nine pages covering all experiments: [`paper/autoreason.pdf`](paper/autoreason.pdf). The paper was itself written using autoreason with claude-opus-4 and ground-truth critic access.
 
 ---
 
