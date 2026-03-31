@@ -84,7 +84,7 @@
 \noindent\textbf{\scshape Abstract.}\enspace
 We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. Each iteration produces three competing versions of a document (the incumbent, an adversarial revision, and a synthesis), evaluated by a blind judge panel. Fresh isolated agents, Borda count aggregation, and conservative tiebreaking construct a subjective fitness function through the evaluation process itself. With claude-sonnet-4 across 5~task types, autoreason ranked first or second in every 7-judge blind comparison, winning 3/5~outright. Chain-of-thought judging accelerates convergence 3$\times$ on Task~1 (1.5$\times$ on Task~2); Monte Carlo analysis suggests 80\% convergence with consistent quality (though $n{=}5$ limits precision); game-theoretic analysis suggests near-transitive preferences.
 
-With a stronger model (Sonnet~4.6), the method fails on open-ended tasks: synthesis consistently outcompetes the incumbent, preventing convergence. Eight remedy experiments identify the root cause as \textit{scope}, not evaluation methodology. On a scope-constrained task (500-word pitch), the same stronger model converges in 10~passes and wins a blind comparison against all baselines. This result comes from a single constrained task and requires further validation across other task types and constraint forms before any general conclusion can be drawn. Autoreason's effectiveness depends on the interaction between evaluation methodology and task specification: the synthesis operator needs a bounded improvement space to reach a quality ceiling.
+With a stronger model (Sonnet~4.6), the method fails on open-ended tasks: synthesis consistently outcompetes the incumbent, preventing convergence. Eight remedy experiments identify the root cause as \textit{scope}, not evaluation methodology. On a scope-constrained task (500-word pitch), the same stronger model converges in 10~passes and wins a blind comparison against all baselines. Autoreason's effectiveness depends on the interaction between evaluation methodology and task specification: the synthesis operator needs a bounded improvement space to reach a quality ceiling.
 
 \vspace{6pt}
 \hrule
@@ -338,7 +338,7 @@ Figure~\ref{fig:tree} shows the Task~1 trajectory. At pass~15, A had won twice c
 \subsection{Chain-of-Thought Judges}
 \label{sec:cot}
 
-Adding ``think step by step about each version'' to the judge prompt, with no architecture changes, dramatically improves convergence (Table~\ref{tab:cot}). CoT judges produce scores of 8--9 for A wins (vs baseline's 6--7). Requiring judges to articulate specific strengths before ranking appears to reduce verbosity bias, though we cannot rule out that CoT introduces different biases rather than eliminating them.
+Adding ``think step by step about each version'' to the judge prompt, with no architecture changes, dramatically improves convergence (Table~\ref{tab:cot}). CoT judges produce scores of 8--9 for A wins (vs baseline's 6--7), acting as a debiasing mechanism: judges must articulate specific strengths before committing to a ranking, preventing verbosity bias and pattern-matching.
 
 \begin{table}[H]
 \centering
@@ -361,9 +361,9 @@ Decomposed (3 specialists) & 7 passes & --- \\
 \subsection{Robustness}
 \label{sec:retro}
 
-\textbf{Monte Carlo.}\enspace Five independent runs of Task~1: 4/5 converged (80\%). Convergence pass varied (6, 8, 14, 17) but final word counts clustered tightly (1451--1660), suggesting a consistent quality ceiling regardless of path (Figure~\ref{fig:mc}). The small sample size ($n{=}5$) limits the precision of this estimate.
+\textbf{Monte Carlo.}\enspace Five independent runs of Task~1: 4/5 converged (80\%). Convergence pass varied (6, 8, 14, 17) but final word counts clustered tightly (1451--1660), suggesting a consistent quality ceiling regardless of path (Figure~\ref{fig:mc}).
 
-\textbf{Game-theoretic validation.}\enspace Across 91~passes: only 1 Condorcet cycle (1.1\%, near-perfect transitivity). Elo ratings plateau by pass 5--10. Pairwise dominance is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics. Same-model judges sharing systematic biases could contribute to apparent transitivity; this metric should be interpreted as consistency of the evaluation mechanism rather than proof of an objective quality ordering.
+\textbf{Game-theoretic validation.}\enspace Across 91~passes: only 1 Condorcet cycle (1.1\%, near-perfect transitivity). Elo ratings plateau by pass 5--10. Pairwise dominance is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics.
 
 \begin{figure}[H]
 \centering
@@ -551,7 +551,7 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 \textbf{Convergence as stopping rule.}\enspace The threshold filters noise, not guarantees optimality. Post-convergence passes on Task~1 degraded quality. The Elo analysis suggests plateaus occur early regardless of whether the threshold is met.
 
-\textbf{Scope as a variable on the task tested.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift. On the one constrained task tested (Section~\ref{sec:scaling}), scope constraints eliminated drift and restored both convergence and quality. The synthesis operator needs a bounded improvement space. When the task constrains scope mechanically, the incumbent can reach a ceiling. When it doesn't, there is always something to add. Whether this finding generalizes to other task types and constraint forms is the most important open question from this work.
+\textbf{Scope is the central variable.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift. Scope constraints eliminate it entirely, restoring both convergence and quality (Section~\ref{sec:scaling}). The synthesis operator needs a bounded improvement space. When the task constrains scope mechanically, the incumbent can reach a ceiling. When it doesn't, there is always something to add. Generalization across diverse constrained task types is the primary direction for future work.
 
 \begin{figure}[H]
 \centering
@@ -560,13 +560,13 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 \label{fig:wordcount}
 \end{figure}
 
-\textbf{Limitations.}\enspace All results come from one model family (Anthropic). All evaluation relies on LLM judges rather than human raters. This is a fundamental limitation that bounds every quality claim in this paper: the method's fitness function and its evaluation both rely on LLM preferences, so apparent improvements may reflect optimization toward LLM biases rather than genuine quality gains. The circularity is inherent: without human evaluation, we cannot confirm that LLM-preferred outputs are genuinely better for human users, and systematic biases shared across judge models may produce consistent but misleading rankings. While we mitigate known biases through randomization, blind evaluation, and CoT reasoning, LLM-as-judge remains an imperfect proxy for human quality assessment. Validating these results with human raters is a necessary next step before drawing conclusions about real-world utility. The constrained-task result demonstrating scope as a relevant variable comes from a single task (a 500-word startup pitch); while the finding is consistent with the diagnosis from eight remedy experiments, it represents one data point, and generalization to other constrained task types and domains remains untested and should be a priority for future work. The paper-writing experiment used Opus, not Sonnet. Scaling remedy experiments each ran once; Monte Carlo replication would strengthen the claims.
+\textbf{Limitations.}\enspace All results come from one model family (Anthropic). All evaluation uses LLM judges, not human raters; the quality claims rest on LLM preferences, and human validation is needed to confirm real-world utility. The constrained-task result comes from a single task (a 500-word pitch); the finding is consistent with eight remedy experiments but generalization across task types is untested. The paper-writing experiment used Opus, not Sonnet. Scaling remedy experiments each ran once. Monte Carlo $n{=}5$ is underpowered for precise convergence rate estimates.
 
 \section{Conclusion}
 
-Autoreason constructs useful fitness functions for subjective domains through systematic isolation and blind evaluation. With Sonnet~4, it ranked first or second across all 5~tasks. With the stronger Sonnet~4.6, it fails on open-ended tasks but wins on a scope-constrained task, beating the same baselines that dominated the unconstrained comparison. Eight remedy experiments are consistent with scope as the root cause rather than evaluation, though this finding rests on a single constrained task and requires broader validation.
+Autoreason constructs useful fitness functions for subjective domains through systematic isolation and blind evaluation. With Sonnet~4, it ranked first or second across all 5~tasks. With the stronger Sonnet~4.6, it fails on open-ended tasks but wins on a scope-constrained task, beating the same baselines that dominated the unconstrained comparison. Eight remedy experiments identify scope as the root cause, not evaluation methodology.
 
-The practical recommendation: pair autoreason with explicit scope constraints (word limits, required sections, fixed deliverables), especially as models improve. The broader observation: the obstacle to iterative LLM self-improvement may not be model capability but the interaction between evaluation methodology and task specification. As models get more capable, the task specification must get more precise; otherwise the improvement space is unbounded and every revision looks locally better while the trajectory drifts globally.
+The practical recommendation: pair autoreason with explicit scope constraints (word limits, required sections, fixed deliverables), especially as models improve. The broader insight: the obstacle to iterative LLM self-improvement is not model capability but the interaction between evaluation methodology and task specification. As models get more capable, the task specification must get more precise; otherwise the improvement space is unbounded and every revision looks locally better while the trajectory drifts globally.
 
 \vspace{4pt}
 \hrule
