@@ -82,7 +82,9 @@
 
 % ── Abstract ───────────────────────────────────────────────────────
 \noindent\textbf{\scshape Abstract.}\enspace
-We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. The method constructs a subjective fitness function through independent blind evaluation, extending the autoresearch paradigm. Autoreason uses fresh isolated agents per role, blind judge panels with Borda count aggregation, and conservative tiebreaking. Across 5 task types with claude-sonnet-4, autoreason ranked first or second in every 7-judge blind comparison, winning 3 of 5 tasks outright (avg Borda 27.8/35, avg rank 1.4). Chain-of-thought judging reduces convergence time by 3$\times$. Monte Carlo analysis shows 80\% convergence rate with consistent output quality. Retroactive game-theoretic analysis confirms fully transitive preferences and Elo plateau, validating the convergence mechanism. We find the method's advantage is task-dependent and iteration-dependent: autoreason excels on tasks with genuine tradeoffs, while a single autoreason pass does not outperform simpler baselines. A scaling experiment with a stronger model (Sonnet~4.6) reveals a failure mode where synthesis consistently outcompetes the incumbent, preventing convergence entirely. Two rounds of remedy experiments identify the root cause as scope, not evaluation: a margin requirement recovers convergence but not quality, and evaluation modifications (anchored judges, subtractive synthesis) fail entirely. However, a scope-constrained task (500-word pitch) converges cleanly in 10~passes with the same stronger model and wins a blind quality comparison against all baselines---the same baselines that beat autoreason on the unconstrained task. Autoreason requires bounded improvement spaces, and scope constraints restore its advantage as models scale.
+We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. Each iteration produces three competing versions of a document---the incumbent, an adversarial revision, and a synthesis---evaluated by a blind judge panel. Fresh isolated agents, Borda count aggregation, and conservative tiebreaking construct a subjective fitness function through the evaluation process itself. With claude-sonnet-4 across 5~task types, autoreason ranked first or second in every 7-judge blind comparison, winning 3/5~outright. Chain-of-thought judging accelerates convergence 3$\times$; Monte Carlo analysis confirms 80\% convergence with consistent quality; game-theoretic analysis validates fully transitive preferences.
+
+With a stronger model (Sonnet~4.6), the method fails on open-ended tasks---synthesis consistently outcompetes the incumbent, preventing convergence. Eight remedy experiments identify the root cause as \textit{scope}, not evaluation methodology. On a scope-constrained task (500-word pitch), the same stronger model converges in 10~passes and wins a blind comparison against all baselines---the same baselines that dominated the unconstrained version. Autoreason's effectiveness depends on the interaction between evaluation methodology and task specification: the synthesis operator needs a bounded improvement space to reach a quality ceiling.
 
 \vspace{6pt}
 \hrule
@@ -386,9 +388,9 @@ We analyzed all 91~passes across 5~tasks plus Monte Carlo runs:
 
 \subsection{Constrained Tasks}
 
-Task~1 with a constrained prompt (1000-word limit, 6 required sections with specific deliverables) ran for 25~passes (the maximum) without converging. B won 18 of 25~passes (72\%). The constraint eliminated word count oscillation (all outputs 600--800 words vs 847--2500 unconstrained) but made convergence harder---specific constraints give the critic a verifiable checklist that always finds violations. Whether the loop would have converged given more passes is unknown.
+Task~1 with a constrained prompt (1000-word limit, 6 required sections with specific deliverables) ran for 25~passes without converging. B won 18 of 25~passes (72\%). The constraint eliminated word count oscillation (all outputs 600--800 words) but made convergence harder---specific constraints give the critic a verifiable checklist that always finds violations. This early result hinted at the relationship between scope and convergence that the scaling experiments (Section~\ref{sec:scaling}) would later clarify: the type of constraint matters.
 
-\subsection{Model Scaling: Sonnet 4.6}
+\section{Model Scaling}
 \label{sec:scaling}
 
 We ran autoreason on Task~2 using claude-sonnet-4-6 (a stronger model released after our main experiments) with CoT judges to test whether model capability improves convergence. The initial result was a complete reversal---autoreason came last. Two rounds of remedy experiments then identified the root cause and a fix.
@@ -417,7 +419,7 @@ Over 50~passes, A won only 6~times (12\%). AB dominated with 30+ wins; B took th
 
 This failure mode is structurally different from the bloat/prune oscillation observed with Sonnet~4. With the weaker model, A occasionally won on close calls and tiebreaks, creating windows for convergence. With Sonnet~4.6, both B and AB were reliably superior to A on every pass, and judges were decisive enough (scores of 8--9 for AB) to never let A through.
 
-\subsubsection{Remedy Experiments}
+\subsection{Remedy Experiments}
 
 We tested four modifications to recover convergence, all on the same setup (Sonnet~4.6, Task~2, CoT judges, 50-pass cap):
 
@@ -490,7 +492,7 @@ Autoreason (baseline) & 11 & 0 \\
 
 The margin rule roughly doubles the quality of the autoreason output (Borda 23--26 vs 11 for the unmodified baseline), but the converged output still places 4th--5th out of 7. The margin rule solves the termination problem but not the quality problem---the incumbent accumulates synthesis drift across 15--17 passes of near-constant displacement.
 
-\subsubsection{Root Cause: Scope, Not Evaluation}
+\subsection{Root Cause: Scope, Not Evaluation}
 
 The margin experiments revealed that the scaling failure is not about how we evaluate but about what we evaluate. We tested three modifications targeting the evaluation side of the loop:
 
@@ -611,7 +613,9 @@ We ran autoreason on this paper using claude-opus-4 (all roles) with 3 Opus judg
 
 \section{Conclusion}
 
-Autoreason demonstrates that systematic isolation and blind evaluation can construct useful fitness functions for subjective domains. Across 5~tasks with Sonnet~4, it ranked first or second in every comparison. Chain-of-thought judging accelerates convergence 3$\times$. Retroactive analysis confirms fully transitive preferences and early quality plateau. The method's advantage is clearest on tasks with genuine ambiguity, and its value requires iteration---a single pass does not justify the overhead. However, the Sonnet~4.6 scaling experiments reveal that the method's effectiveness depends on task scope. On scope-ambiguous tasks, stronger models break convergence by producing syntheses that always outcompete the incumbent---and neither evaluation modifications (anchored judges, subtractive synthesis) nor convergence modifications (margin requirement) recover quality, only termination. On scope-constrained tasks, the same stronger model converges cleanly in 10~passes and wins a blind quality comparison against all baselines---including the methods that beat autoreason on the unconstrained version of the task. The synthesis operator needs a bounded improvement space to reach a ceiling. The practical recommendation: pair autoreason with explicit scope constraints, especially as models improve. The broader insight: the obstacle to LLM self-improvement in subjective domains is not capability but the interaction between evaluation methodology and task specification. Both must be right.
+Autoreason constructs useful fitness functions for subjective domains through systematic isolation and blind evaluation. With Sonnet~4, it ranked first or second across all 5~tasks. With the stronger Sonnet~4.6, it fails on open-ended tasks but wins on scope-constrained ones---beating the same baselines that dominated the unconstrained comparison. Eight remedy experiments confirm that the root cause is scope, not evaluation: the synthesis operator needs a bounded improvement space to reach a quality ceiling.
+
+The practical recommendation: pair autoreason with explicit scope constraints (word limits, required sections, fixed deliverables), especially as models improve. The broader insight: the obstacle to iterative LLM self-improvement is not model capability but the interaction between evaluation methodology and task specification. As models get more capable, the task specification must get more precise---otherwise the improvement space is unbounded and every revision looks locally better while the trajectory drifts globally.
 
 \vspace{4pt}
 \hrule

@@ -44,24 +44,24 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Retroactive Game-Theoretic Analysis}{4}{subsection.4.8}\protected@file@percent }
 \newlabel{sec:retro}{{4.8}{4}{Retroactive Game-Theoretic Analysis}{subsection.4.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Constrained Tasks}{4}{subsection.4.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Model Scaling: Sonnet 4.6}{4}{subsection.4.10}\protected@file@percent }
-\newlabel{sec:scaling}{{4.10}{4}{Model Scaling: Sonnet 4.6}{subsection.4.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Model Scaling}{4}{section.5}\protected@file@percent }
+\newlabel{sec:scaling}{{5}{4}{Model Scaling}{section.5}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Sonnet~4.6 on Task~2. Autoreason ran 50~passes without converging; all baselines ran 15~passes. CoT judges.}}{5}{table.caption.10}\protected@file@percent }
 \newlabel{tab:scaling}{{4}{5}{Sonnet~4.6 on Task~2. Autoreason ran 50~passes without converging; all baselines ran 15~passes. CoT judges}{table.caption.10}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.1}Remedy Experiments}{5}{subsubsection.4.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Remedy Experiments}{5}{subsection.5.1}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Scaling remedy experiments (Sonnet~4.6, Task~2). Only experiments including the margin requirement converged.}}{5}{table.caption.11}\protected@file@percent }
 \newlabel{tab:remedies}{{5}{5}{Scaling remedy experiments (Sonnet~4.6, Task~2). Only experiments including the margin requirement converged}{table.caption.11}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Scaling remedy results. Left: cumulative A win rate over passes (solid = converged, dashed = did not). Right: passes to convergence (* = did not converge, killed at cap). Only experiments including the margin requirement terminated.}}{5}{figure.caption.12}\protected@file@percent }
 \newlabel{fig:remedies}{{7}{5}{Scaling remedy results. Left: cumulative A win rate over passes (solid = converged, dashed = did not). Right: passes to convergence (* = did not converge, killed at cap). Only experiments including the margin requirement terminated}{figure.caption.12}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Quality evaluation of margin-converged outputs vs baselines (Sonnet~4.6, Task~2, 7 CoT judges). Margin improves over baseline autoreason (23--26 vs 11) but loses to all active baselines.}}{5}{table.caption.13}\protected@file@percent }
 \newlabel{tab:remedy_quality}{{6}{5}{Quality evaluation of margin-converged outputs vs baselines (Sonnet~4.6, Task~2, 7 CoT judges). Margin improves over baseline autoreason (23--26 vs 11) but loses to all active baselines}{table.caption.13}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.2}Root Cause: Scope, Not Evaluation}{6}{subsubsection.4.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Root Cause: Scope, Not Evaluation}{6}{subsection.5.2}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Root-cause experiments (Sonnet~4.6). Constrained task converged cleanly; evaluation-side modifications did not.}}{6}{table.caption.14}\protected@file@percent }
 \newlabel{tab:v3_remedies}{{7}{6}{Root-cause experiments (Sonnet~4.6). Constrained task converged cleanly; evaluation-side modifications did not}{table.caption.14}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Constrained task quality (Sonnet~4.6, 500-word pitch, 7 CoT judges). Autoreason wins. The aggressive baselines that won the unconstrained task (Table~\ref {tab:scaling}) now place last---they bloated past the 500-word limit.}}{6}{table.caption.15}\protected@file@percent }
 \newlabel{tab:constrained_quality}{{8}{6}{Constrained task quality (Sonnet~4.6, 500-word pitch, 7 CoT judges). Autoreason wins. The aggressive baselines that won the unconstrained task (Table~\ref {tab:scaling}) now place last---they bloated past the 500-word limit}{table.caption.15}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Writing This Paper}{6}{section.5}\protected@file@percent }
-\newlabel{sec:paper}{{5}{6}{Writing This Paper}{section.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Writing This Paper}{6}{section.6}\protected@file@percent }
+\newlabel{sec:paper}{{6}{6}{Writing This Paper}{section.6}{}}
 \citation{autoresearch}
 \citation{slopcodebench}
 \citation{ace}
@@ -78,19 +78,19 @@
 \newlabel{fig:hallucination}{{9}{7}{Ground-truth critic eliminates hallucination. Without reference data, the initial draft contained 4 fabricated claims. With ground-truth access, all claims were verified on pass~1}{figure.caption.17}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes.}}{7}{figure.caption.18}\protected@file@percent }
 \newlabel{fig:integrity}{{10}{7}{Judge panel integrity. A broken parser reduced the effective panel to 2~judges, preventing convergence for 11+ passes. Fixing to 3 working judges produced convergence in 2~passes}{figure.caption.18}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Related Work}{7}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Related Work}{7}{section.7}\protected@file@percent }
 \bibcite{autoresearch}{1}
 \bibcite{slopcodebench}{2}
 \bibcite{ace}{3}
 \bibcite{selfrefine}{4}
 \bibcite{huang2023}{5}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{8}{section.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat.}}{8}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:wordcount}{{11}{8}{Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat}{figure.caption.19}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{8}{section.8}\protected@file@percent }
 \bibcite{irving2018}{6}
 \bibcite{bai2022}{7}
 \bibcite{zheng2023}{8}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{8}{section.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat.}}{8}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:wordcount}{{11}{8}{Word count trajectories across 15 passes. All methods start from the same 847-word initial output. Autoreason (solid blue) grows controllably; baselines either stagnate or bloat}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{8}{section.9}\protected@file@percent }
 \bibcite{llmcouncil}{9}
 \bibcite{psro}{10}
 \bibcite{arrow}{11}
