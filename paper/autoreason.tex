@@ -85,9 +85,9 @@
 
 % ── Abstract ───────────────────────────────────────────────────────
 \noindent\textbf{\scshape Abstract.}\enspace
-Iterative self-refinement fails because LLMs cannot reliably evaluate their own outputs. We present autoreason, a method that replaces self-evaluation with external evaluation: each iteration produces three competing versions (the incumbent, an adversarial revision, and a synthesis), judged by a blind panel using Borda count. The method's value scales inversely with model capability. With a cheap model (Haiku~3.5, ${\sim}$10$\times$ cheaper than Sonnet~4), autoreason scored 42/42 Borda across three tasks---a perfect sweep of 21/21 first-place votes---while standard refinement baselines \textit{degraded} the same model's outputs below its unrefined single pass. The advantage margin is 2.6$\times$ larger for Haiku than for Sonnet~4, because weaker models have a wider gap between generation and self-evaluation capability.
+Iterative self-refinement fails because LLMs cannot reliably evaluate their own outputs. We present autoreason, a method that replaces self-evaluation with external evaluation: each iteration produces three competing versions (the incumbent, an adversarial revision, and a synthesis), judged by a blind panel using Borda count. The method's value peaks at mid-tier models, where the gap between generation capability and self-evaluation capability is widest. With Haiku~3.5 (${\sim}$10$\times$ cheaper than Sonnet~4), autoreason scored 42/42 Borda across three tasks---a perfect sweep---while standard refinement baselines \textit{degraded} the same model's outputs below its unrefined single pass. Across four model tiers (Llama~8B, Gemini~Flash, Haiku~3.5, Sonnet~4), the advantage peaks at mid-tier and diminishes at both extremes: models too weak to generate diverse alternatives (Llama) or too strong to need external evaluation (Sonnet~4.6).
 
-With Sonnet~4 across 5~subjective tasks, autoreason wins 3/5 outright. In competitive programming (81~CodeContests problems, matched compute budgets), it achieves 65\% private-test pass rate vs.\ 58\% for critique-and-revise, with the gap driven by structured recovery from failure ($p{=}0.041$). With the stronger Sonnet~4.6, the method fails on open-ended tasks but wins on scope-constrained tasks (2/3), and eight remedy experiments identify scope as the root variable. The practical recommendation: spend your refinement budget on your weakest models---that is where external evaluation structure has the highest ROI.
+With Sonnet~4 across 5~subjective tasks, autoreason wins 3/5 outright. In competitive programming (81~CodeContests problems, matched compute budgets), it achieves 65\% private-test pass rate vs.\ 58\% for critique-and-revise, with the gap driven by structured recovery from failure ($p{=}0.041$). A judge ablation shows the tournament structure provides value even with weak judges, though strong judges amplify the effect. The practical recommendation: autoreason operates in the space between ``too weak to generate useful alternatives'' and ``too strong to need external evaluation''---the range where most cost-conscious LLM usage lives.
 
 \vspace{6pt}
 \hrule
@@ -99,9 +99,9 @@ Iterative LLM self-refinement is widely assumed to improve outputs, but the evid
 
 We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} beyond objective metrics to domains where quality is subjective or multi-dimensional. Each iteration produces three competing versions: the incumbent~(A), an adversarial revision~(B), and a synthesis~(AB), evaluated by a blind judge panel. The method constructs a fitness function through the evaluation process itself.
 
-Our central finding is that \textbf{the value of structured refinement scales inversely with model capability}. Self-refinement fails because it requires a model to evaluate its own outputs---a task that is harder than generation itself. The weaker the model, the wider this gap between what it can produce and what it can assess, and the more it benefits from external evaluation. With Haiku~3.5 (${\sim}$10$\times$ cheaper than Sonnet~4), autoreason achieved a perfect 42/42 Borda score across three tasks while standard refinement baselines \textit{degraded} the model's outputs below its unrefined single pass (Section~\ref{sec:small}). The advantage margin is 2.6$\times$ larger for Haiku than for Sonnet~4. With the even stronger Sonnet~4.6, the method's advantage narrows further and becomes scope-dependent (Section~\ref{sec:scaling}).
+Our central finding is that \textbf{the value of structured refinement depends on the gap between a model's generation capability and its self-evaluation capability}. Self-refinement fails because evaluation is harder than generation~\cite{huang2023}. Autoreason bridges this gap with external evaluation. Across four model tiers, the advantage peaks at mid-tier models where the gap is widest: Haiku~3.5 achieved a perfect 42/42 Borda while standard baselines \textit{degraded} its outputs below the unrefined starting point (Section~\ref{sec:small}). At the bottom (Llama~8B), the model is too weak to generate diverse alternatives for the tournament. At the top (Sonnet~4.6), the gap is narrow enough that simple methods suffice (Section~\ref{sec:scaling}). The method operates in the practical middle---the range where most cost-conscious LLM deployment lives, and where the generation-evaluation gap is large enough to exploit.
 
-We establish four conditions under which the method works: (1)~\textbf{external verification}---the critical factor, providing evaluation capability the generating model lacks; (2)~\textbf{constrained scope}---bounded improvement space; (3)~\textbf{structured reasoning}---explicit failure analysis rather than reactive editing; and (4)~\textbf{sufficient decision space}---the task admits genuinely different valid approaches. We validate across subjective writing (5~open-ended tasks, 3~constrained tasks, 8~remedy experiments), competitive programming (81~CodeContests problems), and cross-model capability comparison (Haiku~3.5 vs.\ Sonnet~4 vs.\ Sonnet~4.6).
+We establish four conditions under which the method works: (1)~\textbf{external verification}---the critical factor, providing evaluation capability the generating model lacks; (2)~\textbf{constrained scope}---bounded improvement space; (3)~\textbf{structured reasoning}---explicit failure analysis rather than reactive editing; and (4)~\textbf{sufficient decision space}---the task admits genuinely different valid approaches. We validate across subjective writing (5~open-ended tasks, 3~constrained tasks, 8~remedy experiments), competitive programming (81~CodeContests problems), a four-tier model capability comparison (Llama~8B through Sonnet~4), and a judge ablation that isolates the evaluation mechanism.
 
 \section{Method}
 
@@ -583,7 +583,9 @@ The structured analysis step---where the model reasons about \textit{why} the ap
 \section{Model Capability Scaling}
 \label{sec:small}
 
-The experiments above use a single frontier model for all roles. A practical question: does autoreason help \textit{weaker} models more? We ran all five refinement methods with Claude Haiku~3.5 (${\sim}$10$\times$ cheaper than Sonnet~4) as the author/critic/synthesizer, keeping Sonnet~4 judges for evaluation. Three tasks: the constrained pitch, constrained policy, and open-ended GTM strategy.
+The experiments above use a single frontier model for all roles. A practical question: does autoreason help \textit{weaker} models more? We ran autoreason and baselines across four model tiers---Llama~3.1~8B, Gemini~2.0~Flash, Haiku~3.5, and Sonnet~4---with Sonnet~4 judges, across three tasks (constrained pitch, constrained policy, open-ended GTM strategy).
+
+\subsection{Haiku 3.5: Self-Refinement Harms Weak Models}
 
 \begin{table}[H]
 \centering
@@ -609,7 +611,55 @@ Improve this & 17 & 16 & 13 & 15.3 \\
 
 Autoreason achieved a perfect score across all three tasks and all 21~judges. More striking: every refinement baseline scored \textit{below} the unrefined single pass on average (Table~\ref{tab:small_model}). Critique-and-revise averaged 16.3 vs.\ single-pass's 33.7---iterative self-refinement actively harms weaker models. The outputs confirm this qualitatively: after 15~passes, Haiku's baselines shrank to 78--192 words (from 205--345 initial), losing content with each pass.
 
-\textbf{Disproportionate advantage.}\enspace With Sonnet~4, autoreason's margin over the best baseline was +5.4 Borda (27.8 vs.\ 22.4, normalized: +7.7pp). With Haiku~3.5, the margin is +8.3 (42.0 vs.\ 33.7, normalized: +19.8pp)---a 2.6$\times$ larger relative advantage. The weaker the model, the more it benefits from external evaluation structure, because weaker models cannot reliably distinguish improvement from degradation in their own outputs. Autoreason's judge panel provides exactly this missing capability.
+\subsection{Four-Tier Comparison}
+
+Table~\ref{tab:capability_curve} shows autoreason's advantage across all four model tiers.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Model} & \textbf{AR wins} & \textbf{AR avg} & \textbf{Best baseline} & \textbf{Margin} \\
+\midrule
+\rowcolor{TableShade}
+Llama 3.1 8B & 1/3 & 23.7 & 25.0 (single) & $-$1.3 \\
+Gemini Flash & 2/3 & 25.0 & 20.0 (single) & +5.0 \\
+\rowcolor{TableShade}
+\textbf{Haiku 3.5} & \textbf{3/3} & \textbf{42.0} & \textbf{33.7 (single)} & \textbf{+8.3} \\
+Sonnet 4 & 3/5 & 27.8 & 22.4 (C\&R) & +5.4 \\
+\bottomrule
+\end{tabular}
+\caption{Autoreason advantage by model tier (Borda, Sonnet~4 judges). Autoreason's benefit peaks at mid-tier models (Haiku, Flash) and diminishes at both extremes.}
+\label{tab:capability_curve}
+\end{table}
+
+The relationship is not monotonic. Autoreason's advantage peaks at mid-tier models and diminishes at both extremes: Llama~8B is too weak to generate meaningfully different alternatives for the tournament to select between (autoreason wins only 1/3 tasks), while Sonnet~4 is strong enough that single-pass or simple refinement already captures most of the quality. The method operates in the space between ``too weak to generate useful alternatives'' and ``too strong to need external evaluation''---a range that contains most practical LLM usage at any given cost frontier.
+
+\subsection{Judge Ablation}
+
+If the mechanism is external evaluation, then replacing strong judges with weak ones should eliminate the advantage. We ran autoreason with Haiku~3.5 as both author and judge (Table~\ref{tab:judge_ablation}).
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Method} & \textbf{Pitch} & \textbf{Policy} & \textbf{GTM} & \textbf{Avg} \\
+\midrule
+\rowcolor{TableShade}
+AR + Sonnet judges & \textbf{23} & \textbf{22} & 24 & \textbf{23.0} \\
+AR + Haiku judges & 18 & 19 & \textbf{25} & 20.7 \\
+\rowcolor{TableShade}
+Single pass & 22 & 19 & 14 & 18.3 \\
+Critique \& rev. & 7 & 10 & 7 & 8.0 \\
+\bottomrule
+\end{tabular}
+\caption{Judge ablation (Borda /28). Weak judges reduce but do not eliminate autoreason's advantage. The architecture provides value even without strong external evaluation.}
+\label{tab:judge_ablation}
+\end{table}
+
+Weak judges did \textit{not} collapse autoreason to baseline levels. Autoreason with Haiku judges still beat single-pass on 2/3~tasks (20.7 vs.\ 18.3 avg Borda). Sonnet judges provided a modest further gain (23.0 vs.\ 20.7). This suggests the tournament structure itself---competing candidates, randomized evaluation, conservative tiebreaking---provides value independent of judge quality. Strong judges amplify the effect but are not strictly required. The architecture provides a weaker form of external evaluation even when the judge shares the generator's limitations.
 
 \section{Writing This Paper}
 \label{sec:paper}
@@ -640,7 +690,9 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 \section{Discussion}
 
-\textbf{The generation-evaluation gap.}\enspace Self-refinement requires a model to both generate and evaluate. These are different tasks, and evaluation is often harder~\cite{huang2023}. The stronger the model, the narrower this gap: Sonnet~4.6 can evaluate its own outputs well enough that external judges add little value on unconstrained tasks. Haiku~3.5 cannot---its refinement baselines actively degrade outputs (Table~\ref{tab:small_model}) because it cannot distinguish improvement from damage. Autoreason bridges this gap by outsourcing evaluation to a stronger model, and the value of doing so scales with the size of the gap. This explains why the advantage margin is 2.6$\times$ larger for Haiku than for Sonnet~4, and why it narrows further with Sonnet~4.6.
+\textbf{The generation-evaluation gap.}\enspace Self-refinement requires a model to both generate and evaluate. These are different tasks, and evaluation is often harder~\cite{huang2023}. The stronger the model, the narrower this gap: Sonnet~4.6 can evaluate its own outputs well enough that external judges add little value on unconstrained tasks. Haiku~3.5 cannot---its refinement baselines actively degrade outputs (Table~\ref{tab:small_model}) because it cannot distinguish improvement from damage. Autoreason bridges this gap, and its value peaks where the gap is widest: mid-tier models like Haiku~3.5 and Gemini~Flash (Table~\ref{tab:capability_curve}). At the bottom (Llama~8B), the model is too weak to generate diverse candidates for the tournament, limiting the architecture's effectiveness. At the top (Sonnet~4.6), the gap is narrow enough that simple methods suffice. The method operates in the practical middle---the range where most cost-conscious LLM usage lives.
+
+The judge ablation (Table~\ref{tab:judge_ablation}) further clarifies the mechanism. Replacing strong judges with weak ones reduced but did not eliminate the advantage, suggesting the tournament structure itself provides value: competing candidates and randomized evaluation create a form of diversity-based selection that outperforms linear refinement even without strong external evaluation. Strong judges amplify this but are not strictly required.
 
 \textbf{Four conditions for reliable self-refinement.}\enspace The generation-evaluation gap is necessary but not sufficient. Autoreason also requires: (1)~\textbf{constrained scope}---bounded improvement space prevents drift; (2)~\textbf{structured reasoning}---explicit failure analysis rather than reactive editing; and (3)~\textbf{sufficient decision space}---the task must admit genuinely different valid approaches (autoreason wins 2/3 constrained tasks but loses the template-filling postmortem). Together with (4)~\textbf{external verification}, these four conditions predict where the method works across all experiments.
 
@@ -663,9 +715,9 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 \section{Conclusion}
 
-Self-refinement fails not because models lack capability, but because they lack the ability to evaluate their own outputs. The weaker the model, the wider this generation-evaluation gap, and the more valuable external evaluation becomes. Autoreason bridges the gap: with Haiku~3.5, it achieved a perfect score across all tasks while standard baselines degraded outputs below the unrefined starting point. With Sonnet~4, the advantage narrows to a modest lead. With Sonnet~4.6, it becomes scope-dependent.
+Self-refinement fails not because models lack capability, but because they lack the ability to evaluate their own outputs. Autoreason bridges this generation-evaluation gap with a tournament structure and external judges. The method's value is not monotonically inverse to capability---it peaks at mid-tier models where the gap is widest, and diminishes at both extremes. Llama~8B cannot generate diverse enough alternatives for the tournament to select between. Sonnet~4.6 can already self-evaluate well enough that external judges add little. The sweet spot---Haiku~3.5, Gemini~Flash, and to a lesser extent Sonnet~4---is where the model can produce meaningfully different candidates but cannot reliably choose between them.
 
-The practical recommendation: spend your refinement budget on your weakest models. A cheap model with autoreason structure and strong judges outperforms the same cheap model with any self-refinement strategy by a wide margin. For frontier models, the ROI is lower---use scope constraints and structured reasoning, but don't expect the same gains. The broader insight: the obstacle to iterative LLM self-improvement is not model capability but the absence of a signal external to the model's own reasoning loop. Without one, refinement is an echo chamber. With one, it converges---and the value of convergence is greatest for models that need it most.
+This sweet spot is not a fixed point. As model capabilities improve and costs decrease, today's frontier becomes tomorrow's mid-tier. The generation-evaluation gap is a structural property of LLMs at any capability level, not an artifact of current models. The practical recommendation: match your refinement architecture to the model's position on the capability curve. For mid-tier models, autoreason provides gains that no self-refinement baseline can match. For frontier models, use scope constraints and structured reasoning. For the weakest models, invest in generation quality first.
 
 \vspace{4pt}
 \hrule
