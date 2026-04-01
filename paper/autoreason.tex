@@ -77,7 +77,7 @@
 \twocolumn[{
 \begin{center}
 \vspace{4pt}
-{\LARGE\bfseries Autoreason: When Iterative LLM Refinement Works}\\[10pt]
+{\LARGE\bfseries Autoreason: Iterative Refinement Scales Inversely\\[3pt] with Model Capability}\\[10pt]
 {\normalsize shl0ms}\\[2pt]
 {\small\textcolor{MedGray}{\url{https://github.com/NousResearch/autoreason}}}\\[12pt]
 \end{center}
@@ -85,9 +85,9 @@
 
 % ── Abstract ───────────────────────────────────────────────────────
 \noindent\textbf{\scshape Abstract.}\enspace
-Self-refinement is unreliable in general. We identify the conditions under which it works and present autoreason, a method that exploits those conditions. Each iteration produces three competing versions (the incumbent, an adversarial revision, and a synthesis), evaluated by a blind judge panel using Borda count aggregation. With claude-sonnet-4 across 5~subjective tasks, autoreason ranked first or second in every 7-judge blind comparison, winning 3/5~outright. With the stronger Sonnet~4.6, the method fails on open-ended tasks but wins on scope-constrained tasks with sufficient decision space (2/3~constrained tasks), and eight remedy experiments plus three constrained-task replications identify scope and task structure as the root variables.
+Iterative self-refinement fails because LLMs cannot reliably evaluate their own outputs. We present autoreason, a method that replaces self-evaluation with external evaluation: each iteration produces three competing versions (the incumbent, an adversarial revision, and a synthesis), judged by a blind panel using Borda count. The method's value scales inversely with model capability. With a cheap model (Haiku~3.5, ${\sim}$10$\times$ cheaper than Sonnet~4), autoreason scored 42/42 Borda across three tasks---a perfect sweep of 21/21 first-place votes---while standard refinement baselines \textit{degraded} the same model's outputs below its unrefined single pass. The advantage margin is 2.6$\times$ larger for Haiku than for Sonnet~4, because weaker models have a wider gap between generation and self-evaluation capability.
 
-We validate these findings in competitive programming (81~CodeContests problems across 3~difficulty tiers). With matched compute budgets (6~LLM calls per problem), autoreason achieves 65\% private-test pass rate vs.\ 58\% for both single-pass sampling and standard critique-and-revise. Crucially, critique-and-revise overfits to visible test cases: it matches autoreason on public tests (79\% vs.\ 85\%) but fails to generalize to hidden tests. Autoreason's structured reasoning protects against this overfitting, with the strongest gains on hard problems (47\% vs.\ 37\% private pass rate). The method works when four conditions hold: constrained scope, external verification signal, structured reasoning that goes beyond pattern-matching on feedback, and sufficient decision space for adversarial exploration to surface genuinely different approaches.
+With Sonnet~4 across 5~subjective tasks, autoreason wins 3/5 outright. In competitive programming (81~CodeContests problems, matched compute budgets), it achieves 65\% private-test pass rate vs.\ 58\% for critique-and-revise, with the gap driven by structured recovery from failure ($p{=}0.041$). With the stronger Sonnet~4.6, the method fails on open-ended tasks but wins on scope-constrained tasks (2/3), and eight remedy experiments identify scope as the root variable. The practical recommendation: spend your refinement budget on your weakest models---that is where external evaluation structure has the highest ROI.
 
 \vspace{6pt}
 \hrule
@@ -99,7 +99,9 @@ Iterative LLM self-refinement is widely assumed to improve outputs, but the evid
 
 We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} beyond objective metrics to domains where quality is subjective or multi-dimensional. Each iteration produces three competing versions: the incumbent~(A), an adversarial revision~(B), and a synthesis~(AB), evaluated by a blind judge panel. The method constructs a fitness function through the evaluation process itself.
 
-Our central finding is that self-refinement works reliably when four conditions hold: (1)~\textbf{constrained scope}---the task has bounded improvement space; (2)~\textbf{external verification}---feedback comes from outside the generating model's reasoning loop; (3)~\textbf{structured reasoning}---the refinement process explicitly analyzes failure modes rather than pattern-matching on feedback; and (4)~\textbf{sufficient decision space}---the task admits genuinely different valid approaches, not just one correct structure. We establish these conditions across two domains: subjective writing (5~open-ended tasks, 3~constrained tasks, 8~remedy experiments) and competitive programming (81~CodeContests problems). In the code domain, autoreason's structured reasoning prevents the overfitting to visible test cases that standard critique-and-revise exhibits, yielding a 7-point improvement in hidden-test generalization.
+Our central finding is that \textbf{the value of structured refinement scales inversely with model capability}. Self-refinement fails because it requires a model to evaluate its own outputs---a task that is harder than generation itself. The weaker the model, the wider this gap between what it can produce and what it can assess, and the more it benefits from external evaluation. With Haiku~3.5 (${\sim}$10$\times$ cheaper than Sonnet~4), autoreason achieved a perfect 42/42 Borda score across three tasks while standard refinement baselines \textit{degraded} the model's outputs below its unrefined single pass (Section~\ref{sec:small}). The advantage margin is 2.6$\times$ larger for Haiku than for Sonnet~4. With the even stronger Sonnet~4.6, the method's advantage narrows further and becomes scope-dependent (Section~\ref{sec:scaling}).
+
+We establish four conditions under which the method works: (1)~\textbf{external verification}---the critical factor, providing evaluation capability the generating model lacks; (2)~\textbf{constrained scope}---bounded improvement space; (3)~\textbf{structured reasoning}---explicit failure analysis rather than reactive editing; and (4)~\textbf{sufficient decision space}---the task admits genuinely different valid approaches. We validate across subjective writing (5~open-ended tasks, 3~constrained tasks, 8~remedy experiments), competitive programming (81~CodeContests problems), and cross-model capability comparison (Haiku~3.5 vs.\ Sonnet~4 vs.\ Sonnet~4.6).
 
 \section{Method}
 
@@ -578,6 +580,37 @@ The structured analysis step---where the model reasons about \textit{why} the ap
 
 \textbf{Connection to scope.}\enspace Competitive programming problems are naturally scope-constrained: bounded input, specified output format, finite solution space. The test suite provides the external verification signal. These are exactly the conditions identified in Section~\ref{sec:scaling} as necessary for autoreason to work. The code domain confirms the finding in a setting where quality is objective, not dependent on LLM judge preferences.
 
+\section{Model Capability Scaling}
+\label{sec:small}
+
+The experiments above use a single frontier model for all roles. A practical question: does autoreason help \textit{weaker} models more? We ran all five refinement methods with Claude Haiku~3.5 (${\sim}$10$\times$ cheaper than Sonnet~4) as the author/critic/synthesizer, keeping Sonnet~4 judges for evaluation. Three tasks: the constrained pitch, constrained policy, and open-ended GTM strategy.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Method} & \textbf{Pitch} & \textbf{Policy} & \textbf{GTM} & \textbf{Avg} \\
+\midrule
+\rowcolor{TableShade}
+\textbf{Autoreason} & \textbf{42} & \textbf{42} & \textbf{42} & \textbf{42.0} \\
+Single pass & 35 & 31 & 35 & 33.7 \\
+\rowcolor{TableShade}
+Conservative & 17 & 32 & 24 & 24.3 \\
+Critique \& rev. & 18 & 12 & 19 & 16.3 \\
+\rowcolor{TableShade}
+Harsh critic & 18 & 14 & 14 & 15.3 \\
+Improve this & 17 & 16 & 13 & 15.3 \\
+\bottomrule
+\end{tabular}
+\caption{Haiku~3.5 with all refinement methods (Borda /42, 7 Sonnet~4 judges). Autoreason scored 42/42 on every task---21/21 first-place votes. Refinement baselines \textit{degrade} Haiku outputs below the unrefined single pass.}
+\label{tab:small_model}
+\end{table}
+
+Autoreason achieved a perfect score across all three tasks and all 21~judges. More striking: every refinement baseline scored \textit{below} the unrefined single pass on average (Table~\ref{tab:small_model}). Critique-and-revise averaged 16.3 vs.\ single-pass's 33.7---iterative self-refinement actively harms weaker models. The outputs confirm this qualitatively: after 15~passes, Haiku's baselines shrank to 78--192 words (from 205--345 initial), losing content with each pass.
+
+\textbf{Disproportionate advantage.}\enspace With Sonnet~4, autoreason's margin over the best baseline was +5.4 Borda (27.8 vs.\ 22.4, normalized: +7.7pp). With Haiku~3.5, the margin is +8.3 (42.0 vs.\ 33.7, normalized: +19.8pp)---a 2.6$\times$ larger relative advantage. The weaker the model, the more it benefits from external evaluation structure, because weaker models cannot reliably distinguish improvement from degradation in their own outputs. Autoreason's judge panel provides exactly this missing capability.
+
 \section{Writing This Paper}
 \label{sec:paper}
 
@@ -607,13 +640,15 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 \section{Discussion}
 
-\textbf{Conditions for reliable self-refinement.}\enspace Across both domains, autoreason works when: (1)~\textbf{constrained scope} (500-word pitch, competitive programming problem), (2)~\textbf{external verification} (judge panel, test suite), (3)~\textbf{structured reasoning} rather than reactive editing, and (4)~\textbf{sufficient decision space}---the task must admit genuinely different valid approaches. The first three conditions were established in our initial experiments; the fourth emerged from the additional constrained tasks (Table~\ref{tab:constrained_all}): autoreason wins 2/3 constrained tasks but loses the incident postmortem, which has essentially one correct structure and rewards minimal deviation over adversarial exploration. Remove any condition and the method degrades: unconstrained scope causes drift (Section~\ref{sec:scaling}), self-evaluation without external signal is unreliable~\cite{huang2023}, shallow critique-and-revise overfits to visible feedback (Section~\ref{sec:code}), and template-filling tasks waste the adversarial structure.
+\textbf{The generation-evaluation gap.}\enspace Self-refinement requires a model to both generate and evaluate. These are different tasks, and evaluation is often harder~\cite{huang2023}. The stronger the model, the narrower this gap: Sonnet~4.6 can evaluate its own outputs well enough that external judges add little value on unconstrained tasks. Haiku~3.5 cannot---its refinement baselines actively degrade outputs (Table~\ref{tab:small_model}) because it cannot distinguish improvement from damage. Autoreason bridges this gap by outsourcing evaluation to a stronger model, and the value of doing so scales with the size of the gap. This explains why the advantage margin is 2.6$\times$ larger for Haiku than for Sonnet~4, and why it narrows further with Sonnet~4.6.
 
-\textbf{Recovery, not first-attempt improvement.}\enspace Autoreason does not help models get things right the first time. Its value is in what happens after initial failure: structured analysis of \textit{why} the approach failed, consideration of alternatives, then targeted revision. In competitive programming, this recovery mechanism is statistically significant ($p{=}0.041$). In writing, it manifests as the judge panel rejecting regressions that accumulate unchecked in baselines.
+\textbf{Four conditions for reliable self-refinement.}\enspace The generation-evaluation gap is necessary but not sufficient. Autoreason also requires: (1)~\textbf{constrained scope}---bounded improvement space prevents drift; (2)~\textbf{structured reasoning}---explicit failure analysis rather than reactive editing; and (3)~\textbf{sufficient decision space}---the task must admit genuinely different valid approaches (autoreason wins 2/3 constrained tasks but loses the template-filling postmortem). Together with (4)~\textbf{external verification}, these four conditions predict where the method works across all experiments.
+
+\textbf{Recovery, not first-attempt improvement.}\enspace Autoreason does not help models get things right the first time. Its value is in what happens after initial failure: structured analysis of \textit{why} the approach failed, consideration of alternatives, then targeted revision. In competitive programming, this recovery mechanism is statistically significant ($p{=}0.041$). In writing, it manifests as the judge panel rejecting regressions that accumulate unchecked in baselines. For weak models, this regression-rejection is the entire value proposition---without it, every pass is a coin flip between improvement and degradation.
 
 \textbf{CoT judges should be the default.}\enspace The cheapest improvement: 3$\times$ faster convergence on Task~1 (1.5$\times$ on Task~2), more decisive scores, no architecture changes.
 
-\textbf{Scope is the central variable.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift. Scope constraints eliminate it entirely, restoring both convergence and quality (Section~\ref{sec:scaling}). The competitive programming results confirm this in an objective domain: naturally scoped problems with test-suite verification are exactly where autoreason excels.
+\textbf{Scope constrains the improvement space.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift. Scope constraints eliminate it entirely, restoring both convergence and quality (Section~\ref{sec:scaling}). The competitive programming results confirm this in an objective domain: naturally scoped problems with test-suite verification are exactly where autoreason excels.
 
 \begin{figure}[H]
 \centering
@@ -628,9 +663,9 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 \section{Conclusion}
 
-Self-refinement is unreliable in general, but it works under identifiable conditions. We find four: constrained scope, external verification, structured reasoning, and sufficient decision space. Autoreason exploits all four. In subjective writing, it ranked first or second across 5~tasks with Sonnet~4 and won 2/3~scope-constrained tasks with the stronger Sonnet~4.6, losing only on a template-filling task where adversarial exploration adds noise rather than value. In competitive programming, it recovers significantly more failed solutions than alternatives ($p{=}0.041$), with the strongest gains when the model must reason about algorithmic failures rather than pattern-match on error messages.
+Self-refinement fails not because models lack capability, but because they lack the ability to evaluate their own outputs. The weaker the model, the wider this generation-evaluation gap, and the more valuable external evaluation becomes. Autoreason bridges the gap: with Haiku~3.5, it achieved a perfect score across all tasks while standard baselines degraded outputs below the unrefined starting point. With Sonnet~4, the advantage narrows to a modest lead. With Sonnet~4.6, it becomes scope-dependent.
 
-The practical recommendation: pair iterative refinement with explicit scope constraints and external feedback signals, invest the refinement budget in structured analysis of failures rather than additional generation attempts, and match the method to the task---adversarial architectures help when multiple valid approaches exist, not when the task has one correct answer. The broader insight: the obstacle to iterative LLM self-improvement is not model capability but the absence of grounding. Without a signal external to the model's own reasoning loop, refinement is an echo chamber. With one, it converges.
+The practical recommendation: spend your refinement budget on your weakest models. A cheap model with autoreason structure and strong judges outperforms the same cheap model with any self-refinement strategy by a wide margin. For frontier models, the ROI is lower---use scope constraints and structured reasoning, but don't expect the same gains. The broader insight: the obstacle to iterative LLM self-improvement is not model capability but the absence of a signal external to the model's own reasoning loop. Without one, refinement is an echo chamber. With one, it converges---and the value of convergence is greatest for models that need it most.
 
 \vspace{4pt}
 \hrule
