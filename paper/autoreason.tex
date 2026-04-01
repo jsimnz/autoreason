@@ -609,7 +609,9 @@ Improve this & 17 & 16 & 13 & 15.3 \\
 \label{tab:small_model}
 \end{table}
 
-Autoreason achieved a perfect score across all three tasks and all 21~judges. More striking: every refinement baseline scored \textit{below} the unrefined single pass on average (Table~\ref{tab:small_model}). Critique-and-revise averaged 16.3 vs.\ single-pass's 33.7---iterative self-refinement actively harms weaker models. The outputs confirm this qualitatively: after 15~passes, Haiku's baselines shrank to 78--192 words (from 205--345 initial), losing content with each pass.
+Autoreason achieved a perfect score across all three tasks and all 21~judges. More striking: every refinement baseline scored \textit{below} the unrefined single pass on average (Table~\ref{tab:small_model}). Critique-and-revise averaged 16.3 vs.\ single-pass's 33.7---iterative self-refinement actively harms weaker models.
+
+\textbf{Refinement as destruction.}\enspace The mechanism is visible in the outputs. After 15~passes of self-refinement, Haiku's baselines shrank dramatically: conservative reduced GTM from 205 to 78~words ($-$62\%), harsh critic reduced pitch from 345 to 102~words ($-$70\%), critique-and-revise reduced policy from 331 to 137~words ($-$59\%). The model deletes content each pass because it cannot assess whether deletions improve or damage the output. Autoreason's outputs grew in every case (345$\to$476, 331$\to$407, 205$\to$388), because the judge panel rejects passes that lose content quality---exactly the evaluation capability the base model lacks.
 
 \subsection{Four-Tier Comparison}
 

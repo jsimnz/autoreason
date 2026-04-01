@@ -1,0 +1,313 @@
+{
+  "pitch": {
+    "improve_this": {
+      "initial_words": 345,
+      "final_words": 192,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 345,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 192,
+          "label": "final"
+        }
+      ]
+    },
+    "critique_and_revise": {
+      "initial_words": 345,
+      "final_words": 392,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 345,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 392,
+          "label": "final"
+        }
+      ]
+    },
+    "conservative": {
+      "initial_words": 345,
+      "final_words": 88,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 345,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 88,
+          "label": "final"
+        }
+      ]
+    },
+    "harsh_critic": {
+      "initial_words": 345,
+      "final_words": 102,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 345,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 102,
+          "label": "final"
+        }
+      ]
+    },
+    "autoreason": {
+      "initial_words": 345,
+      "final_words": 476,
+      "trajectory": [
+        {
+          "pass": 1,
+          "words": 345,
+          "winner": "AB"
+        },
+        {
+          "pass": 2,
+          "words": 425,
+          "winner": "B"
+        },
+        {
+          "pass": 3,
+          "words": 499,
+          "winner": "A"
+        },
+        {
+          "pass": 4,
+          "words": 499,
+          "winner": "AB"
+        },
+        {
+          "pass": 5,
+          "words": 423,
+          "winner": "A"
+        },
+        {
+          "pass": 6,
+          "words": 423,
+          "winner": "B"
+        },
+        {
+          "pass": 7,
+          "words": 476,
+          "winner": "A"
+        },
+        {
+          "pass": 8,
+          "words": 476,
+          "winner": "A"
+        }
+      ]
+    }
+  },
+  "policy": {
+    "improve_this": {
+      "initial_words": 331,
+      "final_words": 173,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 331,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 173,
+          "label": "final"
+        }
+      ]
+    },
+    "critique_and_revise": {
+      "initial_words": 331,
+      "final_words": 137,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 331,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 137,
+          "label": "final"
+        }
+      ]
+    },
+    "conservative": {
+      "initial_words": 331,
+      "final_words": 369,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 331,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 369,
+          "label": "final"
+        }
+      ]
+    },
+    "harsh_critic": {
+      "initial_words": 331,
+      "final_words": 112,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 331,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 112,
+          "label": "final"
+        }
+      ]
+    },
+    "autoreason": {
+      "initial_words": 331,
+      "final_words": 407,
+      "trajectory": [
+        {
+          "pass": 1,
+          "words": 331,
+          "winner": "B"
+        },
+        {
+          "pass": 2,
+          "words": 407,
+          "winner": "A"
+        },
+        {
+          "pass": 3,
+          "words": 407,
+          "winner": "A"
+        }
+      ]
+    }
+  },
+  "gtm": {
+    "improve_this": {
+      "initial_words": 205,
+      "final_words": 113,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 205,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 113,
+          "label": "final"
+        }
+      ]
+    },
+    "critique_and_revise": {
+      "initial_words": 205,
+      "final_words": 91,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 205,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 91,
+          "label": "final"
+        }
+      ]
+    },
+    "conservative": {
+      "initial_words": 205,
+      "final_words": 78,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 205,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 78,
+          "label": "final"
+        }
+      ]
+    },
+    "harsh_critic": {
+      "initial_words": 205,
+      "final_words": 96,
+      "trajectory": [
+        {
+          "pass": 0,
+          "words": 205,
+          "label": "initial"
+        },
+        {
+          "pass": 15,
+          "words": 96,
+          "label": "final"
+        }
+      ]
+    },
+    "autoreason": {
+      "initial_words": 205,
+      "final_words": 388,
+      "trajectory": [
+        {
+          "pass": 1,
+          "words": 205,
+          "winner": "B"
+        },
+        {
+          "pass": 2,
+          "words": 365,
+          "winner": "B"
+        },
+        {
+          "pass": 3,
+          "words": 475,
+          "winner": "A"
+        },
+        {
+          "pass": 4,
+          "words": 475,
+          "winner": "B"
+        },
+        {
+          "pass": 5,
+          "words": 402,
+          "winner": "A"
+        },
+        {
+          "pass": 6,
+          "words": 402,
+          "winner": "B"
+        },
+        {
+          "pass": 7,
+          "words": 388,
+          "winner": "A"
+        },
+        {
+          "pass": 8,
+          "words": 388,
+          "winner": "A"
+        }
+      ]
+    }
+  }
+}
