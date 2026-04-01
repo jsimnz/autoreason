@@ -1,0 +1,52 @@
+[
+  {
+    "pass": 1,
+    "winner": "AB",
+    "scores": {
+      "A": 4,
+      "B": 5,
+      "AB": 9
+    },
+    "words": 532
+  },
+  {
+    "pass": 2,
+    "winner": "A",
+    "scores": {
+      "A": 9,
+      "B": 3,
+      "AB": 6
+    },
+    "words": 625
+  },
+  {
+    "pass": 3,
+    "winner": "AB",
+    "scores": {
+      "A": 7,
+      "B": 3,
+      "AB": 8
+    },
+    "words": 625
+  },
+  {
+    "pass": 4,
+    "winner": "A",
+    "scores": {
+      "A": 8,
+      "B": 3,
+      "AB": 7
+    },
+    "words": 797
+  },
+  {
+    "pass": 5,
+    "winner": "A",
+    "scores": {
+      "A": 6,
+      "B": 6,
+      "AB": 6
+    },
+    "words": 797
+  }
+]

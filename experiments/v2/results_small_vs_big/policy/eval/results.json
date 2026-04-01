@@ -1,0 +1,25 @@
+{
+  "valid_judges": 7,
+  "max_borda": 35,
+  "borda": {
+    "haiku35_single": 22,
+    "sonnet4_single": 33,
+    "haiku35_autoreason": 25,
+    "flash_autoreason": 15,
+    "llama8b_autoreason": 10
+  },
+  "first_place": {
+    "haiku35_single": 0,
+    "sonnet4_single": 6,
+    "haiku35_autoreason": 1,
+    "flash_autoreason": 0,
+    "llama8b_autoreason": 0
+  },
+  "word_counts": {
+    "haiku35_single": 364,
+    "sonnet4_single": 357,
+    "haiku35_autoreason": 407,
+    "flash_autoreason": 945,
+    "llama8b_autoreason": 346
+  }
+}
