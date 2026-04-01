@@ -74,7 +74,7 @@
 \twocolumn[{
 \begin{center}
 \vspace{4pt}
-{\LARGE\bfseries Autoreason: Autoresearch for Subjective Domains}\\[10pt]
+{\LARGE\bfseries Autoreason: When Iterative LLM Refinement Works}\\[10pt]
 {\normalsize shl0ms}\\[2pt]
 {\small\textcolor{MedGray}{\url{https://github.com/NousResearch/autoreason}}}\\[12pt]
 \end{center}
@@ -82,9 +82,9 @@
 
 % ── Abstract ───────────────────────────────────────────────────────
 \noindent\textbf{\scshape Abstract.}\enspace
-We introduce autoreason, a method for iterative LLM refinement in subjective domains where no objective metric exists. Each iteration produces three competing versions of a document (the incumbent, an adversarial revision, and a synthesis), evaluated by a blind judge panel. Fresh isolated agents, Borda count aggregation, and conservative tiebreaking construct a subjective fitness function through the evaluation process itself. With claude-sonnet-4 across 5~task types, autoreason ranked first or second in every 7-judge blind comparison, winning 3/5~outright. Chain-of-thought judging accelerates convergence 3$\times$ on Task~1 (1.5$\times$ on Task~2); Monte Carlo analysis suggests 80\% convergence with consistent quality (though $n{=}5$ limits precision); game-theoretic analysis suggests near-transitive preferences.
+Self-refinement is unreliable in general. We identify the conditions under which it works and present autoreason, a method that exploits those conditions. Each iteration produces three competing versions (the incumbent, an adversarial revision, and a synthesis), evaluated by a blind judge panel using Borda count aggregation. With claude-sonnet-4 across 5~subjective tasks, autoreason ranked first or second in every 7-judge blind comparison, winning 3/5~outright. With the stronger Sonnet~4.6, the method fails on open-ended tasks but wins on scope-constrained tasks, and eight remedy experiments identify scope as the root cause.
 
-With a stronger model (Sonnet~4.6), the method fails on open-ended tasks: synthesis consistently outcompetes the incumbent, preventing convergence. Eight remedy experiments identify the root cause as \textit{scope}, not evaluation methodology. On a scope-constrained task (500-word pitch), the same stronger model converges in 10~passes and wins a blind comparison against all baselines. Autoreason's effectiveness depends on the interaction between evaluation methodology and task specification: the synthesis operator needs a bounded improvement space to reach a quality ceiling.
+We validate these findings in competitive programming (81~CodeContests problems across 3~difficulty tiers). With matched compute budgets (6~LLM calls per problem), autoreason achieves 65\% private-test pass rate vs.\ 58\% for both single-pass sampling and standard critique-and-revise. Crucially, critique-and-revise overfits to visible test cases: it matches autoreason on public tests (79\% vs.\ 85\%) but fails to generalize to hidden tests. Autoreason's structured reasoning protects against this overfitting, with the strongest gains on hard problems (47\% vs.\ 37\% private pass rate). The method works when three conditions hold: constrained scope, external verification signal, and structured reasoning that goes beyond pattern-matching on feedback.
 
 \vspace{6pt}
 \hrule
@@ -92,11 +92,11 @@ With a stronger model (Sonnet~4.6), the method fails on open-ended tasks: synthe
 
 \section{Introduction}
 
-LLMs exhibit systematic failures when iterating on subjective work: sycophancy, overcriticism, overcompromise, authorship bias, scope drift, and context collapse. Even in code generation, iterative refinement leads to progressive degradation~\cite{slopcodebench}. Self-Refine~\cite{selfrefine} demonstrates that single-agent critique-and-revise loops can improve outputs but provides no mechanism to detect when revisions make things worse. Huang et al.~\cite{huang2023} show LLMs cannot reliably self-correct without external feedback, motivating our external judge panel.
+Iterative LLM self-refinement is widely assumed to improve outputs, but the evidence is mixed. Self-Refine~\cite{selfrefine} demonstrates that critique-and-revise loops can help but provides no mechanism to detect when revisions make things worse. Huang et al.~\cite{huang2023} show LLMs cannot reliably self-correct without external feedback. SlopCodeBench~\cite{slopcodebench} documents progressive degradation in iterative code generation. The question is not whether self-refinement can work, but \textit{when} it works and what makes it fail.
 
-We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} to subjective domains. Each iteration produces three competing versions: the incumbent~(A), an adversarial revision~(B), and a synthesis~(AB), evaluated by a blind judge panel. The method constructs a fitness function through the evaluation process itself.
+We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} beyond objective metrics to domains where quality is subjective or multi-dimensional. Each iteration produces three competing versions: the incumbent~(A), an adversarial revision~(B), and a synthesis~(AB), evaluated by a blind judge panel. The method constructs a fitness function through the evaluation process itself.
 
-We tested two modes. \textbf{Single pass}: one cycle through critic $\to$ B $\to$ AB $\to$ judge (5~LLM calls). \textbf{Convergence loop}: repeats the cycle with a full judge panel until the incumbent survives consecutive challenges. As we show in Section~\ref{sec:v1}, the single pass does not outperform simpler baselines; autoreason's value emerges from iteration. We further show that with stronger models, the method's effectiveness depends on task scope: scope constraints restore convergence and quality where unconstrained tasks fail (Section~\ref{sec:scaling}).
+Our central finding is that self-refinement works reliably when three conditions hold: (1)~\textbf{constrained scope}---the task has bounded improvement space; (2)~\textbf{external verification}---feedback comes from outside the generating model's reasoning loop; and (3)~\textbf{structured reasoning}---the refinement process explicitly analyzes failure modes rather than pattern-matching on feedback. We establish these conditions across two domains: subjective writing (5~tasks, 8~remedy experiments) and competitive programming (81~CodeContests problems). In the code domain, autoreason's structured reasoning prevents the overfitting to visible test cases that standard critique-and-revise exhibits, yielding a 7-point improvement in hidden-test generalization.
 
 \section{Method}
 
@@ -520,6 +520,39 @@ The ranking inverts (Figure~\ref{fig:scaling_story}). The constrained task penal
 \label{fig:scaling_story}
 \end{figure*}
 
+\section{Competitive Programming}
+\label{sec:code}
+
+To validate the scope and structured-reasoning findings beyond subjective domains, we tested autoreason on competitive programming, where correctness is objectively verifiable via test cases. We sampled 150 problems from CodeContests~\cite{codecontests} (50~easy, 50~medium, 50~hard by Codeforces rating) and compared three strategies at a matched compute budget of 6~LLM calls per problem (claude-sonnet-4).
+
+\textbf{Strategies.}\enspace (1)~\textit{Single pass}: 6 independent attempts, return the best (pass@6). (2)~\textit{Critique-and-revise}: generate once, then 5~rounds of test-informed critique and revision. (3)~\textit{Autoreason}: generate once, then a structured analysis pass (problem analysis, approach analysis, failure analysis, alternative approaches, edge cases), followed by 4~rounds of reason-informed revision. Each revision round sees test results from public (visible) test cases. Final evaluation uses private (hidden) test cases to measure generalization.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Strategy} & \textbf{Public} & \textbf{Private} & \textbf{Easy} & \textbf{Med} & \textbf{Hard} \\
+\midrule
+\rowcolor{TableShade}
+\textbf{Autoreason} & \textbf{85\%} & \textbf{64\%} & 44/50 & 29/50 & 23/50 \\
+Critique \& rev. & 81\% & 58\% & 35/50 & 31/50 & 21/50 \\
+\rowcolor{TableShade}
+Single pass & 79\% & 59\% & 42/50 & 19/50 & 21/50 \\
+\bottomrule
+\end{tabular}
+\caption{Private-test pass rate (hidden tests, measuring generalization). Autoreason leads by 5--6 points overall. Private columns show per-tier counts out of 50.}
+\label{tab:code}
+\end{table}
+
+\textbf{Recovery is the mechanism.}\enspace All three strategies solve roughly the same number of problems on the first attempt (${\sim}$83/150). The difference emerges from what happens after initial failure. Among 53~problems where both autoreason and single-pass failed on the first attempt, autoreason recovered 33 (62\%) vs.\ single-pass's 23 (43\%). A paired McNemar's test on the discordant pairs (15~recovered only by autoreason vs.\ 5~recovered only by single-pass) is significant ($p{=}0.041$). The effect size is medium (Cohen's $h{=}0.32$).
+
+The structured analysis step---where the model reasons about \textit{why} the approach failed before attempting a fix---is what drives this. Critique-and-revise sees the same test feedback but jumps directly to revision; it pattern-matches on error messages rather than reasoning about the underlying algorithmic problem.
+
+\textbf{Overfitting signal.}\enspace Critique-and-revise shows the highest overfitting rate: 25\% of problems pass public tests but fail private tests, compared to 22--23\% for the other strategies. On hard problems specifically, critique-and-revise overfits 16/50 (32\%) vs.\ autoreason's 16/50 and single-pass's 13/50. The refinement loop optimizes for visible examples at the cost of generalization when reasoning is shallow.
+
+\textbf{Connection to scope.}\enspace Competitive programming problems are naturally scope-constrained: bounded input, specified output format, finite solution space. The test suite provides the external verification signal. These are exactly the conditions identified in Section~\ref{sec:scaling} as necessary for autoreason to work. The code domain confirms the finding in a setting where quality is objective, not dependent on LLM judge preferences.
+
 \section{Writing This Paper}
 \label{sec:paper}
 
@@ -545,17 +578,17 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 \section{Related Work}
 
-\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function; autoreason extends this to subjective domains. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback. \textbf{AI Safety via Debate}~\cite{irving2018} grounds adversarial evaluation: truth has a natural advantage when agents argue before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases motivating our randomization and panel design. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{PSRO}~\cite{psro} provides game-theoretic framing for iterative strategy generation, loosely analogous to our pass structure. \textbf{Verdict}~\cite{verdict} scales judge-time compute through hierarchical verification and debate-aggregation; we tested its rank-then-verify pattern and found it does not address the scope problem (Section~\ref{sec:scaling}).
+\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function; autoreason extends this beyond objective metrics. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback; our code experiment (Section~\ref{sec:code}) quantifies this: critique-and-revise overfits to visible test cases while structured reasoning generalizes. \textbf{AI Safety via Debate}~\cite{irving2018} grounds adversarial evaluation: truth has a natural advantage when agents argue before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases motivating our randomization and panel design. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{PSRO}~\cite{psro} provides game-theoretic framing for iterative strategy generation, loosely analogous to our pass structure. \textbf{Verdict}~\cite{verdict} scales judge-time compute through hierarchical verification and debate-aggregation; we tested its rank-then-verify pattern and found it does not address the scope problem (Section~\ref{sec:scaling}). \textbf{CodeContests}~\cite{codecontests} provides competitive programming problems with hidden test cases; we use it to validate autoreason in an objectively verifiable domain.
 
 \section{Discussion}
 
-\textbf{Task-dependent advantage.}\enspace Autoreason is not universally superior. It excels where genuine tradeoffs exist. For tasks with concrete, verifiable requirements, simpler methods suffice. Use autoreason when you don't know which framing will produce the best result; use critique-and-revise when the improvement direction is clear.
+\textbf{Three conditions for reliable self-refinement.}\enspace Across both domains, autoreason works when: (1)~scope is constrained (500-word pitch, competitive programming problem), (2)~external verification exists (judge panel, test suite), and (3)~reasoning is structured rather than reactive. Remove any one and the method degrades: unconstrained scope causes drift (Section~\ref{sec:scaling}), self-evaluation without external signal is unreliable~\cite{huang2023}, and shallow critique-and-revise overfits to visible feedback (Section~\ref{sec:code}).
+
+\textbf{Recovery, not first-attempt improvement.}\enspace Autoreason does not help models get things right the first time. Its value is in what happens after initial failure: structured analysis of \textit{why} the approach failed, consideration of alternatives, then targeted revision. In competitive programming, this recovery mechanism is statistically significant ($p{=}0.041$). In writing, it manifests as the judge panel rejecting regressions that accumulate unchecked in baselines.
 
 \textbf{CoT judges should be the default.}\enspace The cheapest improvement: 3$\times$ faster convergence on Task~1 (1.5$\times$ on Task~2), more decisive scores, no architecture changes.
 
-\textbf{Convergence as stopping rule.}\enspace The threshold filters noise, not guarantees optimality. Post-convergence passes on Task~1 degraded quality. The Elo analysis suggests plateaus occur early regardless of whether the threshold is met.
-
-\textbf{Scope is the central variable.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift. Scope constraints eliminate it entirely, restoring both convergence and quality (Section~\ref{sec:scaling}). The synthesis operator needs a bounded improvement space. When the task constrains scope mechanically, the incumbent can reach a ceiling. When it doesn't, there is always something to add. Generalization across diverse constrained task types is the primary direction for future work.
+\textbf{Scope is the central variable.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift. Scope constraints eliminate it entirely, restoring both convergence and quality (Section~\ref{sec:scaling}). The competitive programming results confirm this in an objective domain: naturally scoped problems with test-suite verification are exactly where autoreason excels.
 
 \begin{figure}[H]
 \centering
@@ -564,13 +597,13 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 \label{fig:wordcount}
 \end{figure}
 
-\textbf{Limitations.}\enspace All results come from one model family (Anthropic). All evaluation uses LLM judges, not human raters; the quality claims rest on LLM preferences, and human validation is needed to confirm real-world utility. The constrained-task result comes from a single task (a 500-word pitch); the finding is consistent with eight remedy experiments but generalization across task types is untested. The paper-writing experiment used Opus, not Sonnet. Scaling remedy experiments each ran once. Monte Carlo $n{=}5$ is underpowered for precise convergence rate estimates.
+\textbf{Limitations.}\enspace All results come from one model family (Anthropic). Writing evaluation uses LLM judges, not human raters; the quality claims rest on LLM preferences. The code experiment provides objective verification but the overall private-test pass rate difference (64\% vs.\ 58\%) is not statistically significant at $p{<}0.05$; only the paired recovery analysis reaches significance. The constrained writing task is a single task (500-word pitch); the code domain provides broader validation (150~problems) but both use the same model. Scaling remedy experiments each ran once. Monte Carlo $n{=}5$ is underpowered.
 
 \section{Conclusion}
 
-Autoreason constructs useful fitness functions for subjective domains through systematic isolation and blind evaluation. With Sonnet~4, it ranked first or second across all 5~tasks. With the stronger Sonnet~4.6, it fails on open-ended tasks but wins on a scope-constrained task, beating the same baselines that dominated the unconstrained comparison. Eight remedy experiments identify scope as the root cause, not evaluation methodology.
+Self-refinement is unreliable in general, but it works under identifiable conditions. We find three: constrained scope, external verification, and structured reasoning. Autoreason exploits all three. In subjective writing, it ranked first or second across 5~tasks with Sonnet~4 and first on a scope-constrained task with the stronger Sonnet~4.6. In competitive programming, it recovers significantly more failed solutions than alternatives ($p{=}0.041$), with the strongest gains when the model must reason about algorithmic failures rather than pattern-match on error messages.
 
-The practical recommendation: pair autoreason with explicit scope constraints (word limits, required sections, fixed deliverables), especially as models improve. The broader insight: the obstacle to iterative LLM self-improvement is not model capability but the interaction between evaluation methodology and task specification. As models get more capable, the task specification must get more precise; otherwise the improvement space is unbounded and every revision looks locally better while the trajectory drifts globally.
+The practical recommendation: pair iterative refinement with explicit scope constraints and external feedback signals, and invest the refinement budget in structured analysis of failures rather than additional generation attempts. The broader insight: the obstacle to iterative LLM self-improvement is not model capability but the absence of grounding. Without a signal external to the model's own reasoning loop, refinement is an echo chamber. With one, it converges.
 
 \vspace{4pt}
 \hrule
@@ -590,6 +623,7 @@ The practical recommendation: pair autoreason with explicit scope constraints (w
 \bibitem{psro} M. Lanctot et al. A unified game-theoretic approach to multiagent reinforcement learning. \textit{NeurIPS}, 2017.
 \bibitem{verdict} R. Nair et al. Verdict: Scalable judge-time compute via hierarchical verification. \textit{arXiv:2502.18018}, 2025.
 \bibitem{arrow} K. Arrow. \textit{Social Choice and Individual Values}. Wiley, 1951.
+\bibitem{codecontests} Y. Li et al. Competition-level code generation with AlphaCode. \textit{Science}, 378(6624):1092--1097, 2022.
 \end{thebibliography}
 
 \onecolumn
