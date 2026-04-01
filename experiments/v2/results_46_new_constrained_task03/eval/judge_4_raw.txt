@@ -1,0 +1,99 @@
+I'll evaluate each version systematically against the constraints and task requirements.
+
+---
+
+## Constraint Checklist
+
+**Hard constraints:**
+- Maximum 500 words
+- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement
+- Each section must have numbered items (not prose paragraphs)
+- Every prohibition must reference which base fact motivates it
+- Enforceable without new tooling
+- No aspirational language
+
+---
+
+## Version-by-Version Analysis
+
+### VERSION E
+
+**500 words?** Yes, approximately 380 words. Passes.
+**Exactly 4 sections?** Yes: Scope, Permitted Uses, Prohibited Uses, Enforcement. Passes.
+**Numbered items in each section?** Yes. Passes.
+**Every prohibition references base fact?** Yes, all 5 prohibitions have bracketed basis citations. Passes.
+**Enforceable without new tooling?** Yes—references existing PR history, commit logs, access logs, SOC2 reviews. Passes.
+**No aspirational language?** Passes. No "strive to," "best efforts," "where possible."
+
+This is essentially the initial output with minor cleanup. It meets every constraint cleanly. It's tight, direct, and complete. The weakness is that it's nearly identical to the initial output—the "improvements" are cosmetic.
+
+---
+
+### VERSION A
+
+**500 words?** Substantially over 500 words. The Prohibited Uses section alone exceeds the limit with its expanded rationale blocks and consequence descriptions. **Fails this constraint.**
+**Exactly 4 sections?** Yes. Passes.
+**Numbered items?** Yes, though Prohibited Use items contain multi-paragraph prose blocks within numbered items. Borderline—the items themselves are numbered but contain prose paragraphs internally.
+**Every prohibition references base fact?** Yes. Passes.
+**Enforceable without new tooling?** Yes. Passes.
+**No aspirational language?** Passes.
+
+Version A adds genuine substantive improvements (explicit "no exceptions" language, peer reporting obligation, immediate termination for high-severity violations, "colleague adoption does not constitute approval"). However, it **clearly violates the 500-word constraint**—it's roughly 800+ words. The appended "Note to document owner" is also odd and self-contradictory (it says no changes were made, but changes were clearly made).
+
+---
+
+### VERSION B
+
+**500 words?** Massively over 500 words—this is thousands of words with a table of contents, definitions section, 12 numbered sections, pre-publication checklist, etc. **Catastrophically fails the 500-word constraint.**
+**Exactly 4 sections?** No—has 12 sections. **Fails.**
+**Numbered items?** Yes within sections.
+**Every prohibition references base fact?** Yes.
+**Enforceable without new tooling?** Yes.
+**No aspirational language?** Passes.
+
+Version B is a comprehensive enterprise policy document. It's well-crafted for a different task. It fails multiple hard constraints (word count, section count). It cannot be ranked highly regardless of quality.
+
+---
+
+### VERSION C
+
+**500 words?** Approximately 430 words. Passes.
+**Exactly 4 sections?** Yes: Scope, Permitted Uses, Prohibited Uses, Enforcement. Passes.
+**Numbered items?** Yes. Passes.
+**Every prohibition references base fact?** Yes, all 4 prohibitions have bracketed basis citations. Passes.
+**Enforceable without new tooling?** Partially. The Enforcement section is notably more specific about severity tiers and GDPR notification obligations, which is good. However, it doesn't explicitly state that detection uses existing logs—it's implied but not stated. Borderline pass.
+**No aspirational language?** Passes.
+
+Substantive observations: Version C makes a genuine improvement by treating the customer data incident as a Severity 1 security incident with explicit GDPR breach assessment obligation—this is more enforceable and legally accurate than the initial output. It also adds a 14-day transition period for sales employees, which is operationally realistic. The Permitted Uses section is notably sparse (sales employees are essentially told to stop using tools), which may be too restrictive given the 45% adoption rate, but it's defensible. The CEO signature line is a nice touch for enforceability. However, the Permitted Uses section is weaker—it doesn't clearly articulate what sales *can* do going forward, only what they must stop doing.
+
+---
+
+### VERSION D
+
+**500 words?** Substantially over 500 words—it has 6 sections (Scope, Approved Tools, Permitted Uses, Prohibited Uses, Governance, Enforcement, Acknowledgment and Training) plus a Revision Notes section. **Fails the 500-word constraint.**
+**Exactly 4 sections?** No—has 7+ sections. **Fails.**
+**Numbered items?** Yes.
+**Every prohibition references base fact?** Yes. Passes.
+**Enforceable without new tooling?** Yes, and adds good language about non-engineering detection.
+**No aspirational language?** Passes.
+
+Version D has excellent substantive improvements (explicit prohibition on use while approval pending, retaliation protection, non-engineering detection mechanism, budget clarification for renewals). But it fails two hard constraints.
+
+---
+
+## Ranking Reasoning
+
+**Constraint compliance first:**
+- E: Passes all constraints ✓
+- C: Passes all constraints ✓
+- A: Fails word count ✗
+- D: Fails word count and section count ✗
+- B: Fails word count and section count ✗
+
+Between E and C: Both pass all constraints. C makes substantive improvements—the Severity 1 classification for data incidents, explicit GDPR breach assessment obligation, differentiated enforcement by violation type, and CEO signature line all add genuine enforceability. These are real improvements over E (which is nearly identical to the initial output). C's weakness is a thinner Permitted Uses section, but it doesn't violate any constraint.
+
+Among the failing versions: A fails only word count and is otherwise excellent—its substantive additions (peer reporting obligation, "no exceptions" language, immediate termination for high-severity violations) are the best of any version. D fails two constraints but has strong substantive content. B fails most constraints and is the wrong document type entirely.
+
+---
+
+RANKING: C, E, A, D, B

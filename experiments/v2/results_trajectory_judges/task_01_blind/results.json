@@ -1,0 +1,20 @@
+{
+  "mode": "blind",
+  "task": 1,
+  "valid_judges": 7,
+  "borda": {
+    "autoreason": 11,
+    "critique_revise": 16,
+    "harsh_critic": 15
+  },
+  "first_place": {
+    "autoreason": 1,
+    "critique_revise": 3,
+    "harsh_critic": 3
+  },
+  "word_counts": {
+    "autoreason": 1539,
+    "critique_revise": 1331,
+    "harsh_critic": 1595
+  }
+}

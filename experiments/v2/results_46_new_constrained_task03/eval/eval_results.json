@@ -1,0 +1,27 @@
+{
+  "task": "constrained",
+  "model": "anthropic/claude-sonnet-4-6",
+  "valid_judges": 7,
+  "max_borda": 35,
+  "borda": {
+    "autoreason": 31,
+    "improve_this": 26,
+    "critique_and_revise": 14,
+    "conservative": 27,
+    "harsh_critic": 7
+  },
+  "first_place": {
+    "autoreason": 4,
+    "improve_this": 2,
+    "critique_and_revise": 0,
+    "conservative": 1,
+    "harsh_critic": 0
+  },
+  "word_counts": {
+    "autoreason": 557,
+    "improve_this": 755,
+    "critique_and_revise": 1467,
+    "conservative": 491,
+    "harsh_critic": 2773
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "model": "gpt4o",
+  "model_id": "openrouter/openai/gpt-4o",
+  "valid_judges": 3,
+  "borda": {
+    "autoreason": 9,
+    "critique_revise": 5,
+    "harsh_critic": 9,
+    "improve_this": 13,
+    "conservative": 9
+  },
+  "first_place": {
+    "autoreason": 1,
+    "critique_revise": 0,
+    "harsh_critic": 1,
+    "improve_this": 1,
+    "conservative": 0
+  }
+}

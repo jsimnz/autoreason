@@ -1,0 +1,119 @@
+I'll evaluate each version systematically against the constraints and task requirements.
+
+---
+
+## Constraint Checklist
+
+**Hard constraints:**
+- Max 500 words
+- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement
+- Each section must have numbered items (not prose paragraphs)
+- Every prohibition must reference which base fact motivates it
+- Enforceable without new tooling
+- No aspirational language
+
+---
+
+## Version-by-Version Analysis
+
+### VERSION A
+**Constraint compliance:**
+- Word count: ~380 words ✓
+- Exactly 4 sections ✓
+- Numbered items ✓
+- Prohibitions reference base facts ✓
+- Enforceable without new tooling ✓
+- No aspirational language ✓
+
+**Coverage:** Solid. Covers all three incidents, DPA issue, Slack, unapproved tools. Permitted uses are clear. Enforcement is practical.
+
+**Verdict:** This is identical to the Initial Output. No changes were made. It's competent and constraint-compliant but represents zero improvement.
+
+---
+
+### VERSION B
+**Constraint compliance:**
+- Word count: Far exceeds 500 words (~900+) ✗
+- Exactly 4 sections ✓
+- Numbered items in most sections ✓, but Prohibited Uses items contain multi-paragraph prose blocks that blur the line ✗
+- Prohibitions reference base facts ✓
+- Enforceable without new tooling ✓
+- No aspirational language ✓
+
+**Coverage:** Good substantive additions (e.g., "colleague adoption does not constitute approval," immediate termination for high-severity violations, peer reporting obligation). But the word count violation is disqualifying for the stated task. Also includes a version table and a "Note to document owner" that are extraneous.
+
+**Verdict:** Substantively improved but fails the 500-word constraint badly.
+
+---
+
+### VERSION C
+**Constraint compliance:**
+- Word count: Far exceeds 500 words (~1,200+) ✗
+- **Does NOT have exactly 4 sections** — adds "Approved Tools," "Governance," and "Acknowledgment and Training" sections ✗✗
+- Numbered items ✓
+- Prohibitions reference base facts ✓
+- Enforceable without new tooling ✓
+- No aspirational language ✓
+
+**Coverage:** Genuinely substantive improvements (pending-use gap, retaliation protection, non-engineering detection, budget renewal clarification). But it violates two hard constraints simultaneously: word count and section count. The revision notes section is useful meta-commentary but not part of the policy.
+
+**Verdict:** Best substantive thinking, worst constraint compliance. Fails on section count (critical) and word count.
+
+---
+
+### VERSION D
+**Constraint compliance:**
+- Word count: Massively exceeds 500 words (~3,000+) ✗✗✗
+- **Does NOT have exactly 4 sections** — has 12 numbered sections ✗✗✗
+- Items within sections are numbered ✓
+- Prohibitions reference base facts ✓
+- Enforceable without new tooling ✓
+- No aspirational language ✓
+
+**Coverage:** Extremely thorough — definitions, pre-publication checklist, demo/prototype rule, exception process, governing law. But this is a legal contract/handbook, not a 500-word policy memo. It fails every structural constraint.
+
+**Verdict:** Most thorough document, but completely ignores the task constraints. Not the requested deliverable.
+
+---
+
+### VERSION E
+**Constraint compliance:**
+- Word count: ~350 words ✓
+- Exactly 4 sections ✓
+- Numbered items ✓
+- Prohibitions reference base facts ✓
+- Enforceable without new tooling ✓
+- No aspirational language ✓
+
+**Coverage and quality:**
+- Scope is tighter and more actionable than the original — explicitly names approved tools in Scope, addresses the 73% informal usage problem with a 14-day transition window.
+- Permitted Uses is restructured to address each employee group directly, which is more enforceable.
+- Adds a fourth prohibition (Prohibited Use 4) for the copyright non-assignability issue — the original buried this in Prohibited Use 3; Version E correctly separates it as a distinct rule with its own basis citation.
+- Enforcement is the most differentiated: severity tiering (Severity 1 for customer data), GDPR breach notification obligation explicitly called out, role-specific response chains, and termination as an explicitly named outcome for Prohibited Use 1.
+- CEO signature line makes it formally executable.
+
+**Weaknesses:** The Permitted Uses section is somewhat restrictive/negative in framing (telling sales to cease use rather than describing what's permitted). Enforcement items 8-9 are slightly vague ("all other violations"). But these are minor.
+
+**Verdict:** Stays within all constraints while making genuine, targeted improvements. The severity tiering in Enforcement and the separation of the copyright non-copyrightability issue into its own prohibition are real substantive gains.
+
+---
+
+## Comparative Ranking
+
+**A vs. E:** A is the unchanged original. E improves it while staying within constraints. E wins.
+
+**B vs. C vs. D:** All fail constraints. D fails most severely (12 sections, ~3,000 words). C fails on section count (hard constraint) and word count. B fails only on word count but is closer. Among the failures, B > C > D on constraint proximity.
+
+**E vs. A:** E is strictly better — same constraint compliance, genuine improvements.
+
+---
+
+## Final Ranking
+
+**RANKING: E, A, B, C, D**
+
+- **E**: Only version that both complies with all constraints AND improves on the original
+- **A**: Constraint-compliant but identical to the initial output — no improvement
+- **B**: Real improvements but ~2x the word limit
+- **C**: Best analytical thinking but violates section count (hard constraint) and word count
+- **D**: Comprehensive legal document that ignores every structural constraint

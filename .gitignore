@@ -11,3 +11,4 @@ paper/*.out
 # Raster previews (paper uses vector PDFs)
 paper/autoreason_preview*.png
 paper/fig_*.png
+*.log

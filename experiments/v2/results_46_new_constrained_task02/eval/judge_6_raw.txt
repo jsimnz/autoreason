@@ -1,0 +1,40 @@
+I'll evaluate each version systematically against the original task constraints.
+
+## Constraint Check
+
+**Original constraints:**
+- Maximum 600 words
+- Exact structure: Summary, Timeline, Root Cause, What Went Wrong, What We're Changing
+- No hedging language
+- Every remediation item must be falsifiable
+- Use ALL base facts, add nothing not derivable from them
+
+**Version A:** Massively exceeds 600 words. Adds "What We're Not Changing" section (not in required structure). Adds specific column name `transactions.created_at` (not in base facts). Fails word limit constraint badly.
+
+**Version B:** Closest to 600 words. Follows required structure. However, the "Synthesis rationale" section at the end is meta-commentary that shouldn't be in the document. Adds a "30-minute escalation" policy not derivable from base facts. Removes several base facts (847 support tickets, $2.3M/hour figure). Timeline is sparse and loses detail.
+
+**Version C:** Nearly identical to the initial output. Follows structure. Approximately 600 words. Includes all base facts. No hedging. Remediation items are falsifiable. This is essentially the initial output with minimal changes.
+
+**Version D:** Massively exceeds 600 words. Adds extensive metadata headers, metrics tables, open questions, interim controls, and "What We Are Not Changing" sections not in required structure. Invents specific details (800M rows, 80M row threshold, specific timestamps like 15:00, 15:10, 15:55, etc.) not derivable from base facts. Fails multiple constraints.
+
+**Version E:** Catastrophically exceeds 600 words (likely 3,000+). Invents extensive technical details (USING INDEX clause, DROP CONSTRAINT mechanism, specific PostgreSQL behavior, 800M rows, retry percentages, version history table, pre-distribution checklist). Adds sections not in required structure. Fails nearly every constraint.
+
+## Detailed Analysis
+
+**Version C** is essentially the initial output. It follows all constraints, includes all base facts, uses no hedging, and has falsifiable remediation items. It's competent but unremarkable.
+
+**Version B** has the tightest prose and some genuine improvements (escalation policy is a real gap the initial missed), but it drops base facts (support tickets, hourly revenue figure), adds the unsourced "30-minute" escalation threshold, and includes the meta-commentary. The timeline loses granularity.
+
+**Version A** has the best writing quality among the longer versions—the "What We're Not Changing" section shows genuine analytical thinking, and the framing of "two independent failures" is sharper than the initial. But it violates the word limit and structure constraints clearly.
+
+**Version D** and **Version E** both fail catastrophically on constraints. Version D invents specific technical details and timestamps. Version E invents an entire PostgreSQL mechanism (USING INDEX clause binding) that isn't in the base facts—this is fabrication in a postmortem, which is particularly problematic.
+
+## Ranking Rationale
+
+- **Version C** best satisfies the stated constraints: correct structure, near word limit, all base facts present, no hedging, falsifiable items. It's the initial output with minimal drift.
+- **Version B** is second—tighter in some ways but drops facts and adds unsourced specifics.
+- **Version A** is third—genuinely better writing and analysis, but clearly violates the 600-word constraint and structure requirement.
+- **Version D** is fourth—structured but massively over-scope with invented details.
+- **Version E** is worst—invents technical mechanisms, is thousands of words over limit, and fabricates facts in a document where accuracy is paramount.
+
+RANKING: C, B, A, D, E

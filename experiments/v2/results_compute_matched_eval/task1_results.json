@@ -1,0 +1,20 @@
+{
+  "task": 1,
+  "model": "anthropic/claude-sonnet-4-20250514",
+  "valid_judges": 7,
+  "borda": {
+    "autoreason": 15,
+    "cr_15": 16,
+    "cr_90": 11
+  },
+  "first_place": {
+    "autoreason": 2,
+    "cr_15": 4,
+    "cr_90": 1
+  },
+  "word_counts": {
+    "autoreason": 1539,
+    "cr_15": 2225,
+    "cr_90": 2433
+  }
+}

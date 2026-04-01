@@ -1,0 +1,57 @@
+I'll evaluate each version systematically against the original task constraints.
+
+## Constraint Check
+
+**Maximum 600 words:**
+- Initial output: ~600 words (borderline)
+- Version A: ~500 words ✓
+- Version B: Far exceeds 600 words ✗ (thousands of words)
+- Version C: ~650 words - slightly over, borderline
+- Version D: ~550 words ✓
+- Version E: Far exceeds 600 words ✗ (thousands of words)
+
+**Exact structure (Summary, Timeline, Root Cause, What Went Wrong, What We're Changing):**
+- Version A: Missing "What Went Wrong" as distinct section - folds it into Root Cause ✗
+- Version B: Adds Metrics, Open Questions, Interim Controls, "What We Are Not Changing" - deviates from required structure ✗
+- Version C: Adds "What We're Not Changing" section - extra section beyond required ✗ (minor)
+- Version D: Follows exact structure ✓
+- Version E: Adds Scope of Impact, version table, pre-distribution checklist - major structural deviation ✗
+
+**No hedging language:**
+- Version A: Clean ✓
+- Version B: "reasonable starting point" is borderline editorial; "estimated" appears repeatedly
+- Version C: Clean ✓
+- Version D: Clean ✓
+- Version E: "working estimate," "approximately," "pending confirmation" - hedging throughout ✗
+
+**Every remediation item falsifiable:**
+- Version A: Only 3 items; item 3 uses "validated by running the defective migration" - strong; item 1 is falsifiable; item 2 is falsifiable ✓ but fewer items
+- Version B: Items are falsifiable but structure violations overshadow this
+- Version C: 5 items, all falsifiable ✓
+- Version D: 5 items, all falsifiable ✓
+- Version E: Items are falsifiable but buried in non-compliant structure
+
+**Base facts only (no additions):**
+- Version A: Clean ✓
+- Version B: Adds specific timeline entries (15:00, 15:10, 15:55, 16:30, 17:10, 17:45) not in base facts; adds "$1.0M" figure not derivable ✗
+- Version C: "5-minute fix" is an inference not directly in base facts - minor
+- Version D: Clean ✓
+- Version E: Adds extensive fabricated details (USING INDEX clause, constraint names, specific engineer actions, 800M rows, 78%/22% split, version history) ✗
+
+## Quality Assessment
+
+**Version D** is the cleanest compliance with all constraints. It follows the exact required structure, stays within word count, avoids hedging, keeps all claims to base facts, and has 5 falsifiable remediation items with owners and deadlines. It is essentially the initial output with minor refinements - not dramatically improved, but solidly compliant.
+
+**Version C** is the strongest *quality* document among near-compliant versions. The framing ("two independent failures," "5-minute fix took 4 hours") is analytically sharp, the "What We're Not Changing" section adds genuine value, and all items are falsifiable. It slightly exceeds 600 words and adds one extra section, but these are minor deviations. The writing is the most purposeful.
+
+**Version A** reduces to 3 remediation items (losing the runbook update and tabletop exercise as standalone items), which weakens coverage, but is otherwise clean.
+
+**Version B** is a genuinely excellent incident postmortem document - but it's not the document that was asked for. It violates word count, structure, and adds fabricated timeline entries.
+
+**Version E** is the most egregious violator: fabricates technical details (constraint names, PostgreSQL internals, specific engineer names as placeholders, 800M row counts), adds extensive unsupported sections, and uses hedging throughout.
+
+## Ranking
+
+**Version D** best satisfies the original task as specified. **Version C** is second - superior writing with minor constraint violations. **Version A** is third - compliant but thinner. **Version B** is fourth - excellent document, wrong assignment. **Version E** is worst - fabricates facts and violates nearly every constraint.
+
+RANKING: D, C, A, B, E

@@ -1,0 +1,40 @@
+{
+  "claude_sonnet4": {
+    "model": "claude_sonnet4",
+    "model_id": "anthropic/claude-sonnet-4-20250514",
+    "valid_judges": 7,
+    "borda": {
+      "autoreason": 22,
+      "critique_revise": 24,
+      "harsh_critic": 28,
+      "improve_this": 18,
+      "conservative": 13
+    },
+    "first_place": {
+      "autoreason": 1,
+      "critique_revise": 2,
+      "harsh_critic": 2,
+      "improve_this": 1,
+      "conservative": 1
+    }
+  },
+  "gpt4o": {
+    "model": "gpt4o",
+    "model_id": "openrouter/openai/gpt-4o",
+    "valid_judges": 2,
+    "borda": {
+      "autoreason": 9,
+      "critique_revise": 6,
+      "harsh_critic": 7,
+      "improve_this": 5,
+      "conservative": 3
+    },
+    "first_place": {
+      "autoreason": 1,
+      "critique_revise": 0,
+      "harsh_critic": 1,
+      "improve_this": 0,
+      "conservative": 0
+    }
+  }
+}

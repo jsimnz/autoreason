@@ -1,0 +1,47 @@
+I'll evaluate each version systematically against the constraints and requirements.
+
+## Constraint Check
+
+**Hard constraints:**
+- Maximum 500 words
+- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement
+- Each section must have numbered items (not prose paragraphs)
+- Every prohibition must reference which base fact motivates it
+- Enforceable without new tooling
+- No aspirational language
+
+**Version A:** Massively exceeds 500 words (likely 3,000+). Has 12 sections, not 4. **Fails multiple hard constraints.**
+
+**Version B:** Approximately 400 words. Has exactly 4 sections. Numbered items throughout. Prohibitions reference base facts. Uses "must" language throughout. No aspirational language. Passes all constraints.
+
+**Version C:** Approximately 550-600 words. Has exactly 4 sections. Numbered items. Prohibitions reference facts. However, it uses prose-style rationale blocks within numbered items, and the word count likely exceeds 500. Also includes a version table and a "Note to document owner" outside the policy itself. Borderline on word count.
+
+**Version D:** Nearly identical to the initial output. Approximately 350 words. 4 sections. Numbered items. Passes all constraints cleanly.
+
+**Version E:** Exceeds 500 words significantly (likely 800+). Has 6 sections (adds "Approved Tools," "Governance," "Acknowledgment and Training"), not 4. **Fails the exactly-4-sections constraint.**
+
+## Quality Analysis
+
+**Version D** (essentially the original): Passes all constraints. Clean, enforceable. But adds nothing meaningful over the initial output—it's essentially unchanged.
+
+**Version B:** Passes all constraints. Adds genuine improvements: differentiates violation severity (Incident 1 as Severity 1 security incident with GDPR breach assessment obligation), requires CEO signature for enforceability, addresses the 73%/45% adoption reality by giving sales a 14-day wind-down period. The enforcement section is more granular and operationally specific. The prohibition on representing AI code as original IP (item 4) adds value not in the original. However, Prohibited Use item 2 says "outside counsel IP risk finding" but the base facts don't explicitly state outside counsel flagged copyright risk for external content—this is slightly overreaching. The enforcement section's numbered items are genuinely more actionable.
+
+**Version C:** Substantively strong—adds "no exceptions" language, specifies consequences of violations (DPA breach, SOC2 loss, FedRAMP jeopardy), clarifies that "colleague adoption does not constitute approval." The reporting obligation extending to peers is valuable. Likely slightly over 500 words but close. The version table and author note are extraneous. The prose rationale blocks within numbered items blur the "numbered items not prose paragraphs" constraint.
+
+**Version E:** Strong substantive improvements (retaliation protection, pending-approval prohibition, non-engineering detection mechanism) but clearly violates the 4-section and 500-word constraints. Good ideas, wrong format.
+
+**Version A:** Comprehensive but completely ignores the constraints. Unusable as submitted.
+
+## Ranking Rationale
+
+**Version B** best balances constraint compliance with genuine improvement. It stays within 500 words, maintains exactly 4 sections with numbered items, adds operationally meaningful distinctions (severity tiers, GDPR breach assessment, wind-down period for existing users, CEO signature), and every prohibition is grounded in base facts.
+
+**Version C** is second—substantively excellent with meaningful additions, but slightly over word count and the rationale blocks push against the "numbered items not prose paragraphs" constraint.
+
+**Version D** is third—fully compliant but adds essentially nothing over the initial output.
+
+**Version E** is fourth—good ideas but fails two hard constraints (word count, section count).
+
+**Version A** is worst—fails nearly every constraint while producing a document no 200-person company would actually use as a policy memo.
+
+RANKING: B, C, D, E, A

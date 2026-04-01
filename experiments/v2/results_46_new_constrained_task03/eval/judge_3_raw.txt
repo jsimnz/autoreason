@@ -1,0 +1,101 @@
+I'll evaluate each version systematically against the constraints and task requirements.
+
+## Constraint Checklist
+
+**Hard constraints:**
+- Maximum 500 words
+- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement
+- Each section must have numbered items (not prose paragraphs)
+- Every prohibition must reference which base fact motivates it
+- Enforceable without new tooling
+- No aspirational language
+
+---
+
+## Version-by-Version Analysis
+
+### VERSION E
+**Constraint compliance:**
+- Word count: ~350 words. ✓
+- Exactly 4 sections. ✓
+- Numbered items throughout. ✓
+- Every prohibition has basis citations. ✓
+- Enforceable without new tooling. ✓
+- No aspirational language. ✓
+
+**Coverage:** This is essentially the initial output with minimal changes. It's clean and compliant but adds nothing substantive. Prohibited Use 3 retains the conditional trigger ("if the code includes any license header...") which means AI-generated code *without* a visible license header escapes review—a real gap given Incident 3 involved training data artifacts that may not always surface headers.
+
+**Verdict:** Fully compliant, but nearly identical to the initial output. No meaningful improvement.
+
+---
+
+### VERSION A
+**Constraint compliance:**
+- Word count: Substantially over 500 words. ✗ (The "Note to document owner" section and expanded prohibition explanations push it well past 500.)
+- Exactly 4 sections. ✓
+- Numbered items. ✓ (though Prohibited Uses have multi-paragraph items with prose blocks)
+- Every prohibition has basis citations. ✓
+- No aspirational language. ✓
+
+**Coverage:** Strong substantive improvements—adds "no exceptions" language, clarifies that colleague adoption ≠ approval, escalates termination for data exfiltration. But the word count violation is disqualifying. The "Note to document owner" section is also self-congratulatory noise that violates the spirit of the task.
+
+**Verdict:** Good substance, fails the 500-word constraint clearly.
+
+---
+
+### VERSION B
+**Constraint compliance:**
+- Word count: ~400 words. ✓
+- Exactly 4 sections. ✓
+- Numbered items. ✓
+- Every prohibition has basis citations. ✓
+- No aspirational language. ✓
+- Enforceable without new tooling. ✓
+
+**Coverage:** Introduces a 14-day transition period for sales—a practical addition. Adds a separate prohibition on representing AI code as original IP (Prohibited Use 4), which is well-grounded in the outside counsel finding. Enforcement section is notably stronger: severity tiers, GDPR breach assessment obligation, retraction consideration for IP violations. CEO signature line adds enforceability signal.
+
+**Gaps:** Permitted Uses section is oddly restrictive—it implies sales has *no* approved tool at issuance and must cease use within 14 days, which may be operationally disruptive given 45% adoption. The policy doesn't address the $50K budget or tool approval process at all, which was a base fact. Scope section is tighter but loses the "personal devices" coverage clarity.
+
+**Verdict:** Strong enforcement section, good IP addition, but omits budget/approval process and has a questionable operational approach to sales transition.
+
+---
+
+### VERSION C
+**Constraint compliance:**
+- Word count: Massively over 500 words (thousands of words). ✗✗✗
+- Does NOT have exactly 4 sections—has 12+ sections. ✗✗✗
+- Sections don't follow the required structure. ✗
+
+**Coverage:** Extremely thorough as a legal document, but this is not what was asked for. It's a full policy framework, not a memo. It violates nearly every structural constraint.
+
+**Verdict:** Wrong document type entirely. Fails multiple hard constraints catastrophically.
+
+---
+
+### VERSION D
+**Constraint compliance:**
+- Word count: Well over 500 words. ✗ (Has 6+ sections, extensive governance and acknowledgment sections)
+- Does NOT have exactly 4 sections—adds "Approved Tools," "Governance," "Acknowledgment and Training," and "Revision Notes." ✗✗
+- The 4 required sections are present but buried among extras. ✗
+
+**Coverage:** Substantively excellent—fixes real gaps (license review applies regardless of visible header, retaliation protection, non-engineering detection, budget renewal clarification, pending-review prohibition). The revision notes are thoughtful. But it fundamentally violates the structural constraints.
+
+**Verdict:** Best substantive thinking, but fails the structural constraints clearly.
+
+---
+
+## Ranking Reasoning
+
+**Best: VERSION B** — Fits within 500 words, maintains exactly 4 sections with numbered items, adds genuine improvements (severity-tiered enforcement, GDPR breach obligation, IP ownership prohibition, CEO signature), cites all bases. The omission of the budget/approval process is a gap but a minor one given the constraint pressure.
+
+**Second: VERSION E** — Fully compliant with all constraints. Nearly identical to the initial output, which was already well-constructed. No regressions, no violations, just modest conservatism.
+
+**Third: VERSION A** — Substantively the strongest of the near-compliant versions, with meaningful improvements to prohibition language and enforcement. Fails the word count constraint but not by an absurd margin, and the 4-section structure is maintained.
+
+**Fourth: VERSION D** — Best substantive analysis and gap-filling, but adds multiple unauthorized sections and far exceeds 500 words. The revision notes section alone disqualifies it structurally.
+
+**Worst: VERSION C** — Completely ignores the structural constraints. Wrong document format, wrong length, wrong section count. Impressive as a legal policy framework but not the assigned task.
+
+---
+
+RANKING: B, E, A, D, C

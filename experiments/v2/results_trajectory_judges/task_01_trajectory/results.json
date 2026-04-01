@@ -1,0 +1,20 @@
+{
+  "mode": "trajectory",
+  "task": 1,
+  "valid_judges": 7,
+  "borda": {
+    "autoreason": 14,
+    "critique_revise": 17,
+    "harsh_critic": 11
+  },
+  "first_place": {
+    "autoreason": 2,
+    "critique_revise": 4,
+    "harsh_critic": 1
+  },
+  "word_counts": {
+    "autoreason": 1539,
+    "critique_revise": 1331,
+    "harsh_critic": 1595
+  }
+}
