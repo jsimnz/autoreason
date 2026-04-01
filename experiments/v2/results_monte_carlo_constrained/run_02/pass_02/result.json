@@ -1,0 +1,52 @@
+{
+  "pass": 2,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 9,
+    "AB": 6
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words of policy text):**\n- Proposal 1: ~370 words of policy text ✓\n- Proposal 2: ~340 words of policy text ✓ (plus preamble explanation outside the memo)\n- Proposal 3: ~390 words of policy text ✓\n\n**Exactly 4 sections (Scope, Permitted Uses, Prohibited Uses, Enforcement):** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:**\n- Proposal 1: All 6 prohibitions cite facts ✓\n- Proposal 2: All 6 prohibitions cite facts ✓\n- Proposal 3: Prohibited Use #4 cites the *survey* (73%/45% usage) as motivation for banning unapproved tools — but the actual motivating facts are the three incidents and the DPA violation risk. The survey describes current behavior, not the risk. This is a **wrong motivation cited** ✗. Prohibited Use #5 cites FedRAMP as motivation for disabling Slack AI — but the base fact is simply that Slack AI is already disabled; the FedRAMP connection is not derivable. ✗\n\n**No aspirational language:**\n- Proposal 1: Clean ✓\n- Proposal 2: Clean ✓\n- Proposal 3: \"Confirm with Legal\" in Permitted Use #5 is aspirational/procedural-without-teeth ✗\n\n**Enforceable without new tooling:**\n- Proposal 1: ✓ (uses existing PR review, deal review, GitHub admin)\n- Proposal 2: ✓\n- Proposal 3: Enforcement item #5 (\"retroactively classified... documented in employee records\") invents a retroactive process not grounded in base facts ✗\n\n**No invented content beyond base facts:**\n- Proposal 1: Scope item #3 restates approved tools (derivable) ✓; FedRAMP prohibition is derivable ✓\n- Proposal 2: Clean ✓\n- Proposal 3: \"unused seats reallocated quarterly\" — no cadence in base facts ✗; \"Finance pre-approval\" process — invented ✗; retroactive classification — invented ✗; written warning/second offense structure — invented ✗\n\n---\n\n**QUALITY ASSESSMENT**\n\n- **Proposal 2** is the cleanest: correct motivating facts, no invented content, no aspirational language, properly structured. The prefatory explanation is outside the memo itself.\n- **Proposal 1** is nearly as strong. It includes the FedRAMP prohibition (correctly derived) and the Slack prohibition. Minor redundancy in Scope item #3 but it's derivable. Solid overall.\n- **Proposal 3** has multiple violations: wrong motivating fact for Prohibited Use #4, non-derivable FedRAMP-Slack inference, invented reallocation cadence, invented Finance process, invented disciplinary scale, invented retroactive classification, and aspirational language.\n\n---\n\n**RANKING: [2], [1], [3]**"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words of policy text):**\n- Proposal 1: ~380 words of policy body — PASS\n- Proposal 2: ~340 words of policy body — PASS\n- Proposal 3: ~420 words of policy body — PASS\n\n**Exactly 4 sections (Scope, Permitted Uses, Prohibited Uses, Enforcement):** All three PASS.\n\n**Numbered items (not prose paragraphs):** All three PASS.\n\n**Every prohibition references motivating base fact:** \n- Proposal 1: All 6 prohibitions cite facts — PASS\n- Proposal 2: All 6 prohibitions cite facts — PASS\n- Proposal 3: Prohibition #4 cites the informal survey (73%/45% usage) as motivation for banning unapproved tools — this is WRONG. The survey describes current behavior, not the risk. The correct motivating facts are the three incidents and the DPA violation risk flagged by counsel. FAIL. Prohibition #5 cites FedRAMP as a motivating fact for disabling Slack AI — but the base fact is simply that Slack AI is already disabled; FedRAMP is not stated as the reason. FAIL.\n\n**Enforceable without new tooling:**\n- Proposal 1: Uses PR reviews, GitHub admin, deal review meetings — PASS\n- Proposal 2: Same — PASS\n- Proposal 3: Enforcement item #5 retroactively classifies prior incidents in employee records — no existing process supports this; it's invented. FAIL.\n\n**No aspirational language:**\n- Proposal 1: Clean — PASS\n- Proposal 2: Clean — PASS\n- Proposal 3: Permitted Use #5 says \"Confirm with Legal\" — this is aspirational/advisory rather than a clear rule. FAIL.\n\n**No invented content beyond base facts:**\n- Proposal 1: Scope item #3 (\"only approved tool\") is derivable. PASS\n- Proposal 2: Clean — PASS\n- Proposal 3: Permitted Use #1 invents \"unused seats reallocated quarterly\" — no cadence in base facts. FAIL. Permitted Use #4 invents a Finance pre-approval process — not in base facts. FAIL. Enforcement #5 invents retroactive classification. FAIL.\n\n---\n\n**QUALITY ASSESSMENT**\n\n**Proposal 2** is the cleanest: correct motivating facts, no invented content, no aspirational language, properly structured prohibitions including the FedRAMP/Copilot issue as a prohibition (correct placement) rather than a permitted use advisory. The preamble explaining changes is not part of the policy itself.\n\n**Proposal 1** is nearly identical to Proposal 2's policy body but retains Scope item #3 (minor redundancy with Prohibited Use #4) and lacks the explanatory rigor of Proposal 2's corrections. It is otherwise sound — motivating facts are correct, no invented content, enforceable.\n\n**Proposal 3** has multiple failures: wrong motivating fact for Prohibition #4, non-derivable inference in Prohibition #5, invented content in Permitted Uses #1 and #4, aspirational language in Permitted Use #5, and an unenforceable/invented Enforcement item #5.\n\n---\n\n**RANKING: [2], [1], [3]**"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words of policy content):**\n- Proposal 1: ~380 words in policy body ✓\n- Proposal 2: ~340 words in policy body ✓\n- Proposal 3: ~420 words in policy body ✓\n\n**Exactly 4 sections (Scope, Permitted Uses, Prohibited Uses, Enforcement):** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:**\n- Proposal 1: All 6 prohibitions cite facts ✓\n- Proposal 2: All 6 prohibitions cite facts ✓\n- Proposal 3: Prohibition #4 cites the *survey* (73%/45%) as motivation for banning unapproved tools — but the actual motivating facts are the three incidents and DPA violation risk. The survey shows *adoption*, not *risk*. This is a wrong motivation citation ✗. Prohibition #5 cites FedRAMP as motivation for disabling Slack AI, but the base fact is simply that Slack AI is already disabled — the FedRAMP connection is non-derivable ✗.\n\n**No aspirational language:**\n- Proposal 1: Clean ✓\n- Proposal 2: Clean ✓\n- Proposal 3: \"Confirm with Legal\" in Permitted Use #5 is aspirational/procedural without teeth ✗\n\n**Enforceable without new tooling:**\n- Proposal 1: ✓\n- Proposal 2: ✓\n- Proposal 3: Enforcement #5 retroactively classifies prior incidents — this is invented content with no basis in base facts ✗\n\n**Add nothing not derivable from base facts:**\n- Proposal 1: Scope #3 states Copilot is \"the only approved tool\" — derivable ✓; FedRAMP prohibition is correctly derived ✓\n- Proposal 2: Clean ✓\n- Proposal 3: Permitted Use #1 invents a \"quarterly reallocation\" cadence ✗; Permitted Use #4 invents a Finance pre-approval process ✗; Enforcement #5 retroactively classifies prior incidents ✗; Permitted Use #5 invents a \"confirm with Legal\" process ✗\n\n---\n\n**QUALITY ASSESSMENT**\n\n**Proposal 2** is the strongest. It correctly identifies and fixes the problems present in Proposals 1 and 3, cites accurate motivating facts for every prohibition, contains no invented content, uses no aspirational language, and is structurally clean. The FedRAMP prohibition is correctly placed as a prohibition rather than a permitted-use advisory.\n\n**Proposal 1** is second. It is largely clean and well-structured. The FedRAMP prohibition is correctly placed, motivating facts are accurate, and no aspirational language appears. Its minor weakness is that Scope #3 slightly duplicates what Prohibited Use #4 establishes, but this is a minor structural redundancy rather than a factual error.\n\n**Proposal 3** is the worst. It invents content (quarterly reallocation, Finance pre-approval process, retroactive incident classification), uses aspirational language (\"Confirm with Legal\"), cites the wrong motivating fact for Prohibition #4 (survey adoption rate rather than incidents/DPA risk), and draws a non-derivable inference connecting Slack AI disablement to FedRAMP.\n\n---\n\nRANKING: [2], [1], [3]"
+    }
+  ],
+  "elapsed": 61.8
+}

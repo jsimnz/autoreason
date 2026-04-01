@@ -1,0 +1,52 @@
+{
+  "pass": 9,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 8,
+    "AB": 7
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words (body text)\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Numbered items (not prose)\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n**Structure:** 4 sections ✓, numbered items ✓\n**Prohibitions cite base facts:** All 4 do ✓\n**No aspirational language:** Clean ✓\n**Enforceability:** Uses existing PR review, SOC2 incident response, Slack admin controls ✓\n**Word count:** Runs long — likely over 500 words\n**Issues:**\n- Enforcement item 4 (Slack AI disabled) has no corresponding prohibition — orphaned item\n- Permitted Use #2 requires Legal copyright assessment on every PR — creates a bottleneck not supported by base facts and arguably requires new process\n- Permitted Use #3 says \"no tool is approved without CTO written authorization\" which slightly contradicts the $50K budget allocation fact (budget implies tools *will* be approved)\n\n---\n\n## Proposal 2 Analysis\n\n**Structure:** 4 sections ✓, numbered items ✓\n**Prohibitions cite base facts:** All 4 do ✓\n**No aspirational language:** Clean ✓\n**Enforceability:** Uses existing workflows ✓\n**Word count:** Tighter than P1, likely within 500\n**Issues:**\n- Enforcement item 4 (Slack AI) still present with no corresponding prohibition — same orphaned-item problem as P1\n- Permitted Use #2 claims the committing engineer is \"author of record\" — outside counsel explicitly flagged AI-generated code may not be copyrightable, making this claim legally contradictory\n- Prohibited Use #4 drops the FedRAMP citation that P3 correctly includes — loses a base fact motivation\n- Permitted Use #3 \"reserved for such approvals\" / \"until the CTO issues\" is slightly conditional\n\n---\n\n## Proposal 3 Analysis\n\n**Structure:** 4 sections ✓, numbered items ✓\n**Prohibitions cite base facts:** All 4 do, including FedRAMP in #4 ✓\n**No aspirational language:** Clean ✓\n**Enforceability:** Uses existing workflows ✓\n**Word count:** Shortest of the three — within 500 ✓\n**Issues:**\n- Enforcement item 4 (Slack AI) is **deleted** — fixes the orphaned-item problem\n- Permitted Use #2 requires Legal copyright assessment per PR — still a process concern, but less severe than P2's legally contradictory \"author of record\" claim\n- Permitted Use #3 slightly redundant (\"allocated for AI tooling; no tool approved without CTO authorization\") but not contradictory\n- FedRAMP citation correctly included in Prohibited Use #4\n\n---\n\n## Ranking Rationale\n\n**P3 is best:** Fixes the orphaned Slack enforcement item, includes FedRAMP citation, avoids the legally contradictory \"author of record\" claim, and is most likely within word count. Its remaining issues (Legal review per PR) are minor compared to P2's legal contradiction.\n\n**P1 is second:** Has the orphaned Slack enforcement item and the \"author of record\" equivalent issue in Permitted Use #2, but its Prohibited Use #4 includes the FedRAMP citation (matching P3) and it avoids P2's \"author of record\" contradiction explicitly.\n\n**P2 is worst:** Introduces the legally contradictory \"author of record\" claim, drops the FedRAMP citation, and retains the orphaned Slack enforcement item.\n\nRANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint-by-Constraint Analysis\n\n### Word Count (≤500 words, policy body only)\n\nAll three proposals have nearly identical policy bodies. Counting the policy text (excluding headers/metadata), all three come in around 380–400 words. All pass.\n\n### Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n\nAll three: ✓\n\n### Numbered items (not prose paragraphs)\n\nAll three: ✓\n\n### Every prohibition must reference which base fact motivates it\n\n- **Proposal 1**: Prohibited Use #4 cites FedRAMP. ✓ All four prohibitions have citations. ✓\n- **Proposal 2**: Prohibited Use #4 does NOT cite FedRAMP. Cites only \"Incidents 1 and 2; outside counsel DPA finding.\" This is weaker but still references base facts. ✓ (barely)\n- **Proposal 3**: Prohibited Use #4 cites FedRAMP. ✓ All four prohibitions have citations. ✓\n\n### Enforceable without new tooling\n\nAll three rely on existing PR review, SOC2 incident response, GitHub admin controls, Slack admin controls. ✓\n\n### No aspirational language\n\n- **Proposal 1**: Clean. ✓\n- **Proposal 2**: Permitted Use #3 contains \"reserved for such approvals; no additional tools are approved **until** the CTO issues written authorization\" — the \"until\" framing is conditional/aspirational. ✗\n- **Proposal 3**: Clean. ✓\n\n### Prohibited Uses must reference base facts (derivability)\n\n- **Proposal 2**: Permitted Use #2 states the Engineering Lead confirms \"the committing engineer is the author of record\" — outside counsel explicitly flagged that AI-generated code **may not be copyrightable**, so asserting authorship of record contradicts the base facts. This is a factual error. ✗\n- **Proposals 1 & 3**: Permitted Use #2 instead requires legal review of copyright status, which is consistent with outside counsel's finding. ✓\n\n### Enforcement item about Slack\n\n- **Proposal 1**: No Slack enforcement item. The Slack AI features being disabled is a base fact, and having an enforcement item maintaining that state is reasonable. Absence isn't a violation, but it's a minor gap.\n- **Proposals 2 & 3**: Include Enforcement item #4 maintaining Slack AI in disabled state. This is a legitimate, enforceable item using existing controls. ✓\n\n### Preamble/change-log in deliverable\n\n- **Proposals 1 & 2**: Include lengthy change-log preambles before the memo. These are not part of the memo itself but clutter the deliverable.\n- **Proposal 3**: Presents only the clean memo. ✓\n\n---\n\n## Summary Scorecard\n\n| Criterion | P1 | P2 | P3 |\n|---|---|---|---|\n| Word count ≤500 | ✓ | ✓ | ✓ |\n| 4 sections | ✓ | ✓ | ✓ |\n| Numbered items | ✓ | ✓ | ✓ |\n| All prohibitions cite base facts | ✓ | weak | ✓ |\n| No aspirational language | ✓ | ✗ | ✓ |\n| No false factual claims | ✓ | ✗ (author of record) | ✓ |\n| Slack enforcement item | ✗ | ✓ | ✓ |\n| Clean deliverable (no preamble) | ✗ | ✗ | ✓ |\n| FedRAMP cited in prohibition | ✓ | ✗ | ✓ |\n\n**Proposal 3** is the cleanest: no preamble, no false claims, no aspirational language, FedRAMP cited, Slack enforcement included, all prohibitions properly motivated.\n\n**Proposal 1** is second: substantively nearly identical to Proposal 3 but lacks the Slack enforcement item and includes a change-log preamble in the deliverable.\n\n**Proposal 2** is worst: contains a factual error contradicting outside counsel's finding (author of record claim), aspirational/conditional language (\"until\"), missing FedRAMP citation, and includes a preamble.\n\nRANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words in the memo itself):**\nAll three proposals share nearly identical memo text. The memo body across all three is approximately 380–400 words. ✓ All pass.\n\n**Exactly 4 sections:** All three have Scope, Permitted Uses, Prohibited Uses, Enforcement. ✓\n\n**Numbered items (not prose paragraphs):** All use numbered lists. ✓\n\n**Every prohibition references motivating base fact:** All three cite incidents/facts in parentheticals for each prohibition. ✓\n\n**Enforceable without new tooling:** All rely on existing PR review, HR, SOC2 incident response, Slack admin controls. ✓\n\n**No aspirational language:** All three avoid \"strive to,\" \"best efforts,\" \"where possible.\" ✓\n\n---\n\n**DIFFERENTIATING ANALYSIS**\n\n**Proposal 1:**\n- Permitted Use #2 states the committing engineer is \"the author of record\" — outside counsel explicitly flagged that AI-generated code may not be copyrightable, making this claim legally problematic and contradicting a base fact.\n- Enforcement item 4 (Slack AI disabled) has no corresponding prohibition in Prohibited Uses — it's an orphaned enforcement item.\n- Prohibited Use #4 does not cite FedRAMP, leaving a base fact unused in the prohibitions.\n- These are substantive flaws.\n\n**Proposal 2:**\n- Permitted Use #2 correctly requires legal review of copyright status rather than asserting authorship — fixes the \"author of record\" problem.\n- Prohibited Use #4 cites FedRAMP — uses the base fact.\n- Enforcement item 4 (Slack AI) remains orphaned — no corresponding prohibition exists. This is a structural flaw.\n- Otherwise clean.\n\n**Proposal 3:**\n- Permitted Use #2 same fix as Proposal 2 (legal review, no authorship claim). ✓\n- Prohibited Use #4 cites FedRAMP. ✓\n- Enforcement item 4 (Slack AI) is **deleted** — eliminates the orphaned enforcement item problem entirely. ✓\n- No preamble/change-log in the deliverable — cleanest document. ✓\n- The memo is the most internally consistent of the three.\n\n---\n\n**SUMMARY**\n\n- Proposal 3 fixes all identified problems: no authorship claim, FedRAMP cited, no orphaned enforcement item, no extraneous preamble.\n- Proposal 2 fixes the authorship and FedRAMP issues but retains the orphaned Slack enforcement item.\n- Proposal 1 has the most remaining flaws: authorship claim, orphaned enforcement item, missing FedRAMP citation.\n\nRANKING: [3], [2], [1]"
+    }
+  ],
+  "elapsed": 57.0
+}

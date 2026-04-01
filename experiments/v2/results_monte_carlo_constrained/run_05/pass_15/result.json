@@ -1,0 +1,52 @@
+{
+  "pass": 15,
+  "winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 6,
+    "AB": 9
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words (policy body only)\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Numbered items (not prose paragraphs)\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n**Word count:** The body is borderline long, especially with the grace period item and synthesis rationale appended. The synthesis rationale section alone adds ~150 words and is not part of the policy — but it's present in the submission.\n\n**Structural issues:**\n- Permitted Uses item 2 (grace period) is problematic: it partially suspends a prohibition for 30 days, which undermines enforceability and introduces complexity not derivable from base facts\n- The synthesis rationale is included in the submission — not a policy section, clutters the document\n- Slack AI features not mentioned (base fact states they're disabled — relevant to scope)\n- Prohibited Uses item 2 cites \"outside counsel DPA violation flag\" as motivating fact for unapproved tools — the DPA flag specifically concerns customer data input, not general unapproved tool use; this is a citation mismatch\n- Grace period creates an unenforceable window and adds aspirational complexity\n\n**Quality:** The grace period is a creative but problematic addition — it's not derivable from base facts and weakens enforceability.\n\n---\n\n## Proposal 2 Analysis\n\n**Word count:** Tighter. The removal of the grace period and synthesis rationale brings it within 500 words.\n\n**Structural issues:**\n- Scope item 3 correctly addresses Slack AI features being disabled\n- No grace period — cleaner enforcement\n- Prohibited Uses item 2 motivating facts are accurate: Incidents #2 and #3 are directly relevant to unapproved tools; usage survey stats are base facts\n- All four sections present, all items numbered\n- No aspirational language\n- Enforceable via existing PR review process and access controls\n- Minor: The italicized change-log note at the bottom is not a policy section but is editorial metadata — slightly unprofessional for a final memo, though harmless\n\n---\n\n## Proposal 3 Analysis\n\n**Identical to Proposal 2** in all policy content. The only difference is the absence of the editorial change-log note at the bottom.\n\nThis makes Proposal 3 the cleanest final document — same substantive quality as Proposal 2, without the meta-commentary that doesn't belong in a company policy memo.\n\n---\n\n## Summary Ranking\n\n| | P1 | P2 | P3 |\n|---|---|---|---|\n| ≤500 words | ❌ (rationale bloat) | ✅ | ✅ |\n| 4 sections only | ❌ (rationale section) | ✅ | ✅ |\n| Numbered items | ✅ | ✅ | ✅ |\n| Prohibition citations accurate | ⚠️ (DPA mismatch) | ✅ | ✅ |\n| No aspirational language | ✅ | ✅ | ✅ |\n| Enforceable without new tooling | ⚠️ (grace period weakens) | ✅ | ✅ |\n| Slack addressed | ❌ | ✅ | ✅ |\n| Clean final document | ❌ | ⚠️ | ✅ |\n\n**RANKING: [3], [2], [1]**"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n## Constraint Checklist\n\n**500-word maximum:**\n- Proposal 1: The grace period item in Permitted Uses adds significant length, plus the synthesis rationale section. Likely over 500 words.\n- Proposal 2: No rationale section, no grace period. Likely near or at limit.\n- Proposal 3: Identical to Proposal 2 body, no rationale section. Confirmed within 500 words per its own note.\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose paragraphs):** All three pass.\n\n**Every prohibition must reference which base fact motivates it:** All three pass, though the citations differ in quality (see below).\n\n**Enforceable without new tooling:** All three use PR review processes and existing access controls. All pass.\n\n**No aspirational language:** All three pass.\n\n## Specific Issues\n\n**Proposal 1 problems:**\n- The synthesis rationale section is not part of a policy memo — it's meta-commentary that would appear in the actual document, which is inappropriate and likely pushes it over 500 words.\n- The 30-day grace period in Permitted Uses item 2 is legally and practically problematic: it explicitly suspends a prohibition for a named group, creating an enforcement gap and potential liability during that window. The base facts don't require this accommodation.\n- Prohibited Uses item 2's motivating facts cite the DPA flag, but the DPA flag is more precisely tied to customer data (item 1). Incidents #2 and #3 are the direct motivators for the unapproved-tools prohibition.\n\n**Proposal 2 problems:**\n- Virtually identical to Proposal 3. The only difference is the absence of the italicized revision notes at the bottom of Proposal 3.\n- Prohibited Uses item 2 motivating facts correctly cite Incidents #2 and #3 plus usage survey data — tighter and more accurate than Proposal 1.\n- Scope item 3 (Slack AI features disabled) is present and correctly grounds an existing fact.\n- No grace period, no meta-commentary.\n\n**Proposal 3:**\n- Identical policy body to Proposal 2.\n- The italicized notes at the bottom are editorial annotations explaining changes, not part of the policy itself — they would be stripped before distribution. This doesn't harm the policy quality.\n- All constraints met, citations accurate, no grace period vulnerability, within word count.\n\n## Ranking Rationale\n\nProposals 2 and 3 are substantively identical in policy content. Both are superior to Proposal 1 due to: no word-count violation, no inappropriate meta-commentary embedded in the document, no grace period creating an enforcement gap, and tighter motivating-fact citations. Between 2 and 3, Proposal 3 includes editorial notes that are clearly labeled as such and don't affect the policy body — a negligible difference. Proposal 2 is marginally cleaner as a standalone document.\n\n**RANKING: [2], [3], [1]**"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words (policy body only)\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Each section has numbered items\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n- **Word count:** The synthesis rationale section adds significant text. Even excluding it, Permitted Uses item 2 (grace period) adds ~60 words. Likely near or over 500 words.\n- **Grace period item:** Permitted Uses item 2 is problematic — it partially suspends a prohibition for 30 days. This creates an enforcement gap and arguably contradicts the \"enforceable\" requirement. It also adds a fact (transition timeline) not derivable from base facts.\n- **Slack omission:** No mention of Slack AI features being disabled, missing a base fact.\n- **Synthesis rationale:** Included in the document — not part of the policy memo itself, arguably violates the memo format.\n- **Prohibitions:** All three reference motivating facts. ✓\n- **No aspirational language:** Clean. ✓\n\n**Problems:** Grace period weakens enforceability, synthesis rationale shouldn't be in the memo, Slack omission, potential word count issue.\n\n---\n\n## Proposal 2 Analysis\n\n- **Word count:** Tighter than Proposal 1. Removing grace period and rationale section helps. Likely within 500 words.\n- **Scope item 3:** Adds Slack AI disabled status — addresses the base fact. ✓\n- **No grace period:** Cleaner enforcement posture. ✓\n- **No synthesis rationale:** Clean memo. ✓\n- **Prohibited Uses item 2 citation:** Revised to remove DPA flag and substitute Incidents #2, #3, and usage survey data — all directly from base facts. ✓\n- **All prohibitions cite motivating facts.** ✓\n- **No aspirational language.** ✓\n- **Enforceable without new tooling.** ✓\n\n**Minor issue:** The italicized note at the bottom explaining changes is editorial, not part of the policy — slightly unprofessional for a memo but doesn't violate policy constraints.\n\n---\n\n## Proposal 3 Analysis\n\nProposal 3 is identical to Proposal 2 except it omits the editorial note at the bottom. This makes it a cleaner policy document — no meta-commentary, just the policy itself.\n\n- All constraints met identically to Proposal 2. ✓\n- Cleaner presentation. ✓\n- Word count within limits. ✓\n\n---\n\n## Ranking\n\n**Proposal 3** is the cleanest version — identical substance to Proposal 2 but without the editorial footnote that doesn't belong in a policy memo.\n\n**Proposal 2** is functionally equivalent but includes an editorial note that slightly undermines the document's professional presentation as a memo.\n\n**Proposal 1** has meaningful problems: the grace period weakens enforceability, the synthesis rationale is inappropriate in the memo body, and the Slack base fact is omitted.\n\nRANKING: [3], [2], [1]"
+    }
+  ],
+  "elapsed": 52.2
+}

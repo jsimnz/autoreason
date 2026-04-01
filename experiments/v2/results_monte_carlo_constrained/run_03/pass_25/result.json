@@ -1,0 +1,52 @@
+{
+  "pass": 25,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 8,
+    "AB": 7
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the stated constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**≤500 words (memo body only):**\n- Proposal 1: ~380 words memo + ~250 words rationale = rationale is extraneous content that violates the deliverable scope\n- Proposal 2: ~420 words memo + ~200 words \"changes made\" section = same problem, extraneous section\n- Proposal 3: ~420 words, no extraneous sections ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating base fact:** \n- Proposal 1: Prohibitions 1–5 all cited ✓, but Prohibition 5 cites only \"AI features disabled\" without explaining *why* that motivates the prohibition — thin\n- Proposals 2 & 3: Prohibition 5 adds DPA/SOC2/GDPR/FedRAMP rationale ✓\n\n**Enforceable without new tooling:**\n- Proposal 1, Prohibition 2: \"prior written manager approval\" — operationally burdensome for every outbound email, but uses existing hierarchy ✓\n- Proposal 2, Prohibition 2: \"employee confirms in writing to their manager before sending\" — shifts burden to employee, slightly more workable\n- Proposal 3: Same as Proposal 1 on this point\n\n**No aspirational language:** All three ✓\n\n**Enforcement covers all prohibitions:**\n- Proposal 1: Only 4 enforcement items; Prohibitions 3, 4, 5 have no dedicated enforcement items ✗\n- Proposals 2 & 3: 6 enforcement items covering all prohibitions ✓\n\n---\n\n## Quality Differentiators\n\n**Seat gap addressed (80 seats, 120 engineers):**\n- Proposal 1: Silent on this gap ✗\n- Proposals 2 & 3: Explicitly addressed in Permitted Uses item 2 ✓\n\n**Permitted Uses item 1 restriction cited:**\n- Proposal 1: No citation for the customer-data restriction in Permitted Uses ✗\n- Proposals 2 & 3: Cited ✓\n\n**Extraneous non-deliverable content:**\n- Proposal 1: Contains \"Synthesis rationale\" section — not part of the memo ✗\n- Proposal 2: Contains \"Changes made\" section — not part of the memo ✗\n- Proposal 3: Clean memo only ✓\n\n**Prohibition 2 mechanism:**\n- Proposals 1 & 3 require prior written manager approval — creates a bottleneck but is unambiguous\n- Proposal 2's self-certification is weaker as an enforcement control\n\n---\n\n## Summary\n\n**Proposal 3** is the cleanest: no extraneous sections, addresses the seat gap, cites all motivating facts including Prohibition 5, and has complete enforcement coverage for all prohibitions. It is the best deliverable as submitted.\n\n**Proposal 2** has identical substantive content to Proposal 3 but appends a \"Changes made\" section that is not part of the requested memo, and its Prohibition 2 mechanism (self-certification) is weaker than prior manager approval.\n\n**Proposal 1** has the most deficiencies: missing enforcement items for Prohibitions 3–5, silent on the seat gap, uncited restriction in Permitted Uses item 1, thin Prohibition 5 motivation, and an appended rationale section that is not part of the deliverable.\n\n---\n\n**RANKING: [3], [2], [1]**"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the stated constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words, memo body only):**\n- Proposal 1: ~420 words in memo body. ✓\n- Proposal 2: ~410 words in memo body. ✓\n- Proposal 3: ~300 words in memo body. ✓ (but notably sparse)\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** \n- Proposal 1: All 5 prohibitions cited. ✓\n- Proposal 2: All 5 prohibitions cited. ✓\n- Proposal 3: Prohibition 5 cites only \"Company Slack has AI features disabled\" — no risk rationale, no DPA/compliance connection. Weak but technically present. Marginal ✓\n\n**Enforceable without new tooling:**\n- Proposal 1: Prohibition 2 requires \"prior written manager approval\" — adds a managerial review burden for every outbound email. Operationally strained but uses existing reporting structure. Marginal.\n- Proposal 2: Reframes Prohibition 2 as employee self-certification to manager before sending — uses existing reporting relationship more naturally. ✓\n- Proposal 3: Reverts to \"prior written manager approval\" — same operational strain as Proposal 1. Marginal.\n\n**No aspirational language:** All three ✓\n\n---\n\n**QUALITY ANALYSIS**\n\n**Proposal 1** is thorough and well-cited. Its main weakness is Prohibition 2's enforcement mechanism (manager must pre-approve every outbound AI-assisted email), which is operationally burdensome. It also addresses the 80-seat gap explicitly (engineers without seats have no approved tool), which is a meaningful policy gap addressed.\n\n**Proposal 2** improves on Proposal 1 in one key dimension: Prohibition 2 is reframed so the *employee* self-certifies in writing to their manager before sending, rather than requiring manager pre-approval. This is more operationally realistic while still creating a documented paper trail. It retains all the strengths of Proposal 1 (seat gap addressed, all citations present, enforcement items cover all prohibitions). This is the most complete and enforceable version.\n\n**Proposal 3** is the weakest. It drops the seat-gap language entirely (engineers without seats get no guidance). Prohibition 5's citation is bare and fails to connect to DPA/compliance risks. The enforcement section has only 4 items and provides no specific response for Prohibitions 3, 4, or 5 — a significant gap. The appended \"Synthesis rationale\" section is not part of the deliverable and suggests incomplete editing.\n\n---\n\n**RANKING:** [2], [1], [3]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n## Constraint Checklist\n\n**Maximum 500 words (memo body only):**\n- Proposal 1: ~380 words (memo) + ~250 words (rationale) = rationale shouldn't count, memo is ~380 ✓\n- Proposal 2: ~420 words ✓\n- Proposal 3: ~400 words (memo) + ~250 words (changes section) = changes section shouldn't count, memo is ~400 ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** \n- Proposal 1: Prohibition 5 cites only \"Company Slack has AI features disabled\" — this is circular (the fact IS the prohibition), not a motivating reason. Weak.\n- Proposals 2 & 3: Prohibition 5 cites DPA terms, SOC2, GDPR, FedRAMP — actual motivating reasons. ✓\n\n**Enforceable without new tooling:**\n- Proposal 1: Prohibition 2 requires \"prior written manager approval\" — adds a new approval process burden.\n- Proposal 3: Prohibition 2 reframes as employee self-certification to manager — uses existing reporting relationship. Slightly more workable.\n- Proposal 2: Same as Proposal 1 for Prohibition 2.\n\n**No aspirational language:** All three appear clean ✓\n\n**Enforcement covers all prohibitions:**\n- Proposal 1: Only 4 enforcement items for 5 prohibitions — Prohibitions 3, 4, 5 lack specific enforcement. ✗\n- Proposals 2 & 3: 6 enforcement items covering all prohibitions explicitly. ✓\n\n## Quality Differentiators\n\n**Seat gap (80 seats, 120 engineers):**\n- Proposal 1: Ignores this gap entirely. ✗\n- Proposals 2 & 3: Address it explicitly in Permitted Uses item 2. ✓\n\n**Permitted Uses item 1 restriction citation:**\n- Proposal 1: No citation for the customer-data restriction. ✗\n- Proposals 2 & 3: Cited. ✓\n\n**Prohibition 2 operability:**\n- Proposal 3's formulation (employee self-certifies to manager) is marginally more operationally realistic than Proposal 2's \"prior written manager approval\" for every outbound email.\n\n**Extraneous content:**\n- Proposal 1 includes a lengthy synthesis rationale — not part of the deliverable, inflates apparent length.\n- Proposal 3 includes a \"Changes made\" section — also not part of the deliverable, but less intrusive.\n- Proposal 2 is the cleanest standalone memo.\n\n## Summary\n\nProposal 2 and 3 are substantially superior to Proposal 1 (which has enforcement gaps, missing seat-gap treatment, uncited restriction, and weak Prohibition 5 motivation). Between 2 and 3: Proposal 3 has a marginally better Prohibition 2 formulation and is otherwise equivalent, but Proposal 2 is a cleaner document without the appended \"Changes\" section. The difference is minor; both satisfy all major constraints.\n\n**RANKING: [3], [2], [1]**"
+    }
+  ],
+  "elapsed": 63.5
+}

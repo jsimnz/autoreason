@@ -1,0 +1,52 @@
+{
+  "pass": 16,
+  "winner": "AB",
+  "scores": {
+    "A": 4,
+    "B": 6,
+    "AB": 8
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the stated constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**Maximum 500 words**\n- Proposal 1: ~650+ words (body text alone). **Fails.**\n- Proposal 2: ~600+ words. **Fails.**\n- Proposal 3: ~350 words. **Passes.**\n\n**Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement**\n- All three: Pass.\n\n**Each section must have numbered items (not prose paragraphs)**\n- All three: Pass.\n\n**Every prohibition must reference which base fact motivates it**\n- Proposal 1: All prohibitions cite motivating facts. Pass.\n- Proposal 2: All prohibitions cite motivating facts. Pass.\n- Proposal 3: Items 1–3 cite motivating facts. Item 3 omits Incident #2 (verbatim copyright) which is also relevant to IP review, but the prohibition is specifically scoped to license/code review, so this is defensible. Pass, though slightly thin.\n\n**Enforceable without new tooling**\n- All three reference existing PR workflows and email approval chains. Pass.\n\n**No aspirational language**\n- All three: Pass.\n\n---\n\n## Quality Analysis\n\n**Proposal 3 (shortest, clearest)**\nPasses the word limit — the only one that does. However, it has meaningful gaps: the \"customer data\" definition is buried inside Permitted Uses item 1 rather than governing the whole document. Sales employees using AI for email drafting (45% already doing so) get no explicit permitted use or prohibition pathway. The copyright/verbatim copy issue (Incident #2) is not addressed in Prohibited Uses item 3, which covers only code license headers. The FedRAMP concern appears only as a citation footnote in Prohibited Uses item 1 with no operational consequence. The tool-approval process (Enforcement item 3) lacks a DPA-review step despite outside counsel's flag. These are substantive gaps in a policy memo.\n\n**Proposal 2**\nAddresses nearly all gaps: definition is at the top, all three employee populations get explicit permitted uses, DPA concern gets its own prohibition, FedRAMP gets an operational gate, copyright and license issues are separated. The cross-references are consistent. However, it exceeds 500 words, which is a hard constraint violation. The \"Changes made\" section at the bottom is not part of the policy itself and could be excluded from the word count argument, but the policy body alone still exceeds 500 words.\n\n**Proposal 1**\nSimilar coverage to Proposal 2 but with a narrower Scope item 4 (covers only engineers without seats, not all non-engineer employees), and it also exceeds 500 words. Slightly weaker than Proposal 2 on coverage and structure.\n\n---\n\n## Ranking\n\nProposal 3 is the only one that passes the hard 500-word constraint, but it has the most substantive policy gaps. Proposals 1 and 2 both fail the word limit but are more complete policies. Between 1 and 2, Proposal 2 has better structure, more consistent cross-references, and broader employee coverage. Proposal 1 is marginally weaker than 2 on coverage.\n\n**RANKING: [2], [1], [3]**"
+    },
+    {
+      "ranking": [
+        "AB",
+        "A",
+        "B"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Each section has numbered items (not prose paragraphs)\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n**Word count:** Substantially over 500 words. The policy body alone exceeds 500 words by a wide margin. This is a **hard constraint violation**.\n\n**4 sections:** ✓ (plus a definition block, which is borderline but not a named section)\n\n**Numbered items:** ✓\n\n**Prohibitions reference facts:** ✓ (thorough)\n\n**No new tooling:** ✓\n\n**No aspirational language:** ✓\n\n**Quality:** Most comprehensive. Separates DPA concern into its own prohibition, addresses sales/other employees explicitly in Permitted Uses, adds FedRAMP gate. However, the word count violation is disqualifying as a hard constraint.\n\n---\n\n## Proposal 2 Analysis\n\n**Word count:** Approximately 380 words — within limit. ✓\n\n**4 sections:** ✓\n\n**Numbered items:** ✓ (each section has numbered items)\n\n**Prohibitions reference facts:** ✓\n\n**No new tooling:** ✓\n\n**No aspirational language:** ✓\n\n**Quality issues:**\n- Definition of \"customer data\" buried inside Permitted Uses item 1, which is awkward but functional\n- Permitted Uses has only 1 item — doesn't address sales employees (45% using AI for email drafting) or non-engineers\n- Copilot described as allocated \"to engineers\" in Scope item 2, but the 80 seats aren't explicitly restricted to engineers in the original facts\n- Missing explicit FedRAMP protection in prohibitions\n- Enforcement item 2 adds reviewer accountability (good), but item 3 (tool approval) lacks DPA confirmation requirement\n- Thinner coverage overall, but all hard constraints met\n\n---\n\n## Proposal 3 Analysis\n\n**Word count:** Approximately 490 words — within limit. ✓\n\n**4 sections:** ✓\n\n**Numbered items:** ✓\n\n**Prohibitions reference facts:** ✓ (thorough)\n\n**No new tooling:** ✓\n\n**No aspirational language:** ✓\n\n**Quality:** Best balance of comprehensiveness and constraint adherence. Includes:\n- Standalone definition block\n- Explicit coverage of engineers, sales, and other employees in Permitted Uses\n- Separate FedRAMP/DPA prohibition (item 4)\n- Reviewer accountability in Enforcement item 2\n- DPA confirmation step in Enforcement item 5\n- All incidents and outside counsel flags cited\n- Scope item 4 addresses seat-less employees\n\nMinor issue: Enforcement has 5 items, which is fine — the constraint only requires numbered items, not a specific count.\n\n---\n\n## Ranking\n\n**Proposal 3** meets all hard constraints and is the most complete, well-structured policy.\n\n**Proposal 2** meets all hard constraints but has meaningful coverage gaps (sales use case unaddressed, no FedRAMP prohibition, thinner enforcement).\n\n**Proposal 1** is the highest-quality document in substance but **fails the 500-word hard constraint** decisively.\n\nRANKING: [3], [2], [1]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n---\n\n## Constraint Checklist\n\n**Maximum 500 words:** Let me estimate.\n- Proposal 1: ~650+ words (clearly over)\n- Proposal 2: ~550+ words (likely over)\n- Proposal 3: ~350 words (under limit)\n\n**Exactly 4 sections (Scope, Permitted Uses, Prohibited Uses, Enforcement):** All three comply.\n\n**Numbered items in each section:** All three comply.\n\n**Every prohibition must reference which base fact motivates it:** \n- Proposal 1: Complies, but splits DPA into two separate prohibitions redundantly\n- Proposal 2: Complies cleanly\n- Proposal 3: Complies, but Incident #2 (verbatim copyright in sales email) lacks its own dedicated prohibition — it's folded into the \"no unapproved tools\" item rather than having a standalone IP/copyright prohibition\n\n**Enforceable without new tooling:** All three use existing PR workflows and email chains.\n\n**No aspirational language:** All three comply.\n\n---\n\n## Quality Analysis\n\n**Proposal 3 problems:**\n- Fails to address the copyright/IP risk for *written communications* (sales emails) — only covers code license review, missing Incident #2's verbatim copyright issue in prose\n- \"Customer data\" definition buried inside Permitted Uses item 1 — awkward placement\n- Scope item 2 says seats \"allocated to engineers\" — excludes sales, contradicting the spirit of the policy\n- FedRAMP concern appears only as a citation footnote, not an operational requirement\n- Enforcement item 3 (tool approval) lacks DPA confirmation requirement despite outside counsel flag\n\n**Proposal 1 problems:**\n- Almost certainly exceeds 500 words\n- Redundant split of DPA concern across two separate prohibitions (items 1 and 2) is verbose and creates confusion\n- Five prohibited uses items is unwieldy\n\n**Proposal 2 strengths:**\n- Consolidates DPA concern cleanly into Prohibited Uses item 1 without redundancy\n- Separate IP review prohibition (item 3) covers both code and written communications, addressing both Incidents #2 and #3\n- FedRAMP gets an operational prohibition (item 4), not just a footnote\n- Enforcement differentiates consequences by violation type with appropriate specificity\n- Definition block at top governs all sections\n- Closest to 500 words while remaining comprehensive\n\n---\n\n## Ranking\n\nRANKING: [2], [1], [3]"
+    }
+  ],
+  "elapsed": 78.4
+}

@@ -1,0 +1,52 @@
+{
+  "pass": 9,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 9,
+    "AB": 6
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECK: 500-word limit**\n\n- Proposal 1: The policy body (excluding the preamble/changelog) is approximately 380–400 words. Compliant.\n- Proposal 2: Approximately 380–400 words. Compliant.\n- Proposal 3: The policy body plus the lengthy preamble/changelog exceeds 500 words significantly. The preamble alone is ~300 words. Even if the memo itself is under 500, the deliverable as presented is bloated and the preamble is not part of the policy memo. Borderline/non-compliant as a deliverable.\n\n**CONSTRAINT CHECK: Exactly 4 sections with numbered items**\nAll three comply.\n\n**CONSTRAINT CHECK: Every prohibition references motivating base fact**\nAll three comply reasonably well.\n\n**CONSTRAINT CHECK: Enforceable without new tooling**\n\n- Proposal 3, Prohibition #4: \"The authoring employee must verify AI-assisted content against source material\" — this is the fabricated/unenforceable requirement flagged in Proposal 1's changelog. Proposal 1 and 2 correctly replace this with Legal sign-off, which uses an existing process.\n- Proposal 3, Enforcement #1: \"Employees must self-report within 24 hours; failure to self-report is itself a violation\" — this is the unenforceable self-reporting rule flagged as problematic. Proposals 1 and 2 remove this.\n\n**CONSTRAINT CHECK: No aspirational language**\nAll three are largely clean here.\n\n**CONSTRAINT CHECK: Permitted Uses item 2 (approval process)**\n\n- Proposals 2 and 3 include an approval-gate item in Permitted Uses that introduces an unenforced process not derivable from base facts as a *permitted use*. Proposal 1 correctly removes this.\n\n**QUALITY ASSESSMENT:**\n\n- Proposal 1 is the most rigorously edited: removes the preamble, fixes the unenforceable prohibition #4, removes the self-reporting invention, removes the approval-process item from Permitted Uses, and stays cleanest on constraint adherence.\n- Proposal 2 retains the approval-process item in Permitted Uses (minor flaw) but otherwise fixes the major enforcement problems. No preamble bloat.\n- Proposal 3 retains both the unenforceable Prohibition #4 (\"verify against source material\") and the invented self-reporting rule, plus includes a massive non-policy preamble. It is the weakest on constraint adherence and enforceability.\n\n---\n\n**RANKING: [1], [2], [3]**"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words for policy body):**\n- Proposal 1: Policy body ~380 words. ✅\n- Proposal 2: Has a lengthy preamble (~250 words) before the policy. Policy body ~390 words. The preamble itself is not part of the memo but inflates the deliverable. ✅ (policy body alone)\n- Proposal 3: Policy body ~320 words. ✅ Cleanest.\n\n**Exactly 4 sections:** All three ✅\n\n**Numbered items (not prose):** All three ✅\n\n**Every prohibition references motivating base fact:** \n- All three handle this similarly. Proposal 3's Prohibition 5 cites only the DPA flag without the circular \"currently disabled\" reasoning — cleaner derivation. ✅ All pass, Proposal 3 marginally better.\n\n**Enforceable without new tooling:**\n- Proposal 2 includes \"self-report within 24 hours / failure to self-report is itself a violation\" — this creates an unenforceable self-reporting obligation with no detection mechanism. ❌\n- Proposals 1 and 3 rely on discovering employee/reviewer reporting and existing review processes. ✅\n\n**No aspirational language:** All three ✅\n\n**No fabricated facts:**\n- Proposal 1: Permitted Uses item 2 introduces an approval process (\"submit written request to Legal\") not derivable from base facts. Minor issue.\n- Proposal 2: Retains the same approval process item. Same issue. Also retains the self-reporting problem.\n- Proposal 3: Removes the approval process from Permitted Uses entirely. ✅\n\n---\n\n**QUALITY ANALYSIS**\n\n**Proposal 3** is the strongest:\n- Removes the non-policy preamble entirely\n- Eliminates the unenforced/unenforceable approval process from Permitted Uses\n- Scope cleanly establishes the approved/unapproved tool framework\n- Prohibition 5 motivation is cleanly derived\n- Enforcement relies only on discoverable violations through existing processes\n- Tightest word count, most professional memo format\n\n**Proposal 1** is second:\n- Clean format, no preamble\n- Contains the approval-process item in Permitted Uses (not derivable, not enforceable)\n- Enforcement is solid and mirrors Proposal 3\n- Slightly weaker than Proposal 3 on the fabricated-process issue\n\n**Proposal 2** is weakest:\n- Large non-policy preamble clutters the deliverable\n- Retains the unenforced approval process\n- Introduces the self-reporting/failure-to-self-report rule, which is unenforceable without new tooling and not derivable from base facts\n- Most constraint violations of the three\n\n---\n\nRANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Maximum 500 words (policy body only):**\n- Proposal 1: The preamble/revision log adds ~300 words before the policy. Even excluding it, the policy body is borderline. The preamble itself is non-policy content that bloats the deliverable.\n- Proposal 2: Clean policy only, no preamble. Body is approximately 380 words. ✓\n- Proposal 3: Has a preamble (~200 words) but explicitly addresses this as a problem. Policy body alone is approximately 340 words. ✓ (if preamble excluded)\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓\n\n**Enforceable without new tooling:** \n- Proposal 1: Enforcement item 1 includes a \"self-reporting within 24 hours\" requirement — this is a new procedural mechanism not derivable from base facts, and \"failure to self-report is itself a violation\" is an invented rule. ✗\n- Proposal 2: Relies on \"discovering employee reports\" — uses existing organizational structure. ✓\n- Proposal 3: Same as Proposal 2. ✓\n\n**No aspirational language:** All three ✓\n\n**No fabricated facts:**\n- Proposal 1: Permitted Uses item 2 introduces a \"written request to Legal\" approval process not derivable from base facts. The $50K budget fact doesn't imply this process exists.\n- Proposal 2: Same issue — Permitted Uses item 2 retains the approval-process language.\n- Proposal 3: Removed this item entirely. ✓\n\n**Sales email drafting addressed:** All three address it under Prohibited Uses item 2. ✓\n\n**Slack AI motivation:**\n- Proposal 1: Cites \"Slack AI features are currently disabled\" as a motivating fact — circular reasoning (the current state of being disabled doesn't motivate keeping it disabled; the DPA risk does). Partial ✗\n- Proposals 2 & 3: Cite only the DPA flag. ✓\n\n---\n\n**QUALITY ASSESSMENT**\n\n**Proposal 3** is the cleanest: no preamble cluttering the deliverable, no invented approval process in Permitted Uses, no self-reporting rule, correct Slack motivation, tightest word count. Scope is well-structured with the \"no other tool approved\" item doing real work.\n\n**Proposal 2** is second: clean format, no preamble, but retains the invented approval-process item in Permitted Uses (the $50K budget doesn't establish a Legal-submission process) and the Slack motivation is correct. The self-reporting issue from Proposal 1 is absent.\n\n**Proposal 1** is weakest: carries a lengthy non-policy preamble, the self-reporting/failure-to-self-report rule is an invented enforcement mechanism, the Slack motivation is partially circular, and the approval-process item in Permitted Uses is not derivable from base facts.\n\n---\n\nRANKING: [3], [2], [1]"
+    }
+  ],
+  "elapsed": 56.4
+}

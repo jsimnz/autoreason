@@ -1,0 +1,52 @@
+{
+  "pass": 20,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 9,
+    "AB": 6
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**Max 500 words:** Let me estimate counts.\n- Proposal 1: ~480 words in policy body (excluding header/preamble) — borderline but likely compliant\n- Proposal 2: ~490 words — borderline\n- Proposal 3: ~380 words — clearly compliant\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating base facts:** \n- Proposal 1: All three prohibitions cite facts ✓\n- Proposal 2: All three cite facts ✓ — but Prohibition 2 cites the DPA finding, which is about customer data, not unapproved tools generally. This is a logical mismatch.\n- Proposal 3: Prohibition 2 also cites the DPA finding for unapproved tools — same logical mismatch as Proposal 2.\n\n**Enforceable without new tooling:**\n- Proposal 1: Explicitly uses PR review, document review, performance attestation, existing admin console ✓\n- Proposal 2: Same mechanisms ✓\n- Proposal 3: Missing the admin console / seat management enforcement mechanism. No Enforcement item addresses seat assignment/revocation. ✗\n\n**No aspirational language:** All three ✓\n\n**Budget addressed:** \n- Proposal 1: Permitted Uses item 3 ✓\n- Proposal 2: Permitted Uses item 3 ✓\n- Proposal 3: Not addressed ✗\n\n**Slack AI features addressed:**\n- Proposal 1: Scope item 3 ✓\n- Proposal 2: Scope item 3 ✓\n- Proposal 3: Not addressed ✗\n\n**FedRAMP in Prohibition 1:**\n- Proposal 1: ✓\n- Proposal 2: ✓\n- Proposal 3: ✗ (omitted)\n\n---\n\n## Quality Assessment\n\n**Proposal 1** is the most complete and carefully constructed. It fixes the DPA citation problem (correctly removes it from Prohibition 2), addresses the budget, Slack, FedRAMP, seat management enforcement, and stays within word count. The preamble explaining changes is not part of the policy itself.\n\n**Proposal 2** is nearly as complete but contains the logical error of citing the DPA finding in Prohibition 2 (unapproved tools), where it doesn't belong. Otherwise strong on coverage.\n\n**Proposal 3** has multiple omissions: no budget item, no Slack item, no FedRAMP citation, no seat management enforcement, and the same DPA citation misapplication as Proposal 2. It's the shortest but sacrifices completeness.\n\n---\n\n## Ranking\n\nRANKING: [1], [2], [3]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n## Constraint Checklist\n\n**Maximum 500 words:**\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~480 words ✓\n- Proposal 3: ~380 words (body only, excluding preamble analysis) ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓\n\n**Enforceable without new tooling:** All three reference existing PR workflows, admin console, manager review ✓\n\n**No aspirational language:** All three ✓\n\n## Substantive Quality Analysis\n\n**Proposal 1 weaknesses:**\n- Scope item 3 is awkward throat-clearing that doesn't belong in Scope — it's a prohibition embedded in a scoping section\n- Slack AI features (a base fact) are never mentioned\n- $50K budget is never addressed\n- FedRAMP missing from Prohibition 1's motivating facts\n- No enforcement mechanism for seat allocation/revocation\n- DPA finding incorrectly cited in Prohibition 2 (DPA is about customer data, not unapproved tools generally)\n\n**Proposal 2 weaknesses:**\n- Includes Proposal 3's improvements but retains the awkward Scope item 4 (sales staff throat-clearing) — though less problematic than Proposal 1's version\n- Slightly longer than Proposal 3\n- Otherwise addresses most gaps: Slack, budget, FedRAMP, seat management enforcement\n\n**Proposal 3 strengths:**\n- Explicitly identifies and fixes every weakness in prior versions\n- Removes prohibition-in-Scope problem\n- Adds Slack, budget, FedRAMP, seat management\n- Removes incorrect DPA citation from Prohibition 2\n- Cleanest structure, most precise motivating-fact citations\n- Most concise while retaining all required elements\n\n**Proposal 3 weaknesses:**\n- The preamble analysis isn't part of the memo itself, but the memo body is complete and correct\n\n## Ranking\n\nRANKING: [3], [2], [1]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**Maximum 500 words:**\n- Proposal 1: ~420 words in policy body ✓\n- Proposal 2: ~440 words in policy body ✓\n- Proposal 3: ~350 words in policy body ✓\n\n**Exactly 4 sections (Scope, Permitted Uses, Prohibited Uses, Enforcement):**\n- All three: ✓\n\n**Numbered items (not prose paragraphs):**\n- All three: ✓\n\n**Every prohibition must reference which base fact motivates it:**\n- Proposal 1: All three prohibitions cite specific incidents and legal findings ✓\n- Proposal 2: All three prohibitions cite specific incidents and legal findings ✓\n- Proposal 3: Prohibition 2 incorrectly cites the DPA finding (which is specific to customer data, not unapproved tools generally) — this is a factual misattribution ✗\n\n**Enforceable without new tooling:**\n- Proposals 1 & 2: Explicitly name existing mechanisms (PR review, manager attestation, admin console) ✓\n- Proposal 3: Missing Enforcement items 4 (seat assignment/revocation mechanism) and lacks specificity on detection mechanisms ✗\n\n**No aspirational language:**\n- All three: ✓\n\n---\n\n## Quality Differentiators\n\n**Proposal 1** fixes the most problems systematically: correct DPA citation scope, explicit seat management enforcement, Slack AI addressed, budget addressed, detection mechanisms named. The preamble explaining changes is not part of the policy itself.\n\n**Proposal 2** is nearly identical to Proposal 1 but retains a slightly awkward Scope item 4 that restates survey data as a policy item rather than a factual basis — this is borderline aspirational framing and adds marginal value. However, it correctly avoids the DPA misattribution error.\n\n**Proposal 3** has two clear defects: (1) the DPA citation in Prohibition 2 is factually incorrect per the base facts, and (2) Enforcement lacks the seat-assignment mechanism, leaving a gap in enforceability. It also omits the $50K budget governance item entirely.\n\n---\n\n## Ranking\n\nRANKING: [1], [2], [3]"
+    }
+  ],
+  "elapsed": 58.6
+}

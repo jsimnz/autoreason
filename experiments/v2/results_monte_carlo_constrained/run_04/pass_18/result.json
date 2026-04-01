@@ -1,0 +1,52 @@
+{
+  "pass": 18,
+  "winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 7,
+    "AB": 8
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**500-word limit:**\n- Proposal 1: ~420 words (body only, excluding header/labels) — compliant\n- Proposal 2: ~450 words — compliant\n- Proposal 3: Includes a lengthy preamble (~200 words of meta-commentary) before the policy itself. If the preamble counts, it exceeds 500 words. Even if excluded, the policy body is ~430 words — borderline, but the preamble is a real problem if this is a deliverable memo.\n\n**Exactly 4 sections:** All three comply.\n\n**Numbered items (not prose paragraphs):** All three comply.\n\n**Every prohibition must reference which base fact motivates it:**\n- Proposal 1: All 3 prohibitions cite motivating facts. ✓\n- Proposal 2: All 4 prohibitions cite motivating facts. ✓\n- Proposal 3: All 4 prohibitions cite motivating facts. ✓\n\n**Enforceable without new tooling:** All three rely on existing PR review, IT provisioning, Slack admin console. ✓\n\n**No aspirational language:** All three comply. ✓\n\n---\n\n**QUALITY ANALYSIS**\n\n**Proposal 1 weaknesses:**\n- Scope item 3 (\"Any AI tool not listed under Permitted Uses is prohibited\") is redundant — it's a catch-all prohibition buried in Scope with no motivating fact citation, violating the spirit of the prohibition-citation rule.\n- The budget approval workflow sits in Permitted Uses item 4, which is procedural, not a permitted use.\n- Sales AI email use (45% of staff already doing it) is never addressed in Permitted Uses — a significant gap.\n- Slack AI features appear in Enforcement but not in Prohibited Uses — structurally inconsistent.\n- Monthly Slack verification cadence is invented (no base fact supports a monthly schedule).\n\n**Proposal 2 weaknesses:**\n- Sales AI email use addressed (item 4) — improvement over Proposal 1. ✓\n- Slack AI features added to Prohibited Uses. ✓\n- Budget approval workflow moved to Enforcement. ✓\n- Monthly Slack cadence replaced with event-triggered verification. ✓\n- Scope item 3 removed. ✓\n- Still has the PR reviewer liability issue (reviewer \"confirms the author's declaration\" — cleaner than Proposal 1 but still slightly ambiguous about what happens if no declaration exists).\n- No meta-commentary preamble — clean deliverable.\n\n**Proposal 3 weaknesses:**\n- Contains a large meta-commentary preamble that is not part of the policy memo — this is a significant deliverable problem. A CEO receiving this memo gets explanation of edits, not a clean policy.\n- The policy body itself is essentially identical to Proposal 2.\n- The preamble likely pushes total word count over 500.\n\n---\n\n**RANKING RATIONALE**\n\nProposal 2 is the best: it fixes all the structural problems of Proposal 1, produces a clean deliverable, and stays within constraints.\n\nProposal 3 has an identical policy body to Proposal 2 but is wrapped in meta-commentary that makes it unsuitable as a standalone memo and likely violates the word count. It ranks second only because the policy content itself is sound.\n\nProposal 1 has multiple structural violations (redundant scope catch-all, misplaced procedural item, gap on sales use, Slack not prohibited, invented cadence) and ranks worst.\n\nRANKING: [2], [3], [1]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECK: 500-word limit**\n\n- Proposal 1: ~420 words in the policy body — compliant\n- Proposal 2: ~450 words in the policy body — compliant\n- Proposal 3: ~380 words in the policy body (excluding the preamble explanation) — compliant\n\n**CONSTRAINT CHECK: Exactly 4 sections**\nAll three: ✓\n\n**CONSTRAINT CHECK: Numbered items (not prose paragraphs)**\nAll three: ✓\n\n**CONSTRAINT CHECK: Every prohibition references motivating base fact**\nAll three cover the three incidents. Proposals 2 and 3 add a Slack prohibition with a motivating fact. Proposal 1 lacks the Slack prohibition entirely — a meaningful gap since Slack AI features are a named approved tool with AI disabled.\n\n**CONSTRAINT CHECK: Enforceable without new tooling**\n- Proposal 1, Enforcement #2: \"reviewer must confirm output contains no third-party license notices\" — places an unreasonable detection burden on the reviewer with no defined method. This is a real enforceability problem.\n- Proposals 2 and 3: Shift this to author declaration + reviewer confirmation of that declaration — enforceable through existing PR process. ✓\n- Proposal 1, Enforcement #3: Monthly cadence is invented — not derivable from any base fact. Violates the \"add nothing not derivable\" constraint.\n- Proposals 2 and 3: Event-triggered (platform update) — more defensible, though still slightly inferred.\n\n**CONSTRAINT CHECK: No aspirational language**\nAll three: ✓\n\n**CONSTRAINT CHECK: \"Add nothing not derivable from base facts\"**\n- Proposal 1 invents a monthly Slack audit cadence. Violation.\n- Proposals 2 and 3 avoid this.\n\n**QUALITY DIFFERENCES between Proposals 2 and 3:**\n- Proposal 3 adds a preamble explanation (meta-commentary), which is outside the memo itself and doesn't affect the policy text — the actual policy text of Proposals 2 and 3 is **identical**.\n- Proposal 3's preamble is useful context but not part of the deliverable. The policy documents are the same.\n- Since the actual policy text is identical, Proposals 2 and 3 tie on policy quality. However, Proposal 3 includes the explanatory preamble which adds transparency without violating any constraint in the policy itself.\n\n**SUMMARY:**\n- Proposals 2 and 3 are superior: they fix the Slack gap, fix the PR reviewer enforceability problem, avoid the invented monthly cadence, and add the sales AI email use acknowledgment.\n- Proposal 3 = Proposal 2's policy text + explanatory preamble. The preamble adds value for a real-world memo context.\n- Proposal 1 has three distinct problems: missing Slack prohibition, unreasonable reviewer detection burden, and invented monthly cadence.\n\n---\n\n**RANKING: [3], [2], [1]**"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Hard constraints:**\n- ≤500 words\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Numbered items (not prose)\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n**Quality factors:**\n- Sales email use addressed\n- Slack prohibition in Prohibited Uses\n- No invented facts (e.g., monthly cadence)\n- PR review process is realistic and enforceable\n- Budget approval in correct section\n\n---\n\n**PROPOSAL 3 ANALYSIS**\n\n- Scope item #3 is a catch-all prohibition with no motivating fact citation — violates the \"every prohibition must reference which base fact motivates it\" rule (it's functionally a prohibition)\n- Permitted Uses item #4 is procedural/enforcement, not a permitted use — misplaced\n- Sales email use never addressed in Permitted Uses — gap for 45% of sales staff\n- Slack prohibition absent from Prohibited Uses — only appears implicitly via Scope #3\n- Enforcement item #3 invents a \"first business day of each month\" cadence — not derivable from base facts\n- PR reviewer language (\"must confirm no third-party license notices are present\") makes reviewer personally liable for detection without a defined method\n\n**PROPOSAL 1 ANALYSIS**\n\n- Scope is clean (2 items, no catch-all)\n- Sales email use addressed in Permitted Uses item #4 with honest \"not currently approved\" statement\n- Slack prohibition explicitly in Prohibited Uses with motivating fact\n- Budget approval moved to Enforcement item #5 — correct placement\n- Enforcement item #3 uses event-triggered verification (platform update) rather than invented monthly cadence — derivable from the fact that Slack AI features are disabled\n- PR review: author declares, reviewer confirms declaration — more realistic and enforceable\n- Word count appears within 500 words\n- All prohibitions cite motivating facts\n\n**PROPOSAL 2 ANALYSIS**\n\n- Identical to Proposal 1 in substance and structure\n- Scope item #1 adds \"of the company\" — trivial difference\n- Otherwise word-for-word identical to Proposal 1\n\nProposals 1 and 2 are substantively identical. Both fix the same problems. The only differences are cosmetic (\"of the company\" in Scope #1). Both are superior to Proposal 3 on every meaningful constraint. Between 1 and 2, Proposal 1 includes a brief explanatory preamble documenting the changes made, which is meta-commentary rather than policy content — but the policy text itself is the same. Proposal 2 presents the policy cleanly without the meta-commentary, which is slightly more appropriate for an actual memo deliverable.\n\n---\n\n**RANKING: [2], [1], [3]**\n\n- **Best: Proposal 2** — Identical policy quality to Proposal 1, but presented as a clean deliverable without meta-commentary cluttering the document.\n- **Second: Proposal 1** — Same policy content, equally correct, but includes revision notes that don't belong in the memo itself.\n- **Worst: Proposal 3** — Invented monthly cadence, catch-all prohibition without citation, budget approval misplaced, sales email use unaddressed, Slack not in Prohibited Uses, PR reviewer detection standard unenforceable."
+    }
+  ],
+  "elapsed": 66.2
+}

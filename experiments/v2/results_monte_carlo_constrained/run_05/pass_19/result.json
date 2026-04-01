@@ -1,0 +1,52 @@
+{
+  "pass": 19,
+  "winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 7,
+    "AB": 8
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words (policy body only)\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Numbered items (not prose paragraphs)\n- Every prohibition references motivating base facts\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal-by-Proposal Analysis\n\n**Proposal 1:**\n- Scope: 3 items. Permitted: 2 items. Prohibited: 3 items. Enforcement: 3 items. ✓ 4 sections\n- No aspirational language ✓\n- All prohibitions cite motivating facts ✓\n- Enforcement uses existing workflows ✓\n- Word count: approximately 430 words ✓\n- No invented processes ✓\n- Clean, no meta-commentary in the memo itself ✓\n- Prohibited item 2 cites the DPA finding as a motivating fact for \"no unapproved tools\" — this is a slight stretch logically (DPA violation motivates the customer data prohibition more directly), but it's defensible\n- Overall: tight, compliant, clean\n\n**Proposal 2:**\n- Includes meta-commentary/changelog before the memo — violates the spirit of \"the document is the policy memo only\" (though the memo itself is separate)\n- Scope item 3 (Slack AI features disabled) adds a rule about something that requires no policy action — minor but noted\n- Permitted Uses item 3 introduces a Legal written confirmation process for future tools — this is a new process/workflow not derivable from existing controls, potentially violating the \"enforceable without new tooling\" constraint\n- Enforcement item 4 duplicates Permitted Uses item 2 — redundant\n- Word count: approximately 490 words ✓ but tight\n- The $50K budget item in Permitted Uses describes a process not enforceable through existing access controls\n\n**Proposal 3:**\n- Identical to Proposal 1 in structure and content\n- No meta-commentary ✓\n- Clean memo only ✓\n- Word count: approximately 420 words ✓\n- All constraints met ✓\n- Prohibited item 2 cites DPA finding — same minor logical stretch as Proposal 1, but present in both\n\n**Proposals 1 and 3 are nearly identical.** The only difference: Proposal 1's changelog notes explain the reasoning (not part of the memo), while Proposal 3 presents the memo alone with no preamble. Proposal 3 is strictly cleaner as a standalone policy document. Both are substantively identical and fully compliant.\n\n**Proposal 2** introduces an invented Legal confirmation workflow (Permitted Uses item 3), has a redundant Enforcement item 4, and includes the unnecessary Slack item — making it the weakest.\n\nBetween Proposals 1 and 3: Proposal 3 is the purest policy document. Proposal 1 includes a changelog preamble that, while explanatory, is not part of the memo. As standalone policy memos, they're equivalent in quality, but Proposal 3 is marginally cleaner.\n\n## RANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words in policy body):**\n- Proposal 1: ~380 words ✓\n- Proposal 2: ~450 words ✓ (but Permitted Uses item 3 adds invented process language)\n- Proposal 3: ~370 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating fact:** All three ✓\n\n**Enforceable without new tooling:** All three use existing PR workflows and approval chains ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n**SPECIFIC ISSUES BY PROPOSAL**\n\n**Proposal 2:**\n- Scope item 3 (Slack AI features disabled) is a system state, not a policy rule — flagged as a problem in Proposal 1's changelog but retained here\n- Permitted Uses item 3 invents a Legal written confirmation process for future tools — this goes beyond base facts and creates a process not derivable from them; the constraint says \"add nothing that isn't derivable from base facts\"\n- Enforcement item 4 duplicates Permitted Uses item 2 verbatim — redundant and adds words\n- These are meaningful flaws\n\n**Proposal 1:**\n- Removes the Slack item correctly\n- Removes the invented budget/approval process correctly\n- Removes the duplicate enforcement item correctly\n- Scope item 3 addresses the 45% sales finding directly\n- Prohibited Uses item 2 citation includes the DPA finding, which is slightly strained as a motivator for the unapproved-tools prohibition (DPA is more directly about customer data), but it's not fabricated\n- Clean, tight, no invented processes\n\n**Proposal 3:**\n- Nearly identical to Proposal 1\n- The only meaningful difference: Prohibited Uses item 2 also includes the DPA outside counsel finding as a motivating fact — same as Proposal 1\n- Scope item 3 is identical to Proposal 1\n- No Slack item, no invented budget process, no duplicate enforcement item\n- Essentially indistinguishable from Proposal 1 in quality\n\n**Comparing Proposals 1 and 3 directly:** They are structurally identical. The only detectable difference is that Proposal 1 includes a brief preamble explaining changes (which the constraint says shouldn't be there — but Proposal 1's actual policy body is clean). Proposal 3 presents the policy memo only, with no meta-commentary at all, which is the correct format per the original task.\n\n---\n\n**RANKING:** [3], [1], [2]\n\n- **Best: Proposal 3** — Clean policy memo only, no meta-commentary, no invented processes, no redundant items, fully constraint-compliant\n- **Second: Proposal 1** — Substantively identical but includes a changelog preamble that shouldn't be part of the deliverable\n- **Worst: Proposal 2** — Contains invented process (Legal written confirmation), retains the non-rule Slack item, and duplicates an enforcement item"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n## Constraint Checklist\n\n**≤500 words (policy body only):**\n- Proposal 1: Notably longer due to Scope item 3 (Slack), Scope item 4 (sales survey), Permitted Uses item 3 (budget), and verbose motivating-fact citations. Likely exceeds 500 words.\n- Proposal 2: Cleaner but still includes the Slack item and sales survey item in Scope, plus full citations. Close to or slightly over 500 words.\n- Proposal 3: Removes Slack item and budget item, tightest version. Most likely under 500 words.\n\n**Exactly 4 sections:** All three comply.\n\n**Numbered items (not prose):** All three comply.\n\n**Every prohibition references motivating fact:** All three comply, with comparable citation quality.\n\n**Enforceable without new tooling:** All three use existing PR workflows and approval chains. Proposal 1's budget/DPA confirmation item in Permitted Uses describes a process that isn't enforceable through existing controls — a noted weakness.\n\n**No aspirational language:** All three comply.\n\n## Quality Analysis\n\n**Proposal 1:** Adds value with the budget/FedRAMP item and differentiates Enforcement consequences most clearly. However, the budget item in Permitted Uses is arguably not enforceable through existing controls (violating a constraint), and the document is the longest, most likely exceeding 500 words.\n\n**Proposal 2:** Retains the Slack item (low informational value — it's disabled, so no rule is needed) and the sales survey Scope item. Drops the budget item (good) but keeps Slack (unnecessary). Enforcement is well-differentiated. Likely near the word limit.\n\n**Proposal 3:** Most disciplined. Removes the Slack item (correctly — a disabled feature needs no policy rule), removes the budget item (correctly — not enforceable through existing controls), retains the sales survey item (correctly — addresses the 45% finding), and has the tightest word count. Enforcement is identical to Proposal 2. The only minor loss is the budget context, but that's offset by better constraint adherence.\n\n## Ranking\n\n- **Best: Proposal 3** — Tightest constraint adherence, removes genuinely unnecessary items, stays within word limit, no unenforceable process items.\n- **Second: Proposal 2** — Nearly identical to Proposal 3 but retains the unnecessary Slack item, slightly longer.\n- **Worst: Proposal 1** — Most verbose, most likely over 500 words, includes an unenforceable budget-approval process item in Permitted Uses.\n\nRANKING: [3], [2], [1]"
+    }
+  ],
+  "elapsed": 51.7
+}

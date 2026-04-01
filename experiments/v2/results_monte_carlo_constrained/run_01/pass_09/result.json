@@ -1,0 +1,52 @@
+{
+  "pass": 9,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 8,
+    "AB": 7
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word limit (≤500 words of policy content):**\n- Proposal 1: ~480 words (close, likely compliant)\n- Proposal 2: ~400 words (clearly compliant)\n- Proposal 3: ~480 words (close, likely compliant)\n\n**Exactly 4 sections:** All three comply.\n\n**Numbered items (not prose paragraphs):** All three comply.\n\n**Every prohibition references motivating base fact:** All three comply, though Proposal 3's Prohibition #4 basis is partially circular (\"Slack AI features are currently disabled\" is a current state, not a motivating risk fact).\n\n**Enforceable without new tooling:** All three use existing PR review, HR records, email logs, Slack admin logs.\n\n**No aspirational language:** Proposals 1 and 2 are clean. Proposal 3 introduces \"written warning,\" \"permanent revocation,\" and \"termination\" — none derivable from base facts, violating the constraint against adding content not derivable from base facts.\n\n---\n\n**DEEPER ANALYSIS**\n\n**Proposal 1:** Solid and complete. Includes a sales AI drafting item (Permitted #4) that acknowledges the 45% usage reality. Prohibition #4 basis correctly leads with DPA violation rationale. Minor issue: Permitted #4 references \"tools approved under item 5\" but no sales tool is currently approved — slightly forward-looking but not aspirational. Generally clean.\n\n**Proposal 2:** The strongest on constraint adherence. Removes invented disciplinary ladders, Finance sign-off (not derivable), and the circular Slack justification. Correctly removes the implication that sales have a currently approved AI tool. Enforcement section is lean and grounded entirely in base facts. The self-critique is accurate and the revisions are sound.\n\n**Proposal 3:** Most problematic. Enforcement items 1–3 introduce a written warning, permanent revocation, and **termination** — none derivable from base facts, directly violating the \"add nothing not derivable\" constraint. Prohibition #4's basis is partially circular. Finance head sign-off in Permitted #5 is not derivable. The audit trail sub-items in Enforcement are verbose and push word count. Proposal 3's self-critique identifies some real problems but then reintroduces others.\n\n---\n\n**RANKING**\n\nRANKING: [2], [1], [3]\n\n**Proposal 2** is best: tightest constraint adherence, no invented content, clean enforcement section, accurate self-critique acted upon correctly.\n\n**Proposal 1** is second: substantively strong and complete, minor forward-reference issue in Permitted #4, but no serious violations.\n\n**Proposal 3** is worst: introduces termination and disciplinary ladder not derivable from base facts, circular prohibition basis, and Finance sign-off not grounded in the brief."
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the stated constraints and quality criteria.\n\n---\n\n## Constraint-by-Constraint Analysis\n\n### Word Count (≤500 words)\n\n**Proposal 1:** The policy body (excluding the preamble explanation) is approximately 420 words. ✓\n**Proposal 2:** The policy body is approximately 480 words. ✓ (borderline)\n**Proposal 3:** The policy body is approximately 430 words. ✓\n\n### Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n\nAll three: ✓\n\n### Each section must have numbered items (not prose paragraphs)\n\nAll three: ✓\n\n### Every prohibition must reference which base fact motivates it\n\nAll three include basis citations for all 5 prohibitions. ✓\n\n### Enforceable without new tooling\n\n**Proposal 1:** Uses HR incident records, PR history, Slack admin logs, manager review. All existing. ✓\n**Proposal 2:** Same mechanisms plus Legal reviewing all contracts before execution (Prohibition #5 audit trail, item 9) — this creates a new mandatory Legal review gate not derivable from base facts. ✗\n**Proposal 3:** Same as Proposal 1. ✓\n\n### No aspirational language\n\nAll three avoid \"strive to,\" \"best efforts,\" \"where possible.\" ✓\n\n### No invented content beyond base facts\n\n**Proposal 1:** Removes termination, written warnings, Finance sign-off, permanent revocation. Clean. ✓\n**Proposal 2:** Retains \"written warning\" (item 1), \"permanent revocation\" (item 2), \"termination\" (item 3), Finance sign-off (item 5 of Permitted Uses), Legal mandatory pre-execution review (Enforcement item 9). Multiple inventions. ✗✗\n**Proposal 3:** Retains \"permanent revocation\" (Enforcement item 2) and \"formal HR investigation\" (item 3). \"Permanent revocation\" is not derivable from base facts. Minor invention. \"Formal HR investigation\" is also not in base facts. ✗ (minor)\n\n---\n\n## Quality Assessment\n\n**Proposal 1:** Cleanest enforcement section. Correctly removes escalation ladder not in base facts. Addresses sales AI use implicitly (only through approval process). Slack prohibition basis is well-reasoned. No invented disciplinary ladder.\n\n**Proposal 2:** Most complete in some ways (explicit sales AI drafting item, detailed audit trails per prohibition), but heavily contaminated with invented content: termination, written warnings, permanent revocation, Finance sign-off, Legal mandatory review gate, CRM reference. Fails multiple constraints.\n\n**Proposal 3:** Very close to Proposal 1 in quality. Adds \"permanent revocation\" and \"formal HR investigation\" — both not derivable from base facts — but otherwise clean. Includes the sales AI drafting item (Proposal 1 omits this, which is a gap since 45% of sales already use AI). The sales item adds real value and is derivable from the survey data.\n\n---\n\n## Final Ranking\n\n- **Best: Proposal 3** — Closest to fully constraint-compliant, includes the useful sales AI drafting item, minor invented content (permanent revocation, formal HR investigation) is the only flaw.\n- **Second: Proposal 1** — Fully clean on invented content, but omits the sales AI drafting use case entirely, which is a meaningful gap given the base facts.\n- **Worst: Proposal 2** — Multiple invented disciplinary outcomes, Finance sign-off, mandatory Legal review gate, and other fabrications make it the least compliant.\n\nRANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Each section has numbered items (not prose paragraphs)\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n**Word count:** ~430 words — passes.\n**Structure:** 4 sections, all numbered — passes.\n**Prohibitions with basis:** All 5 have explicit basis citations — passes.\n**No aspirational language:** Passes.\n**Enforceable without new tooling:** Passes (uses PR history, HR records, Slack admin logs).\n**Sales AI use:** Correctly omitted as currently unapproved — no invented permission.\n**Invented content:** Removed termination, PIP, Finance sign-off, written warnings — clean.\n**Enforcement section:** Flat numbered list, no sub-items — passes.\n**Notable strength:** Cleanest separation of concerns; no fabricated disciplinary ladder; Slack prohibition basis correctly leads with DPA rationale rather than circular current-state reasoning.\n\n---\n\n## Proposal 2 Analysis\n\n**Word count:** ~450 words — passes.\n**Structure:** 4 sections, numbered — passes.\n**Prohibitions with basis:** All 5 cited — passes.\n**Enforcement issues:** Item 2 (\"permanent revocation\" on second violation) and item 3 (\"formal HR investigation\") are invented — no HR investigation framework exists in base facts. This violates the \"add nothing not derivable\" constraint.\n**Sales AI use (item 4):** Permits sales AI drafting through an approval process — but no sales AI tool is currently approved, so this creates a forward permission that's slightly premature, though less problematic than outright fabrication.\n**Aspirational language:** None detected.\n\n---\n\n## Proposal 3 Analysis\n\n**Word count:** ~520 words — **fails the 500-word limit.**\n**Structure:** 4 sections, numbered — passes.\n**Enforcement section:** Items 1–3 contain invented disciplinary outcomes (written warning, permanent revocation, termination) not derivable from base facts — **fails the \"add nothing\" constraint.**\n**Finance sign-off (item 5):** Finance head approval is invented — base facts give Finance budget authority only.\n**Audit trail sub-items (5–9):** Enforcement becomes a hybrid section with embedded sub-procedures; item 9 invents Legal's mandatory pre-execution review role.\n**Slack basis (item 4):** Uses circular current-state justification as primary rationale.\n\n---\n\n## Ranking\n\n**Proposal 1** is cleanest: passes word count, avoids all invented content, has the strongest Slack prohibition rationale, and correctly handles the sales AI question.\n\n**Proposal 2** is second: passes word count and structure, but invents a disciplinary ladder and HR investigation process.\n\n**Proposal 3** is worst: fails word count, invents the most content (termination, written warnings, Finance sign-off, Legal pre-execution review), and has the most structural problems.\n\nRANKING: [1], [2], [3]"
+    }
+  ],
+  "elapsed": 62.2
+}

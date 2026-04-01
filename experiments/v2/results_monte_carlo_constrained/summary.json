@@ -1,0 +1,37 @@
+[
+  {
+    "run": 1,
+    "passes": 25,
+    "converged": false,
+    "final_words": 703,
+    "trajectory": "ABAAAAABBAABBABAAABBABBAB"
+  },
+  {
+    "run": 2,
+    "passes": 25,
+    "converged": false,
+    "final_words": 538,
+    "trajectory": "ABAABAABBBABAAABABBBAABAA"
+  },
+  {
+    "run": 3,
+    "passes": 25,
+    "converged": false,
+    "final_words": 853,
+    "trajectory": "BABABABABAABBBAAAAABBBBAB"
+  },
+  {
+    "run": 4,
+    "passes": 25,
+    "converged": false,
+    "final_words": 734,
+    "trajectory": "AAABBAABAABABAABAAAABAAAB"
+  },
+  {
+    "run": 5,
+    "passes": 25,
+    "converged": false,
+    "final_words": 481,
+    "trajectory": "BAABBAABBBABBAAABBABBBBAA"
+  }
+]

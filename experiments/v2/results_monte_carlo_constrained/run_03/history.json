@@ -1,0 +1,252 @@
+[
+  {
+    "pass": 1,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 8,
+      "AB": 7
+    },
+    "words": 759
+  },
+  {
+    "pass": 2,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 7,
+      "AB": 8
+    },
+    "words": 598
+  },
+  {
+    "pass": 3,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 9,
+      "AB": 6
+    },
+    "words": 875
+  },
+  {
+    "pass": 4,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 6,
+      "AB": 9
+    },
+    "words": 604
+  },
+  {
+    "pass": 5,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 8,
+      "AB": 7
+    },
+    "words": 664
+  },
+  {
+    "pass": 6,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 6,
+      "AB": 9
+    },
+    "words": 538
+  },
+  {
+    "pass": 7,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 8,
+      "AB": 7
+    },
+    "words": 814
+  },
+  {
+    "pass": 8,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 6,
+      "AB": 9
+    },
+    "words": 519
+  },
+  {
+    "pass": 9,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 9,
+      "AB": 6
+    },
+    "words": 762
+  },
+  {
+    "pass": 10,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 7,
+      "AB": 8
+    },
+    "words": 527
+  },
+  {
+    "pass": 11,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 7,
+      "AB": 8
+    },
+    "words": 589
+  },
+  {
+    "pass": 12,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 8,
+      "AB": 7
+    },
+    "words": 705
+  },
+  {
+    "pass": 13,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 9,
+      "AB": 6
+    },
+    "words": 725
+  },
+  {
+    "pass": 14,
+    "winner": "B",
+    "scores": {
+      "A": 6,
+      "B": 7,
+      "AB": 5
+    },
+    "words": 684
+  },
+  {
+    "pass": 15,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 7,
+      "AB": 8
+    },
+    "words": 607
+  },
+  {
+    "pass": 16,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 6,
+      "AB": 9
+    },
+    "words": 563
+  },
+  {
+    "pass": 17,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 6,
+      "AB": 9
+    },
+    "words": 558
+  },
+  {
+    "pass": 18,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 7,
+      "AB": 8
+    },
+    "words": 491
+  },
+  {
+    "pass": 19,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 7,
+      "AB": 8
+    },
+    "words": 505
+  },
+  {
+    "pass": 20,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 9,
+      "AB": 6
+    },
+    "words": 721
+  },
+  {
+    "pass": 21,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 9,
+      "AB": 6
+    },
+    "words": 637
+  },
+  {
+    "pass": 22,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 9,
+      "AB": 6
+    },
+    "words": 571
+  },
+  {
+    "pass": 23,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 8,
+      "AB": 7
+    },
+    "words": 667
+  },
+  {
+    "pass": 24,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 7,
+      "AB": 8
+    },
+    "words": 661
+  },
+  {
+    "pass": 25,
+    "winner": "B",
+    "scores": {
+      "A": 3,
+      "B": 8,
+      "AB": 7
+    },
+    "words": 853
+  }
+]

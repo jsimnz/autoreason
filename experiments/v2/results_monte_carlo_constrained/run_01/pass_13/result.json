@@ -1,0 +1,52 @@
+{
+  "pass": 13,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 8,
+    "AB": 7
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the stated constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Max 500 words (body only, excluding headers/labels):**\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~390 words ✓\n- Proposal 3: ~370 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** \n- P1: Items 1-3 strong; Item 4 basis is partially circular (references \"current configuration\" as justification for itself) ✗\n- P2: Items 1-3 strong; Item 4 basis correctly references DPA terms, GDPR, FedRAMP as the *why* ✓\n- P3: Items 1-3 strong; Item 4 basis is entirely circular (\"disabled because disabled\") ✗✗\n\n**Enforceable without new tooling:**\n- P1: Uses existing PR history, HR file, Copilot seats, Slack admin ✓\n- P2: Same ✓\n- P3: Enforcement items 3 and 4 create an awkward bifurcation (employees with vs. without tool access) that introduces ambiguity; item 5 duplicates item 4's HR file language ✗\n\n**No aspirational language:** All three ✓\n\n**Use ALL base facts, add nothing not derivable:**\n- P1: Covers all facts ✓\n- P2: Covers all facts ✓\n- P3: Drops the $50K budget reference from Permitted Uses #4 and removes the budget fact from the policy body entirely ✗\n\n**Specificity and enforceability quality:**\n- P1: Permitted Uses #4 invents a \"joint written sign-off from heads of Engineering and Legal\" process not derivable from base facts ✗; Enforcement is clean and logical\n- P2: Permitted Uses #4 ties new tools to the $50K budget and existing seat inventory process — derivable and enforceable ✓; Enforcement is clean ✓\n- P3: Enforcement section has structural problems (items 3/4/5 overlap and bifurcate illogically); \"immediately\" reappears without concrete definition ✗\n\n---\n\n**SUMMARY ASSESSMENT**\n\n- **Proposal 2** is the strongest: correct basis for Prohibited Uses #4, no invented processes, clean enforcement structure, all base facts used, within word count.\n- **Proposal 1** is second: solid structure and coverage, but invents the \"joint sign-off\" process and has a circular basis for Prohibited Uses #4.\n- **Proposal 3** is weakest: circular basis for Prohibited Uses #4 (worse than P1), drops the $50K budget fact, and has a structurally incoherent enforcement section with duplication.\n\nRANKING: [2], [1], [3]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n## Constraint Checklist\n\n**Word count (≤500):** This is critical. Let me estimate each.\n- Proposal 1: ~480 words (tight but likely compliant)\n- Proposal 2: ~470 words (similar, slightly less preamble)\n- Proposal 3: ~460 words (but has 5 Enforcement items — see below)\n\n**Exactly 4 sections:** All three have Scope, Permitted Uses, Prohibited Uses, Enforcement. ✓ for all.\n\n**Numbered items (not prose paragraphs):** All comply. ✓\n\n**Every prohibition references motivating base fact:** \n- Proposals 1 & 2: All four prohibitions have explicit basis citations, including a substantive basis for Prohibited #4 (DPA/GDPR/FedRAMP reasoning). ✓\n- Proposal 3: Prohibited #4 basis is thin — \"Slack AI features are administratively disabled per current configuration\" — this is circular (the policy *is* the configuration) and doesn't reference the motivating base fact (DPA terms, GDPR, FedRAMP). ✗\n\n**Enforceable without new tooling:**\n- Proposal 1: Uses existing HR intake, GitHub Copilot seat controls, Slack admin controls. ✓\n- Proposal 2: Same, plus adds \"Slack administrator denies and logs all such requests\" — this is an existing control. ✓\n- Proposal 3: Enforcement item 3 revokes access for ALL confirmed violations, but sales reps using AI email drafting (Incident 2) may have no AI tool access to revoke, creating a gap partially patched by item 4. The split creates ambiguity. Marginal. ~✓\n\n**No aspirational language:** All three avoid \"strive,\" \"best efforts,\" \"where possible.\" ✓\n\n**No invented facts:**\n- Proposal 1: Clean. ✓\n- Proposal 2: \"joint written sign-off from heads of Engineering and Legal\" — this process isn't in the base facts, but it's a reasonable derivation from existing roles. Borderline but acceptable.\n- Proposal 3: Same sign-off language. Same assessment.\n\n**Use ALL base facts:**\n- All three reference: 200 employees (implicitly via survey %), 73%/45% survey, 3 incidents, SOC2/GDPR/FedRAMP, GitHub Copilot Business/80 seats, Slack AI disabled, $50K budget, DPA terms, copyrightability flag.\n- Proposal 3 drops the $50K budget from Permitted Uses #4 entirely. The base facts say budget is allocated — omitting it means a base fact goes unused. ✗\n- Proposal 3 also drops the copyrightability flag entirely (its preamble says this is intentional). ✗\n\n## Quality Assessment\n\n**Proposal 1** is the strongest overall: substantive basis for all prohibitions, uses all base facts, clean enforcement structure (items 3 and 4 are logically consistent — item 3 applies universally, item 4 adds seat revocation where applicable), no circular reasoning.\n\n**Proposal 2** is nearly identical to Proposal 1 in quality. The Slack prohibition basis is slightly better (references current configuration as an existing control), and the sign-off mechanism in Permitted #4 is slightly more specific. Marginally weaker than Proposal 1 only because the \"joint written sign-off\" process is slightly invented, but this is a minor issue.\n\n**Proposal 3** has multiple failures: thin/circular basis for Prohibited #4, omits $50K budget fact, omits copyrightability flag, and the Enforcement section has 5 items with structural ambiguity between items 3 and 4.\n\n## Ranking\n\nRANKING: [1], [2], [3]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n## Constraint Checklist\n\n**Word count (≤500 words in policy body):**\n- Proposal 1: The policy body is approximately 420 words — passes\n- Proposal 2: Approximately 390 words — passes\n- Proposal 3: Approximately 400 words — passes\n\n**Exactly 4 sections with numbered items:** All three pass.\n\n**Every prohibition references motivating base fact:** All three pass for items 1-3. Item 4 differs:\n- P1: Cites only the administrative configuration — weak, circular\n- P2: Cites DPA, GDPR, FedRAMP — substantive, derivable from base facts\n- P3: Cites both the configuration AND the compliance reasons — most complete\n\n**Enforceable without new tooling:** All three use existing seat controls, PR review, HR files, Slack admin.\n\n**No aspirational language:** All three pass.\n\n**Use ALL base facts:** All three incorporate the survey figures, three incidents, compliance frameworks, approved tools, budget, and legal counsel flag.\n\n## Key Differentiators\n\n**Permitted Uses #4 (budget/approval mechanism):**\n- P1: Joint sign-off from Engineering and Legal heads — enforceable, clear gatekeepers, but doesn't reference budget\n- P2: Budget ceiling + inventory entry — references budget but \"inventory entry\" is vague and potentially a new process\n- P3: Joint sign-off + budget reference — combines both, most complete and enforceable\n\n**Prohibited Uses #4 (Slack basis):**\n- P1: Cites only current configuration — circular, doesn't explain *why* it must stay disabled\n- P2: Cites compliance reasons — explains the \"why\" but omits the current-state fact\n- P3: Cites both — fully grounded in base facts and explains the rationale\n\n**Enforcement clarity:**\n- P1: Has 5 items with some redundancy (items 4 and 5 overlap on HR file)\n- P2: Clean 4-item structure, no redundancy\n- P3: Clean 4-item structure, identical to P2 in enforcement — no redundancy\n\n**Preamble:**\n- P1 includes an explanatory preamble above the policy — adds words, not part of the policy itself but clutters the submission\n- P2 and P3 present cleanly\n\n## Summary Assessment\n\nProposal 3 is the strongest: it fixes the Slack basis problem most completely (both the factual grounding and the compliance rationale), includes the budget reference alongside a clear approval mechanism, has clean enforcement without redundancy, and presents without an extraneous preamble. Proposal 2 is second — it has the best enforcement structure and a solid Slack basis, but its Permitted Uses #4 approval mechanism (\"inventory entry\") is less clearly enforceable than joint sign-off, and it omits the current-configuration fact from the Slack item. Proposal 1 is weakest — the Slack prohibition basis is circular, there's enforcement redundancy across items 4 and 5, and the preamble adds noise.\n\n**RANKING: [3], [2], [1]**"
+    }
+  ],
+  "elapsed": 65.1
+}

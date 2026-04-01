@@ -1,0 +1,52 @@
+{
+  "pass": 16,
+  "winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 6,
+    "AB": 9
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Maximum 500 words (body text only, excluding headers/metadata):**\n- Proposal 1: Significantly over 500 words — the body alone runs ~450+ words with verbose enforcement items and redundant phrasing throughout.\n- Proposals 2 & 3: Both are tighter. Proposal 2 includes a lengthy preamble explaining its own changes (~150 words before the memo begins), but the memo body itself is under 500. Proposal 3 presents only the memo, and the body is cleanly under 500 words.\n\n**Exactly 4 sections:** All three comply.\n\n**Numbered items (not prose paragraphs):** All three comply.\n\n**Every prohibition references motivating base fact:** All three comply, with comparable citation quality.\n\n**Enforceable without new tooling:** All three use existing PR review, access controls, HR processes, and manager oversight.\n\n**No aspirational language:** All three comply.\n\n---\n\n**QUALITY DIFFERENCES**\n\n**Proposal 1 problems:**\n- Scope item 2 cites the survey figure — this is narrative context, not policy content, and carries no enforceable meaning.\n- Scope item 5 invents a FedRAMP approval gate process not derivable from base facts.\n- Restricts GitHub Copilot use near customer data environments — not derivable from base facts (Copilot Business has data protections built in; the base facts don't support this restriction).\n- Enforcement item 4 places consequence on the manager for the employee's violation of Prohibited Use 2 — misaligned accountability.\n- No enforcement item specifically covering Prohibited Use 3's reviewer accountability scenario.\n- Verbose throughout; likely exceeds 500 words.\n\n**Proposal 2 vs. Proposal 3:**\nProposals 2 and 3 have **identical memo bodies** — word for word. The only difference is that Proposal 2 prepends a self-critique section explaining what was changed and why. This preamble is not part of the policy memo itself, but it does mean Proposal 2 is presenting a revision artifact rather than a clean final document. For a deliverable policy memo, Proposal 3 is the cleaner, more professional output. Proposal 2's self-commentary is useful as a drafting note but would not be appropriate to distribute as the actual policy.\n\n---\n\n**RANKING RATIONALE**\n\n- **Best: Proposal 3** — Clean memo body, under 500 words, all constraints met, no extraneous content, professional deliverable format.\n- **Second: Proposal 2** — Identical policy quality to Proposal 3, but the prepended self-critique makes it unsuitable as a standalone deliverable; it's a revision document, not a final memo.\n- **Worst: Proposal 1** — Multiple constraint violations (likely over 500 words, invented restrictions, survey narrative in Scope, misaligned enforcement accountability, missing reviewer enforcement item).\n\nRANKING: [3], [2], [1]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Maximum 500 words (body text only):**\n- Proposal 1: Substantially over 500 words — the body alone exceeds 500 words by a significant margin.\n- Proposal 2: The prefatory \"changes made\" section is not part of the memo body. The memo body itself is tight and falls within ~450 words.\n- Proposal 3: Identical memo body to Proposal 2. Within ~450 words.\n\n**Exactly 4 sections:** All three comply.\n\n**Numbered items (not prose paragraphs):** All three comply.\n\n**Every prohibition references motivating base fact:** All three comply across all 5 prohibitions.\n\n**Enforceable without new tooling:** All three use existing PR review, HR processes, access controls, and manager chains. All comply.\n\n**No aspirational language:** All three comply.\n\n---\n\n**QUALITY DIFFERENCES**\n\n**Proposal 1 failures:**\n- Fails the 500-word constraint — the most hard rule in the task.\n- Scope item 2 cites the survey figure as policy content, which is narrative/contextual, not enforceable.\n- Scope item 5 invents a FedRAMP approval gate process not derivable from base facts.\n- Restricts GitHub Copilot use near customer data environments — not derivable from base facts (Copilot Business has data protections; the base facts don't state this restriction).\n- Enforcement item 4 places accountability on the manager rather than the violating employee for Prohibited Use 2.\n- Missing explicit disciplinary consequence language for Prohibited Use 5 enforcement.\n\n**Proposal 2 vs. Proposal 3:**\nThese are substantively identical memos. Proposal 2 includes a prefatory self-critique section explaining its own revisions, which is not part of the policy memo itself. This meta-commentary is extraneous and slightly unprofessional for a policy document deliverable, but the actual memo body is identical to Proposal 3. Proposal 3 delivers the clean memo without the editorial scaffolding, making it the cleaner, more appropriate deliverable.\n\n---\n\n**RANKING:** [3], [2], [1]\n\n- **Best: Proposal 3** — Clean memo, meets all constraints, no extraneous content, correct disciplinary language, no invented restrictions.\n- **Second: Proposal 2** — Identical memo body but cluttered with a self-critique preamble that doesn't belong in a policy document deliverable.\n- **Worst: Proposal 1** — Fails the 500-word hard constraint, contains non-derivable restrictions, narrative Scope items, and weaker enforcement accountability structure."
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal against the explicit constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Max 500 words (body text):**\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~400 words ✓ (nearly identical body to P1 after removing preamble)\n- Proposal 3: ~450 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references base fact:** All three ✓\n\n**Enforceable without new tooling:**\n- P1: ✓ (PR blocks, access controls, HR file, manager review in thread)\n- P2: ✓ (same)\n- P3: Partially ✗ — Enforcement item 3 says \"engineering leadership logs the incident in the engineer's HR file before any merge proceeds\" — this is procedurally awkward and implies a new step before merge, not a clean existing process\n\n**No aspirational language:** All three ✓\n\n---\n\n**SPECIFIC QUALITY ISSUES**\n\n**Proposal 1:**\n- Permitted Uses item 3 is redundant with Scope item 4 (both restrict non-seat-holders)\n- No explicit disciplinary consequence stated in Enforcement items 1–2 beyond documentation — wait, item 1 does say \"disciplinary action up to termination\" ✓\n- Enforcement covers all 5 prohibited uses with clear consequences ✓\n- No invented facts ✓\n\n**Proposal 2:**\n- Body is nearly identical to Proposal 1 but includes a lengthy preamble explaining its own changes — this preamble is not part of the policy memo itself and wastes space/clarity\n- The preamble references \"Problem 6 (customer data restriction on Copilot)\" and removes a restriction — but the base facts don't prohibit this restriction either; it's a judgment call, not a clear error\n- Otherwise structurally sound ✓\n- The meta-commentary preamble is inappropriate for a policy memo deliverable\n\n**Proposal 3:**\n- Scope item 2 includes the survey figure (73%/45%) — the constraint says \"use ALL base facts\" but the survey figure has no enforceable content; including it in Scope as a policy statement is weak\n- Scope item 5 adds a FedRAMP-based approval gate — this is derivable from base facts but creates a new approval process not clearly supported\n- Permitted Uses item 2 adds a restriction on Copilot near customer data environments — not derivable from base facts (outside counsel flagged *third-party* AI services, and Copilot Business is approved)\n- Enforcement is weaker: items 1–2 omit \"disciplinary action up to termination\" language present in P1/P2; item 3 is procedurally clunky; enforcement for Prohibited Use 2 places accountability on manager rather than employee\n- Most constraint violations of the three\n\n---\n\n**RANKING SUMMARY**\n\n- **Proposal 1**: Cleanest policy document, all constraints met, enforcement complete and consistent, no invented facts, no meta-commentary\n- **Proposal 2**: Substantively identical to P1 but degraded by the self-critique preamble being included in the deliverable — inappropriate for a memo\n- **Proposal 3**: Multiple constraint violations (invented restriction on Copilot, weaker enforcement, survey figure misused, accountability misplaced)\n\nRANKING: [1], [2], [3]"
+    }
+  ],
+  "elapsed": 62.2
+}

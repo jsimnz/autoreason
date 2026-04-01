@@ -1,0 +1,52 @@
+{
+  "pass": 19,
+  "winner": "B",
+  "scores": {
+    "A": 4,
+    "B": 7,
+    "AB": 7
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "A",
+        "B"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the original task constraints.\n\n---\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Each section has numbered items (not prose paragraphs)\n- Every prohibition references which base fact motivates it\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n**Word count:** ~420 words — passes.\n\n**4 sections:** ✓\n\n**Numbered items:** ✓\n\n**Prohibitions cite base facts:** ✓ All four do.\n\n**Enforceable without new tooling:** ✓ Manager attestation, PR workflows, supervisory review.\n\n**No aspirational language:** ✓\n\n**Quality issues:**\n- Missing GDPR and FedRAMP as motivating citations in Prohibition #1 — these are base facts that directly motivate the data prohibition and are omitted.\n- Prohibition #2 bans sales AI outbound communications entirely unless a tool is approved — this is workable but creates an immediate compliance gap since 45% of sales already use AI and no sales tool is currently approved. No transition mechanism.\n- The $50K budget cap in Permitted Use #4 is well-handled.\n- Slack AI features correctly noted.\n\n---\n\n## Proposal 2 Analysis\n\n**Word count:** ~510 words — **likely exceeds 500**. This is a meaningful constraint violation.\n\n**4 sections:** ✓ (5 items in Permitted Uses, but still 4 sections)\n\n**Numbered items:** ✓\n\n**Prohibitions cite base facts:** ✓ Prohibition #1 now cites SOC2, GDPR, FedRAMP — more complete than Proposal 1.\n\n**Enforceable without new tooling:** ✓\n\n**No aspirational language:** ✓\n\n**Quality issues:**\n- Word count violation is significant.\n- The 30-day provisional window (Permitted Use #5) is a meaningful practical improvement — addresses the 45% sales usage reality.\n- Prohibition #2 is improved: \"unreviewed\" rather than blanket ban, with IP-review requirement.\n- GDPR and FedRAMP citations in Prohibition #1 are correct additions.\n- Notification language corrected from Proposal 1's conflation of SOC2 with legal obligations.\n\n---\n\n## Proposal 3 Analysis\n\n**Word count:** ~480 words — passes.\n\n**4 sections:** ✓\n\n**Numbered items:** ✓\n\n**Prohibitions cite base facts:** ✓ Same complete citations as Proposal 2.\n\n**Enforceable without new tooling:** ✓\n\n**No aspirational language:** ✓\n\n**Quality issues:**\n- Essentially identical to Proposal 2 in substance, but without the revision-log preamble, bringing it under 500 words.\n- Retains all improvements: GDPR/FedRAMP citations, 30-day transition, corrected notification language, \"unreviewed\" framing in Prohibition #2.\n- No meaningful quality degradation from Proposal 2 — it is Proposal 2 with the constraint violation fixed.\n\n---\n\n## Ranking Rationale\n\n**Proposal 3** is the cleanest: all constraints satisfied, most complete base-fact citations, practical transition mechanism, corrected legal language.\n\n**Proposal 2** has identical substantive quality but violates the 500-word constraint — a hard rule in the original task.\n\n**Proposal 1** satisfies word count and core constraints but is substantively weaker: missing GDPR/FedRAMP citations, no transition path for the 45% of sales already using AI, and less precise notification language.\n\n---\n\nRANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**≤500 words (body text only):**\n- Proposal 1: ~480 words ✓ (but tight, includes the sales transition item)\n- Proposal 2: ~380 words ✓ (leaner, no transition item)\n- Proposal 3: ~490 words ✓ (includes transition item + fuller compliance citations)\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** \n- Proposal 1: All four prohibitions cite incidents/facts ✓\n- Proposal 2: All four cite facts ✓ — but Prohibited Use #1 omits SOC2, GDPR, FedRAMP (weaker grounding)\n- Proposal 3: All four cite facts, with fullest compliance citations ✓\n\n**Enforceable without new tooling:**\n- All three use PR workflows, supervisory review, SOC2 access-review cadence ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n## Quality Differentiators\n\n**Proposal 2** is the leanest but has notable weaknesses: (1) Prohibited Use #1 cites only DPA, omitting SOC2/GDPR/FedRAMP as motivating facts — these are explicitly in the base facts and the constraint requires every prohibition to reference *which base fact motivates it*; (2) the sales prohibition is a hard ban with no transition path, which is operationally problematic given 45% current usage and no approved sales tool yet; (3) the preamble explaining \"changes made\" is editorial noise not part of the memo.\n\n**Proposal 1** is substantively strong — it includes the 30-day sales transition window, full compliance citations, and the $50K cap as a hard constraint. However, it also includes the editorial preamble (not part of the memo itself), and the sales transition item (Permitted Use #5) adds complexity that slightly strains the word count.\n\n**Proposal 3** is the cleanest final product: no editorial preamble, fullest compliance citations in Prohibited Use #1 (SOC2 + GDPR + FedRAMP all cited), the 30-day sales transition window, the corrected enforcement item #4 (GDPR/breach-notification law rather than conflating SOC2 with legal notification), and the $50K hard cap. It addresses every identified weakness from Proposals 1 and 2 without introducing new ones.\n\n---\n\n## Ranking\n\n**RANKING: [3], [1], [2]**\n\n- **Best (3):** Fullest fact citations, no editorial preamble, corrected enforcement language, operationally workable sales transition, all constraints met.\n- **Second (1):** Substantively equivalent to Proposal 3 but includes editorial preamble and has the slightly weaker enforcement item #4 wording.\n- **Worst (2):** Omits GDPR/SOC2/FedRAMP from Prohibited Use #1, no sales transition path, editorial preamble present — the leanness comes at the cost of constraint compliance and operational workability."
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**≤500 words (body only, excluding headers/metadata):**\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~350 words ✓ (but stripped the sales provisional window)\n- Proposal 3: ~430 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓\n\n**Enforceable without new tooling:** All three use PR workflows, supervisory review, SOC2 cadence ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n## Substantive Quality Analysis\n\n**Proposal 1** includes the 30-day sales transition window (Permitted Use #5) and full compliance citations (SOC2, GDPR, FedRAMP) in Prohibited Use #1. However, it also includes an editorial preamble (\"Changes made...\") that is not part of the memo itself — this is a drafting artifact, not a policy document flaw. The memo body is clean. The sales prohibition uses \"unreviewed\" language, which is more workable than a blanket ban.\n\n**Proposal 2** is the leanest version. It removes the 30-day transition window, which creates an immediate enforceability problem: 45% of sales staff are currently using AI tools with no approved tool available for them. A policy that prohibits current behavior with no transition path is practically unenforceable on day one. It also omits SOC2, GDPR, and FedRAMP citations from Prohibited Use #1, leaving compliance motivations thin. The sales prohibition is also overbroad (\"may not send AI-generated text... unless a tool is approved\") — since no sales tool is currently approved, this effectively bans all sales AI use immediately with no path forward.\n\n**Proposal 3** is the most complete version: it includes the 30-day transition window, full compliance citations (SOC2, GDPR, FedRAMP) in Prohibited Use #1, the corrected notification language (\"Legal assesses notification obligations under GDPR and applicable breach-notification law\" rather than conflating SOC2 with legal mandates), and the workable \"unreviewed\" framing for the sales prohibition. It also lacks the editorial preamble in the memo body itself.\n\n---\n\n## Ranking Rationale\n\n- **Proposal 3 is best**: Most complete compliance citations, workable sales transition, correct legal framing, no editorial artifacts in the memo body.\n- **Proposal 1 is second**: Substantively nearly identical to Proposal 3 but includes an editorial preamble as part of the submission, slightly muddying the deliverable.\n- **Proposal 2 is worst**: Removes the transition window creating a day-one enforceability gap, omits key compliance citations, and the sales prohibition is practically unworkable given no approved sales tool exists yet.\n\n---\n\nRANKING: [3], [1], [2]"
+    }
+  ],
+  "elapsed": 59.8
+}

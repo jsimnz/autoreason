@@ -1,0 +1,52 @@
+{
+  "pass": 16,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 8,
+    "AB": 7
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Numbered items (not prose paragraphs)\n- Every prohibition must reference which base fact motivates it\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n- **Word count:** Runs long (~480+ words in body, likely over 500 with headers)\n- **4 sections:** ✓\n- **Numbered items:** ✓\n- **Prohibition citations:** ✓ (all three prohibitions cite facts)\n- **No new tooling:** ✓\n- **No aspirational language:** ✓\n- **Issues:** Prohibition 3 (\"no representing AI as original IP\") is weakly grounded — the base fact says code *may not* be copyrightable, which doesn't directly prohibit representing it as IP in deliverables. Scope item 3 already covers the general prohibition, making some prohibitions redundant. Word count is borderline.\n\n---\n\n## Proposal 2 Analysis\n\n- **Word count:** Explicitly designed to be under 500 words ✓\n- **4 sections:** ✓\n- **Numbered items:** ✓\n- **Prohibition citations:** ✓ (both prohibitions cite facts, SOC2 added)\n- **No new tooling:** ✓ (fixed Slack re-enable process issue from P1)\n- **No aspirational language:** ✓\n- **Issues:** Prohibition 2 conflates Incident #2 (sales/content) with Incident #3 (code/license) — the motivating facts are distinct situations but the prohibition only covers code commits, leaving the sales scenario partially unaddressed. However, Scope item 3 handles the sales tool ban. The self-correction rationale is transparent and each fix is traceable.\n\n---\n\n## Proposal 3 Analysis\n\n- **Word count:** Clearly over 500 words ✓ FAILS\n- **4 sections:** ✓\n- **Numbered items:** ✓\n- **Prohibition citations:** ✓ (5 prohibitions, all cited)\n- **No new tooling:** Enforcement item 3 says \"Re-enabling them requires written approval from IT and Legal\" — this invents a new approval process ✗\n- **No aspirational language:** \"promptly upon discovery\" in Enforcement item 4 is vague/aspirational ✗\n- **Issues:** Multiple constraint violations. Scope item 4 is arguably a prohibition masquerading as scope. Prohibitions 3 and 4 overlap significantly.\n\n---\n\n## Ranking\n\n**Proposal 2** is best: explicitly word-count compliant, fixes known issues from P1 (Slack process, SOC2 citation, aspirational language), clean prohibition structure with proper citations, no new tooling invented.\n\n**Proposal 1** is second: structurally sound, all prohibitions cited, enforceable without new tooling, no aspirational language — but has the borderline word count and the weakly-grounded IP prohibition.\n\n**Proposal 3** is worst: fails word count, invents a new approval process (violating the no-new-tooling constraint), retains \"promptly\" (aspirational/vague), and has redundant prohibitions.\n\n## RANKING: [2], [1], [3]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words):**\n- Proposal 1: ~480 words in the policy body — borderline but likely over when headers counted carefully. The parenthetical citations are verbose.\n- Proposal 2: ~380 words — clearly under 500.\n- Proposal 3: ~340 words (policy body only, excluding the preamble explanation) — clearly under 500.\n\n**Exactly 4 sections:** All three comply.\n\n**Numbered items (not prose):** All three comply.\n\n**Every prohibition references motivating base fact:** All three comply, with Proposal 3 being the most precise.\n\n**Enforceable without new tooling:** \n- Proposal 1 introduces a new process: \"Re-enabling [Slack AI] requires written approval from IT and Legal\" — this invents a new approval workflow not derivable from base facts. **Violation.**\n- Proposals 2 and 3 simply state Slack AI remains disabled via existing controls. **Compliant.**\n\n**No aspirational language:** All three comply.\n\n---\n\n**ADDITIONAL QUALITY ISSUES**\n\n**Proposal 1 — Scope item 4** (\"No approved AI tool currently exists for sales email drafting\") is a prohibition masquerading as a scope statement. This is structurally incorrect and redundant with Scope item 3.\n\n**Proposal 1 — Prohibition 5** (\"No representing AI-generated code as original company IP\") is not directly derivable from the base facts — outside counsel flagged copyrightability concerns, but the memo's base facts don't establish a specific prohibition on representing code as IP in contracts. This exceeds what's derivable.\n\n**Proposal 1 — Prohibition 2** (banning unapproved tools for all roles, with sales callout) is redundant with Scope item 3, which already prohibits all non-listed tools. It also adds no enforcement mechanism.\n\n**Proposal 2** fixes the Slack re-enable issue and removes the misplaced Scope item 4, but retains Prohibition 3 (\"No representing AI-generated code as original company IP\") which has the same derivability problem as Proposal 1's Prohibition 5.\n\n**Proposal 3** explicitly identifies and fixes all these problems: removes the non-derivable IP representation prohibition, removes the redundant unapproved-tools prohibition, fixes the Slack new-process invention, removes the misplaced Scope item 4, adds SOC2 citation, and replaces \"promptly\" with \"within 24 hours.\" It is the most constraint-compliant and tightest document.\n\n**Coverage concern in Proposal 3:** Prohibition 2 scopes the copyright/license issue only to \"code commits,\" which means the sales rep scenario (Incident #2, written content) is technically not covered by a prohibition — only by the blanket tool ban in Scope. This is a minor gap but arguably acceptable since all non-Copilot tools are already banned.\n\n---\n\n**RANKING: [3], [2], [1]**\n\n- **Best: Proposal 3** — Fixes all identified constraint violations, tightest word count, no invented processes, no non-derivable prohibitions, explicit motivating-fact citations.\n- **Second: Proposal 2** — Fixes the Slack new-process problem vs. Proposal 1, but retains the non-derivable IP representation prohibition and is slightly wordier.\n- **Worst: Proposal 1** — Invents a new Slack approval process, includes a non-derivable prohibition, has a misplaced prohibition in Scope, and is the longest."
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words):**\n- Proposal 1: ~380 words ✓\n- Proposal 2: ~420 words ✓\n- Proposal 3: ~500+ words — Scope item 4, Prohibition 2's lengthy citation, and Prohibition 5 push this over ✗\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓ (Proposal 1 has only 2 prohibitions but both are cited)\n\n**No aspirational language:** All three ✓\n\n**Enforceable without new tooling:**\n- Proposal 3 Enforcement item 3: \"Re-enabling them requires written approval from IT and Legal\" — this invents a new approval process ✗\n- Proposal 3 Enforcement item 4: \"promptly\" — vague, not enforceable ✗\n- Proposals 1 and 2: Both use \"within 24 hours\" ✓\n\n**Prohibitions derivable from base facts only:**\n- Proposal 3 Prohibition 5 (\"no representing AI-generated code as original IP\") — weakly derivable but stretches the facts\n- Proposal 2 Prohibition 3 — same issue, but less severe given tighter framing\n- Proposal 1 avoids this entirely\n\n**Scope item 4 in Proposal 3** is effectively a prohibition masquerading as scope ✗\n\n**Prohibition redundancy in Proposal 3:** Prohibitions 3 and 4 substantially overlap and could be merged, creating structural inefficiency.\n\n---\n\n**QUALITY ASSESSMENT**\n\n**Proposal 1** is the tightest. It resolves the known problems explicitly, keeps prohibitions to only what the facts directly support, avoids invented processes, stays well under word count, and has no vague enforcement language. The tradeoff is only 2 prohibitions, but both are well-grounded.\n\n**Proposal 2** is nearly as strong. It adds a third prohibition (no representing AI code as original IP) that has legitimate grounding in the outside counsel flag. The prohibition is more carefully scoped than Proposal 3's version. It stays under 500 words and avoids the process-invention problem. Minor weakness: the third prohibition is the least directly grounded of the three.\n\n**Proposal 3** has multiple constraint violations: likely over 500 words, invents a new Slack re-enablement approval process, uses \"promptly\" instead of a defined timeframe, has a Scope item that belongs in Prohibited Uses, and has redundant prohibitions 3 and 4.\n\n---\n\n**RANKING:** [2], [1], [3]\n\n- **Best: Proposal 2** — Clean, well-grounded, under word count, no invented processes, slightly richer prohibition set than Proposal 1 with adequate factual basis.\n- **Second: Proposal 1** — Equally rigorous, slightly leaner (arguably too lean on prohibitions), but fully constraint-compliant.\n- **Worst: Proposal 3** — Multiple constraint violations including word count, invented process, vague enforcement language, and structural misplacement."
+    }
+  ],
+  "elapsed": 61.5
+}

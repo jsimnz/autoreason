@@ -1,0 +1,52 @@
+{
+  "pass": 5,
+  "winner": "B",
+  "scores": {
+    "A": 4,
+    "B": 7,
+    "AB": 7
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500):**\n- Proposal 1: ~430 words in body — passes\n- Proposal 2: ~430 words in body — passes\n- Proposal 3: ~380 words in body — passes (leanest)\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose paragraphs):** All three pass.\n\n**Every prohibition references motivating base fact:** All three pass, with nuances below.\n\n**No aspirational language:** All three pass.\n\n**Enforceable without new tooling:** All three pass (use existing code review, IT provisioning, incident channel, HR escalation).\n\n---\n\n**DETAILED ANALYSIS**\n\n**Proposal 1:**\n- Strengths: Cleanest separation of concerns; moves 80-seat enforcement to Enforcement section (logically correct); explicit consequence for failure to report (written warning); Slack prohibition in Prohibited Uses with citation is well-placed.\n- Weaknesses: Permitted Uses item 4 for sales is somewhat circular (\"tools approved under item 1 or future approved tool\") — item 1 is engineer-specific, creating ambiguity. The Slack prohibition in Prohibited Uses is slightly redundant with Scope item 3 in Proposals 2/3, but Proposal 1 handles it more explicitly with a citation, which is actually stronger. Five Prohibited Uses items vs. four in others — not a constraint violation.\n\n**Proposal 2:**\n- Strengths: Clean structure; Permitted Uses item 4 references the $50K budget (a base fact), which is a genuine addition.\n- Weaknesses: Prohibited Uses item 2 cites \"73% of engineers and 45% of sales using unapproved tools\" as a motivating fact for prohibition — this is the weakest citation logic (survey data motivates the policy's existence, not the prohibition specifically). Enforcement item 4 uses \"aggravating factors in disciplinary review\" — vague, less enforceable than Proposal 1's concrete written warning. No sales-specific permitted use guidance.\n\n**Proposal 3:**\n- Strengths: Tightest prose; Prohibited Uses item 2 cites all three incidents as motivating facts (accurate and comprehensive); Permitted Uses item 4 gives sales employees clear guidance; Enforcement item 4 mirrors Proposal 1's concrete written warning consequence.\n- Weaknesses: Permitted Uses item 4 says \"tools explicitly approved under this policy\" but no such tools exist for sales currently — slightly circular, though honest. Minor: doesn't reference the $50K budget anywhere (missed base fact).\n\n**OVERALL ASSESSMENT:**\n\nProposal 3 is the cleanest and most internally consistent. It handles the sales use case, cites incidents accurately, avoids the survey-statistic-as-prohibition-motivation error of Proposal 2, and has a concrete enforcement consequence. Proposal 1 is close but has the awkward Permitted Uses item 4 cross-reference. Proposal 2 has the weakest motivating fact citation logic and vaguest enforcement consequence.\n\nRANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words):**\n- Proposal 1: Clearly over 500 words (the Prohibited Uses section alone is very long). **FAILS**\n- Proposal 2: Close to 500; the preamble changelog adds words but the body appears trimmed. Borderline but likely compliant.\n- Proposal 3: Appears tightest. Likely compliant.\n\n**Exactly 4 sections (Scope, Permitted Uses, Prohibited Uses, Enforcement):**\n- All three: ✓\n\n**Numbered items (not prose paragraphs):**\n- All three: ✓\n\n**Every prohibition references motivating base fact:**\n- All three attempt this. Proposal 3's Prohibited Use #5 (Slack) cites SOC2/GDPR/DPA — reasonable derivation. ✓\n\n**Enforceable without new tooling:**\n- All three use existing identity management, code review, HR escalation. ✓\n\n**No aspirational language:**\n- Proposal 1: \"must not enable\" — fine. No aspirational language detected. ✓\n- Proposal 2: Clean. ✓\n- Proposal 3: Clean. ✓\n\n---\n\n**QUALITY ANALYSIS**\n\n**Proposal 1:**\n- Fails the 500-word constraint — disqualifying.\n- Otherwise substantively strong: clear motivating fact citations, good enforcement specificity, Slack coverage in Scope.\n- The Permitted Uses item 4 for sales is vague (\"tools explicitly approved under this policy\" without naming any approved sales tool — none exists in base facts, which is actually correct).\n\n**Proposal 2:**\n- Includes a lengthy preamble/changelog that consumes words and isn't part of the memo itself — awkward but the memo body may be under 500.\n- Permitted Uses item 4 (\"Additional AI tools may be funded...\") is a reasonable derivation from the $50K budget fact.\n- Prohibited Uses item 2 motivating fact correctly removes FedRAMP inference and survey statistic.\n- Enforcement item 4 (\"aggravating factors\") is slightly vague but not aspirational.\n- The 80-seat cap enforcement is clearly stated in Permitted Uses item 1.\n\n**Proposal 3:**\n- Cleanest structure: no preamble, tightest word count.\n- Correctly moves 80-seat enforcement to Enforcement section (better placement).\n- Adds Prohibited Use #5 for Slack explicitly — good coverage of a base fact.\n- Permitted Uses item 4 for sales is slightly awkward (\"through tools explicitly approved under item 1 or through a future approved tool\") — GitHub Copilot Business isn't a sales writing tool, making this logically odd.\n- Scope item 3's \"No undocumented use constitutes permission\" is slightly redundant/filler but not aspirational.\n- Motivating fact citations are appropriately trimmed.\n- Most likely under 500 words.\n\n---\n\n**RANKING RATIONALE**\n\n- Proposal 3 is best: meets word count, cleanest structure, adds Slack prohibition explicitly, correctly separates enforcement of seat cap, no aspirational language, tightest fact citations.\n- Proposal 2 is second: substantively sound corrections, likely meets word count in body, but the preamble is awkward and the sales permitted use item is slightly better than Proposal 3's odd Copilot-for-sales reference.\n- Proposal 1 is worst: fails the 500-word constraint outright.\n\nRANKING: [3], [2], [1]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Numbered items (not prose paragraphs)\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n**Structure:** 4 sections ✓, numbered items ✓\n**Word count:** ~490 words ✓\n**Aspirational language:** Clean ✓\n**Prohibitions with motivating facts:** All 5 cited ✓\n**Enforcement without new tooling:** Uses existing identity management, code review, HR, incident channel ✓\n**Issues:**\n- Permitted Uses item 4 says sales may use tools \"approved under item 1 or through a future approved tool\" — item 1 is GitHub Copilot Business (engineering tool), creating logical awkwardness for sales\n- Slack prohibition moved to Prohibited Uses as item 5 with motivating facts — reasonable placement\n- Enforcement item 5's \"failure to report before discovery\" consequence is concrete ✓\n- The preamble/header adds minor overhead but is clean\n\n## Proposal 2 Analysis\n\n**Structure:** 4 sections ✓, numbered items ✓\n**Word count:** ~380 words ✓ (well under limit)\n**Aspirational language:** Clean ✓\n**Prohibitions with motivating facts:** All 4 cited ✓\n**Enforcement without new tooling:** ✓\n**Issues:**\n- Slack handled in Scope item 3 — not a prohibition section, so the \"must not enable\" directive sits awkwardly but is still enforceable\n- Permitted Uses item 4 says sales may use tools \"approved under this policy\" but the policy only explicitly approves GitHub Copilot Business — leaves sales with no usable tool, which is a practical gap but arguably accurate to the base facts\n- Prohibited Uses item 2 cites \"Incidents #1, #2, and #3 each involved unapproved or uncontrolled tool use\" — this is a reasonable inference and tightly grounded\n- Most concise and cleanest structure overall\n- No invented processes\n\n## Proposal 3 Analysis\n\n**Structure:** 4 sections ✓, numbered items ✓\n**Word count:** ~460 words ✓\n**Aspirational language:** \"Incidents discovered without a prior report are treated as aggravating factors in disciplinary review\" — \"aggravating factors\" is vague and non-concrete, borderline aspirational/unenforceable\n**Prohibitions with motivating facts:** All 4 cited ✓\n**Issues:**\n- Prohibited Uses item 2 cites \"73% of engineers and 45% of sales using unapproved tools without authorization\" — the survey showed informal use, not necessarily \"without authorization\" (there was no policy), making this a slight mischaracterization\n- Enforcement item 4's \"aggravating factors\" language is less concrete than Proposals 1 and 2\n- Permitted Uses item 4 references the $50K budget for future tools — this is derivable from base facts and useful\n- The preamble explaining changes is included in the submission, which is extraneous\n\n## Ranking\n\n**Proposal 2** is cleanest: tightest language, no invented processes, all prohibitions grounded, concrete enforcement, no aspirational language, well under word limit.\n\n**Proposal 1** is second: slightly more complete coverage (explicit Slack prohibition with citations, clearer sales guidance), concrete enforcement consequence, minor logical awkwardness in Permitted Uses item 4.\n\n**Proposal 3** is worst: \"aggravating factors\" language is the least concrete enforcement mechanism, the survey statistic is slightly mischaracterized, and the included preamble is extraneous.\n\nRANKING: [2], [1], [3]"
+    }
+  ],
+  "elapsed": 60.5
+}

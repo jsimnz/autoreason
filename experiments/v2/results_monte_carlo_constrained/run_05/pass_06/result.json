@@ -1,0 +1,52 @@
+{
+  "pass": 6,
+  "winner": "AB",
+  "scores": {
+    "A": 4,
+    "B": 6,
+    "AB": 8
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "A",
+        "B"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words for the memo itself):**\n- Proposal 1: Includes a lengthy preamble (~200 words) before the memo. The memo itself is borderline but the preamble is extraneous content.\n- Proposal 2: Memo only, no preamble. Cleanest submission.\n- Proposal 3: Includes a preamble (~250 words). Memo itself is clean.\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose):** All three pass.\n\n**Every prohibition references motivating base fact:** All three pass for items 1–4. The Slack item (Proposal 1 item 5, Proposal 2 item 5) cites \"current company configuration\" — this is a real base fact. Proposal 3 drops it entirely, arguing it lacks sufficient motivation. This is a defensible editorial choice, not a constraint violation.\n\n**Enforceable without new tooling:** All three pass — they use PR review, self-reporting, and existing access controls.\n\n**No aspirational language:** All three pass.\n\n---\n\n**SUBSTANTIVE QUALITY DIFFERENCES**\n\n**Slack prohibition (item 5):** Proposals 1 and 2 include it; Proposal 3 drops it. The base facts explicitly state \"company Slack (has AI features disabled)\" — this is a deliberate security configuration, and a prohibition on re-enablement is directly derivable. Dropping it (Proposal 3) leaves a gap: employees could re-enable Slack AI and route company data through it, undermining Prohibited Use item 1. Retaining it is the stronger policy choice.\n\n**Enforcement item 1 — manager escalation:** Proposal 1 adds \"managers must escalate to the responsible security owner\" (slightly invented role language). Proposal 2 says \"managers must escalate to Security\" — cleaner and derivable. Proposal 3 drops manager escalation entirely, weakening enforceability.\n\n**Invented roles:** Proposal 1 uses \"Engineering Ops\" (invented). Proposals 2 and 3 use \"the company\" — better. Proposal 1's preamble also references \"CISO/Legal approval process\" as something removed, but the memo itself avoids it.\n\n**Preambles:** Proposals 1 and 3 include meta-commentary preambles that are not part of the deliverable. Proposal 2 delivers only the memo.\n\n**Permitted Uses item 3:** Proposal 1 says \"submitted to Legal before use\" — slightly invented procedural channel. Proposals 2 and 3 say \"require approval before use\" — more neutral and derivable.\n\n---\n\n**RANKING RATIONALE**\n\n- **Proposal 2** is best: memo-only delivery, no invented roles, retains the Slack prohibition (defensible from base facts), includes manager escalation with clean language, tightest constraint adherence overall.\n- **Proposal 1** is second: substantively similar to Proposal 2 but weakened by the preamble, \"Engineering Ops\" invention, and slightly invented Legal submission channel.\n- **Proposal 3** is worst: drops the Slack prohibition (policy gap), drops manager escalation (enforcement gap), and still includes an extraneous preamble despite claiming to have removed one.\n\nRANKING: [2], [1], [3]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Analysis\n\n**Word count (≤500 words for the memo itself)**\n\n- Proposal 1: The memo body is approximately 380 words. ✓\n- Proposal 2: The memo body is approximately 390 words. ✓\n- Proposal 3: The memo body is approximately 400 words. ✓\n\n**Exactly 4 sections with numbered items**\nAll three comply. ✓\n\n**Every prohibition must reference which base fact motivates it**\n\n- Proposal 1: 4 prohibitions, all cited. ✓ No Slack prohibition (correctly omitted per its own reasoning).\n- Proposal 2: 5 prohibitions. Item 5 (Slack) cites \"current company configuration disables these features\" — this is a configuration status, not a risk fact, DPA flag, incident, or compliance obligation. Weak/invalid motivation. ✗\n- Proposal 3: 5 prohibitions. Item 5 same Slack problem as Proposal 2. ✗\n\n**No aspirational language**\nAll three comply. ✓\n\n**Enforceable without new tooling**\nAll three use existing PR review, self-reporting, and access controls. ✓\n\n**No invented facts**\n\n- Proposal 1: Removes \"Engineering Ops,\" \"Sales Managers,\" \"Engineering Leads,\" invented deadlines, invented Legal submission channel. Clean. ✓\n- Proposal 2: Retains \"Engineering Ops\" (Scope item 3), \"Sales Managers\" (Enforcement item 2), \"Engineering Leads\" (Enforcement item 3) — all invented roles not in base facts. ✗\n- Proposal 3: Removes \"Engineering Ops\" and \"Engineering Leads\" but retains \"Sales Managers\" in... wait, checking — Proposal 3 Enforcement item 2 places obligation on \"the authoring employee,\" not Sales Managers. ✓ No invented roles. But retains the Slack prohibition with weak motivation. Partial issue.\n\n**Slack prohibition validity**\nThe base facts state Slack AI features are *currently disabled* — this is a configuration fact, not a risk/incident/legal motivation for a prohibition. Proposals 2 and 3 include this prohibition; Proposal 1 correctly excludes it.\n\n## Summary Scorecard\n\n| Issue | Proposal 1 | Proposal 2 | Proposal 3 |\n|---|---|---|---|\n| Slack prohibition (invalid motivation) | ✓ excluded | ✗ included | ✗ included |\n| Invented roles | ✓ none | ✗ three | ✓ none |\n| Invented processes | ✓ none | minor | ✓ none |\n| Tightness/clarity | ✓ | moderate | ✓ |\n\nProposal 1 is the only one that fully satisfies the \"every prohibition must reference a base fact that motivates it\" constraint and eliminates all invented roles. Proposal 3 fixes the invented-role problem but retains the unmotivated Slack prohibition. Proposal 2 has both the Slack problem and multiple invented roles.\n\n## RANKING: [1], [3], [2]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words for the memo itself):**\n- Proposal 1: ~380 words in the memo body. ✓\n- Proposal 2: ~370 words in the memo body. ✓\n- Proposal 3: ~370 words in the memo body. ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓ for items 1–4. Proposal 1 and 3 include item 5 (Slack prohibition); Proposal 2 omits it.\n\n**Enforceable without new tooling:** All three ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n**KEY DIFFERENTIATORS**\n\n**Slack prohibition (item 5):**\n- Proposals 1 and 3 include it; Proposal 2 omits it. The base facts state Slack AI features are *currently disabled*. A policy that says nothing about Slack AI leaves a gap — employees could re-enable it. The current disabled state is a base fact, and a prohibition against re-enablement is directly derivable. Proposal 2's rationale for omitting it is overly strict; the configuration status is a legitimate motivating fact. Proposals 1 and 3 are stronger here.\n\n**Invented roles:**\n- Proposal 3 retains \"Engineering Ops\" (Scope item 3) and \"Sales Managers\" and \"Engineering Leads\" (Enforcement items 2–3) — all invented roles not derivable from base facts. This is a significant flaw.\n- Proposal 1 removes \"Engineering Ops\" but retains \"manager escalation\" in Enforcement item 1, which is a generic management role reasonably derivable from a 200-person company structure, and adds value as an enforceable check.\n- Proposal 2 removes manager escalation entirely from Enforcement item 1, which slightly weakens enforceability but avoids any invented-role risk.\n\n**Invented processes:**\n- Proposal 3 retains \"submitted to Legal\" in Permitted Uses item 3 — an invented procedural channel.\n- Proposals 1 and 2 replace this with \"requires approval before use,\" which is derivable without inventing a channel. ✓\n\n**Enforcement quality:**\n- Proposal 1's Enforcement item 1 includes manager escalation duty, adding an enforceable layer without inventing new tooling. This is the strongest enforcement section.\n- Proposal 2 omits manager escalation, slightly weaker.\n- Proposal 3 has invented roles throughout enforcement, making it the weakest.\n\n---\n\n**SUMMARY**\n\n- **Proposal 1** is the strongest: includes the Slack prohibition (derivable), removes invented roles except for a defensible generic \"managers,\" adds manager escalation for enforceability, and uses the tightest language.\n- **Proposal 2** is second: clean, no invented roles, but omits the Slack prohibition (a meaningful gap) and drops manager escalation.\n- **Proposal 3** is weakest: retains multiple invented roles (\"Engineering Ops,\" \"Sales Managers,\" \"Engineering Leads\") and an invented process (\"submitted to Legal\"), violating the base-facts-only constraint most severely.\n\nRANKING: [1], [2], [3]"
+    }
+  ],
+  "elapsed": 66.4
+}

@@ -1,0 +1,52 @@
+{
+  "pass": 12,
+  "winner": "B",
+  "scores": {
+    "A": 5,
+    "B": 7,
+    "AB": 6
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the stated constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500):**\n- Proposal 1: ~480 words — passes, but tight\n- Proposal 2: ~400 words — passes comfortably\n- Proposal 3: ~380 words — passes comfortably\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose):** All three pass.\n\n**Every prohibition references base fact:** \n- Proposal 1: All 5 prohibitions cite basis — passes, but has a 5th prohibition (copyrightability) that the constraints don't require and may be unenforceable without new tooling\n- Proposal 2: 4 prohibitions, all cite basis — passes\n- Proposal 3: 4 prohibitions, all cite basis — passes\n\n**Enforceable without new tooling:**\n- Proposal 1: Prohibited Use #5 (no representation of AI code as copyrightable IP in contracts) has no existing enforcement mechanism — **fails this constraint**\n- Proposal 2: All prohibitions use existing mechanisms — passes\n- Proposal 3: All prohibitions use existing mechanisms — passes\n\n**No aspirational language:** All three pass.\n\n**Use ALL base facts:**\n- Proposal 1: Mentions 73%/45% survey data? No — **fails**\n- Proposal 2: Mentions both survey figures in Scope #2 — passes\n- Proposal 3: Mentions both survey figures in Scope #2 — passes; also explicitly notes $50K budget is referenced (Proposal 3 drops the budget mention entirely — minor gap, but the base fact about budget is not incorporated anywhere)\n\n**Budget fact ($50K):**\n- Proposal 1: Mentions $50K in Permitted Uses #4 — incorporated\n- Proposal 2: Not mentioned anywhere — **fails \"use ALL base facts\"**\n- Proposal 3: Not mentioned anywhere — **fails \"use ALL base facts\"**\n\n---\n\n**QUALITY ANALYSIS**\n\n**Proposal 1:** Most comprehensive. Incorporates the $50K budget fact and the copyrightability counsel flag as a prohibition. However, Prohibited Use #5 is not enforceable without new tooling (violates a hard constraint), and the survey data is missing from Scope. Slightly over-engineered.\n\n**Proposal 2:** Clean and well-structured. Incorporates survey data. Misses the $50K budget fact entirely. All prohibitions are enforceable. Solid but incomplete on base facts.\n\n**Proposal 3:** Best reasoning transparency. Incorporates survey data. Correctly removes the unenforceable Prohibited Use #5. However, also drops the $50K budget fact. The Slack prohibition basis is corrected to reflect actual administrative status rather than an invented DPA link — this is more accurate. Enforcement #1 is the most precisely specified of all three.\n\n---\n\n**DECISION**\n\nProposal 3 is the most constraint-compliant overall: it fixes the unenforceable prohibition from P1, is more accurate than P2 on the Slack basis, and specifies the reporting party in enforcement. Its only gap (missing $50K) is shared with P2. Proposal 2 is second — it avoids the unenforceable prohibition but has the same budget omission and the less-accurate Slack basis. Proposal 1 is worst — it violates the \"enforceable without new tooling\" constraint with Prohibited Use #5 and omits survey data.\n\n**RANKING: [3], [2], [1]**"
+    },
+    {
+      "ranking": [
+        "A",
+        "AB",
+        "B"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**\"Use ALL base facts, add nothing not derivable from them\"**\n\n- Survey findings (73%/45%): P1 ✓, P2 ✗ (omitted), P3 ✓\n- $50K budget: P1 ✗ (omitted entirely), P2 ✓ (mentioned in Permitted #4), P3 ✗ (omitted entirely)\n- FedRAMP in Scope: P1 ✓, P2 ✓, P3 ✓\n- All 3 incidents cited: P1 ✓, P2 ✓, P3 ✓\n- Outside counsel copyrightability flag: P1 ✗ (deleted Prohibited #5 entirely, with justification), P2 ✓ (Prohibited #5), P3 ✗ (omitted)\n\n**\"Every prohibition must reference which base fact motivates it\"**\n\n- P1 Prohibited #4 (Slack): cites only administrative configuration, not DPA/outside counsel — weak but technically present\n- P2 Prohibited #4 (Slack): cites both configuration AND DPA — stronger, but the causal link is still somewhat invented (Slack AI features being disabled isn't directly because of DPA)\n- P2 Prohibited #5: cites outside counsel copyrightability flag — addresses a real base fact\n- P3 Prohibited #4: same as P1\n\n**\"Maximum 500 words\"**\n\n- P1: The preamble/editorial section adds significant word count before the memo itself. The memo alone is borderline but likely under 500. However, the task asks to write the policy memo — the editorial content is extra.\n- P2: Memo only, appears under 500 words.\n- P3: Memo only, appears under 500 words.\n\n**\"Enforceable without new tooling\"**\n\n- P2 Prohibited #5: \"manager reviews any flagged contract language before execution\" — who flags it? This is vague and arguably requires a new process.\n- P1/P3: No such issue.\n\n**\"No aspirational language\"**\n\nAll three pass this check.\n\n**\"Exactly 4 sections with numbered items\"**\n\nAll three pass.\n\n---\n\n## Quality Assessment\n\n**P1**: Omits $50K budget and outside counsel copyrightability flag entirely. The editorial justification for deleting Prohibited #5 is reasonable but the base fact constraint says \"use ALL.\" The survey data is included. The Enforcement section is the most precise (specifies \"discovering employee or reviewer\"). The pre-memo editorial content is extraneous to the deliverable.\n\n**P2**: Includes all base facts including $50K and copyrightability. Prohibited #5 attempts to address the copyrightability flag but the enforcement mechanism (\"manager reviews flagged contract language\") is vague about who flags it — slightly weak but present. The $50K budget framing in Permitted #4 (\"within the $50K annual budget\") is accurate to the base facts. Omits survey findings from Scope — a notable gap. The Slack prohibition basis conflates two separate facts.\n\n**P3**: Includes survey findings. Omits $50K budget and copyrightability prohibition entirely — same gaps as P1 but without P1's editorial justification. Otherwise clean and well-structured. Enforcement is identical to P1's memo section and is strong.\n\n---\n\n## Ranking\n\n**P2** best satisfies \"use ALL base facts\" (includes $50K, copyrightability, incidents, compliance requirements) and every prohibition has a cited basis. Its weaknesses (missing survey data, slightly vague Prohibited #5 enforcement) are less severe than wholesale omission of base facts.\n\n**P3** is second: clean, precise, strong enforcement language, but omits two base facts ($50K, copyrightability) without justification.\n\n**P1** is worst as a final deliverable: omits the same facts as P3, buries the actual memo inside editorial commentary, and the self-justification for deletions doesn't override the constraint.\n\nRANKING: [2], [3], [1]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n## Constraint Checklist\n\n**\"Use ALL base facts, add nothing not derivable from them\"**\n- All three use the survey figures, incidents, compliance requirements, approved tools, and legal flags.\n- Proposal 3, Permitted Uses #4 adds \"$50K annual budget\" as a cap/condition on approvals — the base fact says budget is *allocated*, not that it governs approval authority. This is a minor distortion.\n- Proposal 3, Prohibited Uses #5 (copyrightability representation prohibition) — Proposal 1's analysis correctly identifies this is unenforceable without new process. Proposal 3 retains it anyway, weakening enforceability.\n\n**\"Every prohibition must reference which base fact motivates it\"**\n- Proposals 1 and 2: Prohibited Uses #4 (Slack) cites only the administrative-disable fact. Proposal 2 adds the DPA citation, but the DPA fact motivates the *customer data* prohibition, not the Slack-disable prohibition. Proposal 1 correctly avoids this conflation.\n- Proposal 3: Same Slack issue as Proposal 2, plus Prohibited Uses #5's basis is legitimate but the enforcement mechanism is questionable.\n\n**\"Enforceable without new tooling\"**\n- Proposal 3's Prohibited Uses #5 requires contract review flagging — this implies a new review process not described in existing controls. Fails this constraint.\n- Proposals 1 and 2 pass cleanly.\n\n**\"No aspirational language\"**\n- All three pass.\n\n**\"Maximum 500 words / exactly 4 sections / numbered items\"**\n- All three appear to comply structurally.\n\n**Specificity and clarity**\n- Proposal 2's Enforcement #4 explicitly names \"sales staff using personal or free-tier tools\" — this is more specific and useful than Proposal 1's equivalent.\n- Proposal 1 is the cleanest on the Slack prohibition (no spurious DPA citation).\n- Proposal 2 retains the DPA-Slack conflation but is otherwise nearly identical to Proposal 1 with slightly better enforcement specificity.\n\n## Summary\n\n- **Proposal 1**: Cleanest constraint adherence, correct removal of the unenforceable copyrightability prohibition, accurate Slack basis citation, good enforcement specificity.\n- **Proposal 2**: Nearly identical to Proposal 1 but introduces a minor logical conflation in Prohibited Uses #4 (citing DPA for the Slack prohibition when DPA motivates the customer-data prohibition). Enforcement #4 is marginally more specific.\n- **Proposal 3**: Fails two constraints — the $50K budget distortion, the unenforceable Prohibited Uses #5, and the same Slack conflation as Proposal 2.\n\nRANKING: [1], [2], [3]"
+    }
+  ],
+  "elapsed": 65.2
+}

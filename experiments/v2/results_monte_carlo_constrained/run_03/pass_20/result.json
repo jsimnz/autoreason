@@ -1,0 +1,52 @@
+{
+  "pass": 20,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 9,
+    "AB": 6
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**≤500 words (body only):**\n- P1: ~380 words ✓\n- P2: ~400 words (with header adds ~30 more) — borderline, but header may not count ✓\n- P3: ~370 words (body only, after the preamble explanation) ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items in each section:** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓\n\n**Enforceable without new tooling:** All three use PR records, HR files, manager confirmation — existing processes ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n## Substantive Differences\n\n**Sales AI use coverage:**\n- P1 addresses it in Permitted Uses item 2 ✓\n- P2 **omits it entirely** — 45% of sales use AI for email drafting, yet P2 has no permitted use for sales. This creates an enforcement gap where all sales AI use falls under Prohibition 4 by default, which is a significant policy hole ✗\n- P3 addresses it in Permitted Uses item 2 ✓\n\n**Enforcement item 4 (GPL incident accountability):**\n- P1 places accountability on the **committing employee** ✓ — matches base fact (intern *committed* the code)\n- P2 places accountability on the **PR reviewer** ✗ — the base fact says an intern committed the code; there's no base fact establishing a reviewer approved it\n- P3 places accountability on the **committing employee** ✓\n\n**Enforcement item 3 (copyright incident):**\n- P1: reports to Legal \"before any external remediation action\" — reasonable, derivable ✓\n- P2: reports to Legal \"prior to any disciplinary determination\" — this is an invented procedural constraint not derivable from base facts ✗\n- P3: same as P1 ✓\n\n**Prohibition 5 citations:**\n- P1 cites SOC2 and GDPR as motivators for the Slack prohibition — these are inferences, not direct base facts for *why* Slack AI was disabled ✗ (minor)\n- P2 same issue ✗\n- P3 corrects this, citing only the Slack-disabled base fact and outside counsel DPA finding ✓\n\n**Scope item 3 (survey data):**\n- P2 includes survey statistics in Scope — this is background/justification, not a scoping rule; slightly imprecise structurally\n- P1 and P3 omit this ✓\n\n**P3's preamble:** P3 includes a lengthy editorial explanation before the policy. This is extraneous and not part of the memo itself, but it doesn't violate the policy constraints per se.\n\n---\n\n## Summary\n\n- **P3** is the most technically correct: fixes the sales use gap, correctly assigns accountability to the committing employee, avoids invented procedural requirements, and has the most precise citations.\n- **P1** is close but has the minor Slack citation issue and the accountability misattribution in Enforcement item 4 is absent (correctly assigns to committing employee), making it second.\n- **P2** has the most substantive flaws: omits sales AI permitted use entirely, misattributes accountability to the reviewer, and invents a procedural Legal pre-clearance requirement.\n\n---\n\nRANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words for policy body):**\n- Proposal 1: Includes memo header block (TO/FROM/DATE/SUBJECT) which adds ~30 words, pushing it over 500. The policy body itself is borderline.\n- Proposal 2: No header block. Fits within 500 words.\n- Proposal 3: No header block, also removed one Scope item. Comfortably within 500 words.\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose paragraphs):** All three pass.\n\n**Every prohibition references motivating base fact:** All three pass, with Proposal 3 having the most carefully calibrated citations (e.g., fixing the Prohibition 5 citation to remove unsupported SOC2/GDPR inferences).\n\n**Enforceable without new tooling:** All three pass — they rely on PR review records, HR documentation, manager confirmation.\n\n**No aspirational language:** All three pass.\n\n---\n\n**SUBSTANTIVE QUALITY DIFFERENCES**\n\n**Sales AI use gap:** Proposals 1 fails to address the 45% of sales staff already using AI for email drafting in Permitted Uses — it only appears implicitly under Prohibition 4, creating an enforcement gap. Proposals 2 and 3 explicitly permit sales AI drafting with a review requirement, which is more realistic and enforceable.\n\n**Enforcement item 4 (GPL incident accountability):** Proposal 1 places accountability on the *PR reviewer*, but the base fact says an intern *committed* the code — there's no stated fact that a reviewer approved it. Proposals 2 and 3 correctly place accountability on the committing employee.\n\n**Enforcement item 3 (Prohibition 2):** Proposal 1's \"prior to any disciplinary determination\" language is an invented procedural requirement not derivable from base facts. Proposals 2 and 3 use \"before any external remediation action,\" which is more defensible from the facts.\n\n**Prohibition 5 citations:** Proposal 1 cites SOC2 and GDPR as motivators for the Slack AI prohibition, but the base fact is simply that Slack AI features are disabled — the SOC2/GDPR connection is an inference, not a stated fact. Proposals 2 and 3 are more restrained here, though Proposal 3 is most precise.\n\n**Proposal 3's preamble:** Proposal 3 includes a lengthy editorial explanation of its own changes, which is not part of the policy memo itself. This is extraneous but doesn't affect the policy body's quality.\n\n**Proposal 3 vs. Proposal 2:** They are nearly identical in policy body. Proposal 3 is marginally more precise in citations and fixes the \"internal\" qualifier on sales email drafting (though \"internal\" in Proposal 3's Permitted Use 2 is slightly odd for email drafting that may be external — Proposal 2 drops \"internal\" correctly). Both are strong; Proposal 3's citation discipline is slightly better.\n\n---\n\n**RANKING:** [3], [2], [1]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**≤500 words (body only):**\n- Proposal 1: ~380 words ✓\n- Proposal 2: ~400 words (with header adds ~30 more) — borderline, but header arguably outside body ✓\n- Proposal 3: ~370 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓\n\n**Enforceable without new tooling:** All three use existing PR review, HR processes, manager confirmation ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n## Substantive Differences\n\n**Sales AI use coverage:**\n- Proposals 1 and 3 include a Permitted Uses item explicitly covering sales email drafting (45% already doing it per base facts). This is a meaningful gap-fill.\n- Proposal 2 omits this entirely, creating a silent prohibition on an already-widespread practice — a significant policy gap.\n\n**Enforcement item 4 (GPL incident accountability):**\n- Proposals 1 and 3 place accountability on the *committing employee* — correctly matching the base fact (intern *committed* the code).\n- Proposal 2 places accountability on the *PR reviewer* — an unsupported inference not derivable from the base facts. This is a factual error.\n\n**Enforcement item 3 (copyright incident):**\n- Proposal 2 adds \"prior to any disciplinary determination\" as a Legal pre-clearance step — invented procedural requirement with no basis in the base facts.\n- Proposals 1 and 3 correctly limit this to reporting before external remediation.\n\n**Slack prohibition citations:**\n- Proposal 2 cites SOC2 and GDPR as motivators for the Slack prohibition — these are inferences, not direct base facts for *why* Slack AI was disabled.\n- Proposals 1 and 3 cite only the direct base facts (Slack has AI features disabled; outside counsel DPA finding).\n\n**Proposal 3's preamble:** Proposal 3 includes a lengthy editorial explanation of changes — this is not part of the policy memo itself and is extraneous. However, the actual policy text is clean and correct.\n\n**Proposal 1 vs. Proposal 3:** The policy text in both is nearly identical. Proposal 3 slightly tightens Permitted Use 2 for sales (\"internal email drafting\" vs. \"email drafting\") — a minor improvement. Both correctly handle all the substantive issues.\n\n---\n\n## Summary\n\n- **Proposal 3** has the best policy text: fixes all identified problems, correct accountability placement, no invented facts, covers sales use case, tightest citations. The editorial preamble is extraneous but doesn't contaminate the policy.\n- **Proposal 1** is essentially equivalent in policy quality — same corrections, same structure. Marginally behind only because Proposal 3's sales item is slightly more precise.\n- **Proposal 2** contains two factual errors (wrong accountability in Enforcement 4; invented Legal pre-clearance in Enforcement 3), omits the sales use case, and has citation overreach in Prohibition 5.\n\n---\n\nRANKING: [3], [1], [2]"
+    }
+  ],
+  "elapsed": 59.2
+}

@@ -1,0 +1,52 @@
+{
+  "pass": 4,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 8,
+    "AB": 7
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500):**\n- P1: ~420 words ✓\n- P2: ~390 words ✓\n- P3: ~370 words ✓ (also includes a lengthy preamble, but the memo itself is under 500)\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓ for items 1–4. Item 5 (Slack): P1 cites \"outside counsel DPA violation flag\" for Slack specifically — this is not directly derivable (the DPA flag is about customer data in third-party AI services, not Slack specifically, which has AI features *disabled*). P2 and P3 handle this more carefully by grounding it in the existing configuration and cross-referencing Prohibited Use item 2. P2/P3 are more accurate here.\n\n**Enforceable without new tooling:** All three use existing code review cycles and managerial oversight. P1 introduces \"pull request template updates\" — this is a minor process change but arguably within existing tooling. P2 also includes PR template updates. P3 removes the PR template (citing it as invented) and relies solely on existing monthly code review cycles. P3 is strictest here.\n\n**No aspirational language:** All three ✓\n\n**\"Add nothing not derivable from base facts\":**\n- P1: Claims Copilot \"does not receive customer PII under permitted use conditions\" — this is an assertion not in the base facts. Also invents \"one-on-one or deal review meetings\" as a specific Sales Manager process. Minor issues.\n- P2: Also invents the one-on-one/deal review process in Enforcement item 2 (carried over from P1's framing). Actually P2 does NOT include that — it says \"existing managerial oversight of direct reports,\" which is generic and defensible.\n- P3: Explicitly corrects the invented processes. Most disciplined about staying within base facts.\n\n---\n\n**QUALITY ASSESSMENT**\n\n- P1 has the most polish in prose but contains the fabricated Copilot assertion and a slightly weaker Slack motivation citation.\n- P2 is cleaner than P1 on the Copilot assertion but retains the PR template (which P3 flags as potentially invented) and is otherwise solid.\n- P3 is the most rigorous: it explicitly audits and corrects problems from P1/P2, removes unsupported assertions, handles the Slack motivation most carefully, and stays tightest to the base facts. The preamble explaining changes is not part of the memo itself and doesn't inflate word count.\n\n---\n\n**RANKING: [3], [2], [1]**\n\nP3 is best (most constraint-compliant, most fact-grounded, corrects prior errors), P2 is second (cleaner than P1 but retains minor issues P3 fixes), P1 is worst (fabricated Copilot assertion, weakest Slack motivation, invented Sales process)."
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**≤500 words (body text):**\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~370 words ✓\n- Proposal 3: ~390 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓ (with nuances below)\n\n**Enforceable without new tooling:**\n- P1: ✓ (existing monthly reviews, managerial oversight)\n- P2: ✗ \"Pull request templates are updated immediately\" — this is new tooling/process creation, not an existing mechanism\n- P3: ✓/partial — includes PR template checkbox, same problem as P2, but softer framing; still an invented new artifact\n\n**No aspirational language:** All three ✓\n\n**No facts not derivable from base facts:**\n- P1: Removes invented one-on-ones and PR templates ✓\n- P2: Invents \"one-on-one or deal review meetings\" (not in base facts) ✗; invents PR template update ✗\n- P3: Invents PR template checkbox ✗ (minor); Sales Manager oversight framing is appropriately general ✓\n\n---\n\n## Detailed Analysis\n\n**Proposal 1** is the most disciplined. It explicitly documents *why* each change was made, removes invented processes (one-on-ones, PR templates), grounds the Slack prohibition correctly, and avoids the circular Copilot assertion. The Scope section usefully incorporates the survey figures and seat gap. Enforcement relies only on existing mechanisms. The Slack prohibition motivation is handled most carefully — acknowledging it flows from the unapproved-tool rule rather than inventing a Slack-specific DPA concern.\n\n**Proposal 3** is close to Proposal 1 but introduces the PR template checkbox in Enforcement item 3, which is a new artifact not derivable from base facts and arguably violates the \"no new tooling\" constraint. The Slack prohibition motivation is identical to P1 (self-referential but defensible). Otherwise clean.\n\n**Proposal 2** has the most problems: it invents \"one-on-one or deal review meetings\" (no base fact supports this specific mechanism), mandates an immediate PR template update (new tooling), and retains the circular Copilot assertion (\"does not receive customer PII under permitted use conditions\" — this is a claim about Copilot's behavior not in the base facts). The \"prior use does not establish precedent\" item in Scope also lacks a grounding base fact.\n\n---\n\n## Ranking\n\n**RANKING: [1], [3], [2]**"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n## Constraint Checklist\n\n**Maximum 500 words (body text only, excluding headers/formatting):**\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~390 words ✓\n- Proposal 3: Has a lengthy preamble (~300 words of meta-commentary) before the policy itself (~370 words). If the preamble counts, it fails badly. Even if excluded, the policy body is fine. ✓/⚠\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition must reference which base fact motivates it:** All three handle this similarly. Proposal 1 and 2 are nearly identical here. Proposal 3 is also equivalent. All ✓\n\n**Enforceable without new tooling:** All three use existing code review cycles, managerial oversight. Proposals 1 and 2 mention PR template updates — this is a minor new process but not \"new tooling.\" Proposal 3 removes the PR template checkbox, relying purely on existing monthly code reviews. Proposal 3 is strictest here. ✓ for all, but P3 is cleanest.\n\n**No aspirational language:** All three avoid \"strive to,\" \"best efforts,\" \"where possible.\" ✓\n\n## Quality Analysis\n\n**Proposal 1:**\n- Includes a circular/unsupported claim: \"Copilot is approved on the basis that it does not receive customer PII\" — this is an assertion not derivable from base facts\n- Invents \"deal review meetings\" as a specific process not in base facts\n- Slack motivation references \"DPA violation flag\" which isn't specifically tied to Slack in the base facts\n- PR template checkbox is a minor new process but reasonable\n- \"Condition of employment\" placed in Scope (odd placement)\n\n**Proposal 2:**\n- Fixes the circular Copilot assertion\n- Still invents no specific processes beyond what's reasonable\n- Slack motivation is slightly circular but acknowledged\n- \"Condition of employment\" moved to Enforcement ✓\n- Cleaner than Proposal 1 overall\n- Still references \"one-on-one or deal review meetings\" — wait, actually Proposal 2 *removes* that specific language, replacing it with \"existing managerial oversight\" ✓\n\n**Proposal 3:**\n- The meta-commentary preamble is a significant problem — it's not part of the policy memo and adds substantial word count\n- The policy body itself is the cleanest version\n- Removes invented processes\n- Removes circular Copilot assertion\n- Slack motivation is most defensible\n- PR template removed in favor of purely existing processes\n- However, the preamble violates the spirit of \"drafting a policy memo\" — it's a revision note, not a memo\n\n## Ranking\n\n**Proposal 2** is best: clean policy body, fixes most problems from Proposal 1, no extraneous meta-commentary, stays within constraints, uses existing processes.\n\n**Proposal 3** is second: the policy body is technically the most rigorous, but the large preamble is inappropriate for a policy memo deliverable and potentially violates the word count constraint.\n\n**Proposal 1** is worst: contains unsupported factual assertions, invented processes, and misplaced \"condition of employment.\"\n\nRANKING: [2], [3], [1]"
+    }
+  ],
+  "elapsed": 72.5
+}

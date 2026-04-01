@@ -1,0 +1,52 @@
+{
+  "pass": 1,
+  "winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 7,
+    "AB": 8
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Numbered items (not prose)\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal-by-Proposal Analysis\n\n### Proposal 2\n- **Word count:** ~450 words (passes)\n- **Sections:** 4 ✓\n- **Numbered items:** ✓\n- **Prohibition citations:** All 5 prohibitions cite basis ✓\n- **No new tooling:** Prohibited Use #3 says commits \"are blocked from merge\" — this implies automated blocking, which requires new tooling. **Fails this constraint.**\n- **Aspirational language:** \"potential legal referral\" is hedging. **Fails.**\n- **Slack prohibition:** Basis given is not derivable from base facts (base facts only say AI features are disabled, not that enabling them violates DPA). Weak but arguable.\n- **73%/45% survey unaddressed:** No grandfather clause or acknowledgment.\n- **40 engineers without seats:** Not addressed.\n\n### Proposal 1\n- **Word count:** The memo body is ~450 words, but includes a \"Changes summary\" section that pushes it well over 500. **Likely fails word count** depending on interpretation.\n- **Sections:** 4 ✓ (ignoring the appended summary)\n- **Numbered items:** ✓\n- **Prohibition citations:** All cite basis ✓\n- **No new tooling:** PR review enforces GPL check ✓\n- **Aspirational language:** Cleaned up ✓\n- **Slack prohibition removed:** Correctly notes no base fact motivates it beyond current disabled state ✓\n- **Survey addressed:** Scope #4 ✓\n- **40 engineers addressed:** Permitted Use #2 ✓\n- **Unapproved sales tools:** Removed correctly ✓\n\n### Proposal 3\n- **Word count:** ~430 words (passes cleanly)\n- **Sections:** 4 ✓\n- **Numbered items:** ✓\n- **Prohibition citations:** All 5 cite basis ✓\n- **No new tooling:** PR review enforces GPL check (human reviewers reject) ✓\n- **Aspirational language:** None ✓\n- **Slack prohibition:** Included with basis — the basis is somewhat inferential but the current disabled state is a base fact, and the prohibition maintains that state without requiring new tooling ✓\n- **Survey/grandfather:** Scope #4 addresses it ✓\n- **40 engineers:** Permitted Use #1 addresses it ✓\n- **Sales tools:** Permitted Use #3 permits AI drafting tools generically — this introduces tools not in the approved list, which is a minor issue but the base facts don't prohibit sales from using AI drafting tools beyond the incidents cited.\n\n## Summary Comparison\n\n- **Proposal 3** satisfies nearly all constraints cleanly, fixes the key failures of Proposal 2 (automated blocking language, hedging), addresses the survey and seat gaps, stays within word count, and avoids the word-count problem of Proposal 1's appended summary.\n- **Proposal 1** is substantively strong but the appended \"Changes summary\" almost certainly violates the 500-word limit, and removing sales AI drafting tools entirely may be overly restrictive without base fact support.\n- **Proposal 2** has two clear constraint failures (automated blocking language, \"potential legal referral\" hedging) and omits the seat/survey issues.\n\n## RANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**Word count (≤500 words):**\n- Proposal 1: ~520+ words (the \"Changes summary\" section inflates it, but even the policy body alone is borderline/over)\n- Proposal 2: ~480 words — passes\n- Proposal 3: ~420 words — passes\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose):** All three pass.\n\n**Every prohibition references base fact:** All three pass reasonably well, though Proposal 3's Prohibited Use #4 (Slack) is weakly motivated — \"currently disabled\" is a status, not a risk fact. Proposals 1 and 2 handle this similarly weakly, but Proposal 1 removes it entirely (stronger choice).\n\n**Enforceable without new tooling:** Proposal 3 fails here — Prohibited Use #3 says commits \"are blocked from merge,\" implying automated tooling. Proposals 1 and 2 correctly use human PR review language.\n\n**No aspirational language:** Proposal 3 uses \"confirming it contains no\" (vague process). Proposal 1 and 2 are cleaner here.\n\n---\n\n## Specificity and Quality\n\n**Proposal 1:**\n- Strongest on constraint adherence: removes the weakly-motivated Slack prohibition, addresses the 40 engineers without seats explicitly, adds a no-grandfather-period clause addressing the 73%/45% survey data\n- Removes the problematic \"sales AI drafting tools\" permitted use (no approved tool exists for sales beyond Copilot)\n- The \"Changes summary\" section is extraneous and shouldn't be in a policy memo, but the policy body itself is the strongest\n- Enforcement language is sharpest (\"legal referral\" not \"potential\")\n\n**Proposal 2:**\n- Solid constraint adherence, no automated tooling implied\n- Keeps the Slack prohibition (weakly motivated but not wrong)\n- Permitted Use #3 grants sales employees use of unnamed \"AI drafting tools\" — no such tool is approved in the base facts, creating an internal contradiction\n- Enforcement is clean, no hedging\n\n**Proposal 3:**\n- Fails the \"no new tooling\" constraint explicitly (commits \"are blocked from merge\")\n- Retains \"potential legal referral\" (hedging language)\n- Permitted Use #3 has the same unnamed-tools problem as Proposal 2\n- Otherwise structurally sound\n\n---\n\n## Ranking\n\n**Proposal 1** is best: it fixes the most constraint violations, is internally consistent, and produces the most enforceable document.\n**Proposal 2** is second: it avoids the automated-tooling failure and hedging language but introduces the unnamed-sales-tools inconsistency.\n**Proposal 3** is worst: it fails two hard constraints (automated tooling implied, hedging language) and shares Proposal 2's sales-tools problem.\n\nRANKING: [1], [2], [3]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Numbered items (not prose paragraphs)\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n**Word count:** The policy text itself (excluding the \"Changes summary\" section) is approximately 420 words. ✓\n**4 sections:** ✓\n**Numbered items:** ✓\n**Prohibitions cite facts:** ✓ (all 4 do)\n**No new tooling:** ✓ (PR review, access logs)\n**No aspirational language:** ✓\n\n**Quality issues:**\n- Permitted Use #3 grants sales access to unnamed \"AI drafting tools\" — this invents a permitted tool not in the base facts. This violates the \"add nothing not derivable from base facts\" constraint. ✗\n- The parenthetical \"Fixes Problem X\" annotations are editorial debris that shouldn't appear in a policy memo. Unprofessional.\n- Removes the Slack prohibition, which is defensible but loses a concrete enforceable rule.\n\n---\n\n## Proposal 2 Analysis\n\n**Word count:** ~380 words. ✓\n**4 sections:** ✓\n**Numbered items:** ✓\n**Prohibitions cite facts:** ✓ (all 5 do, though Prohibited #4 Slack basis is thin)\n**No new tooling:** Prohibited Use #3 says commits \"are blocked from merge\" — this implies automated blocking, implying new tooling. ✗\n**No aspirational language:** \"potential legal referral\" in Enforcement #2 is hedging. ✗\n\n**Quality issues:**\n- \"Blocked from merge\" implies automated enforcement, violating the no-new-tooling constraint.\n- \"Potential legal referral\" is hedging language.\n- Doesn't address the 73%/45% informal use situation explicitly.\n- Permitted Use #3 grants sales access to unnamed AI drafting tools — same invented-tool problem as Proposal 1. ✗\n\n---\n\n## Proposal 3 Analysis\n\n**Word count:** ~430 words. ✓\n**4 sections:** ✓\n**Numbered items:** ✓\n**Prohibitions cite facts:** ✓ (all 5 cite specific incidents/counsel findings)\n**No new tooling:** Prohibited #3 uses \"Reviewers must reject\" — human PR review, no new tooling. ✓\n**No aspirational language:** No hedging found. ✓\n\n**Quality issues:**\n- Permitted Use #3 grants sales access to unnamed AI drafting tools — same invented-tool problem. However, this is derivable from the 45% sales usage fact combined with the $50K budget... actually no, no specific sales tool is approved in base facts. This is a weakness shared across all three proposals.\n- Scope #4 explicitly addresses the informal use problem (73%/45% survey).\n- Enforcement #2 uses \"legal referral\" without \"potential.\" ✓\n- Prohibited #3 enforcement is through human review, not automated tooling. ✓\n- No editorial annotations cluttering the memo.\n\n---\n\n## Ranking\n\n**Proposal 3** is cleanest: fixes the automated-tooling implication, removes hedging language, addresses the informal-use gap, and reads as an actual policy document without editorial notes.\n\n**Proposal 1** fixes most technical issues but includes unprofessional editorial annotations and invents an approved sales tool.\n\n**Proposal 2** has two clear constraint violations (implied automated blocking, hedging language) and doesn't address the informal-use situation.\n\nRANKING: [3], [1], [2]"
+    }
+  ],
+  "elapsed": 74.5
+}

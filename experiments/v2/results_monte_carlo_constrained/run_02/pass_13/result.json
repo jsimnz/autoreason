@@ -1,0 +1,52 @@
+{
+  "pass": 13,
+  "winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 6,
+    "AB": 9
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**≤500 words (policy body only)**\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~380 words ✓\n- Proposal 3: ~400 words ✓\n\n**Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement**\n- All three: ✓\n\n**Numbered items (not prose paragraphs)**\n- All three: ✓\n\n**Every prohibition references motivating base fact**\n- All three attempt this. See below for quality differences.\n\n**Enforceable without new tooling**\n- All three use existing PR review, outbound approval workflows, SOC2 access-review cadence. ✓\n\n**No aspirational language**\n- All three: ✓\n\n---\n\n## Critical Issue Analysis\n\n### Proposal 2 (standalone, no preamble)\n**Prohibited Use #2:** \"Sending or publishing AI-generated text that has not been reviewed and approved by a Sales Manager through the existing outbound communication approval workflow is prohibited.\" This is the strongest formulation — observable, role-assigned, process-anchored. ✓\n\n**Enforcement #2:** Escalates customer data violations to Legal and assigns department managers for detection/reporting. This closes the non-engineer gap. ✓\n\n**Permitted Uses #3:** Absent — correctly omitted since no base fact supports a non-engineer approved tool. ✓\n\n**Slack AI motivation (Prohibited Use #5):** Cites outside counsel DPA finding as applying to \"any third-party AI data pathway\" — this is a reasonable inference from base facts, not an invented fact. Acceptable. ✓\n\n**No preamble bloat** — clean deliverable. ✓\n\n### Proposal 1 (with editorial preamble)\nIdentical policy body to Proposal 2. The preamble is explicitly called out as a problem in its own self-critique (\"Removed the entire editorial preamble\") — yet the preamble is still present in the rendered output. This is a self-contradiction: the critique says it was removed, but it wasn't. This is a meaningful flaw.\n\n### Proposal 3\n**Prohibited Use #2:** \"Sending or publishing AI-generated text without confirming it contains no third-party copyrighted material is prohibited.\" This reintroduces the unenforceable copyright-determination problem — \"confirming it contains no third-party copyrighted material\" is not an observable act. No role is assigned. This is the weakest formulation of the three.\n\n**Permitted Uses #3:** \"No AI tool other than GitHub Copilot Business is currently approved for any work purpose.\" — This is a prohibition placed in Permitted Uses, a structural error.\n\n**Enforcement #2:** Does not assign department managers for non-engineer Prohibited Use #1 detection, leaving a gap.\n\n**Slack AI motivation:** Drops the outside counsel DPA finding from Prohibited Use #5, weakening the legal grounding.\n\n---\n\n## Ranking\n\n**Proposal 2** is the cleanest: no preamble, no structural errors, strongest enforceable language for Prohibited Use #2, closes the non-engineer enforcement gap, retains DPA motivation for Slack prohibition.\n\n**Proposal 1** has an identical policy body to Proposal 2 but includes a preamble its own critique claims was removed — a self-contradiction that undermines reliability.\n\n**Proposal 3** has the most substantive policy errors: unenforceable Prohibited Use #2, a prohibition misplaced in Permitted Uses, a weaker enforcement structure, and dropped legal motivation.\n\nRANKING: [2], [1], [3]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words for policy body):**\n- P1: The policy body is notably longer due to the explanatory preamble and more verbose items. Likely exceeds 500 words.\n- P2: Concise, no preamble. Likely within 500 words.\n- P3: No preamble in the deliverable. Concise. Likely within 500 words.\n\n**Exactly 4 sections:** All three comply.\n\n**Numbered items (not prose paragraphs):** All three comply.\n\n**Every prohibition references motivating base fact:** All three comply reasonably well. P2 and P3 are nearly identical in prohibited uses.\n\n**Enforceable without new tooling:** All three use existing PR review, outbound approval workflows, SOC2 access reviews.\n\n**No aspirational language:** All three comply.\n\n---\n\n**SPECIFIC QUALITY DIFFERENCES**\n\n**Preamble issue:** P1 includes a lengthy editorial preamble explaining changes made. This is not part of the policy memo and inflates apparent word count and clutters the deliverable. P3 explicitly removes this. P2 never had it.\n\n**Permitted Use #3 in P1:** P1 retains a \"No AI tool other than GitHub Copilot Business is currently approved\" item under *Permitted Uses* — this is a prohibition masquerading as a permitted use, which is structurally incoherent. P2 and P3 correctly omit this.\n\n**Enforcement #2 in P1:** P1 assigns sole enforcement of Prohibited Use #1 to IT and Legal escalation but doesn't assign a detection role for non-engineering staff violations, leaving a gap. P2 and P3 both add \"department managers are responsible for detecting and reporting\" — a meaningful improvement.\n\n**Outbound communications prohibition:** P1's version says \"confirming it contains no third-party copyrighted material\" — this is an unenforceable legal determination. P2 and P3 correctly reframe this as an observable managerial approval step.\n\n**Slack AI motivation (P1 vs P2/P3):** P1's motivation is slightly weaker (\"SOC2 and GDPR\" without connecting the DPA finding). P2 and P3 both cite the DPA finding as applicable to any third-party AI data pathway, which is stronger and more grounded.\n\n**P2 vs P3:** These are nearly identical in policy content. The key difference is P3 includes an editorial preamble explaining changes — but the instructions say the deliverable is the policy memo. P3's preamble is separated clearly and labeled as such, while P2 presents only the clean memo. However, P3's preamble actually demonstrates superior analytical reasoning about the problems solved. For the *policy memo itself*, P2 and P3 are functionally equivalent. Since the task asks to evaluate the proposals as submitted, P3's inclusion of the explanatory section doesn't hurt the memo quality but adds transparency. Both are essentially tied on policy quality.\n\n**Tiebreaker P2 vs P3:** P2 is the cleaner deliverable (memo only). P3's preamble, while useful, is extraneous to the task. Both memos are substantively identical and strong.\n\n---\n\n**RANKING: [2], [3], [1]**\n\n- **Best: Proposal 2** — Clean memo-only deliverable, no structural errors, enforceable prohibitions, correct section architecture, department manager detection role included.\n- **Second: Proposal 3** — Identical policy quality to P2, but includes an extraneous editorial preamble in the deliverable.\n- **Worst: Proposal 1** — Contains a prohibition misplaced in Permitted Uses, an unenforceable copyright-determination requirement, a lengthy non-policy preamble, and a detection gap for non-engineering PII violations."
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "AB",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**≤500 words (body only):**\n- Proposal 1: ~430 words ✓\n- Proposal 2: ~390 words ✓\n- Proposal 3: ~420 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references base fact:** Evaluated below.\n\n**Enforceable without new tooling:** Evaluated below.\n\n**No aspirational language:** All three ✓\n\n---\n\n## Prohibition Motivations\n\n**Prohibited Use #2 (copyright/outbound content):**\n- Proposals 1 & 2: Reframe as \"Sales Manager approval before sending\" — observable, enforceable act. ✓\n- Proposal 3: Retains \"confirming it contains no third-party copyrighted material\" — this is an unenforceable legal determination, not an observable action. ✗\n\n**Prohibited Use #5 (Slack AI):**\n- Proposals 1 & 2: Cite outside counsel DPA finding as motivation. ✓ Stronger grounding.\n- Proposal 3: Omits DPA finding, weakening the motivation. Partial ✗\n\n**Permitted Uses #3 in Proposal 3:** Restates a prohibition inside Permitted Uses — structurally misplaced. ✗\n\n---\n\n## Enforceability\n\n**Proposal 1:** Adds \"Department managers are responsible for detecting and reporting Prohibited Use #1 violations\" — fills the gap for non-engineering staff. ✓\n\n**Proposal 2:** Identical body to Proposal 1 but lacks the editorial explanation. Same enforcement text. ✓ on substance.\n\n**Proposal 3:** No department manager assignment for non-engineer PII violations — gap remains. ✗\n\n---\n\n## Structural Issues\n\n**Proposal 3's Permitted Use #3** (\"No AI tool other than GitHub Copilot Business is currently approved\") is a prohibition placed in Permitted Uses — a structural error that also adds no permitted use.\n\n**Proposals 1 & 2** are substantively identical in policy body. Proposal 1 includes a detailed editorial preamble explaining changes (not part of the memo itself), while Proposal 2 presents only the clean memo. For a deliverable that is the policy memo, Proposal 2 is cleaner. However, Proposal 1's preamble demonstrates reasoning quality and catches more problems.\n\n---\n\n## Summary Comparison\n\n| Criterion | P1 | P2 | P3 |\n|---|---|---|---|\n| Enforceable copyright check | ✓ | ✓ | ✗ |\n| Non-engineer PII enforcer named | ✓ | ✓ | ✗ |\n| Slack motivation cites DPA | ✓ | ✓ | ✗ |\n| No prohibition in Permitted Uses | ✓ | ✓ | ✗ |\n| Clean deliverable (no preamble) | ✗ | ✓ | ✓ |\n\nProposals 1 and 2 share the same policy body — both superior to Proposal 3. Proposal 2 is the cleaner deliverable (memo only, no editorial wrapper). Proposal 1 is substantively equivalent but cluttered with meta-commentary not requested.\n\n---\n\nRANKING: [2], [1], [3]"
+    }
+  ],
+  "elapsed": 64.6
+}

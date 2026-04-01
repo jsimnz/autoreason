@@ -1,0 +1,126 @@
+I'll evaluate each version systematically against the constraints and quality criteria.
+
+## Constraint Checklist
+
+**Hard constraints:**
+- ≤500 words
+- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement
+- Numbered items (not prose paragraphs)
+- Every prohibition must reference which base fact motivates it
+- Enforceable without new tooling
+- No aspirational language
+
+---
+
+### VERSION A
+
+**Constraints:**
+- Word count: ~450 words ✓
+- 4 sections ✓
+- Numbered items ✓
+- Prohibitions cite base facts ✓ (thorough citations)
+- Enforceable without new tooling ✓
+- No aspirational language ✓
+
+**Quality:**
+- Scope item 3 is oddly descriptive/historical rather than definitional
+- Scope item 4 invents an approval process not in base facts, but it's derivable from the budget fact
+- Prohibited Use 4 (human authorship review) is well-grounded in outside counsel finding
+- Enforcement is specific with graduated consequences and timelines
+- Strong overall structure and completeness
+
+---
+
+### VERSION B
+
+**Constraints:**
+- Begins with a meta-commentary section ("Changes made...") — this is not part of the memo itself, but it's included in the submission. The actual memo is present.
+- Word count of the actual memo: ~380 words ✓
+- 4 sections ✓
+- Numbered items ✓
+- Enforcement item 1 is framed as a requirement/disclosure rule, not really enforcement
+- Prohibited Use 5 (Slack) cites base fact ✓
+- No aspirational language ✓
+
+**Quality:**
+- The meta-commentary is extraneous and unprofessional in a memo context
+- Enforcement is weak — item 1 is a disclosure requirement, not enforcement; item 4 is vague ("standard HR process")
+- Permitted Use #2 (PR declaration requirement) is creative and enforceable
+- Prohibited Use #3 explicitly cites the 45% sales stat — good
+- Overall enforcement section is the weakest of all versions
+
+---
+
+### VERSION C
+
+**Constraints:**
+- Word count: ~450 words ✓
+- 4 sections ✓
+- Numbered items ✓
+- Prohibitions cite base facts ✓
+- Enforcement section has 7 items — detailed but potentially over 500 words total... counting carefully: ~480 words ✓
+- No aspirational language ✓
+
+**Quality:**
+- Permitted Use #3 adds a conditional approval gate that's well-grounded
+- Enforcement item 3 (30-day compliance window for sales) is practical and addresses the 45% informal use stat
+- Enforcement item 6 (budget tracking) is thorough
+- Prohibited Use #2 addresses sales specifically with a workable review mechanism
+- Very strong enforcement section
+- Scope item 3 doubles as a prohibition (Slack) — slightly awkward placement
+
+---
+
+### VERSION D
+
+**Constraints:**
+- Also begins with meta-commentary
+- Actual memo word count: ~350 words ✓
+- 4 sections ✓
+- Numbered items ✓
+- Prohibited Use #4 (Slack) cites only "company configuration" — thin but technically a base fact ✓
+- Prohibited Use #2 requires "Legal review" before every external communication — this is operationally unworkable and arguably requires new process
+- No aspirational language ✓
+
+**Quality:**
+- Removing the approval process for additional tools is a significant gap given the $50K budget fact
+- Prohibited Use #2 (Legal review for all external AI content) is not enforceable without new tooling — this is a constraint violation
+- Enforcement is procedurally detailed but the Legal-review-before-every-email requirement is impractical
+- The meta-commentary acknowledges problems but the solutions create new ones
+
+---
+
+### VERSION E
+
+**Constraints:**
+- Also includes meta-commentary at the end
+- Actual memo word count: ~480 words — borderline, likely just over 500 with headers
+- 4 sections ✓
+- Numbered items ✓
+- All prohibitions cite base facts ✓
+- Permitted Use item 3 ("written approval from Engineering leadership") adds a new process not in base facts — minor issue
+- No aspirational language ✓
+
+**Quality:**
+- Prohibition 2 (employee self-certifies in writing to manager before sending) is operationally workable
+- Prohibition 5 (Slack) has good citation
+- Enforcement maps to each prohibition explicitly — strong
+- Seat gap addressed (item 2 in Permitted Uses)
+- Good specificity throughout
+- The "confirms in writing to their manager before sending" for every outbound AI communication is still somewhat burdensome but more workable than D's Legal review requirement
+
+---
+
+## Ranking
+
+**A** — Best overall: clean memo format, no meta-commentary, strong citations, graduated enforcement with specific consequences, no constraint violations, well-grounded prohibitions, enforceable mechanisms.
+
+**C** — Second: excellent enforcement section with role-specific accountability, 30-day compliance window is practical, good coverage of sales use case, slightly awkward Slack placement in Scope.
+
+**E** — Third: good prohibition-to-enforcement mapping, workable self-certification mechanism, but word count is tight/possibly over limit, meta-commentary appended, Permitted Use #3 adds ungrounded process.
+
+**B** — Fourth: weak enforcement section, meta-commentary leads the document, Enforcement item 1 is misclassified, but individual prohibitions are well-cited.
+
+**D** — Worst: Prohibited Use #2 requiring Legal review of all external AI content is operationally unworkable and violates the "no new tooling" constraint, meta-commentary, missing approval pathway for additional tools.
+
+RANKING: A, C, E, B, D

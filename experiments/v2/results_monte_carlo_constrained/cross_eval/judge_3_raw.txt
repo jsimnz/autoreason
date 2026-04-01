@@ -1,0 +1,61 @@
+I'll evaluate each version systematically against the constraints and quality criteria.
+
+## Constraint Checklist
+
+**Maximum 500 words** (counting policy body only, not preambles/rationale):
+- A: ~480 words in policy body. Passes, but the "changes made" section is not part of the deliverable.
+- B: ~350 words. Passes.
+- C: ~480 words. Passes.
+- D: ~380 words in policy body. Passes.
+- E: ~480 words in policy body. Passes, but includes a "changes made" section appended.
+
+**Exactly 4 sections (Scope, Permitted Uses, Prohibited Uses, Enforcement):** All five pass.
+
+**Numbered items (not prose paragraphs):** All five pass.
+
+**Every prohibition must reference which base fact motivates it:**
+- A: All prohibitions cite base facts. Passes.
+- B: All prohibitions cite motivating facts. Passes.
+- C: All prohibitions cite base facts. Passes.
+- D: All prohibitions cite base facts. Passes.
+- E: All prohibitions cite base facts. Passes.
+
+**Enforceable without new tooling:**
+- A: Uses PR review, IT access controls, HR processes. Passes.
+- B: Uses IT audit, expense review, manager reporting, PR review. Passes.
+- C: Uses existing access controls, PR workflows, supervisory review. Passes.
+- D: Uses PR review, HR incident reporting, seat controls. Passes.
+- E: Uses PR review, manager confirmation, HR processes. Passes. Prohibition 2's "confirm in writing to manager before sending" is slightly burdensome but uses existing reporting relationships.
+
+**No aspirational language:**
+- A: Clean. Passes.
+- B: Clean. Passes.
+- C: Clean. Passes.
+- D: Clean. Passes.
+- E: Clean. Passes.
+
+## Content Quality Analysis
+
+**Version A:** Strong on specificity — the PR declaration requirement is concrete and enforceable. Addresses the sales gap explicitly. The "changes made" preamble is extraneous but the policy itself is solid. Enforcement item 1 (IP disclosure) is somewhat novel but justified. Good citation depth.
+
+**Version B:** Cleanest and most concise. Prohibition 4 (human authorship review) addresses the copyrightability issue well. However, Permitted Uses item 2 routes approval through "CEO and Legal" which is operationally heavy. Enforcement consequences are the most specific of all versions (graduated: warning → termination). Good structure.
+
+**Version C:** Very thorough. Enforcement section is the most detailed and role-specific. However, it has 7 enforcement items which creates complexity. Scope item 3 ("Slack AI features are disabled; employees may not enable them") is a prohibition buried in Scope. Some redundancy between Prohibited Uses #3 and #4.
+
+**Version D:** Clean and minimal. Removes fabricated bases (a strength). However, Prohibition 2 ("no external distribution without Legal review") is operationally impractical — Legal cannot review every outbound sales email. The removal of the "no unapproved tools" prohibition leaves a gap. Missing explicit sales use-case coverage.
+
+**Version E:** Comprehensive coverage of all incidents and base facts. Enforcement items map explicitly to each prohibition (strong). Permitted Uses item 2 addresses the seat-gap problem. Prohibition 2's pre-send confirmation mechanism is workable. The appended "changes made" section is extraneous but doesn't affect the policy itself.
+
+## Ranking Rationale
+
+**Best: C** — Most complete, role-specific enforcement, all constraints met, no fabricated bases, concrete mechanisms throughout.
+
+**Second: E** — Strong enforcement mapping, addresses all incidents, workable mechanisms, minor issue with appended rationale section.
+
+**Third: B** — Cleanest prose, best graduated enforcement consequences, but CEO-approval pathway is operationally heavy and sales use case underaddressed.
+
+**Fourth: A** — Good specificity and citation depth, but the PR declaration requirement is somewhat complex, and the extraneous preamble detracts.
+
+**Fifth: D** — Cleanest in removing fabricated bases, but Prohibition 2 is operationally unworkable at scale, and removing the "no unapproved tools" prohibition leaves a significant gap.
+
+RANKING: C, E, B, A, D

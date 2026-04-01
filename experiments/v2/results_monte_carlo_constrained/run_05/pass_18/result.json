@@ -1,0 +1,52 @@
+{
+  "pass": 18,
+  "winner": "B",
+  "scores": {
+    "A": 5,
+    "B": 7,
+    "AB": 6
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "A",
+        "AB",
+        "B"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n**Constraint checklist:**\n- Max 500 words (policy body only)\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Each section has numbered items\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n**Proposal 1 analysis:**\n\n- Word count: The policy body runs approximately 520-540 words — likely over limit\n- Structure: 4 sections ✓, numbered items ✓\n- Prohibited Uses item 3 references motivating facts ✓\n- Scope item 4 is redundant with Scope item 2 (states sales have no approved tool twice)\n- Permitted Uses item 3 introduces a Legal written clearance process — this is arguably new process, though it uses existing Legal function\n- Enforcement differentiates violation severity ✓\n- No aspirational language ✓\n\n**Proposal 2 analysis:**\n\n- Nearly identical body to Proposal 1 — same word count problem\n- Scope item 4 retained despite the preamble claiming it was removed (\"Added a Scope item referencing the 45% sales AI usage finding\") — the preamble is contradictory/confusing\n- Same structural issues as Proposal 1\n- The preamble/changelog adds meta-commentary that isn't the policy itself\n\n**Proposal 3 analysis:**\n\n- Tightest word count — most likely under 500 words\n- Exactly 4 sections ✓\n- Scope item 4 is somewhat redundant with item 2 but adds clarity\n- Prohibited Uses item 4 (Legal clearance) is a genuine addition — motivating facts cited ✓\n- Enforcement item 3 specifically addresses the new Prohibited Uses item 4 with escalation to Legal and CEO — uses existing roles, no new tooling ✓\n- Permitted Uses is leaner (2 items vs. 3)\n- No aspirational language ✓\n- The preamble \"Changes made\" section is meta-commentary, but the policy itself is clean\n- Enforcement differentiates between violation types more precisely\n\nProposal 3 is the most constraint-compliant, tightest, and most complete. Proposal 1 is cleaner than Proposal 2 (which has a contradictory preamble and identical body problems).\n\n**RANKING: [3], [1], [2]**"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Max 500 words (policy body only):**\n- Proposal 1: The policy body is approximately 480–490 words. Passes.\n- Proposal 2: Includes a lengthy preamble (~350 words of meta-commentary) before the policy. The policy body itself is under 500 words. The preamble is not part of the memo, but its presence is clutter. Policy body passes.\n- Proposal 3: Policy body only, approximately 450 words. Passes cleanly.\n\n**Exactly 4 sections:**\n- Proposal 1: Scope, Permitted Uses, Prohibited Uses, Enforcement. ✓\n- Proposal 2: Same four. ✓\n- Proposal 3: Same four. ✓\n\n**Numbered items (not prose paragraphs):**\n- All three comply. ✓\n\n**Every prohibition references motivating base fact:**\n- All three comply in Prohibited Uses. ✓\n\n**Enforceable without new tooling:**\n- Proposal 1: Uses existing PR workflows and email approval chains. ✓\n- Proposal 2: Prohibited Uses item 4 introduces a \"Legal confirms in writing\" approval workflow — this is a new process not derivable from base facts. ✗\n- Proposal 3: No invented workflows. ✓\n\n**No aspirational language:**\n- All three avoid \"strive to,\" \"best efforts,\" \"where possible.\" ✓\n\n**No facts added beyond base facts:**\n- Proposal 1: Scope item 4 characterizes the survey finding accurately and adds a policy rule from it. Acceptable.\n- Proposal 2: Same issue with Prohibited Uses item 4 (Legal written clearance process) — this is an invented procedural mechanism. Minor violation.\n- Proposal 3: Clean. ✓\n\n---\n\n**QUALITY ANALYSIS**\n\n**Proposal 3** is the cleanest execution: policy body only (no meta-commentary), under 500 words, four sections, all prohibitions cited, no invented processes, enforcement consequences are differentiated and proportionate, and the sales AI usage finding is explicitly addressed in Scope. The budget item in Permitted Uses item 3 is well-placed and derivable from base facts.\n\n**Proposal 1** is substantively equivalent to Proposal 3 but includes Scope item 4 as a somewhat awkward recital of survey data rather than a clean policy rule. Otherwise it's well-structured and compliant. No meta-commentary clutters the document.\n\n**Proposal 2** has two problems: (1) a lengthy preamble that is not part of the policy memo itself, which adds noise and arguably violates the spirit of the 500-word constraint; (2) Prohibited Uses item 4 introduces a \"Legal confirms in writing\" approval workflow that is a new process not derivable from base facts, violating the \"no new tooling/process\" constraint. The self-identified fixes in the preamble are partially undermined by the reintroduction of the Legal clearance item.\n\n---\n\n**RANKING:** [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words (policy body only)\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Each section has numbered items (not prose)\n- Every prohibition references motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n**Quality factors:**\n- No invented facts beyond base facts\n- No redundancy\n- Internal consistency\n\n---\n\n## Proposal-by-Proposal Analysis\n\n### Proposal 3\n- **Word count:** The policy body is approximately 420 words — comfortably under 500.\n- **4 sections:** ✓ Exactly Scope, Permitted Uses, Prohibited Uses, Enforcement.\n- **Numbered items:** ✓ All sections use numbered lists.\n- **Motivating facts:** ✓ All three prohibitions cite specific incidents and legal findings.\n- **Enforceable without new tooling:** ✓ Uses existing PR workflows, manager approval, Legal escalation.\n- **No aspirational language:** ✓ None found.\n- **No invented facts:** The Scope item 4 references the 45% sales survey finding — this is a base fact. Permitted Uses item 3 references the $50K budget and FedRAMP — both base facts. Clean.\n- **Issues:** Permitted Uses item 3 introduces a tool-approval process. This is arguably new process, but it's derivable from the budget fact and legal review fact. Minor concern. No Prohibited Uses item explicitly covers the FedRAMP/DPA new-tool risk, but Permitted Uses item 3 addresses it affirmatively. This is a slight structural gap — a restriction placed in Permitted Uses rather than Prohibited Uses — but it's not a fatal flaw.\n- **Overall:** Clean, concise, well-structured.\n\n### Proposal 1\n- **Word count:** Approximately 480 words — under 500 but tight.\n- **4 sections:** ✓\n- **Numbered items:** ✓\n- **Motivating facts:** ✓ All prohibitions cite facts.\n- **Enforceable without new tooling:** ✓\n- **No aspirational language:** ✓\n- **Issues:** Nearly identical to Proposal 3 but adds Permitted Uses item 3 about the $50K budget and FedRAMP clearance process. This is substantively the same as Proposal 3's item 3. The preamble header adds words. Scope item 4 is slightly wordier than Proposal 3's equivalent. The differentiated enforcement consequences in items 1 vs. 2 (immediate termination vs. disciplinary review) are a meaningful improvement over Proposal 3's enforcement, which treats item 1 violations as \"up to and including termination\" but item 2 as merely \"disciplinary review.\" This differentiation is better policy.\n- **Overall:** Marginally better enforcement differentiation than Proposal 3, slightly wordier.\n\n### Proposal 2\n- **Word count:** Approximately 460 words — under 500.\n- **4 sections:** ✓\n- **Issues:** Prohibited Uses item 4 (\"No new AI tool approved or used without Legal clearance\") — the enforcement item 3 for this says violations are \"escalated immediately to Legal and the CEO, the tool is suspended.\" \"The tool is suspended\" implies an administrative action that requires new process/tooling to execute. More critically, Enforcement item 4 (\"Manager and pull request reviewer approval... is mandatory\") is a restatement of Permitted Uses item 2 — redundant. Scope item 4 (\"Employees without an approved tool assignment have no permitted AI use\") is a restatement of Scope item 2. The removal of the sales survey reference (Problem 4 fix) actually weakens the policy's acknowledgment of a known risk population. Prohibited Uses item 4 creates a fifth effective prohibition category that somewhat overlaps with item 2.\n- **Overall:** Most redundancy, weakest on the sales staff gap, enforcement item 3 introduces process not derivable from base facts.\n\n---\n\n## Ranking\n\n- **Best: Proposal 1** — Differentiated enforcement consequences, covers sales staff gap, budget/FedRAMP addressed, clean structure, under 500 words.\n- **Second: Proposal 3** — Nearly identical to Proposal 1 but enforcement is slightly less differentiated (item 1 says \"up to and including\" rather than specifying immediate action for data breaches vs. tool violations).\n- **Worst: Proposal 2** — Most redundancy, weakest sales staff coverage, enforcement item introduces process not in base facts.\n\nRANKING: [1], [3], [2]"
+    }
+  ],
+  "elapsed": 61.9
+}

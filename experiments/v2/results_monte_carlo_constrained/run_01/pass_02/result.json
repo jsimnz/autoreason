@@ -1,0 +1,52 @@
+{
+  "pass": 2,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 9,
+    "AB": 6
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words of policy content):**\n- Proposal 1: Substantially over 500 words (the policy body alone exceeds 500)\n- Proposal 2: Close to or at 500 words\n- Proposal 3: Close to or at 500 words (nearly identical to P2 with minor additions)\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose paragraphs):** All three pass.\n\n**Every prohibition references a base fact:** \n- P1: Prohibition #4 (Slack) uses a circular/invented basis (\"currently disabled; enabling them would create...\") rather than a base fact. Prohibition #5 lacks a `[Basis:]` tag entirely. **Fails.**\n- P2: All 5 prohibitions have `[Basis:]` tags grounded in base facts. **Passes.**\n- P3: All 5 prohibitions have `[Basis:]` tags grounded in base facts. **Passes.**\n\n**Enforceable without new tooling:**\n- P1: Passes (uses existing PR reviews and access logs)\n- P2: Passes\n- P3: Passes\n\n**No aspirational language:** All three pass.\n\n**No invented facts beyond base facts:**\n- P1: Invents \"5 business days\" SLA for seat assignment, invents a three-tier disciplinary ladder (warning → revocation → termination), invents a \"5 business days\" investigation window. Also permits unnamed \"sales AI drafting tools\" not in base facts. **Multiple failures.**\n- P2: Removes invented SLAs and fabricated disciplinary ladder. No sales AI tool permission. **Passes.**\n- P3: Reintroduces \"5 business days\" investigation window in Enforcement #1 (not in base facts). Otherwise clean. **Minor failure.**\n\n**Basis tags format and accuracy:**\n- P1: Slack basis is circular/weak; P5 has no basis tag.\n- P2: All accurate and properly formatted.\n- P3: All accurate and properly formatted.\n\n---\n\n**QUALITY ASSESSMENT**\n\n- **Proposal 2** is the cleanest: it corrects all identified problems from P1, stays within word count, avoids invented facts, and every prohibition is properly grounded. The Enforcement section is appropriately general without fabricating specifics.\n- **Proposal 3** is nearly identical to P2 but reintroduces one invented detail (\"5 business days\" in Enforcement #1) and adds \"targeted for Q3\" in Scope #3 (which is in the base facts, so acceptable). It's slightly better than P1 but worse than P2 due to the reinvented SLA.\n- **Proposal 1** has the most problems: over word count, multiple invented facts, missing basis tag, circular Slack basis, and an unauthorized permitted use for sales AI tools.\n\n---\n\n**RANKING: [2], [3], [1]**"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words of policy text):**\n- Proposal 1: ~450 words of policy content — passes\n- Proposal 2: ~380 words — passes\n- Proposal 3: ~370 words — passes\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose paragraphs):** All three pass.\n\n**Every prohibition references base fact:** \n- Proposal 1: All 5 prohibitions have basis citations — passes\n- Proposal 2: All 5 prohibitions have basis citations — passes\n- Proposal 3: All 5 prohibitions have basis citations — passes\n\n**Enforceable without new tooling:**\n- Proposal 1: References existing PR reviews and access logs — passes\n- Proposal 2: Same — passes\n- Proposal 3: Same — passes\n\n**No aspirational language:** All three pass.\n\n---\n\n**QUALITY DISTINCTIONS**\n\n**Invented facts not derivable from base facts:**\n- Proposal 1 invents: \"5 business days\" SLA for seat assignment, \"5 business days\" investigation window, a three-tier disciplinary ladder (warning → revocation → termination), and a sales AI drafting permission for \"internal template creation\" (no sales AI tool is approved). These are fabrications.\n- Proposal 2: Removes the three-tier ladder and simplifies enforcement, but retains the invented \"5 business days\" seat assignment SLA. Also retains the sales AI drafting permission (Permitted Use #3 in Proposal 1 is absent here — actually Proposal 2 drops it). Checking: Proposal 2 has only 4 Permitted Uses and does not include a sales drafting permission. Passes on that point. Still has no invented SLAs in enforcement. Clean.\n- Proposal 3: Explicitly corrects all these problems. No invented SLAs, no fabricated disciplinary ladder, no unauthorized sales tool permission. Cleanest fidelity to base facts.\n\n**Slack prohibition basis:**\n- Proposal 1: Basis is circular (\"enabling them would create unreviewed data-sharing\") — not grounded in a base fact.\n- Proposals 2 & 3: Correctly cite SOC2/DPA obligations and outside counsel's finding. Better.\n\n**Basis citation on Prohibition #5:**\n- Proposal 1: Has it.\n- Proposal 2: Has it.\n- Proposal 3: Has it (explicitly added as a correction).\n\n**Completeness vs. over-invention tradeoff:**\n- Proposal 1 is the most detailed but introduces the most invented content — a significant flaw for a policy document.\n- Proposal 2 is cleaner but still retains minor invented elements (seat assignment SLA).\n- Proposal 3 is the most disciplined, explicitly correcting known errors and staying strictly within base facts.\n\n---\n\n**RANKING:**\n\nRANKING: [3], [2], [1]\n\nProposal 3 is best: strictest fidelity to base facts, no invented SLAs or disciplinary structures, corrected Slack basis, complete citations. Proposal 2 is second: cleaner than Proposal 1, drops the fabricated disciplinary ladder and sales tool permission, but retains a minor invented SLA. Proposal 1 is worst: most invented content (SLAs, disciplinary ladder, unauthorized sales tool permission, circular Slack basis)."
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words of policy content):**\n- Proposal 1: Substantially over 500 words (the policy body alone exceeds 500)\n- Proposal 2: Close to or under 500 words\n- Proposal 3: Close to or under 500 words (nearly identical to P2)\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose paragraphs):** All three pass.\n\n**Every prohibition references base fact:** \n- P1: Prohibition #4 (Slack) uses a circular/invented basis (\"currently disabled; enabling them would create...\") rather than citing an actual base fact. Prohibition #5 lacks a [Basis] tag entirely.\n- P2: All 5 prohibitions have [Basis] tags grounded in base facts. ✓\n- P3: All 5 prohibitions have [Basis] tags grounded in base facts. ✓\n\n**Enforceable without new tooling:**\n- All three reference existing PR reviews and access logs. ✓\n\n**No aspirational language:** All three pass.\n\n**No fabricated facts:**\n- P1: Invents \"5 business days\" SLA for seat assignment, invents a three-tier disciplinary ladder (written warning → revocation → termination) not derivable from base facts.\n- P2: Removes invented SLAs and disciplinary ladder. ✓\n- P3: Retains \"5 business days\" in Enforcement item 1 — a fabricated SLA not in base facts. Minor violation.\n\n**No unauthorized permissions:**\n- P1: Permits sales AI drafting tools — no sales AI tool is approved in base facts. Clear violation.\n- P2: Correctly omits any sales AI tool permission. ✓\n- P3: Same as P2 on this point. ✓\n\n---\n\n**QUALITY ASSESSMENT**\n\n- P2 is the most faithful to base facts, fixes P1's fabrications and unauthorized permissions, has proper [Basis] citations on all prohibitions, and stays within word limits.\n- P3 is nearly identical to P2 but reintroduces the fabricated \"5 business days\" SLA in Enforcement — a small but real constraint violation.\n- P1 has multiple significant failures: over word limit, fabricated disciplinary ladder, unauthorized sales tool permission, missing [Basis] on Prohibition #5, circular Slack basis.\n\n---\n\nRANKING: [2], [3], [1]"
+    }
+  ],
+  "elapsed": 60.8
+}

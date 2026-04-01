@@ -1,0 +1,52 @@
+{
+  "pass": 6,
+  "winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 7,
+    "AB": 8
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words):**\n- Proposal 1: ~420 words in policy body ✓\n- Proposal 2: ~430 words in policy body ✓\n- Proposal 3: ~400 words in policy body ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating base fact:** All three largely comply, with differences in quality (see below)\n\n**Enforceable without new tooling:** All three use existing access controls ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n**DEEPER ANALYSIS**\n\n**Prohibited Uses item 2 (unapproved tools) — motivating facts:**\n- Proposal 1 cites only DPA violations from outside counsel. This is thin but accurate.\n- Proposal 2 cites incidents + \"documented IP and data harm\" — reasonable grounding.\n- Proposal 3 cites incidents + survey statistics (73%/45%). **Problem:** The survey shows *adoption rates*, not harm. Using it as a motivating fact for a prohibition mischaracterizes the data — it motivates urgency, not the prohibition itself. This is a logical stretch.\n\n**Slack prohibition motivating facts:**\n- Proposal 1 cites SOC2/GDPR/DPA — these are inferences, not directly stated base facts about Slack specifically. Slightly overreaching.\n- Proposal 2 cites \"currently disabled by policy\" (circular) + incidents (indirect). Weak.\n- Proposal 3 cites \"currently disabled\" + incidents. Cleaner than P2 but still indirect.\n\n**Permitted Uses item 4 (sales):**\n- Proposal 1 allows \"future approved tool\" — introduces forward-looking ambiguity.\n- Proposals 2 & 3 restrict sales to GitHub Copilot Business only — more enforceable and precise, though Copilot Business is primarily a coding tool (minor practical oddity, but within the base facts).\n\n**Enforcement specificity:**\n- Proposal 1's Enforcement item 3 lacks a decision timeline. Less enforceable.\n- Proposals 2 & 3 add \"5 business days\" and graduated HR consequences — significantly more enforceable.\n\n**$50K budget reference:**\n- Proposal 1 omits it entirely — fails to use all base facts.\n- Proposals 2 & 3 include it in Permitted Uses item 1 ✓\n\n**FedRAMP reference:**\n- Proposal 1 omits it — fails to use all base facts.\n- Proposals 2 & 3 include it in Prohibited Uses item 1 ✓\n\n**Preamble/changelog:** Proposals 2 & 3 have none ✓. Proposal 1 also has none ✓.\n\n---\n\n**SUMMARY**\n\nProposal 3 is the strongest: it uses all base facts, has the most enforceable Enforcement section, avoids the \"future approved tool\" ambiguity, and its motivating fact citations are generally well-grounded (the survey citation is a minor logical stretch but is at least a documented base fact). Proposal 2 is nearly identical but has a slightly weaker Slack prohibition rationale (\"currently disabled by policy\" is circular) and a marginally weaker item 2 prohibition citation. Proposal 1 fails to use the $50K budget and FedRAMP facts, has weaker enforcement specificity, and introduces \"future approved tool\" ambiguity.\n\nRANKING: [3], [2], [1]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words)** — counting body text only (excluding headers/formatting):\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~390 words ✓\n- Proposal 3: ~400 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓ (with differences in quality — see below)\n\n**Enforceable without new tooling:** All three ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n**DETAILED ANALYSIS**\n\n**Proposal 1:**\n- Permitted Uses item 1 mentions the $50K budget and approval pathway ✓\n- Permitted Uses item 4 restricts sales to Copilot Business only ✓\n- Enforcement item 3 specifies the 5-business-day decision window ✓\n- Enforcement item 4 specifies warning → termination review escalation ✓\n- Slack prohibition (Prohibited #5) cites DPA violations and all three incidents — well-grounded\n- Prohibited #2 motivating facts cite the survey statistics (73%/45%), which are descriptive facts from the base, not a legal/policy motivation for the prohibition — slightly weak reasoning but not fabricated\n- Overall: most complete, most specific, best enforcement detail\n\n**Proposal 2:**\n- Removes the $50K budget reference entirely — loses a required base fact\n- Permitted Uses item 4 is awkward (\"tools explicitly approved under item 1 or through a future approved tool\") — circular and vague\n- Enforcement item 3 drops the 5-business-day deadline — less enforceable\n- Enforcement item 4 drops the specific warning/termination escalation — less enforceable\n- Slack prohibition motivating facts cite SOC2/GDPR as if they directly mandate Slack disablement — this is an inference not directly derivable from base facts (the base fact is simply that Slack AI features are currently disabled)\n- Weakest on enforceability specificity\n\n**Proposal 3:**\n- Includes $50K budget reference ✓\n- Includes FedRAMP in Prohibited #1 ✓\n- Enforcement item 3 has 5-business-day window ✓\n- Enforcement item 4 has warning → termination escalation ✓\n- Prohibited #2 uses survey statistics as motivating facts — the 73%/45% figures describe adoption rates, not documented harm per se; calling them evidence of \"documented IP and data harm\" is a stretch, but the three incidents are also cited\n- Slack prohibition cites only \"currently disabled\" status and the three incidents — more honest than Proposal 2's SOC2/GDPR inference, but weaker than Proposal 1's DPA citation\n- Proposal 1's Slack prohibition is better grounded (cites DPA violation risk directly)\n- Otherwise nearly identical to Proposal 1 in structure and quality\n\n**DIFFERENTIATING FACTORS:**\n- Proposal 1 vs. Proposal 3: Nearly identical. Proposal 1's Slack prohibition is better motivated (cites DPA terms directly). Proposal 3's Prohibited #2 mischaracterizes survey data as evidence of \"documented harm.\" Proposal 1 is marginally stronger.\n- Proposal 2 loses on enforceability specificity (no timeline, no escalation ladder) and the circular Permitted Uses item 4.\n\n---\n\nRANKING: [1], [3], [2]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words):** All three proposals appear close. Proposals 2 and 3 are nearly identical in body text. Proposal 1 differs mainly in Prohibited Uses item 2 and Permitted Uses item 4. All three appear to be near or at the limit; none obviously exceeds it.\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓ for items 1–4. Item 5 (Slack) differs across proposals — examined below.\n\n**Enforceable without new tooling:** All three ✓ (use existing identity management, code review, HR processes)\n\n**No aspirational language:** All three ✓\n\n---\n\n**SUBSTANTIVE DIFFERENCES**\n\n**Slack prohibition motivating facts (Prohibited Uses item 5):**\n- Proposal 1 cites SOC2, GDPR, and DPA — these are inferences not directly stated as motivating the Slack disablement; the base fact simply says Slack AI features are disabled. This is slightly over-inferred.\n- Proposals 2 and 3 cite the current disabled status plus the three incidents as demonstrating risk — more grounded in actual base facts without unsupported inference.\n- Proposal 3 also adds the DPA counsel flag, which is a legitimate base fact citation.\n\n**Unapproved tools prohibition (Prohibited Uses item 2):**\n- Proposal 1 cites only DPA violations — narrow but accurate.\n- Proposal 2 cites all three incidents plus the survey statistics (73%/45%) — the survey stats describe adoption, not harm; using them as a motivating fact for a prohibition is a stretch and arguably adds content not \"derivable\" as a prohibition motivator.\n- Proposal 3 cites all three incidents plus DPA counsel flag — well-grounded, no overreach.\n\n**Sales permitted use (Permitted Uses item 4):**\n- Proposal 1 allows \"tools explicitly approved under item 1 or through a future approved tool\" — introduces forward-looking approval pathway not clearly grounded.\n- Proposals 2 and 3 restrict sales to GitHub Copilot Business only — more precise and enforceable.\n\n**FedRAMP citation:**\n- Proposals 2 and 3 include pending FedRAMP authorization as a motivating fact in item 1 — this is a legitimate base fact.\n- Proposal 1 omits it — a minor gap.\n\n**$50K budget reference:**\n- Proposals 2 and 3 include it in Permitted Uses item 1 — grounds the approval pathway in a base fact.\n- Proposal 1 omits it entirely — a gap.\n\n**Enforcement item 3 (timeline):**\n- Proposals 2 and 3 specify \"5 business days\" for Engineering leadership decision — more enforceable.\n- Proposal 1 says \"pending review by Engineering leadership\" — vague, less enforceable.\n\n**Proposal 3 vs. Proposal 2:** Nearly identical. Proposal 3 omits the survey statistics from Prohibited Uses item 2 (cleaner, avoids the overreach problem) and adds the DPA counsel flag to the Slack prohibition. Proposal 3 also lacks the preamble/changelog that Proposal 1 had. Proposal 3 is essentially a refined version of Proposal 2 that fixes Proposal 2's one weakness (survey stats as motivating fact).\n\n---\n\n**RANKING:** [3], [2], [1]"
+    }
+  ],
+  "elapsed": 63.0
+}

@@ -1,0 +1,52 @@
+{
+  "pass": 2,
+  "winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 7,
+    "AB": 8
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words for the policy body):**\n- Proposal 1: The policy body (excluding the preamble) is approximately 420 words. ✓\n- Proposal 2: The policy body (excluding the preamble) is approximately 430 words. ✓\n- Proposal 3: No preamble. Policy body is approximately 400 words. ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓ for Prohibitions 1–5. Prohibition 6 (Proposals 2 & 3) cites FedRAMP pending authorization — this is a base fact. ✓\n\n**Enforceable without new tooling:**\n- All three use existing PR review gates, SOC2 incident response, and manager approval. ✓\n- Proposal 1's Enforcement item 2 describes GitHub's \"existing review gate\" as the control — slightly weaker framing (implies automation does the work). Proposals 2 & 3 make the reviewer's written confirmation a direct obligation, which is more clearly enforceable. ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n**SPECIFIC QUALITY DIFFERENCES**\n\n**Proposal 1 vs. 2 vs. 3 — structural differences:**\n- Proposal 1 includes a preamble (\"Changes made and problems fixed\") that is not part of the deliverable. This is a presentation flaw but doesn't corrupt the policy itself.\n- Proposal 2 also includes a preamble. Same issue.\n- Proposal 3 has **no preamble** — it delivers only the policy memo, exactly as requested.\n\n**FedRAMP Prohibition (Proposals 2 & 3 only):**\nBoth add Prohibition 6 addressing FedRAMP. This is well-motivated by the base facts (pending FedRAMP authorization is explicitly listed) and adds meaningful coverage. Proposal 1 omits this, leaving a gap.\n\n**Sales staff clarity:**\nProposals 2 & 3 explicitly state \"Sales staff have no approved AI tool\" in Permitted Uses item 3, which is accurate and important. Proposal 1 omits this, leaving ambiguity about whether sales can use any AI tool.\n\n**Enforcement item 2:**\nProposals 2 & 3 make the reviewer's written confirmation a direct, active obligation (\"must confirm in writing\"). Proposal 1 frames it as a description of an existing gate, which is weaker and slightly inaccurate (GitHub's PR gate doesn't automatically enforce license review — a human must do it).\n\n**Proposal 2 vs. Proposal 3:**\nThese are nearly identical in content. The only meaningful difference is that Proposal 3 omits the preamble entirely and adds \"No merge proceeds without this confirmation\" to Enforcement item 2, making it marginally more explicit. Proposal 3 is the cleaner, more complete deliverable.\n\n---\n\n**RANKING:** [3], [2], [1]\n\n- **Best: Proposal 3** — No extraneous preamble, includes FedRAMP prohibition, explicit sales tool gap, strongest enforcement language, cleanest deliverable.\n- **Second: Proposal 2** — Substantively identical to Proposal 3 but includes an unnecessary preamble and slightly weaker Enforcement item 2.\n- **Worst: Proposal 1** — Also includes a preamble, missing FedRAMP prohibition, ambiguous on sales tool status, weaker enforcement framing on PR review."
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**Max 500 words:** All three are close. Proposals 1 and 3 are nearly identical in body content. Proposal 2 is slightly shorter (no FedRAMP prohibition, no \"sales have no approved tool\" item). All appear to be under or near 500 words in the policy body itself.\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose):** All three ✓\n\n**Every prohibition must reference motivating fact:** \n- Proposal 1: All 6 prohibitions cite facts ✓\n- Proposal 2: Only 5 prohibitions, all cited ✓ — but missing FedRAMP prohibition\n- Proposal 3: All 6 prohibitions cite facts ✓\n\n**Enforceable without new tooling:**\n- Proposal 1: Enforcement item 2 says \"GitHub gates automatically enforce\" — this overclaims; GitHub's PR review gate doesn't automatically check for GPL headers\n- Proposal 2: Corrects this — states reviewer sign-off is the control, but still frames it as GitHub's \"existing review gate\" enforcing the license check, which is slightly misleading\n- Proposal 3: Corrects cleanly — places the obligation on the reviewer directly, no overclaiming\n\n**No aspirational language:** All three ✓\n\n---\n\n## Quality Differences\n\n**Proposal 3 vs Proposal 1:** Nearly identical content, but Proposal 3 fixes the overclaiming in Enforcement item 2 (reviewer must confirm in writing vs. \"GitHub gates enforce it\"), adds the FedRAMP prohibition, and includes the \"sales have no approved tool\" clarification. Proposal 1 has the same fixes but also includes an editorial preamble explaining changes — which is not part of the deliverable and adds noise.\n\n**Proposal 2:** Missing the FedRAMP prohibition entirely (a base fact goes unused), missing the \"sales have no approved tool\" clarification, and still slightly overclaims on the GitHub gate mechanism. Shorter, but at the cost of completeness.\n\n**Proposal 3** is the cleanest: no editorial preamble cluttering the deliverable, all base facts used, all prohibitions cited, enforcement is accurate and enforceable, and the PR reviewer obligation is stated as a direct directive rather than a claim about automated tooling.\n\n---\n\n## Ranking\n\n**RANKING: [3], [1], [2]**\n\n- **Best (3):** Complete, accurate enforcement language, all base facts used, no extraneous editorial content, clean prohibition citations including FedRAMP\n- **Second (1):** Nearly identical to 3 but includes an editorial preamble that isn't part of the deliverable, and slightly overclaims on GitHub's automated enforcement\n- **Worst (2):** Missing FedRAMP prohibition (base fact unused), missing sales tool clarification, still has minor overclaim on GitHub gate mechanism"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**Maximum 500 words (policy body only):**\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~450 words ✓\n- Proposal 3: ~420 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** All three ✓\n\n**Every prohibition references motivating base fact:** All three ✓ for all prohibitions\n\n**Enforceable without new tooling:**\n- Proposal 1: ✓ (SOC2 incident response, PR review gate, manager approval, quarterly access reviews)\n- Proposal 2: ✓ same mechanisms\n- Proposal 3: ✓ same mechanisms\n\n**No aspirational language:** All three ✓\n\n---\n\n## Differentiating Analysis\n\n**FedRAMP Prohibition (Proposals 2 & 3 vs. 1):**\nProposals 2 and 3 include a FedRAMP-specific prohibition (item 6). This is derivable from the base facts and addresses a real compliance gap. Proposal 1 omits it. However, the FedRAMP prohibition as written (\"FedRAMP Moderate controls\") introduces a specific control tier not stated in the base facts — a minor overreach, but minor.\n\n**Sales staff clarity:**\nProposals 2 and 3 explicitly state \"Sales staff have no approved AI tool\" in Permitted Uses. This is more accurate and practically useful than Proposal 1, which omits this clarification.\n\n**Enforcement item 2:**\nProposal 1 frames the PR gate as a passive description (\"the pull request reviewer sign-off required by GitHub's existing review gate is the control\"). Proposals 2 and 3 frame it as an active directive (\"Pull request reviewers must confirm in writing...\"). The directive form is more enforceable.\n\n**Proposal 1's preamble:**\nProposal 1 includes a lengthy editorial preamble explaining changes made. This is extraneous to the deliverable (a policy memo) and adds clutter, though it doesn't count toward the word limit of the policy itself.\n\n**Proposals 2 vs. 3:**\nProposal 2 includes its own editorial preamble. Proposal 3 omits it entirely, delivering only the clean policy document. Proposal 3's Enforcement item 2 also adds \"No merge proceeds without this confirmation\" — a small but meaningful reinforcement of enforceability. These are the only meaningful differences between 2 and 3.\n\n---\n\n## Ranking\n\n**Proposal 3** is the cleanest: no extraneous preamble, includes the FedRAMP prohibition, correctly frames sales tool status, uses directive enforcement language, and adds the explicit merge-blocking clause.\n\n**Proposal 2** is nearly identical to 3 but includes an editorial preamble that is not part of the deliverable.\n\n**Proposal 1** omits the FedRAMP prohibition, lacks the sales tool clarification, uses passive enforcement framing, and includes an editorial preamble.\n\nRANKING: [3], [2], [1]"
+    }
+  ],
+  "elapsed": 65.7
+}

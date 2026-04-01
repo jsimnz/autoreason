@@ -1,0 +1,52 @@
+{
+  "pass": 18,
+  "winner": "AB",
+  "scores": {
+    "A": 3,
+    "B": 7,
+    "AB": 8
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the stated constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**Hard constraints:**\n- ≤500 words (body text)\n- Exactly 4 sections: Scope, Permitted Uses, Prohibited Uses, Enforcement\n- Each section has numbered items (not prose paragraphs)\n- Every prohibition references its motivating base fact\n- Enforceable without new tooling\n- No aspirational language\n\n---\n\n## Proposal 1 Analysis\n\n**Word count:** The body text substantially exceeds 500 words. The escalation chain in Enforcement items 2–3 alone is verbose, and the seat-allocation language adds filler. **Fails.**\n\n**Numbered items:** Enforcement items 2–3 are compound multi-clause paragraphs, not discrete numbered items. **Borderline fail.**\n\n**Invented content:** \"submission order until all 80 seats are allocated\" is not derivable from base facts. **Fails.**\n\n**Aspirational language:** None detected. **Pass.**\n\n**Prohibition-fact linkage:** All five prohibitions cite base facts. **Pass.**\n\n**Enforceability:** The cascading escalation timeline (day 1 → day 2 → day 3) invents a new process not derivable from base facts. **Fails.**\n\n---\n\n## Proposal 2 Analysis\n\n**Word count:** The preamble (\"Changes made...\") is editorial scaffolding, not policy text. The policy body itself is within ~500 words. **Pass on policy body.**\n\n**Numbered items:** All sections use clean numbered items. **Pass.**\n\n**Invented content:** Removed the seat-allocation invention. **Pass.**\n\n**Prohibition-fact linkage:** All five prohibitions cite base facts, including FedRAMP added to item 4. **Pass.**\n\n**Enforceability:** References existing PR review process, existing Legal intake, existing HR file, existing seat controls. **Pass.**\n\n**Aspirational language:** None. **Pass.**\n\n**Quality note:** The editorial preamble is extraneous but doesn't corrupt the policy itself. The policy text is substantively identical to Proposal 3 with minor wording improvements (e.g., \"risks GDPR compliance\" vs. cleaner phrasing).\n\n---\n\n## Proposal 3 Analysis\n\n**Word count:** Policy body is within ~500 words. **Pass.**\n\n**Numbered items:** All sections use clean numbered items. **Pass.**\n\n**Invented content:** None. **Pass.**\n\n**Prohibition-fact linkage:** All five prohibitions cite base facts. **Pass.**\n\n**Enforceability:** Same as Proposal 2 — references existing controls throughout. **Pass.**\n\n**Aspirational language:** None. **Pass.**\n\n**Difference from Proposal 2:** Proposal 3 is the clean policy document without the editorial preamble. It is substantively identical to Proposal 2's policy body. As a deliverable memo, Proposal 3 is the cleaner artifact — the editorial commentary in Proposal 2 is not part of the policy and would not belong in a memo sent to employees.\n\n---\n\n## Summary\n\n- **Proposal 3:** Meets all hard constraints, clean deliverable, no extraneous content.\n- **Proposal 2:** Identical policy body but cluttered with editorial scaffolding that doesn't belong in a policy memo.\n- **Proposal 1:** Fails word count, contains invented procedural content, has compound enforcement paragraphs.\n\n---\n\nRANKING: [3], [2], [1]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the stated constraints and quality criteria.\n\n---\n\n## Constraint Checklist\n\n**≤500 words (body text):**\n- Proposal 1: ~370 words ✓\n- Proposal 2: ~420 words ✓ (but Enforcement item 3 is a multi-clause prose paragraph, not a numbered item)\n- Proposal 3: ~370 words ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** Proposal 2 Enforcement item 3 is a compound multi-sentence paragraph masquerading as a single numbered item — it contains an invented cascading escalation chain not derivable from base facts. Proposals 1 and 3 avoid this. ✗ for Proposal 2.\n\n**Every prohibition references motivating base fact:** All three ✓, though Proposal 2's unapproved-tools prohibition omits FedRAMP while Proposals 1 and 3 include it.\n\n**Enforceable without new tooling:** All three rely on existing controls ✓\n\n**No aspirational language:** All three ✓\n\n**Nothing not derivable from base facts:** Proposal 2 invents \"submission order until all 80 seats are allocated\" and the cascading day-by-day escalation chain. Both are fabricated. ✗ for Proposal 2.\n\n---\n\n## Quality Analysis\n\n**Proposal 3** is explicitly a corrected version of Proposal 2, and the preamble documents exactly what was fixed. It removes the invented seat-allocation method, removes the fabricated escalation chain, adds FedRAMP to the unapproved-tools basis, adds an ownership Scope item, and tightens the Permitted Uses approval language. It is the cleanest against every constraint.\n\n**Proposal 1** is substantively identical to Proposal 3's final document. Comparing them closely, they are nearly word-for-word the same. Proposal 1 lacks the Scope item establishing operational ownership that Proposal 3 adds — wait, actually both Proposal 1 and Proposal 3 contain \"Legal and Engineering leadership are jointly responsible for operational enforcement\" as Scope item 2. They are functionally identical.\n\n**Proposal 2** contains two clear violations: invented procedural detail (seat allocation order) and a fabricated multi-day escalation chain that is not derivable from base facts, plus a compound prose paragraph in Enforcement item 3.\n\nSince Proposals 1 and 3 are substantively identical, the differentiator is that Proposal 3 provides documented reasoning for its choices, making its compliance with constraints more transparent and verifiable. Proposal 1 arrives at the same result without explanation. Both are equally compliant; Proposal 3's self-documentation is a marginal advantage for an evaluator.\n\n---\n\n## Ranking\n\n**RANKING: [3], [1], [2]**\n\n- **Best: Proposal 3** — Fully constraint-compliant, no invented facts, includes ownership scope item, FedRAMP in prohibition basis, clean numbered items throughout, and documents its reasoning.\n- **Second: Proposal 1** — Substantively identical to Proposal 3's output; fully compliant but lacks the documented rationale.\n- **Worst: Proposal 2** — Invents a seat-allocation procedure, fabricates a cascading escalation timeline, and contains a compound prose paragraph in Enforcement, violating the numbered-items constraint and the \"add nothing not derivable from base facts\" constraint."
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "B",
+        "2": "A",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n**Word count (≤500 words of policy body):**\n- Proposal 1: ~380 words (body only) ✓\n- Proposal 2: ~400 words (body only) ✓\n- Proposal 3: ~360 words (body only) ✓\n\n**Exactly 4 sections:** All three ✓\n\n**Numbered items (not prose paragraphs):** \n- Proposal 1: ✓\n- Proposal 2: Enforcement item 3 is a multi-sentence compound paragraph masquerading as one numbered item — a cascading escalation chain that reads as prose ✗\n- Proposal 3: ✓\n\n**Every prohibition references a base fact:** All three ✓\n\n**Enforceable without new tooling:** All three reference existing controls ✓\n\n**No aspirational language:** All three ✓\n\n---\n\n**SPECIFICITY AND QUALITY ANALYSIS**\n\n**Proposal 1 vs. Proposal 3:** These are nearly identical in body content. The key difference is that Proposal 1 includes a preamble section (\"Changes made and problems addressed\") that is not part of the policy itself. The policy bodies are substantively the same. Both correctly decompose Enforcement into discrete numbered items, both include FedRAMP in Prohibited item 4, both add a Scope item establishing operational ownership.\n\n**Proposal 2 flaws:**\n- \"Seat requests are fulfilled in submission order until all 80 seats are allocated\" — invented procedural detail not derivable from base facts ✗\n- Enforcement item 3 is a cascading escalation chain written as prose within a single numbered item, violating the numbered-items constraint ✗\n- FedRAMP not referenced in Prohibited item 4 (only in item 5) — incomplete basis citation ✗\n- \"May be approved\" in Permitted item 4 introduces ambiguity ✗\n\n**Proposal 1 vs. Proposal 3 distinction:**\nBoth have identical policy bodies. Proposal 1 includes a meta-commentary preamble, which is extraneous but doesn't corrupt the policy itself. Proposal 3 presents the clean policy without preamble, which is more appropriate for a memo deliverable. However, the policy content is identical and both satisfy all constraints equally.\n\nThe tiebreaker: Proposal 3 is the cleaner deliverable — no extraneous preamble, just the policy. Proposal 1's preamble could cause confusion about what the actual policy document is.\n\n---\n\n**RANKING: 3, 1, 2**\n\n- **Best: Proposal 3** — Identical policy content to Proposal 1, but presented as a clean standalone document without extraneous meta-commentary. All constraints satisfied.\n- **Second: Proposal 1** — Same policy quality as Proposal 3 but cluttered by a lengthy preamble that isn't part of the deliverable.\n- **Worst: Proposal 2** — Invented procedural detail, prose paragraph in Enforcement item 3 violating the numbered-items constraint, incomplete FedRAMP citation, and ambiguous approval language."
+    }
+  ],
+  "elapsed": 61.7
+}

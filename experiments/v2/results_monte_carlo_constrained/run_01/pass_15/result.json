@@ -1,0 +1,52 @@
+{
+  "pass": 15,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 8,
+    "AB": 7
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "B",
+        "3": "A"
+      },
+      "raw": "I'll evaluate each proposal against the constraints systematically.\n\n---\n\n**CONSTRAINT CHECK: Maximum 500 words**\n\n- Proposal 1: ~480 words (passes, but close)\n- Proposal 2: Has a preamble section explaining changes (~150 words) before the policy itself. The policy portion is ~420 words. If the preamble counts, it fails. Even generously excluding it, the preamble is extraneous content not part of the memo.\n- Proposal 3: ~430 words (passes)\n\n**CONSTRAINT CHECK: Exactly 4 sections**\nAll three pass.\n\n**CONSTRAINT CHECK: Numbered items (not prose paragraphs)**\n- Proposal 1: Passes throughout.\n- Proposal 2: Passes throughout.\n- Proposal 3: **Fails** — Enforcement item 2 is a multi-sentence compound paragraph with embedded conditional logic (\"If the manager does not complete... failure by the department head is itself a confirmed violation recorded under item 3\"). This is prose, not a discrete numbered item.\n\n**CONSTRAINT CHECK: Every prohibition must reference which base fact motivates it**\n- Proposal 1: All 5 prohibitions cite base facts. ✓\n- Proposal 2: All 5 prohibitions cite base facts. ✓\n- Proposal 3: Only 4 prohibitions. Missing the explicit prohibition on unapproved AI coding tools (the 73% informal usage fact goes unaddressed in Prohibited Uses). ✗\n\n**CONSTRAINT CHECK: Enforceable without new tooling**\nAll three rely on existing code review, HR files, seat controls. All pass.\n\n**CONSTRAINT CHECK: No aspirational language**\nAll three pass.\n\n**CONSTRAINT CHECK: Base facts — use ALL, add nothing not derivable**\n- Proposal 3 cites \"FedRAMP requirements\" as if FedRAMP is already binding (it's pending). Also embeds budget cap in Permitted Uses item 4, which Proposal 2 correctly identifies as a financial fact, not a policy rule. Proposal 3 also omits the sales AI drafting permitted use (45% of sales already using AI).\n- Proposal 1 has the self-referential department head escalation issue (noted by Proposal 2).\n- Proposal 2 fixes all identified issues cleanly.\n\n**QUALITY ASSESSMENT:**\n- Proposal 2 is the most rigorous: fixes the self-referential escalation, correctly handles FedRAMP as pending, adds the sales permitted use, adds the unapproved tools prohibition, and removes the budget as a policy rule. The preamble is extraneous but the policy itself is the strongest.\n- Proposal 1 is solid but has the self-referential escalation flaw and misses the sales permitted use explicitly.\n- Proposal 3 fails the numbered-items constraint in Enforcement, omits a prohibition, and retains FedRAMP framing errors.\n\n---\n\n**RANKING: [2], [1], [3]**"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n*Max 500 words:*\n- Proposal 1: ~420 words ✓\n- Proposal 2: ~390 words ✓\n- Proposal 3: ~370 words (policy body only, excluding preamble analysis) ✓\n\n*Exactly 4 sections:* All three ✓\n\n*Numbered items (not prose paragraphs):* All three ✓ — though Proposal 2's Enforcement item 2 is a run-on compound item that borders on a prose paragraph embedded in a numbered list.\n\n*Every prohibition references base fact:* All three ✓\n\n*Enforceable without new tooling:* All three ✓\n\n*No aspirational language:* All three ✓\n\n---\n\n**DIFFERENTIATING QUALITY FACTORS**\n\n**Proposal 1** includes a useful escalation chain (manager → department head) in Enforcement and explicitly addresses the 73% informal tool usage with a prohibition on unapproved AI coding tools. It also covers the 45% sales usage with an affirmative permitted use. However, Enforcement item 3 contains a self-referential problem: the department head's failure to route is itself called a \"confirmed violation,\" which creates a circular enforcement trigger with no resolution mechanism — a genuine logical flaw.\n\n**Proposal 2** is cleaner in some respects but has notable gaps: it omits any prohibition on unapproved AI coding tools (the 73% informal usage fact goes unaddressed as a prohibition), and it omits any affirmative permitted use for sales AI drafting (the 45% usage fact is unaddressed). Enforcement item 2 is a dense run-on that violates the spirit of \"numbered items, not prose paragraphs.\" The self-referential department-head violation problem is worse here than in Proposal 1.\n\n**Proposal 3** explicitly identifies and corrects all the problems present in the other two: it adds the unapproved-tools prohibition, adds the sales permitted use, removes the self-referential enforcement trigger, removes the budget cap misuse, and strips aspirational commentary from Permitted Uses item 3. It is the most complete, most logically consistent, and most constraint-compliant version. The preamble analysis is extraneous but doesn't count against the policy body itself.\n\n---\n\n**RANKING:** [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "AB",
+        "B",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "B",
+        "3": "AB"
+      },
+      "raw": "I'll evaluate each proposal systematically against the constraints and quality criteria.\n\n---\n\n**CONSTRAINT CHECKLIST**\n\n*Max 500 words:*\n- Proposal 1: ~480 words — passes, but tight\n- Proposal 2: ~460 words — passes\n- Proposal 3: ~460 words — passes\n\n*Exactly 4 sections:* All three pass.\n\n*Numbered items (not prose paragraphs):* All three pass structurally, though Proposal 1's Enforcement item 2 is a run-on compound sentence that borders on prose.\n\n*Every prohibition references base fact:* All three pass. Proposals 2 and 3 add a fourth prohibition (unapproved AI coding tools) with a proper basis citation; Proposal 1 lacks this prohibition entirely.\n\n*Enforceable without new tooling:* All three pass.\n\n*No aspirational language:* All three pass.\n\n---\n\n**SUBSTANTIVE QUALITY ANALYSIS**\n\n**Proposal 1 weaknesses:**\n- Missing prohibition on unapproved AI coding tools despite 73% informal usage being a base fact — significant gap\n- Missing affirmative permitted use for sales email drafting (45% already doing it)\n- Enforcement item 2 is a single unwieldy sentence with self-referential \"department head failure is itself a violation\" — circular and unenforceable\n- Permitted Uses item 3 includes explanatory commentary that weakens the rule's directness\n- Budget cap embedded in Permitted Uses conflates financial fact with policy rule\n\n**Proposal 2 strengths over Proposal 1:**\n- Adds unapproved-tool prohibition with proper basis citation\n- Adds sales email drafting as permitted use\n- Splits escalation logic into discrete numbered items\n- Removes self-referential violation trigger\n- Removes budget from policy rules\n- Corrects \"FedRAMP requirements\" to \"pending FedRAMP authorization\"\n\n**Proposal 2 vs. Proposal 3 differences:**\n- Proposal 3 restores \"pull request history serves as the audit trail\" in Prohibited item 3 — this is a useful enforcement detail grounded in existing tooling\n- Proposal 3 adds \"who assumes full routing responsibility\" in Enforcement item 3 — marginally clearer\n- Proposal 3 adds \"no separate audit tool is required\" in Enforcement item 1 — directly addresses the no-new-tooling constraint\n- These are small but genuine improvements; Proposal 3 is otherwise identical to Proposal 2\n\n**Proposal 3 weaknesses:** None material. The additions are all grounded in base facts or existing constraints.\n\n---\n\n**RANKING RATIONALE**\n\nProposal 3 is best: it incorporates all of Proposal 2's corrections over Proposal 1, plus small but substantively useful additions (audit trail reference, routing responsibility clarity, no-new-tooling affirmation).\n\nProposal 2 is second: it fixes all of Proposal 1's major deficiencies and is nearly as strong as Proposal 3.\n\nProposal 1 is worst: it has a missing prohibition, a missing permitted use, a self-referential enforcement flaw, and conflates budget with policy rules.\n\nRANKING: [3], [2], [1]"
+    }
+  ],
+  "elapsed": 59.5
+}

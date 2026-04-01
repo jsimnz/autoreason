@@ -1,0 +1,52 @@
+{
+  "pass": 20,
+  "winner": "B",
+  "scores": {
+    "A": 3,
+    "B": 9,
+    "AB": 6
+  },
+  "num_valid": 3,
+  "judge_details": [
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n## Constraint Checklist\n\n**≤500 words (body only):** All three are close; Proposal 3 is tightest. Proposals 1 and 2 are borderline but likely within range.\n\n**Exactly 4 sections:** All three comply.\n\n**Numbered items (not prose paragraphs):** All three comply.\n\n**Every prohibition references base fact:** All three comply reasonably well.\n\n**Enforceable without new tooling:** All three comply.\n\n**No aspirational language:** All three comply.\n\n## Detailed Analysis\n\n**Proposal 1:**\n- Scope item 3 (copyright non-assignability) is a legal notice, not a scope definition — structural misplacement\n- Permitted Uses item 2 contains a prohibition-like statement (\"No IP ownership claim may be asserted\") — wrong section\n- Enforcement item 5 has a gap: only covers employees with existing AI tool access, but the fallback (\"item 4 constitutes the procedural consequence\") is present\n- Preamble adds word count pressure\n- Generally solid but has structural contamination across sections\n\n**Proposal 2:**\n- Scope item 3 (\"No new tooling is required\") is enforcement methodology, not scope — misplaced\n- Permitted Uses item 2 still contains a prohibition-adjacent statement\n- Enforcement item 5 lacks the fallback clause for employees without tool access — genuine enforcement gap\n- Otherwise clean and well-reasoned\n- The prefatory \"changes\" section is not part of the memo but adds clutter\n\n**Proposal 3:**\n- Scope items are all genuinely about applicability — structurally clean\n- Copyright non-assignability correctly moved to Prohibited Uses item 6 — proper placement\n- Enforcement item 5 includes the fallback clause explicitly\n- Enforcement item 6 adds termination language — complete disciplinary ladder\n- Prohibited Uses item 6 basis cites outside counsel directly — satisfies the \"every prohibition references base fact\" rule\n- No structural contamination between sections\n- Tightest and most internally consistent\n\n## Ranking\n\nProposal 3 is cleanest structurally, has no cross-section contamination, handles the copyright issue correctly, and has the most complete enforcement chain. Proposal 1 is second — more complete than Proposal 2 on enforcement but has more structural issues. Proposal 2 has the enforcement gap in item 5 and the misplaced scope item.\n\nRANKING: [3], [1], [2]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "A",
+        "2": "AB",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n## Constraint Checklist\n\n**500-word limit:**\n- Proposal 1: Includes a lengthy preamble (~200 words of meta-commentary) before the policy. If counting only the policy body, it's borderline. If counting everything, it exceeds 500 words significantly.\n- Proposal 2: Policy body only, no preamble. Fits within ~400 words. Clean.\n- Proposal 3: Includes a preamble (~150 words). Policy body alone is within 500 words, but the preamble is part of the submission.\n\n**Exactly 4 sections:** All three comply.\n\n**Numbered items (not prose paragraphs):** All three comply.\n\n**Every prohibition references base fact:** All three comply reasonably well.\n\n**Enforceable without new tooling:** All three comply.\n\n**No aspirational language:** All three comply.\n\n## Structural Quality\n\n**Scope section:**\n- Proposal 1: Item 2 places copyright non-assignability in Scope, which is conceptually misplaced. Item 3 belongs in Enforcement methodology.\n- Proposal 2: Clean, three substantive applicability items. No misplaced content.\n- Proposal 3: Clean, three items defining who and what is covered. Best structured.\n\n**Prohibited Uses:**\n- Proposal 1: Item 2 requires \"Legal or a designated copyright reviewer\" — \"designated copyright reviewer\" is not derivable from base facts, violating the constraint.\n- Proposal 2: Requires only \"Legal\" — clean and derivable.\n- Proposal 3: Requires only \"Legal\" — clean. Also adds item 6 on copyright non-assignability as a prohibition, which is the correct section for it.\n\n**Enforcement:**\n- Proposal 1: Item 5 says \"Engineering leadership revoking\" — this is too narrow for non-engineering violations (e.g., sales rep in Incident 2). No item 6 for disciplinary escalation.\n- Proposal 2: Item 5 handles the no-access edge case. Item 6 adds termination-level disciplinary action. \"Engineering leadership\" still appears but item 5's fallback partially mitigates.\n- Proposal 3: Item 5 handles the no-access edge case explicitly. Item 6 adds disciplinary escalation. Most complete.\n\n**Copyright non-assignability:**\n- Proposal 1: Placed in both Scope and Permitted Uses — awkward duplication.\n- Proposal 2: Placed in Permitted Uses item 2 — acceptable but slightly misplaced.\n- Proposal 3: Placed as Prohibited Uses item 6 — most logically appropriate placement.\n\n**Word count compliance (policy body only):**\n- Proposals 2 and 3 are both within 500 words for the policy itself.\n- Proposal 1's preamble is a problem regardless of interpretation.\n\n## Summary\n\n- **Proposal 3** is the most structurally sound: clean scope, copyright non-assignability correctly placed in Prohibited Uses, no unsupported references, best enforcement section, no preamble bloat in the policy body. The preamble is a minor issue but the policy itself is the strongest.\n- **Proposal 2** is very close — clean, no preamble, but copyright placement is slightly off and \"Engineering leadership\" in item 5 is narrower than ideal.\n- **Proposal 1** has the most problems: preamble word count issue, \"designated copyright reviewer\" not derivable from facts, copyright non-assignability awkwardly split across sections, no disciplinary escalation item.\n\n## RANKING: [3], [2], [1]"
+    },
+    {
+      "ranking": [
+        "B",
+        "AB",
+        "A"
+      ],
+      "order": {
+        "1": "AB",
+        "2": "A",
+        "3": "B"
+      },
+      "raw": "I'll evaluate each proposal against the constraints and quality criteria systematically.\n\n## Constraint Checklist\n\n**500-word limit:**\n- Proposal 1: The policy body alone is approximately 480-490 words. Passes.\n- Proposal 2: Includes a lengthy preamble (~250 words) before the policy. If counted together, far exceeds 500 words. Even if only the policy body counts, it's borderline. The preamble is problematic.\n- Proposal 3: Policy body is approximately 420-430 words. Passes cleanly.\n\n**Exactly 4 sections:** All three pass.\n\n**Numbered items (not prose paragraphs):** All three pass.\n\n**Every prohibition references which base fact motivates it:** All three pass, with Proposals 2 and 3 being slightly more concise in citations.\n\n**Enforceable without new tooling:** All three pass—they reference existing PR reviews, seat controls, HR processes.\n\n**No aspirational language:** All three pass.\n\n## Structural/Quality Analysis\n\n**Proposal 1:** Solid policy. Scope item 3 (copyright non-assignability) is oddly placed—it's a legal disclaimer, not a scope definition. Enforcement item 5 has a narrow scope issue (only covers employees with existing AI tool access). No item 6 for disciplinary action up to termination, which is a meaningful enforcement gap.\n\n**Proposal 2:** The preamble listing \"changes made\" is not part of the policy memo—it's revision notes. This violates the spirit of the deliverable and inflates word count significantly. The policy body itself is strong, but Enforcement item 5 has a gap: it doesn't address employees without tool access facing no consequence beyond manager review, and there's no explicit termination-level disciplinary item.\n\n**Proposal 3:** Cleanest structure. Scope items are all genuinely about scope (who/what is covered). The copyright non-assignability notice is correctly placed in Prohibited Uses as item 6. Enforcement item 5 explicitly handles the \"no existing access\" edge case. Enforcement item 6 adds termination-level disciplinary language. No extraneous preamble. Most complete enforcement section. Prohibited Uses item 5 basis is tighter (\"Slack processes customer PII and financial data\" is derivable from base facts).\n\n## Ranking\n\nProposal 3 is the best: cleanest structure, all sections serve their stated purpose, most complete enforcement section, no extraneous content, fits within 500 words.\n\nProposal 1 is second: substantively strong, no extraneous preamble, but has structural placement issues (Scope item 3) and enforcement gaps (no termination language, narrow item 5).\n\nProposal 2 is worst: the revision-notes preamble disqualifies it as a clean policy deliverable and likely violates the word count constraint when read as a whole.\n\nRANKING: [3], [1], [2]"
+    }
+  ],
+  "elapsed": 65.8
+}
