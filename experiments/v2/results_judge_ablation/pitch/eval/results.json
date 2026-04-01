@@ -1,0 +1,22 @@
+{
+  "valid_judges": 7,
+  "max_borda": 28,
+  "borda": {
+    "autoreason_haiku_judges": 18,
+    "autoreason_sonnet_judges": 23,
+    "single_pass": 22,
+    "critique_and_revise": 7
+  },
+  "first_place": {
+    "autoreason_haiku_judges": 2,
+    "autoreason_sonnet_judges": 3,
+    "single_pass": 2,
+    "critique_and_revise": 0
+  },
+  "word_counts": {
+    "autoreason_haiku_judges": 392,
+    "autoreason_sonnet_judges": 476,
+    "single_pass": 345,
+    "critique_and_revise": 392
+  }
+}

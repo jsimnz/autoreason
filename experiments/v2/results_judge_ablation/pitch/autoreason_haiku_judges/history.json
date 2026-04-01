@@ -1,0 +1,42 @@
+[
+  {
+    "pass": 1,
+    "winner": "B",
+    "scores": {
+      "A": 2,
+      "B": 3,
+      "AB": 1
+    },
+    "words": 371
+  },
+  {
+    "pass": 2,
+    "winner": "AB",
+    "scores": {
+      "A": 2,
+      "B": 1,
+      "AB": 3
+    },
+    "words": 393
+  },
+  {
+    "pass": 3,
+    "winner": "A",
+    "scores": {
+      "A": 0,
+      "B": 0,
+      "AB": 0
+    },
+    "words": 392
+  },
+  {
+    "pass": 4,
+    "winner": "A",
+    "scores": {
+      "A": 0,
+      "B": 0,
+      "AB": 0
+    },
+    "words": 392
+  }
+]

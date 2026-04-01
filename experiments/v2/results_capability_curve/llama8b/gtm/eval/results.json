@@ -1,0 +1,22 @@
+{
+  "valid_judges": 7,
+  "max_borda": 28,
+  "borda": {
+    "single_pass": 28,
+    "autoreason": 20,
+    "critique_and_revise": 15,
+    "harsh_critic": 7
+  },
+  "first_place": {
+    "single_pass": 7,
+    "autoreason": 0,
+    "critique_and_revise": 0,
+    "harsh_critic": 0
+  },
+  "word_counts": {
+    "single_pass": 397,
+    "autoreason": 899,
+    "critique_and_revise": 1692,
+    "harsh_critic": 1474
+  }
+}

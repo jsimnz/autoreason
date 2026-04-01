@@ -1,0 +1,68 @@
+{
+  "gemini_flash_pitch": {
+    "valid_judges": 7,
+    "max_borda": 28,
+    "borda": {
+      "single_pass": 13,
+      "autoreason": 28,
+      "critique_and_revise": 17,
+      "harsh_critic": 12
+    },
+    "first_place": {
+      "single_pass": 0,
+      "autoreason": 7,
+      "critique_and_revise": 0,
+      "harsh_critic": 0
+    },
+    "word_counts": {
+      "single_pass": 645,
+      "autoreason": 2095,
+      "critique_and_revise": 2965,
+      "harsh_critic": 2580
+    }
+  },
+  "gemini_flash_policy": {
+    "valid_judges": 7,
+    "max_borda": 28,
+    "borda": {
+      "single_pass": 27,
+      "autoreason": 22,
+      "critique_and_revise": 13,
+      "harsh_critic": 8
+    },
+    "first_place": {
+      "single_pass": 6,
+      "autoreason": 1,
+      "critique_and_revise": 0,
+      "harsh_critic": 0
+    },
+    "word_counts": {
+      "single_pass": 507,
+      "autoreason": 465,
+      "critique_and_revise": 3190,
+      "harsh_critic": 2852
+    }
+  },
+  "gemini_flash_gtm": {
+    "valid_judges": 7,
+    "max_borda": 28,
+    "borda": {
+      "single_pass": 20,
+      "autoreason": 25,
+      "critique_and_revise": 7,
+      "harsh_critic": 18
+    },
+    "first_place": {
+      "single_pass": 1,
+      "autoreason": 4,
+      "critique_and_revise": 0,
+      "harsh_critic": 2
+    },
+    "word_counts": {
+      "single_pass": 951,
+      "autoreason": 2609,
+      "critique_and_revise": 3393,
+      "harsh_critic": 2546
+    }
+  }
+}
