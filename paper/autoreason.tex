@@ -183,8 +183,8 @@ Our experiments identify four conditions for the method to succeed: (1)~\textbf{
 \coordinate (loopleft) at ([xshift=-2.0cm]A.west);
 \draw[arr=MedGray, line width=1.2pt]
     (conv.west) -| (loopleft) -- (A.west);
-\node[font=\scriptsize, text=MedGray, rotate=90, anchor=south]
-    at ([xshift=-2.0cm, yshift=-1.2cm]A.west) {winner $\to$ new A};
+\node[font=\scriptsize, text=MedGray, anchor=south east]
+    at ([xshift=-0.15cm, yshift=0.08cm]conv.north west) {winner $\to$ new A};
 
 % ── Convergence exit ──
 \node[font=\small\bfseries, text=green!50!black, below=0.15cm of conv] {$k{=}2$ A wins $\to$ \textrm{done}};
