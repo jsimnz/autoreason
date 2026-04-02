@@ -1,0 +1,11 @@
+{
+  "problem_id": "medium_35",
+  "tier": "medium",
+  "strategy": "s46_autoreason",
+  "pass_public": true,
+  "pass_private": true,
+  "public_passed": 2,
+  "public_total": 2,
+  "private_passed": 63,
+  "private_total": 63
+}

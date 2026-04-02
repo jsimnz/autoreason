@@ -1,0 +1,139 @@
+[
+  {
+    "pass": 0,
+    "winner": "A",
+    "a_words": 1840
+  },
+  {
+    "pass": 1,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 6,
+      "AB": 9
+    },
+    "a_words": 1840,
+    "b_words": 1746,
+    "ab_words": 2113
+  },
+  {
+    "pass": 2,
+    "winner": "AB",
+    "scores": {
+      "A": 6,
+      "B": 4,
+      "AB": 8
+    },
+    "a_words": 2113,
+    "b_words": 1810,
+    "ab_words": 2145
+  },
+  {
+    "pass": 3,
+    "winner": "B",
+    "scores": {
+      "A": 4,
+      "B": 9,
+      "AB": 5
+    },
+    "a_words": 2145,
+    "b_words": 1595,
+    "ab_words": 1985
+  },
+  {
+    "pass": 4,
+    "winner": "A",
+    "scores": {
+      "A": 6,
+      "B": 2,
+      "AB": 4
+    },
+    "a_words": 1595,
+    "b_words": 1857,
+    "ab_words": 1753
+  },
+  {
+    "pass": 5,
+    "winner": "B",
+    "scores": {
+      "A": 6,
+      "B": 9,
+      "AB": 3
+    },
+    "a_words": 1595,
+    "b_words": 1612,
+    "ab_words": 1865
+  },
+  {
+    "pass": 6,
+    "winner": "A",
+    "scores": {
+      "A": 9,
+      "B": 3,
+      "AB": 6
+    },
+    "a_words": 1612,
+    "b_words": 2106,
+    "ab_words": 1909
+  },
+  {
+    "pass": 7,
+    "winner": "AB",
+    "scores": {
+      "A": 6,
+      "B": 4,
+      "AB": 8
+    },
+    "a_words": 1612,
+    "b_words": 2031,
+    "ab_words": 2018
+  },
+  {
+    "pass": 8,
+    "winner": "A",
+    "scores": {
+      "A": 7,
+      "B": 5,
+      "AB": 6
+    },
+    "a_words": 2018,
+    "b_words": 1945,
+    "ab_words": 2066
+  },
+  {
+    "pass": 9,
+    "winner": "AB",
+    "scores": {
+      "A": 6,
+      "B": 3,
+      "AB": 9
+    },
+    "a_words": 2018,
+    "b_words": 2046,
+    "ab_words": 2431
+  },
+  {
+    "pass": 10,
+    "winner": "A",
+    "scores": {
+      "A": 5,
+      "B": 5,
+      "AB": 2
+    },
+    "a_words": 2431,
+    "b_words": 1553,
+    "ab_words": 2471
+  },
+  {
+    "pass": 11,
+    "winner": "A",
+    "scores": {
+      "A": 9,
+      "B": 4,
+      "AB": 5
+    },
+    "a_words": 2431,
+    "b_words": 2340,
+    "ab_words": 2556
+  }
+]

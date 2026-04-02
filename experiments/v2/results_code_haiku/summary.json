@@ -1,0 +1,90 @@
+{
+  "haiku_single": {
+    "n": 146,
+    "public_pass": 75,
+    "private_pass": 56,
+    "by_tier": {
+      "easy": {
+        "n": 46,
+        "public": 24,
+        "private": 22
+      },
+      "medium": {
+        "n": 50,
+        "public": 25,
+        "private": 16
+      },
+      "hard": {
+        "n": 50,
+        "public": 26,
+        "private": 18
+      }
+    }
+  },
+  "haiku_critique": {
+    "n": 145,
+    "public_pass": 72,
+    "private_pass": 51,
+    "by_tier": {
+      "easy": {
+        "n": 45,
+        "public": 24,
+        "private": 19
+      },
+      "medium": {
+        "n": 50,
+        "public": 22,
+        "private": 16
+      },
+      "hard": {
+        "n": 50,
+        "public": 26,
+        "private": 16
+      }
+    }
+  },
+  "haiku_autoreason": {
+    "n": 145,
+    "public_pass": 79,
+    "private_pass": 58,
+    "by_tier": {
+      "easy": {
+        "n": 45,
+        "public": 28,
+        "private": 25
+      },
+      "medium": {
+        "n": 50,
+        "public": 24,
+        "private": 17
+      },
+      "hard": {
+        "n": 50,
+        "public": 27,
+        "private": 16
+      }
+    }
+  },
+  "sonnet_single": {
+    "n": 150,
+    "public_pass": 107,
+    "private_pass": 79,
+    "by_tier": {
+      "easy": {
+        "n": 50,
+        "public": 42,
+        "private": 33
+      },
+      "medium": {
+        "n": 50,
+        "public": 31,
+        "private": 23
+      },
+      "hard": {
+        "n": 50,
+        "public": 34,
+        "private": 23
+      }
+    }
+  }
+}

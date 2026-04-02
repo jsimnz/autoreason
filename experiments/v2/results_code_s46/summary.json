@@ -1,0 +1,68 @@
+{
+  "s46_single": {
+    "n": 150,
+    "public_pass": 121,
+    "private_pass": 109,
+    "by_tier": {
+      "easy": {
+        "n": 50,
+        "public": 45,
+        "private": 41
+      },
+      "medium": {
+        "n": 50,
+        "public": 41,
+        "private": 37
+      },
+      "hard": {
+        "n": 50,
+        "public": 35,
+        "private": 31
+      }
+    }
+  },
+  "s46_critique": {
+    "n": 150,
+    "public_pass": 131,
+    "private_pass": 111,
+    "by_tier": {
+      "easy": {
+        "n": 50,
+        "public": 47,
+        "private": 44
+      },
+      "medium": {
+        "n": 50,
+        "public": 42,
+        "private": 37
+      },
+      "hard": {
+        "n": 50,
+        "public": 42,
+        "private": 30
+      }
+    }
+  },
+  "s46_autoreason": {
+    "n": 150,
+    "public_pass": 131,
+    "private_pass": 115,
+    "by_tier": {
+      "easy": {
+        "n": 50,
+        "public": 47,
+        "private": 43
+      },
+      "medium": {
+        "n": 50,
+        "public": 42,
+        "private": 40
+      },
+      "hard": {
+        "n": 50,
+        "public": 42,
+        "private": 32
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+[
+  {
+    "pass": 0,
+    "winner": "A",
+    "a_words": 1791
+  },
+  {
+    "pass": 1,
+    "winner": "AB",
+    "scores": {
+      "A": 3,
+      "B": 6,
+      "AB": 9
+    },
+    "a_words": 1791,
+    "b_words": 2288,
+    "ab_words": 2246
+  },
+  {
+    "pass": 2,
+    "winner": "B",
+    "scores": {
+      "A": 4,
+      "B": 7,
+      "AB": 7
+    },
+    "a_words": 2246,
+    "b_words": 1494,
+    "ab_words": 2291
+  },
+  {
+    "pass": 3,
+    "winner": "A",
+    "scores": {
+      "A": 9,
+      "B": 4,
+      "AB": 5
+    },
+    "a_words": 1494,
+    "b_words": 1902,
+    "ab_words": 2248
+  },
+  {
+    "pass": 4,
+    "winner": "B",
+    "scores": {
+      "A": 5,
+      "B": 9,
+      "AB": 4
+    },
+    "a_words": 1494,
+    "b_words": 2041,
+    "ab_words": 2300
+  },
+  {
+    "pass": 5,
+    "winner": "A",
+    "scores": {
+      "A": 9,
+      "B": 5,
+      "AB": 4
+    },
+    "a_words": 2041,
+    "b_words": 1656,
+    "ab_words": 2254
+  },
+  {
+    "pass": 6,
+    "winner": "A",
+    "scores": {
+      "A": 8,
+      "B": 3,
+      "AB": 7
+    },
+    "a_words": 2041,
+    "b_words": 1514,
+    "ab_words": 2179
+  }
+]

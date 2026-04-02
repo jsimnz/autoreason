@@ -1,0 +1,11 @@
+{
+  "problem_id": "medium_26",
+  "tier": "medium",
+  "strategy": "sonnet_single",
+  "pass_public": true,
+  "pass_private": true,
+  "public_passed": 1,
+  "public_total": 1,
+  "private_passed": 26,
+  "private_total": 26
+}

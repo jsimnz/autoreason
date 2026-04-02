@@ -1,0 +1,11 @@
+{
+  "problem_id": "hard_28",
+  "tier": "hard",
+  "strategy": "s46_single",
+  "pass_public": true,
+  "pass_private": false,
+  "public_passed": 3,
+  "public_total": 3,
+  "private_passed": 6,
+  "private_total": 17
+}

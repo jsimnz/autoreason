@@ -1,0 +1,6 @@
+{
+  "problem_id": "easy_7",
+  "tier": "easy",
+  "strategy": "haiku_autoreason",
+  "error": "litellm.AuthenticationError: AuthenticationError: OpenrouterException - {\"error\":{\"message\":\"User not found.\",\"code\":401}}"
+}
