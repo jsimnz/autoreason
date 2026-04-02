@@ -9,7 +9,7 @@
 \usepackage[scaled=0.88]{helvet}   % Helvetica for sans-serif
 \usepackage{courier}               % Courier for mono
 \usepackage{microtype}             % Optical adjustments
-\linespread{1.05}                  % Palatino reads better with slight spread
+\linespread{1.08}                  % Slight spread for readability
 
 % ── Packages ────────────────────────────────────────────────────────
 \usepackage{graphicx}
@@ -86,11 +86,11 @@
 \noindent\textbf{\scshape Abstract.}\enspace
 Iterative self-refinement fails for three reasons: \textit{prompt bias}, where adversarial critique prompts cause models to hallucinate problems that don't exist; \textit{scope creep}, where each revision pass expands the document's scope unchecked; and \textit{lack of restraint}: models almost never decline to make changes, even when the output is already good. Together these guarantee progressive degradation. We present autoreason, which addresses all three by structuring each iteration as a three-way choice: the unchanged incumbent~(A), an adversarial revision~(B), and a synthesis~(AB). Fresh agents with no prompt history or session context judge the candidates via blind Borda count, ensuring that ``do nothing'' is always a first-class option, and the evaluators share none of the biases that produced the revisions. The method's value is greatest at mid-tier models, where the gap between generation capability and self-evaluation capability is widest. With Haiku~3.5 (${\sim}$10$\times$ cheaper than Sonnet~4), autoreason scored 42/42 Borda across three tasks, a perfect sweep, while standard refinement baselines \textit{degraded} the same model's outputs below its unrefined single pass. Across four model tiers (Llama~8B, Gemini~Flash, Haiku~3.5, Sonnet~4), the advantage peaks at mid-tier and diminishes at both extremes: models too weak to generate diverse alternatives (Llama) or too strong to need external evaluation (Sonnet~4.6).
 
-With Sonnet~4 across 5~subjective tasks, autoreason wins 3/5 outright. In competitive programming (150~CodeContests problems), autoreason achieves 77\% private-test pass rate vs.\ 73\% for single-pass and 74\% for critique-and-revise with Sonnet~4.6, with the largest gains on medium-difficulty problems. On CodeContests with Haiku~3.5 authors (150~problems), autoreason achieves 40\% private-test pass rate vs.\ 38\% for single-pass and 35\% for critique-and-revise, while best-of-6 sampling collapses to 31\%, confirming that structured refinement adds value beyond diversity, and that critique-and-revise degrades weak models even with objective test feedback. The practical recommendation: autoreason operates in the space between ``too weak to generate useful alternatives'' and ``too strong to need external evaluation,'' the range where most cost-conscious LLM usage lives.
+We validate across 5~subjective writing tasks, 150~competitive programming problems (CodeContests), a four-tier model comparison, and multiple ablations. In code, autoreason achieves 77\% private-test accuracy vs.\ 73\% for single-pass with Sonnet~4.6. With weaker Haiku~3.5 authors, autoreason outperforms best-of-6 sampling (40\% vs.\ 31\%) at matched compute, while critique-and-revise degrades below single-pass. The practical recommendation: autoreason operates in the space where models can generate diverse alternatives but cannot reliably choose between them.
 
-\vspace{6pt}
+\vspace{10pt}
 \hrule
-\vspace{6pt}
+\vspace{12pt}
 
 \section{Introduction}
 
@@ -350,7 +350,7 @@ Adding ``think step by step about each version'' to the judge prompt, with no ar
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{@{}lcc@{}}
+\begin{tabular}{@{}l@{\hspace{3em}}c@{\hspace{3em}}c@{}}
 \toprule
 \textbf{Judge Variant} & \textbf{Task 1} & \textbf{Task 2} \\
 \midrule
@@ -392,7 +392,7 @@ We ran autoreason on Task~2 using Sonnet~4.6 with CoT judges. The initial result
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{@{}lcc@{}}
+\begin{tabular}{@{}l@{\hspace{3em}}c@{\hspace{3em}}c@{}}
 \toprule
 \textbf{Method} & \textbf{Borda} & \textbf{1st Place} \\
 \midrule
@@ -450,7 +450,7 @@ The margin requirement converged at passes 15 and 17 (Figure~\ref{fig:remedies})
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{@{}lcc@{}}
+\begin{tabular}{@{}l@{\hspace{3em}}c@{\hspace{3em}}c@{}}
 \toprule
 \textbf{Method} & \textbf{Borda (/49)} & \textbf{1st} \\
 \midrule
@@ -505,7 +505,7 @@ A 7-judge blind panel confirmed quality (Table~\ref{tab:constrained_quality}):
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{@{}lcc@{}}
+\begin{tabular}{@{}l@{\hspace{3em}}c@{\hspace{3em}}c@{}}
 \toprule
 \textbf{Method} & \textbf{Borda (/35)} & \textbf{1st} \\
 \midrule
