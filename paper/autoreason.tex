@@ -5,7 +5,8 @@
 
 % ── Typography ──────────────────────────────────────────────────────
 \usepackage[T1]{fontenc}
-\usepackage{mathpazo}              % Palatino text + math
+\usepackage{ebgaramond}            % EB Garamond text
+\usepackage[cmintegrals,cmbraces]{newtxmath} % Math compatible with Garamond
 \usepackage[scaled=0.88]{helvet}   % Helvetica for sans-serif
 \usepackage{courier}               % Courier for mono
 \usepackage{microtype}             % Optical adjustments
@@ -17,6 +18,7 @@
 \usepackage{enumitem}
 \usepackage{caption}
 \usepackage{float}
+\usepackage{needspace}
 \usepackage[table]{xcolor}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
@@ -79,7 +81,7 @@
 \vspace{4pt}
 {\LARGE\bfseries Autoreason: When Iterative LLM Refinement\\[3pt] Works and Why It Fails}\\[10pt]
 {\normalsize shl0ms}\\[2pt]
-{\small\textcolor{MedGray}{\url{https://github.com/NousResearch/autoreason}}}\\[12pt]
+{\small\textcolor{MedGray}{\href{https://github.com/NousResearch/autoreason}{github.com/NousResearch/autoreason}}}\\[12pt]
 \end{center}
 }]
 
@@ -184,7 +186,7 @@ Our experiments provide evidence for four conditions that appear important for t
 \draw[arr=MedGray, line width=1.2pt]
     (conv.west) -| (loopleft) -- (A.west);
 \node[font=\scriptsize, text=MedGray, rotate=90, anchor=south]
-    at ([xshift=-2.0cm, yshift=-0.2cm]A.west) {winner $\to$ new A};
+    at ([xshift=-2.0cm, yshift=-1.2cm]A.west) {winner $\to$ new A};
 
 % ── Convergence exit ──
 \node[font=\small\bfseries, text=green!50!black, below=0.15cm of conv] {$k{=}2$ A wins $\to$ \textrm{done}};
@@ -211,7 +213,7 @@ Our experiments provide evidence for four conditions that appear important for t
 \begin{scope}[on background layer]
 \node[fit=(critic)(candA)(candB)(judge)(winner)(conv),
       rounded corners=6pt, fill=NavyBlue!3, draw=NavyBlue!15,
-      inner xsep=12pt, inner ysep=10pt, line width=0.5pt] (loopbg) {};
+      inner xsep=8pt, inner ysep=16pt, line width=0.5pt] (loopbg) {};
 \node[font=\scriptsize\scshape, text=NavyBlue!35,
       anchor=north east] at ([xshift=-2pt, yshift=-2pt]loopbg.north east) {iteration loop};
 \end{scope}
@@ -259,18 +261,18 @@ All experiments used claude-sonnet-4-20250514 (temp=0.8 authors, 0.3 judges, max
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{@{}lcccccc@{}}
+\begin{tabular}{@{}lccccccc@{}}
 \toprule
-\textbf{Method} & \textbf{Calls} & \textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{T5} \\
+\textbf{Method} & \textbf{Calls} & \textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{T5} & \textbf{Avg} \\
 \midrule
 \rowcolor{TableShade}
-Harsh critic & 1 & \textbf{30} & \textbf{31} & 23 & \textbf{30} & \textbf{31} \\
-Critique \& rev. & 1 & \textbf{30} & 30 & \textbf{31} & 28 & 23 \\
+Harsh critic & 1 & \textbf{30} & \textbf{31} & 23 & \textbf{30} & \textbf{31} & \textbf{29.0} \\
+Critique \& rev. & 1 & \textbf{30} & 30 & \textbf{31} & 28 & 23 & 28.4 \\
 \rowcolor{TableShade}
-Autoreason & 5 & 24 & 22 & 24 & 17 & 24 \\
-Improve this & 1 & 14 & 14 & 18 & 23 & 20 \\
+Autoreason & 5 & 24 & 22 & 24 & 17 & 24 & 22.2 \\
+Improve this & 1 & 14 & 14 & 18 & 23 & 20 & 17.8 \\
 \rowcolor{TableShade}
-Conservative & 1 & 7 & 8 & 9 & 7 & 7 \\
+Conservative & 1 & 7 & 8 & 9 & 7 & 7 & 7.6 \\
 \bottomrule
 \end{tabular}
 \caption{Single-pass Borda scores (max~35). Bold indicates task winner. Autoreason places 3rd at 5$\times$ the cost.}
@@ -280,18 +282,18 @@ Conservative & 1 & 7 & 8 & 9 & 7 & 7 \\
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{@{}lccccc@{}}
+\begin{tabular}{@{}lcccccc@{}}
 \toprule
-\textbf{Method} & \textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{T5} \\
+\textbf{Method} & \textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{T5} & \textbf{Avg} \\
 \midrule
 \rowcolor{TableShade}
-\textbf{Autoreason} & \textbf{35} & 19 & \textbf{29} & 25 & \textbf{31} \\
-Critique \& rev. & 13 & \textbf{22} & 26 & \textbf{32} & 19 \\
+\textbf{Autoreason} & \textbf{35} & 19 & \textbf{29} & 25 & \textbf{31} & \textbf{27.8} \\
+Critique \& rev. & 13 & \textbf{22} & 26 & \textbf{32} & 19 & 22.4 \\
 \rowcolor{TableShade}
-Harsh critic & 18 & 19 & 27 & 20 & 26 \\
-Conservative & 21 & 19 & 15 & 18 & 15 \\
+Harsh critic & 18 & 19 & 27 & 20 & 26 & 22.0 \\
+Conservative & 21 & 19 & 15 & 18 & 15 & 17.6 \\
 \rowcolor{TableShade}
-Improve this & 18 & 11 & 8 & 10 & 14 \\
+Improve this & 18 & 11 & 8 & 10 & 14 & 12.2 \\
 \bottomrule
 \end{tabular}
 \caption{Iterative Borda scores (max~35) at 15~passes. Autoreason wins tasks 1, 3,~5; critique-and-revise wins tasks 2,~4.}
@@ -316,6 +318,7 @@ Autoreason excels on tasks with genuine tradeoffs (strategy, policy, incident re
 \label{fig:summary}
 \end{figure}
 
+\needspace{6\baselineskip}
 \subsection{Qualitative Improvement}
 
 The initial Task~1 output was a generic startup playbook: \$49/user pricing, \$100K MRR target with a 3-person team, no customer validation. After 14~passes, the converged output contained quantified pain points, team-based pricing matching the buying motion, customer validation details, competitive positioning against named tools, and unit economics. The adversarial process replaced vague aspirational claims with internally consistent specifics. These details are LLM-generated and not verified against real-world data; the improvement is in internal coherence and specificity, not factual accuracy.
@@ -340,6 +343,7 @@ Figure~\ref{fig:tree} shows the Task~1 trajectory. At pass~15, A had won twice c
 \label{fig:tree}
 \end{figure}
 
+\needspace{6\baselineskip}
 \subsection{Chain-of-Thought Judges}
 \label{sec:cot}
 
@@ -381,6 +385,7 @@ Decomposed (3 specialists) & 7 passes & --- \\
 \label{fig:mc}
 \end{figure}
 
+\needspace{8\baselineskip}
 \section{Model Scaling}
 \label{sec:scaling}
 
@@ -604,6 +609,7 @@ The structured analysis step is what drives this: the model reasons about \texti
 
 \textbf{Connection to scope.}\enspace Competitive programming problems are naturally scope-constrained: bounded input, specified output format, finite solution space. The test suite provides the external verification signal. These are consistent with the conditions identified in Section~\ref{sec:scaling} as important for autoreason to succeed. The code domain provides objective validation in a setting where quality is not dependent on LLM judge preferences.
 
+\needspace{8\baselineskip}
 \section{Model Capability Scaling}
 \label{sec:small}
 
@@ -714,6 +720,7 @@ Haiku single & 17 & 10 & 7 & 11.3 \\
 
 Autoreason Haiku outperformed best-of-6 Haiku on every task (+11, +9, +6 Borda). On the policy task, it tied both Sonnet single-pass and best-of-6 Sonnet (all at 26). Best-of-6 Haiku actually scored \textit{below} Haiku single on pitch (7 vs.\ 17), suggesting that sampling diversity without structured refinement can be counterproductive for weak models; more samples just means more opportunities for the selection judges to encounter mediocre outputs. The value is in the iterative improvement, not the candidate count.
 
+\needspace{12\baselineskip}
 \subsection{Cross-Model Code Validation}
 
 To validate the capability-scaling finding with objective ground truth, we ran all three strategies with Haiku~3.5 authors on 150~CodeContests problems, using test cases rather than LLM judges. We also compared against best-of-6 sampling (6 independent Haiku attempts, return the one passing the most public tests) as a compute-matched control.
@@ -766,7 +773,7 @@ As a case study in applying autoreason to a real task with ground-truth data, we
 
 \section{Related Work}
 
-\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function; autoreason extends this beyond objective metrics. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback; our code experiment (Section~\ref{sec:code}) quantifies this: critique-and-revise overfits to visible test cases while structured reasoning generalizes. \textbf{AI Safety via Debate}~\cite{irving2018} grounds adversarial evaluation: truth has a natural advantage when agents argue before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases motivating our randomization and panel design; subsequent work identifies specific failure modes including position bias~\cite{position_bias} and self-preference bias~\cite{selfpref_bias} that our fresh-agent design mitigates. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{DSPy}~\cite{dspy} compiles declarative LLM pipelines with optimizers that tune prompts against a metric; autoreason's judge panel serves an analogous role as an optimization signal, but operates at the output level rather than the prompt level. \textbf{PSRO}~\cite{psro} provides game-theoretic framing for iterative strategy generation; our pass structure is loosely analogous but lacks PSRO's full meta-strategy computation (see Section~\ref{sec:retro} for empirical analysis). \textbf{Verdict}~\cite{verdict} scales judge-time compute through hierarchical verification and debate-aggregation; we tested its rank-then-verify pattern and found it does not address the scope problem (Section~\ref{sec:scaling}). \textbf{Meta-Harness}~\cite{metaharness} proposes using trajectory context for LLM evaluation, evaluating outputs in the context o... [truncated]
+\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function; autoreason extends this beyond objective metrics. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback; our code experiment (Section~\ref{sec:code}) quantifies this: critique-and-revise overfits to visible test cases while structured reasoning generalizes. \textbf{AI Safety via Debate}~\cite{irving2018} grounds adversarial evaluation: truth has a natural advantage when agents argue before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases motivating our randomization and panel design; subsequent work identifies specific failure modes including position bias~\cite{position_bias} and self-preference bias~\cite{selfpref_bias} that our fresh-agent design mitigates. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{DSPy}~\cite{dspy} compiles declarative LLM pipelines with optimizers that tune prompts against a metric; autoreason's judge panel serves an analogous role as an optimization signal, but operates at the output level rather than the prompt level. \textbf{PSRO}~\cite{psro} provides game-theoretic framing for iterative strategy generation; our pass structure is loosely analogous but lacks PSRO's full meta-strategy computation (see Section~\ref{sec:retro} for empirical analysis). \textbf{Verdict}~\cite{verdict} scales judge-time compute through hierarchical verification and debate-aggregation; we tested its rank-then-verify pattern and found it does not addre... [truncated]
 
 \subsection{Failure Taxonomy}
 
@@ -831,28 +838,28 @@ This sweet spot is not a fixed point. As model capabilities improve and costs de
 \begin{thebibliography}{99}
 \small
 \bibitem{autoresearch} A. Karpathy. Autoresearch, 2024.
-\bibitem{slopcodebench} G. Orlanski et al. SlopCodeBench: Benchmarking how coding agents degrade over iterative tasks. \textit{arXiv:2603.24755}, 2026.
+\bibitem{slopcodebench} G. Orlanski et al. SlopCodeBench: Benchmarking how coding agents degrade over iterative tasks. \textit{\href{https://arxiv.org/abs/2603.24755}{arXiv:2603.24755}}, 2026.
 \bibitem{ace} J. Zhang et al. ACE: Agentic context engineering. \textit{ICLR}, 2026.
-\bibitem{selfrefine} A. Madaan et al. Self-Refine: Iterative refinement with self-feedback. \textit{NeurIPS}, 2023. \textit{arXiv:2303.17651}.
-\bibitem{huang2023} J. Huang et al. Large language models cannot self-correct reasoning yet without external feedback. \textit{arXiv:2310.01798}, 2023.
-\bibitem{irving2018} G. Irving, P. Christiano, D. Amodei. AI safety via debate. \textit{arXiv:1805.00899}, 2018.
-\bibitem{bai2022} Y. Bai et al. Constitutional AI: Harmlessness from AI feedback. \textit{arXiv:2212.08073}, 2022.
-\bibitem{zheng2023} L. Zheng et al. Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena. \textit{NeurIPS}, 2023. \textit{arXiv:2306.05685}.
-\bibitem{llmcouncil} J. Huang et al. ChatGPT's one-year anniversary: Are open-source large language models catching up? \textit{arXiv preprint arXiv:2311.16989}, 2023. (Introduces the ``LLM Council'' multi-model panel evaluation approach.)
-\bibitem{dspy} O. Khattab et al. DSPy: Compiling declarative language model calls into self-improving pipelines. \textit{ICLR}, 2024. \textit{arXiv:2310.03714}.
+\bibitem{selfrefine} A. Madaan et al. Self-Refine: Iterative refinement with self-feedback. \textit{NeurIPS}, 2023. \textit{\href{https://arxiv.org/abs/2303.17651}{arXiv:2303.17651}}.
+\bibitem{huang2023} J. Huang et al. Large language models cannot self-correct reasoning yet without external feedback. \textit{\href{https://arxiv.org/abs/2310.01798}{arXiv:2310.01798}}, 2023.
+\bibitem{irving2018} G. Irving, P. Christiano, D. Amodei. AI safety via debate. \textit{\href{https://arxiv.org/abs/1805.00899}{arXiv:1805.00899}}, 2018.
+\bibitem{bai2022} Y. Bai et al. Constitutional AI: Harmlessness from AI feedback. \textit{\href{https://arxiv.org/abs/2212.08073}{arXiv:2212.08073}}, 2022.
+\bibitem{zheng2023} L. Zheng et al. Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena. \textit{NeurIPS}, 2023. \textit{\href{https://arxiv.org/abs/2306.05685}{arXiv:2306.05685}}.
+\bibitem{llmcouncil} J. Huang et al. ChatGPT's one-year anniversary: Are open-source large language models catching up? \textit{arXiv preprint \href{https://arxiv.org/abs/2311.16989}{arXiv:2311.16989}}, 2023. (Introduces the ``LLM Council'' multi-model panel evaluation approach.)
+\bibitem{dspy} O. Khattab et al. DSPy: Compiling declarative language model calls into self-improving pipelines. \textit{ICLR}, 2024. \textit{\href{https://arxiv.org/abs/2310.03714}{arXiv:2310.03714}}.
 \bibitem{psro} M. Lanctot et al. A unified game-theoretic approach to multiagent reinforcement learning. \textit{NeurIPS}, 2017.
-\bibitem{verdict} R. Nair et al. Verdict: Scalable judge-time compute via hierarchical verification. \textit{arXiv:2502.18018}, 2025.
+\bibitem{verdict} R. Nair et al. Verdict: Scalable judge-time compute via hierarchical verification. \textit{\href{https://arxiv.org/abs/2502.18018}{arXiv:2502.18018}}, 2025.
 \bibitem{metaharness} S. Mukherjee et al. Meta-Harness: Towards LLM evaluation with trajectory context. \textit{arXiv}, 2025.
 \bibitem{arrow} K. Arrow. \textit{Social Choice and Individual Values}. Wiley, 1951.
 \bibitem{codecontests} Y. Li et al. Competition-level code generation with AlphaCode. \textit{Science}, 378(6624):1092--1097, 2022.
-\bibitem{sycophancy_survey} L. Malmqvist. Sycophancy in large language models: Causes and mitigations. \textit{arXiv:2411.15287}, 2024.
-\bibitem{sycophancy_pinpoint} W. Chen, Z. Huang, L. Xie. From yes-men to truth-tellers: Addressing sycophancy in large language models with pinpoint tuning. \textit{arXiv:2409.01658}, 2024.
-\bibitem{length_bias} Z. Hu, L. Song, J. Zhang. Explaining length bias in LLM-based preference evaluations. \textit{arXiv:2407.01085}, 2024.
-\bibitem{verbosity_bias} K. Saito, A. Wachi, K. Wataoka. Verbosity bias in preference labeling by large language models. \textit{arXiv:2310.10076}, 2023.
-\bibitem{selfcorrect_decompose} Y. Li. Decomposing LLM self-correction: The accuracy-correction paradox and error depth hypothesis. \textit{arXiv:2601.00828}, 2025.
-\bibitem{position_bias} L. Shi, C. Ma, W. Liang. Judging the judges: A systematic study of position bias in LLM-as-a-Judge. \textit{arXiv:2406.07791}, 2024.
-\bibitem{selfpref_bias} K. Wataoka, T. Takahashi, R. Ri. Self-preference bias in LLM-as-a-Judge. \textit{arXiv:2410.21819}, 2024.
-\bibitem{security_degrade} S. Shukla, H. Joshi, R. Syed. Security degradation in iterative AI code generation: a systematic analysis of the paradox. \textit{arXiv:2506.11022}, 2025.
+\bibitem{sycophancy_survey} L. Malmqvist. Sycophancy in large language models: Causes and mitigations. \textit{\href{https://arxiv.org/abs/2411.15287}{arXiv:2411.15287}}, 2024.
+\bibitem{sycophancy_pinpoint} W. Chen, Z. Huang, L. Xie. From yes-men to truth-tellers: Addressing sycophancy in large language models with pinpoint tuning. \textit{\href{https://arxiv.org/abs/2409.01658}{arXiv:2409.01658}}, 2024.
+\bibitem{length_bias} Z. Hu, L. Song, J. Zhang. Explaining length bias in LLM-based preference evaluations. \textit{\href{https://arxiv.org/abs/2407.01085}{arXiv:2407.01085}}, 2024.
+\bibitem{verbosity_bias} K. Saito, A. Wachi, K. Wataoka. Verbosity bias in preference labeling by large language models. \textit{\href{https://arxiv.org/abs/2310.10076}{arXiv:2310.10076}}, 2023.
+\bibitem{selfcorrect_decompose} Y. Li. Decomposing LLM self-correction: The accuracy-correction paradox and error depth hypothesis. \textit{\href{https://arxiv.org/abs/2601.00828}{arXiv:2601.00828}}, 2025.
+\bibitem{position_bias} L. Shi, C. Ma, W. Liang. Judging the judges: A systematic study of position bias in LLM-as-a-Judge. \textit{\href{https://arxiv.org/abs/2406.07791}{arXiv:2406.07791}}, 2024.
+\bibitem{selfpref_bias} K. Wataoka, T. Takahashi, R. Ri. Self-preference bias in LLM-as-a-Judge. \textit{\href{https://arxiv.org/abs/2410.21819}{arXiv:2410.21819}}, 2024.
+\bibitem{security_degrade} S. Shukla, H. Joshi, R. Syed. Security degradation in iterative AI code generation: a systematic analysis of the paradox. \textit{\href{https://arxiv.org/abs/2506.11022}{arXiv:2506.11022}}, 2025.
 \end{thebibliography}
 
 \onecolumn
