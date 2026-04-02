@@ -1,7 +1,7 @@
-\documentclass[10pt,twocolumn]{article}
+\documentclass[11pt]{article}
 
 % ── Layout ──────────────────────────────────────────────────────────
-\usepackage[margin=0.65in,top=0.65in,bottom=0.65in]{geometry}
+\usepackage[margin=1in,top=1in,bottom=1in]{geometry}
 
 % ── Typography ──────────────────────────────────────────────────────
 \usepackage[T1]{fontenc}
@@ -75,14 +75,12 @@
 \begin{document}
 
 % ── Title block ────────────────────────────────────────────────────
-\twocolumn[{
 \begin{center}
 \vspace{4pt}
 {\LARGE\bfseries Autoreason: When Iterative LLM Refinement\\[3pt] Works and Why It Fails}\\[10pt]
 {\normalsize SHL0MS}\\[2pt]
 {\small\textcolor{MedGray}{\href{https://github.com/NousResearch/autoreason}{github.com/NousResearch/autoreason}}}\\[12pt]
 \end{center}
-}]
 
 % ── Abstract ───────────────────────────────────────────────────────
 \noindent\textbf{\scshape Abstract.}\enspace
@@ -106,7 +104,7 @@ Our experiments provide evidence for four conditions that appear important for t
 
 \section{Method}
 
-\begin{figure*}[!ht]
+\begin{figure}[!ht]
 \centering
 \begin{tikzpicture}[
     >=Stealth,
@@ -220,7 +218,7 @@ Our experiments provide evidence for four conditions that appear important for t
 \end{tikzpicture}
 \caption{The autoreason loop. Each pass produces three candidates: the unchanged incumbent~(A), a synthesis~(AB), and an adversarial revision~(B). A blind judge panel selects the winner via Borda count. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent.}
 \label{fig:method}
-\end{figure*}
+\end{figure}
 
 \textbf{Critic.}\enspace A fresh agent identifies problems in the current incumbent~A. Finds problems only; no fixes. Optionally receives ground-truth data for fact-checking (Section~\ref{sec:paper}).
 
@@ -305,14 +303,14 @@ Autoreason excels on tasks with genuine tradeoffs (strategy, policy, incident re
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_multi_task.pdf}
+\includegraphics[width=0.9\textwidth]{fig_multi_task.pdf}
 \caption{Per-task Borda scores at 15 iterative passes.}
 \label{fig:multi}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_summary.pdf}
+\includegraphics[width=0.9\textwidth]{fig_summary.pdf}
 \caption{Aggregate performance. Autoreason (27.8 avg Borda, rank 1.4) never placed below 2nd.}
 \label{fig:summary}
 \end{figure}
@@ -330,14 +328,14 @@ Figure~\ref{fig:tree} shows the Task~1 trajectory. At pass~15, A had won twice c
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_convergence_all.pdf}
+\includegraphics[width=0.9\textwidth]{fig_convergence_all.pdf}
 \caption{Passes to convergence across all tasks. Task~5 required the most (28); the paper (9) the least.}
 \label{fig:convergence}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_trajectory_tree.pdf}
+\includegraphics[width=0.9\textwidth]{fig_trajectory_tree.pdf}
 \caption{Trajectory tree, Task~1 (26~passes). Stars mark convergence points.}
 \label{fig:tree}
 \end{figure}
@@ -379,7 +377,7 @@ Decomposed (3 specialists) & 7 passes & --- \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_monte_carlo.pdf}
+\includegraphics[width=0.9\textwidth]{fig_monte_carlo.pdf}
 \caption{Monte Carlo: 5 runs of Task~1. Convergence speed varies; final output quality does not.}
 \label{fig:mc}
 \end{figure}
@@ -441,7 +439,7 @@ The margin requirement converged at passes 15 and 17 (Figure~\ref{fig:remedies})
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_remedies.pdf}
+\includegraphics[width=0.9\textwidth]{fig_remedies.pdf}
 \caption{Left: cumulative A win rate (solid = converged). Right: passes to termination (* = cap).}
 \label{fig:remedies}
 \end{figure}
@@ -546,12 +544,12 @@ Postmortem (600w) & 26 & 28 & \textbf{30} & 9 & 12 \\
 
 Autoreason wins tasks with genuine tradeoffs (pitch framing, security-vs-productivity policy balance) but not the postmortem, which has one correct structure and rewards minimal deviation. Critique-and-revise and harsh critic consistently violate word constraints (1467--2773 words on 500--600 word tasks), confirming that iterative refinement without evaluation creates unchecked drift. The ranking inverts on constrained tasks (Figure~\ref{fig:scaling_story}), but the inversion is strongest when the task has sufficient decision space for the adversarial structure to surface different valid perspectives.
 
-\begin{figure*}[t]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.85\textwidth]{fig_scaling_story.pdf}
+\includegraphics[width=\textwidth]{fig_scaling_story.pdf}
 \caption{Same model (Sonnet~4.6), same method, opposite results. Left: unconstrained task, autoreason last. Right: scope-constrained task, autoreason first.}
 \label{fig:scaling_story}
-\end{figure*}
+\end{figure}
 
 \section{Competitive Programming}
 \label{sec:code}
@@ -756,7 +754,7 @@ As a case study in applying autoreason to a real task with ground-truth data, we
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_hallucination.pdf}
+\includegraphics[width=0.9\textwidth]{fig_hallucination.pdf}
 \caption{Hallucinated claims without ground truth (4) vs.\ with it (0).}
 \label{fig:hallucination}
 \end{figure}
@@ -765,7 +763,7 @@ As a case study in applying autoreason to a real task with ground-truth data, we
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_judge_integrity.pdf}
+\includegraphics[width=0.9\textwidth]{fig_judge_integrity.pdf}
 \caption{Broken parser: $>$11 passes, no convergence. 3 working judges: 2 passes.}
 \label{fig:integrity}
 \end{figure}
@@ -815,7 +813,7 @@ The judge ablation (Table~\ref{tab:judge_ablation}) further clarifies the mechan
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{fig_wordcount.pdf}
+\includegraphics[width=0.9\textwidth]{fig_wordcount.pdf}
 \caption{Word count trajectories (15 passes, same start). Autoreason (solid) grows controllably; baselines stagnate or bloat.}
 \label{fig:wordcount}
 \end{figure}
@@ -861,7 +859,6 @@ This sweet spot is not a fixed point. As model capabilities improve and costs de
 \bibitem{security_degrade} S. Shukla, H. Joshi, R. Syed. Security degradation in iterative AI code generation: a systematic analysis of the paradox. \textit{\href{https://arxiv.org/abs/2506.11022}{arXiv:2506.11022}}, 2025.
 \end{thebibliography}
 
-\onecolumn
 \appendix
 
 \section{Prompts}
@@ -948,7 +945,7 @@ Figure~\ref{fig:appendix} shows trajectory trees for all experiments.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.95\textwidth]{fig_appendix_trajectories.pdf}
+\includegraphics[width=\textwidth]{fig_appendix_trajectories.pdf}
 \caption{All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task.}
 \label{fig:appendix}
 \end{figure}
