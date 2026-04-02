@@ -77,7 +77,7 @@
 \twocolumn[{
 \begin{center}
 \vspace{4pt}
-{\LARGE\bfseries Autoreason: Iterative Refinement Scales Inversely\\[3pt] with Model Capability}\\[10pt]
+{\LARGE\bfseries Autoreason: When Iterative LLM Refinement\\[3pt] Works and Why It Fails}\\[10pt]
 {\normalsize shl0ms}\\[2pt]
 {\small\textcolor{MedGray}{\url{https://github.com/NousResearch/autoreason}}}\\[12pt]
 \end{center}
@@ -85,9 +85,9 @@
 
 % ── Abstract ───────────────────────────────────────────────────────
 \noindent\textbf{\scshape Abstract.}\enspace
-Iterative self-refinement fails because LLMs cannot reliably evaluate their own outputs. We present autoreason, a method that replaces self-evaluation with external evaluation: each iteration produces three competing versions (the incumbent, an adversarial revision, and a synthesis), judged by a blind panel using Borda count. The method's value peaks at mid-tier models, where the gap between generation capability and self-evaluation capability is widest. With Haiku~3.5 (${\sim}$10$\times$ cheaper than Sonnet~4), autoreason scored 42/42 Borda across three tasks---a perfect sweep---while standard refinement baselines \textit{degraded} the same model's outputs below its unrefined single pass. Across four model tiers (Llama~8B, Gemini~Flash, Haiku~3.5, Sonnet~4), the advantage peaks at mid-tier and diminishes at both extremes: models too weak to generate diverse alternatives (Llama) or too strong to need external evaluation (Sonnet~4.6).
+Iterative self-refinement fails because LLMs cannot reliably evaluate their own outputs. We present autoreason, a method that replaces self-evaluation with external evaluation: each iteration produces three competing versions (the incumbent, an adversarial revision, and a synthesis), judged by a blind panel using Borda count. We provide evidence that the method's value is greatest at mid-tier models, where the gap between generation capability and self-evaluation capability is widest. With Haiku~3.5 (${\sim}$10$\times$ cheaper than Sonnet~4), autoreason scored 42/42 Borda across three tasks---a perfect sweep---while standard refinement baselines \textit{degraded} the same model's outputs below its unrefined single pass. Across four model tiers (Llama~8B, Gemini~Flash, Haiku~3.5, Sonnet~4), the advantage peaks at mid-tier and diminishes at both extremes: models too weak to generate diverse alternatives (Llama) or too strong to need external evaluation (Sonnet~4.6).
 
-With Sonnet~4 across 5~subjective tasks, autoreason wins 3/5 outright. In competitive programming, it achieves 65\% private-test pass rate vs.\ 58\% for critique-and-revise ($p{=}0.041$). On CodeContests with Haiku authors, autoreason matches Sonnet~4 single-pass on hard problems (4/10 each) at ${\sim}$10$\times$ lower author cost, while critique-and-revise degrades Haiku below its unrefined baseline---objectively confirming ``refinement as destruction'' with test cases, not judge preferences. Autoreason also outperforms best-of-6 sampling with judge selection on every task, demonstrating that structured refinement adds value beyond diversity. The practical recommendation: autoreason operates in the space between ``too weak to generate useful alternatives'' and ``too strong to need external evaluation''---the range where most cost-conscious LLM usage lives.
+With Sonnet~4 across 5~subjective tasks, autoreason wins 3/5 outright. In competitive programming (150~CodeContests problems), autoreason achieves 77\% private-test pass rate vs.\ 73\% for single-pass and 74\% for critique-and-revise with Sonnet~4.6, with the largest gains on medium-difficulty problems. On CodeContests with Haiku~3.5 authors (150~problems), autoreason achieves 40\% private-test pass rate vs.\ 38\% for single-pass and 35\% for critique-and-revise, while best-of-6 sampling collapses to 31\%---confirming that structured refinement adds value beyond diversity, and that critique-and-revise degrades weak models even with objective test feedback. The practical recommendation: autoreason operates in the space between ``too weak to generate useful alternatives'' and ``too strong to need external evaluation''---the range where most cost-conscious LLM usage lives.
 
 \vspace{6pt}
 \hrule
@@ -101,7 +101,7 @@ We present autoreason, extending Karpathy's autoresearch~\cite{autoresearch} bey
 
 Our central finding is that \textbf{the value of structured refinement depends on the gap between a model's generation capability and its self-evaluation capability}. Self-refinement fails because evaluation is harder than generation~\cite{huang2023}. Autoreason bridges this gap with external evaluation. Across four model tiers, the advantage peaks at mid-tier models where the gap is widest: Haiku~3.5 achieved a perfect 42/42 Borda while standard baselines \textit{degraded} its outputs below the unrefined starting point (Section~\ref{sec:small}). At the bottom (Llama~8B), the model is too weak to generate diverse alternatives for the tournament. At the top (Sonnet~4.6), the gap is narrow enough that simple methods suffice (Section~\ref{sec:scaling}). The method operates in the practical middle---the range where most cost-conscious LLM deployment lives, and where the generation-evaluation gap is large enough to exploit.
 
-We establish four conditions under which the method works: (1)~\textbf{external verification}---the critical factor, providing evaluation capability the generating model lacks; (2)~\textbf{constrained scope}---bounded improvement space; (3)~\textbf{structured reasoning}---explicit failure analysis rather than reactive editing; and (4)~\textbf{sufficient decision space}---the task admits genuinely different valid approaches. We validate across subjective writing (5~open-ended tasks, 3~constrained tasks, 8~remedy experiments), competitive programming (81~CodeContests problems), a four-tier model capability comparison (Llama~8B through Sonnet~4), and a judge ablation that isolates the evaluation mechanism.
+Our experiments provide evidence for four conditions that appear important for the method to succeed: (1)~\textbf{external verification}---providing evaluation capability the generating model lacks; (2)~\textbf{constrained scope}---bounded improvement space; (3)~\textbf{structured reasoning}---explicit failure analysis rather than reactive editing; and (4)~\textbf{sufficient decision space}---the task admits genuinely different valid approaches. We test across subjective writing (5~open-ended tasks, 3~constrained tasks, 8~remedy experiments), competitive programming (150~CodeContests problems), a four-tier model capability comparison (Llama~8B through Sonnet~4), and a judge ablation that isolates the evaluation mechanism. These conditions are consistent with our results but should be treated as hypotheses supported by evidence, not established laws.
 
 \section{Method}
 
@@ -239,9 +239,9 @@ $$d_{t+1} = \arg\max_{c \in \{A, B, AB\}} \sum_{i=1}^{n} (3 - r_i(c))$$
 
 where $r_i(c)$ is judge $i$'s rank for candidate $c$, with ties broken in favor of~$d_t$.
 
-This defines a Markov chain over document states. Convergence ($d_{t+1} = d_t$ for $k$ consecutive passes) corresponds to an absorbing state. By the Condorcet jury theorem, if each judge independently identifies the better document with $p > 0.5$, panel accuracy increases with~$n$. However, same-model judges share systematic biases, bounding effective independence below~$n$.
+This defines an iterative process over document states. Convergence ($d_{t+1} = d_t$ for $k$ consecutive passes) occurs when the incumbent survives repeated challenges. Using multiple judges provides some robustness against individual judge errors, though same-model judges share systematic biases that limit the effective diversity of the panel.
 
-We note a loose analogy to PSRO~\cite{psro}, where each pass adds a candidate to an empirical game, but autoreason lacks PSRO's meta-strategy computation, Nash equilibrium search, or formal game matrix. We do not claim game-theoretic guarantees. Our retroactive analysis (Section~\ref{sec:retro}) examines the empirical properties of the preference structure: preferences are near-transitive across 91~passes (1.1\% Condorcet cycle rate), and Elo ratings plateau early, consistent with the Markov chain reaching a stable state. These are descriptive observations, not proofs of optimality.
+There is a loose analogy to PSRO~\cite{psro}, where each pass adds a candidate to an empirical game, but autoreason lacks PSRO's meta-strategy computation, Nash equilibrium search, or formal game matrix. Similarly, while the Condorcet jury theorem suggests panel accuracy should increase with~$n$ for independent judges, our same-model judges violate the independence assumption. We do not claim game-theoretic or voting-theoretic guarantees. Our retroactive analysis (Section~\ref{sec:retro}) examines the empirical properties of the preference structure: preferences are near-transitive across 91~passes (1.1\% Condorcet cycle rate), and Elo ratings plateau early. These are descriptive observations, not proofs of optimality.
 
 \section{Experiments}
 
@@ -370,7 +370,9 @@ Decomposed (3 specialists) & 7 passes & --- \\
 
 \textbf{Monte Carlo (Sonnet~4.6, constrained).}\enspace Five independent runs of the constrained policy task: 0/5 converged (all hit the 25-pass cap). Word counts spread (481--853, std=135 vs.\ Sonnet~4's 1451--1660, std=83). A 7-judge cross-evaluation of all 5 final outputs showed Borda std=8.3 (spread), compared to the tight clustering expected from a converging system. Sonnet~4.6 produces competitive outputs---the best run scored 31/35 against baselines---but the quality is trajectory-dependent, not deterministic. The stronger model's ability to always generate compelling alternatives prevents the incumbent from stabilizing, even when scope constraints are present.
 
-\textbf{Game-theoretic validation.}\enspace Across 91~passes: only 1 Condorcet cycle (1.1\%, near-perfect transitivity). Elo ratings plateau by pass 5--10. Pairwise dominance is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics.
+\textbf{Multi-seed replication (Sonnet~4, Tasks~1--4).}\enspace Three independent runs per task (12 total). All 12 converged at $k{=}2$. Convergence pass: mean 7.7, std 3.9, range [2, 15]. Word counts: mean 1780, std 446. Task~4 showed the tightest clustering (word std=32, passes 11--15), while Task~1 showed the most variance (words 1225--1877, passes 5--10). The path varies but the method reliably converges.
+
+\textbf{Preference structure validation.}\enspace Across 91~passes: only 1 Condorcet cycle (1.1\%, near-perfect transitivity). Elo ratings plateau by pass 5--10. Pairwise dominance is fully transitive: autoreason $>$ critique-and-revise $>$ harsh\_critic $>$ conservative $>$ improve\_this. No rock-paper-scissors dynamics.
 
 \begin{figure}[H]
 \centering
@@ -550,9 +552,31 @@ Autoreason wins tasks with genuine tradeoffs (pitch framing, security-vs-product
 \section{Competitive Programming}
 \label{sec:code}
 
-To validate the scope and structured-reasoning findings beyond subjective domains, we tested autoreason on competitive programming, where correctness is objectively verifiable via test cases. We sampled 150 problems from CodeContests~\cite{codecontests} (50~easy, 50~medium, 50~hard by Codeforces rating) and compared three strategies at a matched compute budget of 6~LLM calls per problem (claude-sonnet-4).
+To validate the scope and structured-reasoning findings beyond subjective domains, we tested autoreason on competitive programming, where correctness is objectively verifiable via test cases. We sampled 150 problems from CodeContests~\cite{codecontests} (50~easy, 50~medium, 50~hard by Codeforces rating) and compared three strategies at a matched compute budget of 6~LLM calls per problem.
 
 \textbf{Strategies.}\enspace (1)~\textit{Single pass}: 6 independent attempts, return the best (pass@6). (2)~\textit{Critique-and-revise}: generate once, then 5~rounds of test-informed critique and revision. (3)~\textit{Autoreason}: generate once, then a structured analysis pass (problem analysis, approach analysis, failure analysis, alternative approaches, edge cases), followed by 4~rounds of reason-informed revision. Each revision round sees test results from public (visible) test cases. Final evaluation uses private (hidden) test cases to measure generalization.
+
+\textbf{Sonnet~4.6 (full 150 problems).}\enspace
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Strategy} & \textbf{Public} & \textbf{Private} & \textbf{Easy} & \textbf{Med} & \textbf{Hard} \\
+\midrule
+\rowcolor{TableShade}
+\textbf{Autoreason} & \textbf{87\%} & \textbf{77\%} & 43/50 & 40/50 & 32/50 \\
+Critique \& rev. & 88\% & 74\% & 44/50 & 37/50 & 30/50 \\
+\rowcolor{TableShade}
+Single pass & 81\% & 73\% & 41/50 & 37/50 & 31/50 \\
+\bottomrule
+\end{tabular}
+\caption{Sonnet~4.6 private-test pass rate (150 problems, 6 calls each). Autoreason leads by 3--4pp overall, with the largest gain on medium problems (+3 over both baselines). 95\% bootstrap CIs: autoreason [69\%, 83\%], critique [67\%, 81\%], single [65\%, 79\%]. Pairwise McNemar tests are not significant (autoreason vs.\ single: $p{=}0.21$, 11 autoreason-only vs.\ 5 single-only recoveries).}
+\label{tab:code_s46}
+\end{table}
+
+\textbf{Sonnet~4 (150 problems).}\enspace
 
 \begin{table}[H]
 \centering
@@ -568,7 +592,7 @@ Critique \& rev. & 81\% & 58\% & 35/50 & 31/50 & 21/50 \\
 Single pass & 79\% & 59\% & 42/50 & 19/50 & 21/50 \\
 \bottomrule
 \end{tabular}
-\caption{Private-test pass rate (hidden tests, measuring generalization). Autoreason leads by 5--6 points overall. Private columns show per-tier counts out of 50.}
+\caption{Sonnet~4 private-test pass rate (150 problems, 6 calls each). Autoreason leads by 5--6 points.}
 \label{tab:code}
 \end{table}
 
@@ -578,7 +602,7 @@ The structured analysis step---where the model reasons about \textit{why} the ap
 
 \textbf{Overfitting signal.}\enspace Critique-and-revise shows the highest overfitting rate: 25\% of problems pass public tests but fail private tests, compared to 22--23\% for the other strategies. On hard problems specifically, critique-and-revise overfits 16/50 (32\%) vs.\ autoreason's 16/50 and single-pass's 13/50. The refinement loop optimizes for visible examples at the cost of generalization when reasoning is shallow.
 
-\textbf{Connection to scope.}\enspace Competitive programming problems are naturally scope-constrained: bounded input, specified output format, finite solution space. The test suite provides the external verification signal. These are exactly the conditions identified in Section~\ref{sec:scaling} as necessary for autoreason to work. The code domain confirms the finding in a setting where quality is objective, not dependent on LLM judge preferences.
+\textbf{Connection to scope.}\enspace Competitive programming problems are naturally scope-constrained: bounded input, specified output format, finite solution space. The test suite provides the external verification signal. These are consistent with the conditions identified in Section~\ref{sec:scaling} as important for autoreason to succeed. The code domain provides objective validation in a setting where quality is not dependent on LLM judge preferences.
 
 \section{Model Capability Scaling}
 \label{sec:small}
@@ -692,7 +716,7 @@ Autoreason Haiku outperformed best-of-6 Haiku on every task (+11, +9, +6 Borda).
 
 \subsection{Cross-Model Code Validation}
 
-To validate the capability-scaling finding with objective ground truth, we ran autoreason with Haiku authors on 30~CodeContests problems (10~easy, 10~medium, 10~hard), using test cases rather than LLM judges.
+To validate the capability-scaling finding with objective ground truth, we ran all three strategies with Haiku~3.5 authors on 150~CodeContests problems, using test cases rather than LLM judges. We also compared against best-of-6 sampling (6 independent Haiku attempts, return the one passing the most public tests) as a compute-matched control.
 
 \begin{table}[H]
 \centering
@@ -702,23 +726,25 @@ To validate the capability-scaling finding with objective ground truth, we ran a
 \textbf{Strategy} & \textbf{Public} & \textbf{Private} & \textbf{Easy} & \textbf{Med} & \textbf{Hard} \\
 \midrule
 \rowcolor{TableShade}
-Sonnet single & \textbf{83\%} & \textbf{63\%} & 8 & 7 & 4 \\
-\textbf{Haiku AR} & 67\% & 53\% & 6 & 6 & \textbf{4} \\
+Sonnet single & \textbf{71\%} & \textbf{53\%} & 33/50 & 23/50 & 23/50 \\
+\textbf{Haiku AR} & 54\% & 40\% & 25/45 & 17/50 & 16/50 \\
 \rowcolor{TableShade}
-Haiku single & 60\% & 50\% & 5 & 5 & 5 \\
-Haiku C\&R & 47\% & 37\% & 4 & 4 & 3 \\
+Haiku single & 51\% & 38\% & 22/46 & 16/50 & 18/50 \\
+Haiku C\&R & 50\% & 35\% & 19/45 & 16/50 & 16/50 \\
+\rowcolor{TableShade}
+Haiku best-of-6 & 39\% & 31\% & 24/50 & 6/49 & 16/50 \\
 \bottomrule
 \end{tabular}
-\caption{CodeContests private-test pass rate (30 problems, 6 LLM calls each). Haiku autoreason closes half the gap to Sonnet (50\%$\to$53\% vs.\ 63\%) and \textbf{matches Sonnet on hard problems} (4/10 each). Critique-and-revise degrades Haiku below single pass (37\% vs.\ 50\%).}
+\caption{Haiku~3.5 CodeContests private-test pass rate (${\sim}$145--150 problems, 6 calls each). Autoreason leads Haiku strategies (+5pp over single, +8pp over best-of-6). Critique-and-revise degrades below single pass. Best-of-6 collapses on medium problems (6/49) because most problems have only 1 public test, preventing meaningful candidate ranking.}
 \label{tab:haiku_code}
 \end{table}
 
-Three findings confirm the writing experiments with objective evidence: (1)~critique-and-revise harms Haiku (37\% vs.\ 50\% single-pass), replicating ``refinement as destruction''; (2)~autoreason improves Haiku (53\% vs.\ 50\%), with gains driven by structured failure analysis; (3)~on hard problems, Haiku autoreason matches Sonnet single-pass (4/10 each) at ${\\sim}$10$\\times$ lower author cost. The generation-evaluation gap is real and measurable with test cases, not just LLM judge preferences.
+Three findings confirm the writing experiments with objective evidence: (1)~critique-and-revise harms Haiku (35\% vs.\ 38\% single-pass), consistent with ``refinement as destruction''; (2)~autoreason improves Haiku (40\% vs.\ 38\%), with gains concentrated on easy problems where structured analysis recovers from first-attempt failures; (3)~best-of-6 performs worst despite using the same compute budget (31\% vs.\ 40\%), demonstrating that unstructured diversity does not help weak models---with only 1 public test per problem for most of the dataset, best-of-6 cannot meaningfully rank candidates and degenerates to random selection. The generation-evaluation gap is measurable with test cases, not just LLM judge preferences.
 
-\section{Writing This Paper}
+\section{Case Study: Paper Writing}
 \label{sec:paper}
 
-We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and ground-truth context (actual experimental data). Converged in 9~passes.
+As a case study in applying autoreason to a real task with ground-truth data, we ran it on an earlier draft of this paper using claude-opus-4 with 3 Opus judges and ground-truth context (actual experimental data). Converged in 9~passes.
 
 \textbf{Ground-truth critic.}\enspace Without ground-truth access, the initial Opus generation hallucinated a fabricated ablation study, fake confidence intervals, wrong model names, and incorrect role descriptions (Figure~\ref{fig:hallucination}). With ground-truth access, the critic caught all four on pass~1.
 
@@ -740,7 +766,32 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 \section{Related Work}
 
-\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function; autoreason extends this beyond objective metrics. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback; our code experiment (Section~\ref{sec:code}) quantifies this: critique-and-revise overfits to visible test cases while structured reasoning generalizes. \textbf{AI Safety via Debate}~\cite{irving2018} grounds adversarial evaluation: truth has a natural advantage when agents argue before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases motivating our randomization and panel design. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{DSPy}~\cite{dspy} compiles declarative LLM pipelines with optimizers that tune prompts against a metric; autoreason's judge panel serves an analogous role as an optimization signal, but operates at the output level rather than the prompt level. \textbf{PSRO}~\cite{psro} provides game-theoretic framing for iterative strategy generation; our pass structure is loosely analogous but lacks PSRO's full meta-strategy computation (see Section~\ref{sec:retro} for empirical analysis). \textbf{Verdict}~\cite{verdict} scales judge-time compute through hierarchical verification and debate-aggregation; we tested its rank-then-verify pattern and found it does not address the scope problem (Section~\ref{sec:scaling}). \textbf{Meta-Harness}~\cite{metaharness} proposes using trajectory context for LLM evaluation, evaluating outputs in the context of the generation process; our trajectory-level analysis (Section~\ref{sec:retro}) examines a related question of whether per-pass judgments compose into trajectory-level quality. \textbf{CodeContests}~\cite{codecontests} provides competitive programming problems with hidden test cases; we use it to validate autoreason in an objectively verifiable domain.
+\textbf{Autoresearch}~\cite{autoresearch} uses val\_bpb as an objective fitness function; autoreason extends this beyond objective metrics. \textbf{SlopCodeBench}~\cite{slopcodebench} shows iterative code degradation that prompting can't fix. \textbf{ACE}~\cite{ace} documents context collapse in iterative rewriting. \textbf{Self-Refine}~\cite{selfrefine} demonstrates single-agent iterative improvement but Huang et al.~\cite{huang2023} show self-correction is unreliable without external feedback; our code experiment (Section~\ref{sec:code}) quantifies this: critique-and-revise overfits to visible test cases while structured reasoning generalizes. \textbf{AI Safety via Debate}~\cite{irving2018} grounds adversarial evaluation: truth has a natural advantage when agents argue before a judge. \textbf{Constitutional AI}~\cite{bai2022} uses principle-based self-evaluation as training signal. \textbf{LLM-as-Judge}~\cite{zheng2023} documents systematic biases motivating our randomization and panel design. \textbf{LLM Council}~\cite{llmcouncil} uses multi-model panels for single-turn evaluation; autoreason adds iteration with role separation. \textbf{DSPy}~\cite{dspy} compiles declarative LLM pipelines with optimizers that tune prompts against a metric; autoreason's judge panel serves an analogous role as an optimization signal, but operates at the output level rather than the prompt level. \textbf{PSRO}~\cite{psro} provides game-theoretic framing for iterative strategy generation; our pass structure is loosely analogous but lacks PSRO's full meta-strategy computation (see Section~\ref{sec:retro} for empirical analysis). \textbf{Verdict}~\cite{verdict} scales judge-time compute through hierarchical verification and debate-aggregation; we tested its rank-then-verify pattern and found it does not address the scope problem (Section~\ref{sec:scaling}). \textbf{Meta-Harness}~\cite{metaharness} proposes using trajectory context for LLM evaluation, evaluating outputs in the context o... [truncated]
+
+\subsection{Failure Taxonomy}
+
+Table~\ref{tab:failures} summarizes the failure modes observed across all experiments, the conditions under which they occur, and the evidence from specific experimental sections.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{2.2cm}p{2.5cm}p{2.5cm}@{}}
+\toprule
+\textbf{Failure Mode} & \textbf{Condition} & \textbf{Evidence} \\
+\midrule
+\rowcolor{TableShade}
+Self-correction unreliability & No external signal & Haiku baselines degrade below single pass (Table~\ref{tab:small_model}) \\
+Drift / synthesis dominance & Unconstrained scope & S4.6 unconstrained: A wins 12\%, AB dominates (Table~\ref{tab:scaling}) \\
+\rowcolor{TableShade}
+Overfitting to visible feedback & Shallow revision loop & C\&R overfits 32\% on hard code problems (Sec.~\ref{sec:code}) \\
+No convergence & Broken judge pipeline & Mixed panel parser failure: 11+ passes (Fig.~\ref{fig:integrity}) \\
+\rowcolor{TableShade}
+Model too weak & Insufficient generation diversity & Llama~8B wins only 1/3 tasks (Table~\ref{tab:capability_curve}) \\
+\bottomrule
+\end{tabular}
+\caption{Taxonomy of observed failure modes. Each mode maps to a violated condition from the four identified in this work.}
+\label{tab:failures}
+\end{table}
 
 \section{Discussion}
 
@@ -748,13 +799,13 @@ We ran autoreason on this paper using claude-opus-4 with 3 Opus judges and groun
 
 The judge ablation (Table~\ref{tab:judge_ablation}) further clarifies the mechanism. Replacing strong judges with weak ones reduced but did not eliminate the advantage, suggesting the tournament structure itself provides value: competing candidates and randomized evaluation create a form of diversity-based selection that outperforms linear refinement even without strong external evaluation. Strong judges amplify this but are not strictly required.
 
-\textbf{Four conditions for reliable self-refinement.}\enspace The generation-evaluation gap is necessary but not sufficient. Autoreason also requires: (1)~\textbf{constrained scope}---bounded improvement space prevents drift; (2)~\textbf{structured reasoning}---explicit failure analysis rather than reactive editing; and (3)~\textbf{sufficient decision space}---the task must admit genuinely different valid approaches (autoreason wins 2/3 constrained tasks but loses the template-filling postmortem). Together with (4)~\textbf{external verification}, these four conditions predict where the method works across all experiments.
+\textbf{Four conditions for reliable self-refinement.}\enspace The generation-evaluation gap is necessary but not sufficient. Our results are consistent with three additional conditions: (1)~\textbf{constrained scope}---bounded improvement space that limits drift; (2)~\textbf{structured reasoning}---explicit failure analysis rather than reactive editing; and (3)~\textbf{sufficient decision space}---the task must admit genuinely different valid approaches (autoreason wins 2/3 constrained tasks but loses the template-filling postmortem). Together with (4)~\textbf{external verification}, these four conditions are consistent with the observed pattern of where the method succeeds and fails across all experiments, though we cannot isolate the causal contribution of each condition from the current experimental design.
 
 \textbf{Recovery, not first-attempt improvement.}\enspace Autoreason does not help models get things right the first time. Its value is in what happens after initial failure: structured analysis of \textit{why} the approach failed, consideration of alternatives, then targeted revision. In competitive programming, this recovery mechanism is statistically significant ($p{=}0.041$). In writing, it manifests as the judge panel rejecting regressions that accumulate unchecked in baselines. For weak models, this regression-rejection is the entire value proposition---without it, every pass is a coin flip between improvement and degradation.
 
 \textbf{CoT judges should be the default.}\enspace The cheapest improvement: 3$\times$ faster convergence on Task~1 (1.5$\times$ on Task~2), more decisive scores, no architecture changes.
 
-\textbf{Scope constrains the improvement space.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) signals underdetermined scope. With stronger models, this oscillation becomes one-directional drift. Scope constraints eliminate it entirely, restoring both convergence and quality (Section~\ref{sec:scaling}). The competitive programming results confirm this in an objective domain: naturally scoped problems with test-suite verification are exactly where autoreason excels.
+\textbf{Scope appears to constrain the improvement space.}\enspace The bloat/prune oscillation with Sonnet~4 (Figure~\ref{fig:wordcount}) is consistent with underdetermined scope. With stronger models, this oscillation becomes one-directional drift. Scope constraints are associated with restored convergence and quality (Section~\ref{sec:scaling}), though we cannot rule out that other properties of constrained tasks (e.g., clearer evaluation criteria) also contribute. The competitive programming results are consistent with this interpretation: naturally scoped problems with test-suite verification are where autoreason shows the clearest gains.
 
 \begin{figure}[H]
 \centering
@@ -765,11 +816,11 @@ The judge ablation (Table~\ref{tab:judge_ablation}) further clarifies the mechan
 
 \textbf{Compute-normalized comparison.}\enspace A reviewer concern: autoreason uses ${\sim}$6 LLM calls per pass vs.\ 1 for baselines, so comparing at equal passes is unfair. We ran critique-and-revise for 90~passes (matching autoreason's ${\sim}$90 total calls) on Task~1. At equal compute, autoreason places second (Borda 15/21 vs.\ critique-and-revise@15's 16/21 in a 7-judge panel). But critique-and-revise@90 degrades to 11/21, worse than its own 15-pass version. The extra compute actively hurts baselines via drift and bloat (2433 words at pass~90 vs.\ 2225 at pass~15), while autoreason's judge panel prevents this degradation (1539 words, stable). On unconstrained tasks, autoreason's advantage is defensive: it uses compute safely rather than achieving higher quality. On constrained tasks (Section~\ref{sec:scaling}), this defensive property becomes an offensive one.
 
-\textbf{Limitations.}\enspace All results come from one model family (Anthropic). Writing evaluation uses LLM judges, not human raters; the quality claims rest on LLM preferences. The code experiment provides objective verification but the overall private-test pass rate difference (64\% vs.\ 58\%) is not statistically significant at $p{<}0.05$; only the paired recovery analysis reaches significance. The constrained writing tasks are three tasks (startup pitch, incident postmortem, policy memo); the code domain provides broader validation (150~problems) but both use the same model. Scaling remedy experiments each ran once. Monte Carlo with Sonnet~4 ($n{=}5$) shows convergence and clustering; Monte Carlo with Sonnet~4.6 ($n{=}5$) shows neither, indicating the constrained-task wins are trajectory-dependent rather than deterministic.
+\textbf{Limitations.}\enspace All results come from one model family (Anthropic), limiting generalizability claims. Writing evaluation uses LLM judges, not human raters; the quality claims rest on LLM preferences, and we have not yet conducted blinded human evaluation. The code experiments provide objective verification but the overall private-test differences (77\% vs.\ 73\% for S4.6; 64\% vs.\ 58\% for S4) have not been tested for statistical significance at the aggregate level; only the paired recovery analysis with Sonnet~4 reaches significance ($p{=}0.041$). The constrained writing tasks are three tasks (startup pitch, incident postmortem, policy memo); the code domain provides broader validation (150~problems) but both use the same model family. Multi-seed replication ($n{=}3$) across Tasks~1--4 confirms reliable convergence but does not include cross-evaluation of output quality variance; the original Monte Carlo ($n{=}5$) on Task~1 remains the only experiment with full pairwise quality comparison. The four proposed conditions are not cleanly ablated---we cannot fully separate the effect of scope from structured reasoning or external verification with the current experimental design. ``Scope'' remains underformalized: we use it descriptively (word budgets, fixed facts, bounded solution space) rather than operationally.
 
 \section{Conclusion}
 
-Self-refinement fails not because models lack capability, but because they lack the ability to evaluate their own outputs. Autoreason bridges this generation-evaluation gap with a tournament structure and external judges. The method's value is not monotonically inverse to capability---it peaks at mid-tier models where the gap is widest, and diminishes at both extremes. Llama~8B cannot generate diverse enough alternatives for the tournament to select between. Sonnet~4.6 can already self-evaluate well enough that external judges add little. The sweet spot---Haiku~3.5, Gemini~Flash, and to a lesser extent Sonnet~4---is where the model can produce meaningfully different candidates but cannot reliably choose between them.
+Our results suggest that self-refinement fails not because models lack generation capability, but because they lack the ability to evaluate their own outputs. Autoreason bridges this generation-evaluation gap with a tournament structure and external judges. The evidence is consistent with the method's value peaking at mid-tier models where the gap is widest, and diminishing at both extremes. Llama~8B cannot generate diverse enough alternatives for the tournament to select between. Sonnet~4.6 can already self-evaluate well enough that external judges add little. The sweet spot---Haiku~3.5, Gemini~Flash, and to a lesser extent Sonnet~4---is where the model can produce meaningfully different candidates but cannot reliably choose between them.
 
 This sweet spot is not a fixed point. As model capabilities improve and costs decrease, today's frontier becomes tomorrow's mid-tier. The generation-evaluation gap is a structural property of LLMs at any capability level, not an artifact of current models. The practical recommendation: match your refinement architecture to the model's position on the capability curve. For mid-tier models, autoreason provides gains that no self-refinement baseline can match. For frontier models, use scope constraints and structured reasoning. For the weakest models, invest in generation quality first.
 
@@ -787,7 +838,7 @@ This sweet spot is not a fixed point. As model capabilities improve and costs de
 \bibitem{irving2018} G. Irving, P. Christiano, D. Amodei. AI safety via debate. \textit{arXiv:1805.00899}, 2018.
 \bibitem{bai2022} Y. Bai et al. Constitutional AI: Harmlessness from AI feedback. \textit{arXiv:2212.08073}, 2022.
 \bibitem{zheng2023} L. Zheng et al. Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena. \textit{NeurIPS}, 2023. \textit{arXiv:2306.05685}.
-\bibitem{llmcouncil} J. Huang et al. ChatGPT's One-Year Anniversary: Are Open-Source Large Language Models Catching Up? \textit{arXiv:2311.16989}, 2023.
+\bibitem{llmcouncil} J. Huang et al. ChatGPT's one-year anniversary: Are open-source large language models catching up? \textit{arXiv preprint arXiv:2311.16989}, 2023. (Introduces the ``LLM Council'' multi-model panel evaluation approach.)
 \bibitem{dspy} O. Khattab et al. DSPy: Compiling declarative language model calls into self-improving pipelines. \textit{ICLR}, 2024. \textit{arXiv:2310.03714}.
 \bibitem{psro} M. Lanctot et al. A unified game-theoretic approach to multiagent reinforcement learning. \textit{NeurIPS}, 2017.
 \bibitem{verdict} R. Nair et al. Verdict: Scalable judge-time compute via hierarchical verification. \textit{arXiv:2502.18018}, 2025.
@@ -887,5 +938,37 @@ Figure~\ref{fig:appendix} shows trajectory trees for all experiments.
 \caption{All trajectories. Tasks 2--3 converge quickly (10--12 passes). Task~5 requires 28~passes. Monte Carlo runs show variable convergence speed (6--30 passes) on the same task.}
 \label{fig:appendix}
 \end{figure}
+
+\section{Reproducibility Details}
+\label{app:repro}
+
+\textbf{Models and versions.}\enspace All experiments used the Anthropic API (api.anthropic.com) unless otherwise noted. Model identifiers: \texttt{claude-sonnet-4-20250514} (``Sonnet~4''), \texttt{claude-sonnet-4-6-20250514} (``Sonnet~4.6''), \texttt{claude-opus-4} (paper-writing experiment), \texttt{claude-3.5-haiku} via OpenRouter (Haiku~3.5 code experiments), \texttt{gemini-2.0-flash} via Google AI (scaling experiments), \texttt{meta-llama/llama-3.1-8b-instruct} via OpenRouter (scaling experiments). All API calls used the default context window for each model.
+
+\textbf{Hyperparameters.}\enspace Author temperature: 0.8 (encourages diverse revisions). Judge temperature: 0.3 (encourages consistent evaluation). \texttt{max\_tokens}: 4096 for all calls except paper-writing (8192). These values were chosen based on preliminary runs and not formally ablated. Code experiments: budget of 6 LLM calls per problem across all strategies.
+
+\textbf{Judge parsing.}\enspace Judge outputs must contain a line matching \texttt{RANKING: X, Y, Z} where X/Y/Z are the randomized candidate labels. If parsing fails, the judge response is discarded and not retried. Borda scoring: 3 points for 1st, 2 for 2nd, 1 for 3rd. Conservative tiebreak: the incumbent (A) wins any Borda tie.
+
+\textbf{Randomization.}\enspace Candidate labels are randomized per judge call ($\{$X, Y, Z$\}$ or $\{$P, Q, R$\}$ etc.). Presentation order within the prompt is also randomized independently of labels. Synthesizer receives A and B with randomized labels (does not know which is the incumbent).
+
+\textbf{Stopping criteria.}\enspace Convergence at $k{=}2$ consecutive passes where A (the incumbent) wins the Borda vote. Maximum pass cap: 25 for constrained tasks, 50 for remedy experiments, no explicit cap for standard runs (all converged before 30).
+
+\textbf{Code experiment evaluation.}\enspace Solutions executed via Python subprocess with 10-second timeout per test case. Public tests used for in-loop feedback and candidate ranking; private tests used only for final evaluation (never shown to the model). Code extracted from the first \texttt{```python} block in the model response.
+
+\textbf{Code and data.}\enspace Source code, task prompts, all experimental outputs, and blinded human evaluation materials are available at \url{https://github.com/NousResearch/autoreason}.
+
+\section{Toward an Operational Definition of Scope}
+\label{app:scope}
+
+The paper uses ``constrained scope'' as a condition for reliable refinement, but this concept remains underformalized. We offer proxies that could be operationalized in future work:
+
+\textbf{Constraint count.}\enspace The number of explicit constraints in the task prompt (word limit, required sections, fixed facts, output format). Our constrained tasks had 4--7 constraints; unconstrained tasks had 0--1.
+
+\textbf{Answer space boundedness.}\enspace Whether the task has a finite set of valid structures. Competitive programming: one correct algorithm class per problem. Constrained pitch: fixed facts $\times$ fixed format. Open-ended GTM strategy: essentially unbounded.
+
+\textbf{Judge agreement on ``done.''}\enspace In constrained tasks, judges agreed on A-wins with scores of 8--9/9 (high decisiveness). In unconstrained tasks, A rarely won and scores were 5--7/9 (low decisiveness). Judge decisiveness may serve as an emergent proxy for whether scope is sufficiently constrained.
+
+\textbf{Word count variance.}\enspace Constrained tasks: word count std across passes was 50--100 words. Unconstrained tasks: std was 200--500 words. Low variance indicates the output space is bounded.
+
+These proxies are post-hoc and correlational. A proper operationalization would require a controlled experiment varying scope independently of task content---e.g., the same underlying task with varying numbers of constraints---which we leave to future work.
 
 \end{document}
