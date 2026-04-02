@@ -1,0 +1,77 @@
+{
+  "pitch": {
+    "valid_judges": 7,
+    "max_borda": 35,
+    "borda": {
+      "best_of_6_haiku": 7,
+      "best_of_6_sonnet": 32,
+      "autoreason_haiku": 18,
+      "sonnet_single": 31,
+      "haiku_single": 17
+    },
+    "first_place": {
+      "best_of_6_haiku": 0,
+      "best_of_6_sonnet": 4,
+      "autoreason_haiku": 0,
+      "sonnet_single": 3,
+      "haiku_single": 0
+    },
+    "word_counts": {
+      "best_of_6_haiku": 394,
+      "best_of_6_sonnet": 658,
+      "autoreason_haiku": 476,
+      "sonnet_single": 672,
+      "haiku_single": 353
+    }
+  },
+  "policy": {
+    "valid_judges": 7,
+    "max_borda": 35,
+    "borda": {
+      "best_of_6_haiku": 17,
+      "best_of_6_sonnet": 26,
+      "autoreason_haiku": 26,
+      "sonnet_single": 26,
+      "haiku_single": 10
+    },
+    "first_place": {
+      "best_of_6_haiku": 0,
+      "best_of_6_sonnet": 4,
+      "autoreason_haiku": 1,
+      "sonnet_single": 2,
+      "haiku_single": 0
+    },
+    "word_counts": {
+      "best_of_6_haiku": 316,
+      "best_of_6_sonnet": 401,
+      "autoreason_haiku": 407,
+      "sonnet_single": 357,
+      "haiku_single": 364
+    }
+  },
+  "gtm": {
+    "valid_judges": 7,
+    "max_borda": 35,
+    "borda": {
+      "best_of_6_haiku": 17,
+      "best_of_6_sonnet": 28,
+      "autoreason_haiku": 23,
+      "sonnet_single": 30,
+      "haiku_single": 7
+    },
+    "first_place": {
+      "best_of_6_haiku": 0,
+      "best_of_6_sonnet": 2,
+      "autoreason_haiku": 2,
+      "sonnet_single": 3,
+      "haiku_single": 0
+    },
+    "word_counts": {
+      "best_of_6_haiku": 277,
+      "best_of_6_sonnet": 607,
+      "autoreason_haiku": 388,
+      "sonnet_single": 607,
+      "haiku_single": 144
+    }
+  }
+}

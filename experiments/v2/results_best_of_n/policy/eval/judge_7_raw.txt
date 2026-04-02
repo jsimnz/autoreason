@@ -1,0 +1,66 @@
+I'll evaluate each version against the specific constraints and requirements systematically.
+
+**Constraint Analysis:**
+
+**Word Count (≤500 words):**
+- A: 424 words ✓
+- B: ~520 words ✗ (exceeds limit)
+- C: ~480 words ✓
+- D: ~450 words ✓
+- E: ~380 words ✓
+
+**4 Required Sections with Numbered Items:**
+- A: ✓ (Scope, Permitted Uses, Prohibited Uses, Enforcement - all numbered)
+- B: ✓ (All sections present and numbered)
+- C: ✓ (All sections present and numbered)
+- D: ✓ (All sections present and numbered)
+- E: ✓ (All sections present and numbered)
+
+**Every Prohibition Must Reference Base Facts:**
+- A: ✓ (Clear references to incidents and legal counsel)
+- B: ✓ (References incidents explicitly)
+- C: ✓ (Explicitly states motivations for each prohibition)
+- D: ✓ (States motivations for each prohibition)
+- E: ✓ (References base facts and incidents)
+
+**Enforceable Without New Tooling:**
+- A: ✓ (Uses existing HR, access controls, review processes)
+- B: ✗ (Mentions "quarterly audits of AI tool usage logs" - new tooling)
+- C: ✓ (Uses existing processes throughout)
+- D: ✓ (Uses existing network controls and review processes)
+- E: ✓ (Uses existing processes)
+
+**No Aspirational Language:**
+- A: ✓ (Direct, actionable language)
+- B: ✓ (Clear directives)
+- C: ✓ (Concrete requirements)
+- D: ✓ (Specific requirements)
+- E: ✓ (Clear prohibitions and requirements)
+
+**Coverage of All Base Facts:**
+- A: ✓ (Addresses all incidents, compliance requirements, current usage stats)
+- B: ✗ (Missing current usage statistics, doesn't mention Slack AI features)
+- C: ✓ (Comprehensive coverage including usage stats)
+- D: ✗ (Missing current usage statistics)
+- E: ✗ (Missing current usage statistics, incomplete coverage)
+
+**Critical Issues:**
+- B: Exceeds word limit AND requires new audit tooling
+- B, D, E: Missing current usage statistics (73% engineers, 45% sales)
+- B: Doesn't address Slack AI features being disabled
+
+**Quality of Prohibitions:**
+- C: Most comprehensive and clearly motivated
+- A: Well-structured with clear incident references
+- D: Good motivation but less comprehensive
+- E: Adequate but less detailed
+- B: Good but missing some context
+
+**RANKING: C, A, D, E, B**
+
+**Justification:**
+1. **C**: Meets all constraints, comprehensive coverage, excellent prohibition-to-motivation mapping
+2. **A**: Meets all constraints, good coverage, clear structure (shows revision process)
+3. **D**: Meets most constraints, good content, but missing usage statistics
+4. **E**: Meets basic constraints but less comprehensive coverage
+5. **B**: Fails multiple hard constraints (word count, new tooling requirement)

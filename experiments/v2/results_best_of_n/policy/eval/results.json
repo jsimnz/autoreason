@@ -1,0 +1,25 @@
+{
+  "valid_judges": 7,
+  "max_borda": 35,
+  "borda": {
+    "best_of_6_haiku": 17,
+    "best_of_6_sonnet": 26,
+    "autoreason_haiku": 26,
+    "sonnet_single": 26,
+    "haiku_single": 10
+  },
+  "first_place": {
+    "best_of_6_haiku": 0,
+    "best_of_6_sonnet": 4,
+    "autoreason_haiku": 1,
+    "sonnet_single": 2,
+    "haiku_single": 0
+  },
+  "word_counts": {
+    "best_of_6_haiku": 316,
+    "best_of_6_sonnet": 401,
+    "autoreason_haiku": 407,
+    "sonnet_single": 357,
+    "haiku_single": 364
+  }
+}
