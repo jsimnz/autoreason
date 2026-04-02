@@ -233,7 +233,7 @@ Every role is a fresh, isolated agent with no shared context. The original task 
 
 \subsection{Formal Framing}
 
-Let $d_t$ denote the incumbent document at pass~$t$. Each pass produces candidates $\{d_t, B(d_t), S(d_t, B(d_t))\}$ where $B$ is the adversarial revision operator and $S$ is the synthesis operator. A judge panel $J$ defines a stochastic preference relation: $J(x, y) \in [0,1]$ is the probability that $x$ is ranked above $y$. The winner is selected by Borda aggregation over $n$ judges:
+Let $d_t$ denote the incumbent document at pass~$t$. Each pass produces candidates $\{d_t, B(d_t), S(d_t, B(d_t))\}$ where $B$ is the adversarial revision operator and $S$ is the synthesis operator. A judge panel $J$ defines a stochastic preference relation: $J(x, y) \in [0,1]$ is the probability that $x$ is ranked above~$y$. The winner is selected by Borda aggregation over~$n$ judges:
 
 $$d_{t+1} = \arg\max_{c \in \{A, B, AB\}} \sum_{i=1}^{n} (3 - r_i(c))$$
 
@@ -958,7 +958,16 @@ Figure~\ref{fig:appendix} shows trajectory trees for all experiments.
 \section{Reproducibility Details}
 \label{app:repro}
 
-\textbf{Models and versions.}\enspace All experiments used the Anthropic API (api.anthropic.com) unless otherwise noted. Model identifiers: \texttt{claude-sonnet-4-20250514} (``Sonnet~4''), \texttt{claude-sonnet-4-6-20250514} (``Sonnet~4.6''), \texttt{claude-opus-4} (paper-writing experiment), \texttt{claude-3.5-haiku} via OpenRouter (Haiku~3.5 code experiments), \texttt{gemini-2.0-flash} via Google AI (scaling experiments), \texttt{meta-llama/llama-3.1-8b-instruct} via OpenRouter (scaling experiments). All API calls used the default context window for each model.
+\textbf{Models and versions.}\enspace All experiments used the Anthropic API unless otherwise noted. Model identifiers:
+\begin{itemize}
+\item \texttt{claude-sonnet-4-20250514} (``Sonnet~4'')
+\item \texttt{claude-sonnet-4-6-20250514} (``Sonnet~4.6'')
+\item \texttt{claude-opus-4} (paper-writing experiment)
+\item \texttt{claude-3.5-haiku} via OpenRouter (Haiku~3.5 code experiments)
+\item \texttt{gemini-2.0-flash} via Google AI (scaling experiments)
+\item \texttt{meta-llama/llama-3.1-8b-instruct} via OpenRouter (scaling experiments)
+\end{itemize}
+All API calls used the default context window for each model.
 
 \textbf{Hyperparameters.}\enspace Author temperature: 0.8 (encourages diverse revisions). Judge temperature: 0.3 (encourages consistent evaluation). \texttt{max\_tokens}: 4096 for all calls except paper-writing (8192). These values were chosen based on preliminary runs and not formally ablated. Code experiments: budget of 6 LLM calls per problem across all strategies.
 
