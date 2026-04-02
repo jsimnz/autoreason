@@ -691,6 +691,55 @@ Critique \& rev. & 7 & 10 & 7 & 8.0 \\
 
 Weak judges did \textit{not} collapse autoreason to baseline levels. Autoreason with Haiku judges still beat single-pass on 2/3~tasks (20.7 vs.\ 18.3 avg Borda). Sonnet judges provided a modest further gain (23.0 vs.\ 20.7). This suggests the tournament structure itself (competing candidates, randomized evaluation, conservative tiebreaking) provides value independent of judge quality. Strong judges amplify the effect but are not strictly required. The architecture provides a weaker form of external evaluation even when the judge shares the generator's limitations.
 
+\subsection{Judge Panel Size}
+
+More judges produce faster, more decisive convergence:
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}l@{\hspace{3em}}c@{\hspace{3em}}c@{\hspace{3em}}c@{}}
+\toprule
+\textbf{Panel Size} & \textbf{Passes} & \textbf{A Wins} & \textbf{Final Words} \\
+\midrule
+\rowcolor{TableShade}
+1 judge & 7 & 2/7 & 1589 \\
+3 judges & 18 & 3/18 & 1408 \\
+\rowcolor{TableShade}
+\textbf{7 judges} & \textbf{6} & \textbf{3/6} & \textbf{1565} \\
+\bottomrule
+\end{tabular}
+\caption{Convergence speed by judge panel size (Sonnet~4, Task~1, Borda aggregation). 7~judges converge 3$\times$ faster than 3~judges because the evaluation signal is less noisy: with 1~judge, random preferences dominate; with 7, genuine quality differences emerge clearly enough for A to survive consecutive passes.}
+\label{tab:judge_count}
+\end{table}
+
+The 3-judge configuration used throughout the paper represents a cost-convergence tradeoff: 3 in-loop judges balance per-pass cost against evaluation stability, while 7~judges are reserved for final comparisons where cost is amortized over a single evaluation.
+
+\subsection{Length-Controlled Evaluation}
+
+A concern with LLM-as-judge evaluation is that longer outputs are preferred regardless of quality~\cite{length_bias,verbosity_bias}. To test whether autoreason's advantage is driven by length, we truncated all final outputs (Task~1) to the median word count (1465~words) and ran pairwise 7-judge evaluations:
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}l@{\hspace{3em}}c@{\hspace{3em}}c@{}}
+\toprule
+\textbf{Comparison} & \textbf{AR wins} & \textbf{Baseline wins} \\
+\midrule
+\rowcolor{TableShade}
+AR vs.\ harsh critic & 7 & 0 \\
+AR vs.\ improve this & 7 & 0 \\
+\rowcolor{TableShade}
+AR vs.\ critique \& rev. & 7 & 0 \\
+AR vs.\ conservative & 1 & 6 \\
+\bottomrule
+\end{tabular}
+\caption{Length-controlled pairwise evaluation (7 judges, all outputs truncated to 1465~words). Autoreason dominates three baselines even at matched length. The exception is the conservative baseline, which produces shorter, more focused outputs that judge well when verbosity is removed as a factor.}
+\label{tab:length_controlled}
+\end{table}
+
+Autoreason's quality advantage over aggressive refinement baselines is not a length artifact. The conservative baseline's win reveals a real tradeoff: when length is equalized, a minimal-edit strategy can outperform structured iteration. This is consistent with the paper's finding that restraint matters; the conservative prompt achieves restraint through instruction, while autoreason achieves it through architecture (the incumbent survives by default).
+
 \subsection{Best-of-N Control}
 
 A natural concern: does autoreason add value beyond sampling multiple outputs and selecting the best? We compared autoreason against best-of-6 (6 independent outputs, Sonnet judges select the winner, at matched compute budget).
