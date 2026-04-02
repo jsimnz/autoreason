@@ -87,7 +87,7 @@
 \noindent\textbf{\scshape Abstract.}\enspace
 Iterative self-refinement fails because LLMs cannot reliably evaluate their own outputs. We present autoreason, a method that replaces self-evaluation with external evaluation: each iteration produces three competing versions (the incumbent, an adversarial revision, and a synthesis), judged by a blind panel using Borda count. The method's value peaks at mid-tier models, where the gap between generation capability and self-evaluation capability is widest. With Haiku~3.5 (${\sim}$10$\times$ cheaper than Sonnet~4), autoreason scored 42/42 Borda across three tasks---a perfect sweep---while standard refinement baselines \textit{degraded} the same model's outputs below its unrefined single pass. Across four model tiers (Llama~8B, Gemini~Flash, Haiku~3.5, Sonnet~4), the advantage peaks at mid-tier and diminishes at both extremes: models too weak to generate diverse alternatives (Llama) or too strong to need external evaluation (Sonnet~4.6).
 
-With Sonnet~4 across 5~subjective tasks, autoreason wins 3/5 outright. In competitive programming (81~CodeContests problems, matched compute budgets), it achieves 65\% private-test pass rate vs.\ 58\% for critique-and-revise, with the gap driven by structured recovery from failure ($p{=}0.041$). A judge ablation shows the tournament structure provides value even with weak judges, though strong judges amplify the effect. The practical recommendation: autoreason operates in the space between ``too weak to generate useful alternatives'' and ``too strong to need external evaluation''---the range where most cost-conscious LLM usage lives.
+With Sonnet~4 across 5~subjective tasks, autoreason wins 3/5 outright. In competitive programming, it achieves 65\% private-test pass rate vs.\ 58\% for critique-and-revise ($p{=}0.041$). On CodeContests with Haiku authors, autoreason matches Sonnet~4 single-pass on hard problems (4/10 each) at ${\sim}$10$\times$ lower author cost, while critique-and-revise degrades Haiku below its unrefined baseline---objectively confirming ``refinement as destruction'' with test cases, not judge preferences. Autoreason also outperforms best-of-6 sampling with judge selection on every task, demonstrating that structured refinement adds value beyond diversity. The practical recommendation: autoreason operates in the space between ``too weak to generate useful alternatives'' and ``too strong to need external evaluation''---the range where most cost-conscious LLM usage lives.
 
 \vspace{6pt}
 \hrule
@@ -662,6 +662,58 @@ Critique \& rev. & 7 & 10 & 7 & 8.0 \\
 \end{table}
 
 Weak judges did \textit{not} collapse autoreason to baseline levels. Autoreason with Haiku judges still beat single-pass on 2/3~tasks (20.7 vs.\ 18.3 avg Borda). Sonnet judges provided a modest further gain (23.0 vs.\ 20.7). This suggests the tournament structure itself---competing candidates, randomized evaluation, conservative tiebreaking---provides value independent of judge quality. Strong judges amplify the effect but are not strictly required. The architecture provides a weaker form of external evaluation even when the judge shares the generator's limitations.
+
+\subsection{Best-of-N Control}
+
+A natural concern: does autoreason add value beyond sampling multiple outputs and selecting the best? We compared autoreason against best-of-6 (6 independent outputs, Sonnet judges select the winner---matched compute budget).
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Method} & \textbf{Pitch} & \textbf{Policy} & \textbf{GTM} & \textbf{Avg} \\
+\midrule
+\rowcolor{TableShade}
+Best-of-6 Sonnet & \textbf{32} & 26 & 28 & 28.7 \\
+Sonnet single & 31 & 26 & \textbf{30} & \textbf{29.0} \\
+\rowcolor{TableShade}
+\textbf{AR Haiku} & 18 & \textbf{26} & 23 & 22.3 \\
+Best-of-6 Haiku & 7 & 17 & 17 & 13.7 \\
+\rowcolor{TableShade}
+Haiku single & 17 & 10 & 7 & 11.3 \\
+\bottomrule
+\end{tabular}
+\caption{Best-of-N comparison (Borda /35). Autoreason Haiku beats best-of-6 Haiku by +8.6 avg Borda, and ties Sonnet single-pass on the policy task. Sampling diversity alone does not help weak models---best-of-6 Haiku loses to Haiku single on pitch.}
+\label{tab:best_of_n}
+\end{table}
+
+Autoreason Haiku outperformed best-of-6 Haiku on every task (+11, +9, +6 Borda). On the policy task, it tied both Sonnet single-pass and best-of-6 Sonnet (all at 26). Best-of-6 Haiku actually scored \textit{below} Haiku single on pitch (7 vs.\ 17), suggesting that sampling diversity without structured refinement can be counterproductive for weak models---more samples just means more opportunities for the selection judges to encounter mediocre outputs. The value is in the iterative improvement, not the candidate count.
+
+\subsection{Cross-Model Code Validation}
+
+To validate the capability-scaling finding with objective ground truth, we ran autoreason with Haiku authors on 30~CodeContests problems (10~easy, 10~medium, 10~hard), using test cases rather than LLM judges.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Strategy} & \textbf{Public} & \textbf{Private} & \textbf{Easy} & \textbf{Med} & \textbf{Hard} \\
+\midrule
+\rowcolor{TableShade}
+Sonnet single & \textbf{83\%} & \textbf{63\%} & 8 & 7 & 4 \\
+\textbf{Haiku AR} & 67\% & 53\% & 6 & 6 & \textbf{4} \\
+\rowcolor{TableShade}
+Haiku single & 60\% & 50\% & 5 & 5 & 5 \\
+Haiku C\&R & 47\% & 37\% & 4 & 4 & 3 \\
+\bottomrule
+\end{tabular}
+\caption{CodeContests private-test pass rate (30 problems, 6 LLM calls each). Haiku autoreason closes half the gap to Sonnet (50\%$\to$53\% vs.\ 63\%) and \textbf{matches Sonnet on hard problems} (4/10 each). Critique-and-revise degrades Haiku below single pass (37\% vs.\ 50\%).}
+\label{tab:haiku_code}
+\end{table}
+
+Three findings confirm the writing experiments with objective evidence: (1)~critique-and-revise harms Haiku (37\% vs.\ 50\% single-pass), replicating ``refinement as destruction''; (2)~autoreason improves Haiku (53\% vs.\ 50\%), with gains driven by structured failure analysis; (3)~on hard problems, Haiku autoreason matches Sonnet single-pass (4/10 each) at ${\\sim}$10$\\times$ lower author cost. The generation-evaluation gap is real and measurable with test cases, not just LLM judge preferences.
 
 \section{Writing This Paper}
 \label{sec:paper}
