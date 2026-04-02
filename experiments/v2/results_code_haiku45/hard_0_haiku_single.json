@@ -1,0 +1,11 @@
+{
+  "problem_id": "hard_0",
+  "tier": "hard",
+  "strategy": "haiku_single",
+  "pass_public": false,
+  "pass_private": false,
+  "public_passed": 2,
+  "public_total": 5,
+  "private_passed": 56,
+  "private_total": 69
+}
