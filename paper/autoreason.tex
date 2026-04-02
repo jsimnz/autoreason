@@ -106,6 +106,7 @@ Our experiments identify four conditions for the method to succeed: (1)~\textbf{
 
 \begin{figure}[!ht]
 \centering
+\resizebox{0.95\textwidth}{!}{%
 \begin{tikzpicture}[
     >=Stealth,
     node distance=0.6cm and 1.2cm,
@@ -215,7 +216,8 @@ Our experiments identify four conditions for the method to succeed: (1)~\textbf{
       anchor=north east] at ([xshift=-2pt, yshift=-2pt]loopbg.north east) {iteration loop};
 \end{scope}
 
-\end{tikzpicture}
+\end{tikzpicture}%
+}% end resizebox
 \caption{The autoreason loop. Each pass produces three candidates: the unchanged incumbent~(A), a synthesis~(AB), and an adversarial revision~(B). A blind judge panel selects the winner via Borda count. If A survives $k{=}2$ consecutive passes, the loop terminates. Every role is a fresh, isolated agent.}
 \label{fig:method}
 \end{figure}
@@ -779,7 +781,7 @@ Table~\ref{tab:failures} summarizes the failure modes observed across all experi
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{@{}p{2.2cm}p{2.5cm}p{2.5cm}@{}}
+\begin{tabular}{@{}p{4cm}p{4cm}p{6cm}@{}}
 \toprule
 \textbf{Failure Mode} & \textbf{Condition} & \textbf{Evidence} \\
 \midrule
@@ -832,6 +834,7 @@ This sweet spot is not a fixed point. As model capabilities improve and costs de
 \hrule
 \vspace{6pt}
 
+\clearpage
 \begin{thebibliography}{99}
 \small
 \bibitem{autoresearch} A. Karpathy. Autoresearch, 2024.
@@ -859,6 +862,7 @@ This sweet spot is not a fixed point. As model capabilities improve and costs de
 \bibitem{security_degrade} S. Shukla, H. Joshi, R. Syed. Security degradation in iterative AI code generation: a systematic analysis of the paradox. \textit{\href{https://arxiv.org/abs/2506.11022}{arXiv:2506.11022}}, 2025.
 \end{thebibliography}
 
+\clearpage
 \appendix
 
 \section{Prompts}
@@ -918,6 +922,7 @@ RANKING: [best], [second], [worst]
 \textbf{Critique \& revise:} Step 1: ``Produce a structured critique of this document. List specific weaknesses.'' + [TASK] + [CURRENT DOCUMENT]. Step 2: ``Revise the document to address each criticism.'' + [TASK] + [CURRENT DOCUMENT] + [CRITIQUE]
 \end{tcolorbox}
 
+\clearpage
 \section{Convergence Threshold Sensitivity}
 
 \begin{table}[H]
@@ -950,6 +955,7 @@ Figure~\ref{fig:appendix} shows trajectory trees for all experiments.
 \label{fig:appendix}
 \end{figure}
 
+\clearpage
 \section{Reproducibility Details}
 \label{app:repro}
 
