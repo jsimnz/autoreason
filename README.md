@@ -16,8 +16,10 @@ Each iteration produces three competing versions — the **unchanged incumbent (
 |---------|--------|
 | **42/42 perfect sweep** | Haiku 3.5 + autoreason scored perfect Borda across 3 tasks; all baselines *degraded* below single-pass |
 | **77% vs 73%** | Sonnet 4.6 on 150 CodeContests problems (private-test), autoreason vs single-pass |
-| **40% vs 31%** | Haiku autoreason vs best-of-6 sampling at matched compute (150 problems) |
-| **Refinement destroys weak models** | Critique-and-revise reduced Haiku outputs by 59–70% in word count over 15 passes |
+| **40% vs 31%** | Haiku 3.5 autoreason vs best-of-6 sampling at matched compute (150 problems) |
+| **Haiku 4.5: transition point** | At 60% private accuracy, autoreason's held-out gains vanish — the generation-evaluation gap has closed |
+| **Code scaling curve** | Haiku 3.5 (40%) → Haiku 4.5 (60%) → Sonnet 4 (64%) → Sonnet 4.6 (77%) private-test with autoreason |
+| **Refinement destroys weak models** | Critique-and-revise reduced Haiku 3.5 outputs by 59–70% in word count over 15 passes |
 | **7 judges → 3× faster convergence** | Than 3 judges; 1 judge is noisy and slow |
 | **Length-controlled: 21/28 wins** | Autoreason beats 3 of 4 baselines even at matched word count |
 | **Both B and AB necessary** | Removing either collapses the tournament (convergence in 2–3 passes vs 24) |
@@ -41,8 +43,8 @@ Task Prompt → Incumbent A
 ## Paper Contents
 
 - **Writing experiments**: 5 open-ended tasks, 3 constrained tasks, 4 baselines, 15-pass iterations
-- **Competitive programming**: 150 CodeContests problems × 3 strategies × 3 model tiers (Sonnet 4, Sonnet 4.6, Haiku 3.5)
-- **Model scaling**: 4-tier comparison (Llama 8B → Gemini Flash → Haiku 3.5 → Sonnet 4)
+- **Competitive programming**: 150 CodeContests problems × 3 strategies × 4 model tiers (Sonnet 4, Sonnet 4.6, Haiku 3.5, Haiku 4.5)
+- **Model scaling**: 5-tier comparison (Llama 8B → Gemini Flash → Haiku 3.5 → Haiku 4.5 → Sonnet 4)
 - **Ablations**: Judge count (1/3/7), Borda vs majority, component necessity, length-controlled evaluation
 - **Robustness**: Monte Carlo (5 runs), multi-seed replication (15 runs across 5 tasks)
 - **Failure analysis**: 8 remedy experiments for Sonnet 4.6 scaling failure, failure taxonomy
@@ -57,11 +59,13 @@ experiments/
   v2/
     run_overnight.py        # Main experiment runner (writing tasks)
     run_code_overnight.py   # Code experiment runner (CodeContests)
+    run_code_haiku45.py     # Haiku 4.5 code experiment runner
     run_multi_seed.py       # Multi-seed replication
     run_ablations.py        # Component, judge, aggregation, length ablations
     compute_stats.py        # Bootstrap CIs and McNemar tests
     results_code_s46/       # Sonnet 4.6 code results (150 problems)
     results_code_haiku/     # Haiku 3.5 code results (150 problems)
+    results_code_haiku45/   # Haiku 4.5 code results (150 problems)
     results_code_best_of_n/ # Best-of-N compute-matched control
     results_multi_seed/     # 15 independent writing runs
     results_ablations/      # Judge count, aggregation, component, length
