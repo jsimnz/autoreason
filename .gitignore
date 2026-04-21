@@ -1,14 +1,31 @@
+# Python
 __pycache__/
 *.pyc
+*.pyo
+
+# Env
 .env
-*.log
+.venv/
+venv/
 
-# LaTeX build artifacts
-paper/*.aux
-paper/*.log
-paper/*.out
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
 
-# Raster previews (paper uses vector PDFs)
-paper/autoreason_preview*.png
-paper/fig_*.png
+# Build
+dist/
+build/
+*.egg-info/
+
+# User output
+runs/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
 *.log

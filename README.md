@@ -1,92 +1,203 @@
-# Autoreason: Self-Refinement That Knows When to Stop
+# AutoReason
 
-**SHL0MS | HERMES AGENT**
+**Iterative multi-agent refinement for subjective work** — writing, strategy, proposals, policy, analysis.
 
-[Paper (PDF)](paper/autoreason.pdf) · [Human Eval Materials](human_eval/)
-
----
-
-Iterative self-refinement fails for three structural reasons: *prompt bias* (models hallucinate flaws when asked to critique), *scope creep* (outputs expand unchecked each pass), and *lack of restraint* (models never say "no changes needed"). Autoreason fixes all three.
-
-Each iteration produces three competing versions — the **unchanged incumbent (A)**, an **adversarial revision (B)**, and a **synthesis (AB)** — judged by fresh agents with no shared context via blind Borda count. "Do nothing" is always a first-class option.
-
-## Key Results
-
-| Finding | Detail |
-|---------|--------|
-| **42/42 perfect sweep** | Haiku 3.5 + autoreason scored perfect Borda across 3 tasks; all baselines *degraded* below single-pass |
-| **77% vs 73%** | Sonnet 4.6 on 150 CodeContests problems (private-test), autoreason vs single-pass |
-| **40% vs 31%** | Haiku 3.5 autoreason vs best-of-6 sampling at matched compute (150 problems) |
-| **Haiku 4.5: transition point** | At 60% private accuracy, autoreason's held-out gains vanish — the generation-evaluation gap has closed |
-| **Code scaling curve** | Haiku 3.5 (40%) → Haiku 4.5 (60%) → Sonnet 4 (64%) → Sonnet 4.6 (77%) private-test with autoreason |
-| **Refinement destroys weak models** | Critique-and-revise reduced Haiku 3.5 outputs by 59–70% in word count over 15 passes |
-| **7 judges → 3× faster convergence** | Than 3 judges; 1 judge is noisy and slow |
-| **Length-controlled: 21/28 wins** | Autoreason beats 3 of 4 baselines even at matched word count |
-| **Both B and AB necessary** | Removing either collapses the tournament (convergence in 2–3 passes vs 24) |
-
-## Method
+You provide a prompt. AutoReason produces an initial draft, then for each pass it spawns three fresh agents — a critic, an adversarial reviser, and a synthesizer — and asks a panel of independent judges to rank the results via Borda count. The incumbent survives ties. The loop stops automatically when the incumbent wins enough consecutive passes, so "do nothing" is always a first-class option.
 
 ```
-Task Prompt → Incumbent A
-                  ↓
-        ┌─── Critic (fresh agent) ───→ Critique
-        │
-        ├─── Author B (fresh agent) ──→ Revision (B)
-        │
-        └─── Synthesizer (fresh) ─────→ Synthesis (AB)
-                  ↓
-          Judge Panel (3 fresh agents, Borda count)
-                  ↓
-              Winner → new A  (or converge if A wins k=2 times)
+Prompt → A (incumbent)
+           │
+           ▼
+    ┌──► Critic ───► critique ──┐
+    │                           ▼
+    ├──► Author B ◄──── reads A + critique ──► B
+    │                                           │
+    └──► Synthesizer (sees A and B equally) ──► AB
+                                                 │
+                         Judge panel (N fresh) ──┤
+                                                 ▼
+                              Borda → winner → new A
+                                                 │
+                        if A wins K consecutive ─┘ → converged
 ```
 
-## Paper Contents
+## Install
 
-- **Writing experiments**: 5 open-ended tasks, 3 constrained tasks, 4 baselines, 15-pass iterations
-- **Competitive programming**: 150 CodeContests problems × 3 strategies × 4 model tiers (Sonnet 4, Sonnet 4.6, Haiku 3.5, Haiku 4.5)
-- **Model scaling**: 5-tier comparison (Llama 8B → Gemini Flash → Haiku 3.5 → Haiku 4.5 → Sonnet 4)
-- **Ablations**: Judge count (1/3/7), Borda vs majority, component necessity, length-controlled evaluation
-- **Robustness**: Monte Carlo (5 runs), multi-seed replication (15 runs across 5 tasks)
-- **Failure analysis**: 8 remedy experiments for Sonnet 4.6 scaling failure, failure taxonomy
-
-## Repository Structure
-
-```
-paper/                      # LaTeX source, figures, compiled PDF
-tasks/                      # Task prompts (5 open-ended, 3 constrained)
-human_eval/                 # Blinded evaluation materials for human raters
-experiments/
-  v2/
-    run_overnight.py        # Main experiment runner (writing tasks)
-    run_code_overnight.py   # Code experiment runner (CodeContests)
-    run_code_haiku45.py     # Haiku 4.5 code experiment runner
-    run_multi_seed.py       # Multi-seed replication
-    run_ablations.py        # Component, judge, aggregation, length ablations
-    compute_stats.py        # Bootstrap CIs and McNemar tests
-    results_code_s46/       # Sonnet 4.6 code results (150 problems)
-    results_code_haiku/     # Haiku 3.5 code results (150 problems)
-    results_code_haiku45/   # Haiku 4.5 code results (150 problems)
-    results_code_best_of_n/ # Best-of-N compute-matched control
-    results_multi_seed/     # 15 independent writing runs
-    results_ablations/      # Judge count, aggregation, component, length
-    results_baselines/      # Baseline comparison outputs
-    results_multi_task/     # Multi-task autoreason + baselines
-    results_monte_carlo/    # Monte Carlo replication (5 runs)
-    results_*_constrained/  # Constrained task experiments
-    results_*_remedy/       # Scaling remedy experiments
+```bash
+git clone https://github.com/<you>/autoreason.git
+cd autoreason
+uv venv && uv pip install -e .
+export ANTHROPIC_API_KEY=sk-...
 ```
 
-## Human Evaluation
+(Or pip: `python -m venv .venv && . .venv/bin/activate && pip install -e .`)
 
-Blinded materials for human raters are in [`human_eval/`](human_eval/). 5 tasks × 3 methods (autoreason, critique-and-revise, single-pass), randomized 4-character codes. See [`human_eval/README.md`](human_eval/README.md) for the rubric and instructions.
+Any litellm-supported provider works (Anthropic, OpenAI, OpenRouter, Gemini, local). Pass the model as `--model provider/model-id`.
 
-## Citation
+## Quickstart
+
+```bash
+autoreason run --prompt "Design a 3-month plan to reduce tech debt in a 200k-LOC Python monorepo"
+```
+
+A rich live panel shows the current phase (critic → author_b → synth → judges), the trajectory so far (`A → AB → A → A`), and cumulative cost.
+
+Or from a file:
+
+```bash
+autoreason run --prompt-file examples/gtm-strategy.md
+```
+
+When the loop converges, the final output lands at `runs/<timestamp>-<slug>/final_output.md`.
+
+## CLI reference
+
+| Command | Purpose |
+|---|---|
+| `autoreason run --prompt "…" [flags]` | Start a new run |
+| `autoreason run --prompt "…" --dry-run` | Print resolved config + first prompt, no API calls |
+| `autoreason run --prompt "…" --interactive` | Pause after each pass to steer (see below) |
+| `autoreason resume <dir>` | Continue an interrupted or signalled-stopped run |
+| `autoreason status <dir>` | Show status, cost, trajectory of a run |
+| `autoreason list [--root runs/]` | Enumerate runs with one-line summaries |
+| `autoreason attach <dir>` | Live read-only view of another run (any terminal) |
+| `autoreason signal <dir> <cmd> [text]` | Send `stop` / `accept` / `inject <text>` |
+| `autoreason compare dir1 dir2 [--judge]` | Side-by-side comparison, optional LLM head-to-head |
+
+Common `run` flags:
 
 ```
-@article{shl0ms2026autoreason,
-  title={Autoreason: Self-Refinement That Knows When to Stop},
-  author={SHL0MS and Hermes Agent},
-  year={2026},
-  url={https://github.com/NousResearch/autoreason}
-}
+--prompt TEXT             Inline prompt
+--prompt-file PATH        Read prompt from file
+--output PATH             Output dir (default: runs/<timestamp>-<slug>)
+--model MODEL             Author model (litellm ID)
+--judge-model MODEL       Judge model (defaults to author model)
+--judges N                Judges per panel (default 3; 5-7 reduces noise)
+--max-passes N            Cap iterations (default 30)
+--convergence N           Consecutive A wins to converge (default 2)
+--config config.yaml      Load config overrides
+--prompts prompts.yaml    Override role prompts
+--interactive             Pause per-pass menu
+--dry-run                 No API calls
 ```
+
+## Artifact layout
+
+Every run is self-contained:
+
+```
+runs/<timestamp>-<slug>/
+├── prompt.md                      the input, verbatim
+├── config.yaml                    resolved config
+├── prompts.yaml                   resolved prompts
+├── state.json                     status, cost, pid, cursor
+├── heartbeat.json                 live phase (refreshed ~5s)
+├── commands.jsonl                 signals inbox
+├── events.jsonl                   structured event log
+├── injections.jsonl               any user guidance injected
+├── history.json                   trajectory with per-pass scores
+├── initial_a.md                   first draft
+├── pass_01/
+│   ├── version_a.md               incumbent entering this pass
+│   ├── critic.md                  identified problems
+│   ├── version_b.md               adversarial revision
+│   ├── version_ab.md              synthesis
+│   ├── judge_01.md ... judge_NN.md  raw judge responses
+│   └── result.json                winner, Borda scores, timings, cost
+├── pass_02/ …
+├── incumbent_after_NN.md          snapshot when incumbent changes
+└── final_output.md                the converged winner
+```
+
+## Steering a running loop
+
+From any terminal:
+
+```bash
+# Watch a run live
+autoreason attach runs/2026-04-20-gtm
+
+# Inject guidance into the next critic prompt
+autoreason signal runs/2026-04-20-gtm inject "focus on enterprise buyers"
+
+# Stop cleanly at the next pass boundary
+autoreason signal runs/2026-04-20-gtm stop
+
+# Accept the current incumbent and stop
+autoreason signal runs/2026-04-20-gtm accept
+```
+
+Signals are atomic JSONL appends — they work across tmux panes, SSH sessions, and separate terminals without any daemon. No race conditions.
+
+## Interactive mode
+
+```bash
+autoreason run --prompt-file idea.md --interactive
+```
+
+Pauses after every pass with a summary panel (winner, scores, critic snippet, incumbent snippet) and a menu:
+
+```
+[c]ontinue  [s]top  [a]ccept  [i]nject  [d]iff  [v]iew-full
+```
+
+`inject` appends free text to the next critic prompt as "Additional user guidance: …"; `diff` shows the change between the prior incumbent and the new one; `view-full` prints the whole current incumbent.
+
+## Resume
+
+Interrupted runs pick up cleanly:
+
+```bash
+autoreason run --prompt-file big.md --output runs/big
+# ... kill mid-pass with Ctrl-C ...
+autoreason resume runs/big
+```
+
+Completed passes (`pass_NN/result.json` present) are reused as cache; the loop restarts from the first incomplete pass with the correct incumbent and streak.
+
+## Configuration
+
+All flags have corresponding config keys. A minimal `config.yaml`:
+
+```yaml
+author_model: "anthropic/claude-sonnet-4-5"
+judge_model: "anthropic/claude-sonnet-4-5"
+author_temperature: 0.8
+judge_temperature: 0.3
+num_judges: 3
+max_passes: 30
+convergence_threshold: 2
+max_tokens: 4096
+```
+
+Precedence: CLI flags → config file → built-in defaults.
+
+## Custom prompts
+
+Override any role's system persona or user template via a YAML file matching the structure of `src/autoreason/default_prompts.yaml`:
+
+```yaml
+critic:
+  system: |
+    You are a senior operator with 20 years of experience. Be blunt.
+    Only flag problems that would actually hurt this in practice.
+```
+
+```bash
+autoreason run --prompt-file idea.md --prompts my-prompts.yaml
+```
+
+Placeholders available per role: `{task_prompt}`, `{version_a}`, `{critic}`, `{version_x}`, `{version_y}`, `{judge_proposals}`, `{injection}`.
+
+## Design notes
+
+- **Fresh agents, no shared context.** The critic doesn't know an author. The author_b doesn't know it was adversarial. The judges don't know the authorship order. This is the main defense against sycophancy and drift.
+- **Three candidates, not two.** Keeping the incumbent (A) as a literal option lets the loop say "no changes needed" — which turns out to be the single most important feature for weak models.
+- **Borda, not majority.** A three-candidate majority vote has too many ties; Borda counts full rankings and resolves cleanly. Incumbent wins ties.
+- **Convergence, not fixed passes.** Strong models converge in 2-4 passes; weak models oscillate. A fixed iteration count wastes compute on the former and corrupts the latter.
+
+## Credits
+
+The method is described in an accompanying research paper maintained in a separate repository. This repo is the companion tool: a clean extraction of the core refinement loop as a usable CLI.
+
+Inspired by Karpathy's [autoresearch](https://github.com/karpathy/autoresearch) and aiming-lab's [AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw).
