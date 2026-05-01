@@ -58,6 +58,7 @@ When the loop converges, the final output lands at `runs/<timestamp>-<slug>/fina
 | `autoreason run --prompt "…" --dry-run` | Print resolved config + first prompt, no API calls |
 | `autoreason run --prompt "…" --interactive` | Pause after each pass to steer (see below) |
 | `autoreason resume <dir>` | Continue an interrupted or signalled-stopped run |
+| `autoreason extend <dir> [flags]` | Start a new run seeded from a completed run's `final_output.md` |
 | `autoreason status <dir>` | Show status, cost, trajectory of a run |
 | `autoreason list [--root runs/]` | Enumerate runs with one-line summaries |
 | `autoreason attach <dir>` | Live read-only view of another run (any terminal) |
@@ -155,6 +156,25 @@ autoreason resume runs/big
 ```
 
 Completed passes (`pass_NN/result.json` present) are reused as cache; the loop restarts from the first incomplete pass with the correct incumbent and streak.
+
+## Extend
+
+`resume` finishes an interrupted run. `extend` does something different: it takes a **completed** run and starts a fresh, independent run seeded from its `final_output.md`. Use it when you want to keep iterating past convergence, swap models, or change the prompt with the previous output as the starting point.
+
+```bash
+# Continue from a converged run with the same prompt, models, and config
+autoreason extend runs/2026-04-20-gtm
+
+# Same starting incumbent, but redirect the next round
+autoreason extend runs/2026-04-20-gtm --prompt "Now narrow this to enterprise buyers only"
+
+# Same incumbent, stronger judge panel
+autoreason extend runs/2026-04-20-gtm --judges 5 --judge-model anthropic/claude-opus-4-7
+```
+
+`extend` accepts the same flags as `run`. By default the new run inherits the previous run's `prompt.md`, `config.yaml`, and `prompts.yaml`; any CLI flag overrides the inherited value. The new run gets its own `runs/<timestamp>-<slug>/` directory, its own state, history, and cost — the parent is untouched. An `extends.txt` file in the new run records the parent path for traceability.
+
+The seeded `initial_a.md` skips the author_a call, so the first pass starts the critic→author_b→synth→judges cycle directly against the previous final output.
 
 ## Configuration
 
