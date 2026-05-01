@@ -15,7 +15,7 @@ class TestHelp:
         r = CliRunner().invoke(main, ["--help"])
         assert r.exit_code == 0
         assert "AutoReason" in r.output
-        for sub in ("run", "resume", "status", "list", "attach", "signal", "compare"):
+        for sub in ("run", "resume", "extend", "status", "list", "attach", "signal", "compare"):
             assert sub in r.output
 
     def test_run_help(self):
@@ -94,6 +94,73 @@ class TestDryRun:
             ["run", "--prompt", "a", "--prompt-file", str(src), "--dry-run", "--output", str(out)],
         )
         assert r.exit_code != 0
+
+
+class TestExtend:
+    def test_extend_help(self):
+        r = CliRunner().invoke(main, ["extend", "--help"])
+        assert r.exit_code == 0
+        assert "previous" in r.output.lower() or "PREVIOUS_RUN_DIR" in r.output
+
+    def test_extend_dry_run_seeds_initial(self, tmp_path: Path):
+        # First do a dry-run on the parent to lay down config/prompts/prompt,
+        # then drop a final_output.md by hand to simulate a finished run.
+        parent = tmp_path / "parent"
+        r = CliRunner().invoke(
+            main,
+            ["run", "--prompt", "Sketch an outline", "--dry-run", "--output", str(parent)],
+        )
+        assert r.exit_code == 0, r.output
+        (parent / "final_output.md").write_text("FINAL TEXT FROM PREVIOUS RUN\n")
+
+        child = tmp_path / "child"
+        r = CliRunner().invoke(
+            main,
+            ["extend", str(parent), "--dry-run", "--output", str(child)],
+        )
+        assert r.exit_code == 0, r.output
+        # initial_a.md must be seeded from the parent's final_output.md
+        assert (child / "initial_a.md").read_text() == "FINAL TEXT FROM PREVIOUS RUN\n"
+        # Lineage marker exists
+        assert (child / "extends.txt").exists()
+        assert str(parent.resolve()) in (child / "extends.txt").read_text()
+        # Inherited the parent's prompt
+        assert (child / "prompt.md").read_text().startswith("Sketch an outline")
+        # Standard run snapshots are present
+        assert (child / "config.yaml").exists()
+        assert (child / "prompts.yaml").exists()
+        state = json.loads((child / "state.json").read_text())
+        assert state["status"] == "dry_run"
+
+    def test_extend_overrides_prompt(self, tmp_path: Path):
+        parent = tmp_path / "parent"
+        CliRunner().invoke(
+            main,
+            ["run", "--prompt", "Original", "--dry-run", "--output", str(parent)],
+        )
+        (parent / "final_output.md").write_text("PREV FINAL\n")
+        child = tmp_path / "child"
+        r = CliRunner().invoke(
+            main,
+            ["extend", str(parent), "--prompt", "New direction", "--dry-run", "--output", str(child)],
+        )
+        assert r.exit_code == 0, r.output
+        assert (child / "prompt.md").read_text().startswith("New direction")
+
+    def test_extend_requires_final_output(self, tmp_path: Path):
+        parent = tmp_path / "parent_incomplete"
+        CliRunner().invoke(
+            main,
+            ["run", "--prompt", "x", "--dry-run", "--output", str(parent)],
+        )
+        # No final_output.md written.
+        child = tmp_path / "child_should_fail"
+        r = CliRunner().invoke(
+            main,
+            ["extend", str(parent), "--dry-run", "--output", str(child)],
+        )
+        assert r.exit_code != 0
+        assert "final_output" in r.output.lower() or "cannot extend" in r.output.lower()
 
 
 class TestStatus:

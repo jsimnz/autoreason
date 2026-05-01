@@ -13,15 +13,21 @@ import click
 
 from autoreason import __version__
 from autoreason.artifacts import (
+    CONFIG_FILE,
     EVENTS_FILE,
+    FINAL_FILE,
     HISTORY_FILE,
+    INITIAL_FILE,
     PHASE_PAUSED,
+    PROMPTS_FILE,
+    PROMPT_FILE,
     EventSink,
     LoopMonitor,
     RunState,
     heartbeat_task,
     make_run_dir,
     pid_is_alive,
+    read_prompt,
     read_state,
     write_config_snapshot,
     write_prompt,
@@ -210,6 +216,162 @@ def resume(ctx: click.Context, run_dir: str) -> None:
     _execute_loop(
         rd, cfg, prompts_obj, prompt_text,
         quiet=quiet, no_color=no_color, is_resume=True, interactive=False,
+    )
+
+
+@main.command()
+@click.argument("previous_run_dir", type=click.Path(exists=True, file_okay=False))
+@click.option("--prompt", type=str, help="Prompt text (inline). Defaults to the previous run's prompt.")
+@click.option("--prompt-file", type=click.Path(exists=True, dir_okay=False), help="Read prompt from FILE.")
+@click.option("--output", "-o", type=click.Path(file_okay=False), help="Output directory for this run.")
+@click.option("--model", type=str, help="Default author-side model. Used for any role (author_a, critic, author_b, synthesizer) without its own --*-model flag.")
+@click.option("--author-a-model", "author_a_model", type=str, help="Override the model used for the initial author_a draft.")
+@click.option("--critic-model", "critic_model", type=str, help="Override the model used for the critic.")
+@click.option("--author-b-model", "author_b_model", type=str, help="Override the model used for the adversarial author_b revision.")
+@click.option("--synthesizer-model", "synthesizer_model", type=str, help="Override the model used for the synthesizer.")
+@click.option(
+    "--judge-model",
+    "judge_model",
+    type=str,
+    multiple=True,
+    help="Judge model. Pass once for a homogeneous panel, or repeat to configure a heterogeneous panel.",
+)
+@click.option("--judges", type=int, help="Number of judges in the panel.")
+@click.option("--max-passes", type=int, help="Maximum number of refinement passes.")
+@click.option("--max-tokens", type=int, help="Max completion tokens per LLM call.")
+@click.option("--convergence", type=int, help="Consecutive A wins required to converge.")
+@click.option("--config", "config_path", type=click.Path(exists=True, dir_okay=False), help="YAML config file.")
+@click.option("--prompts", "prompts_path", type=click.Path(exists=True, dir_okay=False), help="YAML prompts override file.")
+@click.option("--interactive", is_flag=True, help="Pause after each pass for user input.")
+@click.option("--dry-run", is_flag=True, help="Print plan without calling any LLM.")
+@click.option(
+    "--track-cost/--no-track-cost",
+    "track_cost",
+    default=None,
+    help="Opt in to dollar-cost tracking (default: token counts only).",
+)
+@click.pass_context
+def extend(
+    ctx: click.Context,
+    previous_run_dir: str,
+    prompt: str | None,
+    prompt_file: str | None,
+    output: str | None,
+    model: str | None,
+    author_a_model: str | None,
+    critic_model: str | None,
+    author_b_model: str | None,
+    synthesizer_model: str | None,
+    judge_model: tuple[str, ...],
+    judges: int | None,
+    max_passes: int | None,
+    max_tokens: int | None,
+    convergence: int | None,
+    config_path: str | None,
+    prompts_path: str | None,
+    interactive: bool,
+    dry_run: bool,
+    track_cost: bool | None,
+) -> None:
+    """Start a new run that continues from the final output of a completed run.
+
+    Seeds the new run's incumbent from PREVIOUS_RUN_DIR/final_output.md, then
+    executes as an independent run. By default the new run inherits the prompt,
+    config, and prompts override from the previous run; pass any of the same
+    flags as `run` to override.
+    """
+    prev_dir = Path(previous_run_dir)
+
+    final_path = prev_dir / FINAL_FILE
+    if not final_path.exists():
+        click.secho(
+            f"Cannot extend: {prev_dir} has no {FINAL_FILE} (run did not complete).",
+            fg="red",
+            err=True,
+        )
+        sys.exit(1)
+
+    # Resolve prompt: explicit CLI flags win, otherwise inherit from previous run.
+    if prompt or prompt_file:
+        prompt_text = _resolve_prompt(prompt, prompt_file)
+    else:
+        prev_prompt_path = prev_dir / PROMPT_FILE
+        if not prev_prompt_path.exists():
+            raise click.UsageError(
+                f"Previous run is missing {PROMPT_FILE}; pass --prompt or --prompt-file."
+            )
+        prompt_text = read_prompt(prev_dir).strip()
+
+    judge_model_single: str | None = None
+    judge_models_list: list[str] | None = None
+    if judge_model:
+        if len(judge_model) == 1:
+            judge_model_single = judge_model[0]
+        else:
+            judge_models_list = list(judge_model)
+
+    overrides: dict[str, Any] = {
+        "author_model": model,
+        "author_a_model": author_a_model,
+        "critic_model": critic_model,
+        "author_b_model": author_b_model,
+        "synthesizer_model": synthesizer_model,
+        "judge_model": judge_model_single,
+        "judge_models": judge_models_list,
+        "num_judges": judges,
+        "max_passes": max_passes,
+        "max_tokens": max_tokens,
+        "convergence_threshold": convergence,
+        "track_cost": track_cost,
+    }
+
+    # Inherit base config / prompts from the previous run unless the user passed their own.
+    base_config_path = config_path or str(prev_dir / CONFIG_FILE)
+    base_prompts_path = prompts_path or str(prev_dir / PROMPTS_FILE)
+    if not Path(base_config_path).exists():
+        base_config_path = None  # type: ignore[assignment]
+    if not Path(base_prompts_path).exists():
+        base_prompts_path = None  # type: ignore[assignment]
+
+    cfg = Config.load(config_path=base_config_path, overrides=overrides)
+    prompts_obj = Prompts.load(override_path=base_prompts_path)
+
+    run_dir = Path(output) if output else make_run_dir(Path("runs"), prompt_text)
+    if output:
+        run_dir.mkdir(parents=True, exist_ok=True)
+
+    write_config_snapshot(run_dir, cfg)
+    write_prompts_snapshot(run_dir, prompts_obj)
+    write_prompt(run_dir, prompt_text)
+
+    # Seed the new run's initial incumbent from the previous run's final output.
+    # loop._generate_or_reuse_initial picks this up and skips the author_a call.
+    (run_dir / INITIAL_FILE).write_text(final_path.read_text())
+
+    # Record lineage so `status` / future tooling can trace the chain.
+    (run_dir / "extends.txt").write_text(str(prev_dir.resolve()) + "\n")
+
+    if dry_run:
+        _print_dry_run(run_dir, cfg, prompts_obj, prompt_text)
+        write_state(
+            run_dir,
+            RunState(
+                status="dry_run",
+                author_model=cfg.author_model,
+                judge_model=cfg.judge_model or cfg.author_model,
+            ),
+        )
+        return
+
+    quiet = ctx.obj.get("quiet", False)
+    no_color = ctx.obj.get("no_color", False)
+    if not quiet:
+        click.echo(f"Extending: {prev_dir}")
+        _print_run_header(run_dir, cfg)
+    _execute_loop(
+        run_dir, cfg, prompts_obj, prompt_text,
+        quiet=quiet, no_color=no_color, is_resume=False,
+        interactive=interactive,
     )
 
 
