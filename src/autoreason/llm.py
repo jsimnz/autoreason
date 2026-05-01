@@ -193,6 +193,7 @@ async def call_llm(
     max_retries: int = 5,
     cost_tracker: CostTracker | None = None,
     on_budget_exhausted: BudgetExhaustedHandler | None = None,
+    stream_path: Path | None = None,
 ) -> str:
     """Invoke `model` with one system + one user message. Returns the text response.
 
@@ -204,6 +205,10 @@ async def call_llm(
     the user has restored their budget — and then the call is retried in full.
     Without a handler, the original exception is re-raised so the caller can
     surface or persist it.
+
+    When `stream_path` is set, incremental tokens are flushed to that file as
+    they arrive so external readers (the live TUI, `autoreason attach`) can
+    tail it. The file is truncated at the start of each attempt.
     """
     messages = [
         {"role": "system", "content": system},
@@ -215,6 +220,13 @@ async def call_llm(
             if cost_tracker is not None:
                 cost_tracker.in_flight_prompt_tokens = 0
                 cost_tracker.in_flight_completion_tokens = 0
+            stream_file = None
+            if stream_path is not None:
+                try:
+                    stream_path.parent.mkdir(parents=True, exist_ok=True)
+                    stream_file = stream_path.open("w", buffering=1)
+                except OSError:
+                    stream_file = None
             try:
                 stream = await litellm.acompletion(
                     model=model,
@@ -248,11 +260,23 @@ async def call_llm(
                         text_parts.append(dc)
                         if cost_tracker is not None:
                             cost_tracker.in_flight_completion_tokens += 1
+                        if stream_file is not None:
+                            try:
+                                stream_file.write(dc)
+                                stream_file.flush()
+                            except OSError:
+                                stream_file = None
                     rc = getattr(delta, "reasoning_content", None) or getattr(delta, "reasoning", None)
                     if rc:
                         reasoning_parts.append(rc)
                         if cost_tracker is not None:
                             cost_tracker.in_flight_completion_tokens += 1
+                        if stream_file is not None:
+                            try:
+                                stream_file.write(rc)
+                                stream_file.flush()
+                            except OSError:
+                                stream_file = None
 
                 text = "".join(text_parts) or "".join(reasoning_parts)
 
@@ -291,6 +315,12 @@ async def call_llm(
                     raise
                 wait = min((2**attempt) * 5, 120)
                 await asyncio.sleep(wait)
+            finally:
+                if stream_file is not None:
+                    try:
+                        stream_file.close()
+                    except OSError:
+                        pass
 
         # Inner loop only falls through here on a budget-exhaustion break.
         if last_exc is not None and _is_budget_exhaustion(last_exc):

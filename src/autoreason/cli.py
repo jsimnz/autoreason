@@ -52,7 +52,15 @@ from autoreason.compare import (
 )
 from autoreason.interactive import InteractivePauser
 from autoreason.signals import VALID_COMMANDS, SignalHandler, append_command
-from autoreason.ui import attach_loop, ui_enabled, ui_task
+from autoreason.ui import (
+    ViewState,
+    _run_quit_handler,
+    _stdin_is_interactive,
+    attach_loop,
+    keyboard_task,
+    ui_enabled,
+    ui_task,
+)
 
 
 def _load_envs() -> None:
@@ -670,13 +678,19 @@ def _execute_loop(
     )
     prompt_preview = prompt_text.splitlines()[0] if prompt_text.splitlines() else prompt_text
 
+    view_state = ViewState()
+
     async def _driver() -> RunResult:
         tasks: list[asyncio.Task[None]] = []
         tasks.append(asyncio.create_task(heartbeat_task(monitor)))
         if show_ui:
             tasks.append(asyncio.create_task(
-                ui_task(monitor, run_dir, prompt_preview, cfg_summary)
+                ui_task(monitor, run_dir, prompt_preview, cfg_summary, state=view_state)
             ))
+            if _stdin_is_interactive():
+                tasks.append(asyncio.create_task(
+                    keyboard_task(view_state, run_dir, on_quit=_run_quit_handler(run_dir))
+                ))
         try:
             return await run_autoreason_loop(
                 prompt_text,
