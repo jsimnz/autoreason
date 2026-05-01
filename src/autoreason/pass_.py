@@ -50,6 +50,8 @@ async def run_pass(
 ) -> tuple[str, str, PassResult]:
     """Run one pass. Returns (winner_label, winner_text, result_dict)."""
     pass_dir.mkdir(parents=True, exist_ok=True)
+    streams_dir = pass_dir / "streams"
+    streams_dir.mkdir(parents=True, exist_ok=True)
 
     resumed = _try_resume(pass_dir, current_a)
     if resumed is not None:
@@ -96,6 +98,7 @@ async def run_pass(
         max_retries=config.max_retries,
         cost_tracker=cost_tracker,
         on_budget_exhausted=on_budget_exhausted,
+        stream_path=streams_dir / "critic.md",
     )
     (pass_dir / "critic.md").write_text(critic_text)
     _emit_phase_complete(events, pass_num, PHASE_CRITIC, phase_t0)
@@ -117,6 +120,7 @@ async def run_pass(
         max_retries=config.max_retries,
         cost_tracker=cost_tracker,
         on_budget_exhausted=on_budget_exhausted,
+        stream_path=streams_dir / "author_b.md",
     )
     (pass_dir / "version_b.md").write_text(version_b)
     _emit_phase_complete(events, pass_num, PHASE_AUTHOR_B, phase_t0)
@@ -142,6 +146,7 @@ async def run_pass(
         max_retries=config.max_retries,
         cost_tracker=cost_tracker,
         on_budget_exhausted=on_budget_exhausted,
+        stream_path=streams_dir / "synthesizer.md",
     )
     (pass_dir / "version_ab.md").write_text(version_ab)
     _emit_phase_complete(events, pass_num, PHASE_SYNTH, phase_t0)
@@ -171,6 +176,7 @@ async def run_pass(
                 max_retries=config.max_retries,
                 cost_tracker=cost_tracker,
                 on_budget_exhausted=on_budget_exhausted,
+                stream_path=streams_dir / f"judge_{i + 1:02d}.md",
             )
         )
 

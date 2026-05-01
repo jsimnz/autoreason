@@ -196,6 +196,8 @@ async def _generate_or_reuse_initial(
     if dry_run:
         return "[DRY RUN — initial_a placeholder]"
     system, user = prompts.render("author_a", task_prompt=task_prompt)
+    streams_dir = task_dir / "streams"
+    streams_dir.mkdir(parents=True, exist_ok=True)
     text = await call_llm(
         system,
         user,
@@ -205,6 +207,7 @@ async def _generate_or_reuse_initial(
         max_retries=config.max_retries,
         cost_tracker=cost_tracker,
         on_budget_exhausted=on_budget_exhausted,
+        stream_path=streams_dir / "initial.md",
     )
     init_file.write_text(text)
     return text
