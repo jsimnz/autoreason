@@ -24,6 +24,8 @@ class TestHelp:
         assert "--prompt" in r.output
         assert "--dry-run" in r.output
         assert "--interactive" in r.output
+        for flag in ("--author-a-model", "--critic-model", "--author-b-model", "--synthesizer-model"):
+            assert flag in r.output
 
     def test_version(self):
         r = CliRunner().invoke(main, ["--version"])
@@ -44,6 +46,27 @@ class TestDryRun:
         assert (out / "prompt.md").exists()
         state = json.loads((out / "state.json").read_text())
         assert state["status"] == "dry_run"
+
+    def test_dry_run_with_role_models(self, tmp_path: Path):
+        out = tmp_path / "run_roles"
+        r = CliRunner().invoke(
+            main,
+            [
+                "run", "--prompt", "x", "--dry-run", "--output", str(out),
+                "--model", "a/x",
+                "--critic-model", "c/y",
+                "--author-b-model", "b/z",
+            ],
+        )
+        assert r.exit_code == 0, r.output
+        import yaml as _yaml
+        cfg = _yaml.safe_load((out / "config.yaml").read_text())
+        assert cfg["author_model"] == "a/x"
+        assert cfg["critic_model"] == "c/y"
+        assert cfg["author_b_model"] == "b/z"
+        # synthesizer/author_a unset -> still None in snapshot
+        assert cfg["synthesizer_model"] is None
+        assert cfg["author_a_model"] is None
 
     def test_dry_run_with_prompt_file(self, tmp_path: Path):
         src = tmp_path / "idea.md"

@@ -86,10 +86,11 @@ async def run_pass(
     critic_system, critic_user = prompts.render(
         "critic", version_a=current_a, task_prompt=task_prompt, injection=injection
     )
+    critic_model = config.model_for_role("critic")
     critic_text = await call_llm(
         critic_system,
         critic_user,
-        config.author_model,
+        critic_model,
         config.author_temperature,
         config.max_tokens,
         max_retries=config.max_retries,
@@ -106,10 +107,11 @@ async def run_pass(
     b_system, b_user = prompts.render(
         "author_b", task_prompt=task_prompt, version_a=current_a, critic=critic_text
     )
+    author_b_model = config.model_for_role("author_b")
     version_b = await call_llm(
         b_system,
         b_user,
-        config.author_model,
+        author_b_model,
         config.author_temperature,
         config.max_tokens,
         max_retries=config.max_retries,
@@ -130,10 +132,11 @@ async def run_pass(
     s_system, s_user = prompts.render(
         "synthesizer", task_prompt=task_prompt, version_x=vx, version_y=vy
     )
+    synthesizer_model = config.model_for_role("synthesizer")
     version_ab = await call_llm(
         s_system,
         s_user,
-        config.author_model,
+        synthesizer_model,
         config.author_temperature,
         config.max_tokens,
         max_retries=config.max_retries,
@@ -210,6 +213,9 @@ async def run_pass(
         "judge_details": judge_details,
         "elapsed_seconds": elapsed,
         "author_model": config.author_model,
+        "critic_model": critic_model,
+        "author_b_model": author_b_model,
+        "synthesizer_model": synthesizer_model,
         "judge_model": config.judge_model or config.author_model,
         "judge_models": judge_models_used,
         "cost_usd": round(pass_cost, 6),

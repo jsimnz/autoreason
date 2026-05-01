@@ -73,7 +73,11 @@ def main(ctx: click.Context, verbose: bool, quiet: bool, no_color: bool, log_fil
 @click.option("--prompt", type=str, help="Prompt text (inline).")
 @click.option("--prompt-file", type=click.Path(exists=True, dir_okay=False), help="Read prompt from FILE.")
 @click.option("--output", "-o", type=click.Path(file_okay=False), help="Output directory for this run.")
-@click.option("--model", type=str, help="Author model (litellm ID).")
+@click.option("--model", type=str, help="Default author-side model. Used for any role (author_a, critic, author_b, synthesizer) without its own --*-model flag.")
+@click.option("--author-a-model", "author_a_model", type=str, help="Override the model used for the initial author_a draft.")
+@click.option("--critic-model", "critic_model", type=str, help="Override the model used for the critic.")
+@click.option("--author-b-model", "author_b_model", type=str, help="Override the model used for the adversarial author_b revision.")
+@click.option("--synthesizer-model", "synthesizer_model", type=str, help="Override the model used for the synthesizer.")
 @click.option(
     "--judge-model",
     "judge_model",
@@ -102,6 +106,10 @@ def run(
     prompt_file: str | None,
     output: str | None,
     model: str | None,
+    author_a_model: str | None,
+    critic_model: str | None,
+    author_b_model: str | None,
+    synthesizer_model: str | None,
     judge_model: tuple[str, ...],
     judges: int | None,
     max_passes: int | None,
@@ -126,6 +134,10 @@ def run(
 
     overrides: dict[str, Any] = {
         "author_model": model,
+        "author_a_model": author_a_model,
+        "critic_model": critic_model,
+        "author_b_model": author_b_model,
+        "synthesizer_model": synthesizer_model,
         "judge_model": judge_model_single,
         "judge_models": judge_models_list,
         "num_judges": judges,
@@ -607,6 +619,18 @@ def _resolve_prompt(prompt: str | None, prompt_file: str | None) -> str:
 def _print_run_header(run_dir: Path, cfg: Config) -> None:
     click.echo(f"Run dir: {run_dir}")
     click.echo(f"Author:  {cfg.author_model} (temp={cfg.author_temperature})")
+    role_overrides = [
+        (label, getattr(cfg, attr))
+        for label, attr in (
+            ("author_a", "author_a_model"),
+            ("critic", "critic_model"),
+            ("author_b", "author_b_model"),
+            ("synthesizer", "synthesizer_model"),
+        )
+        if getattr(cfg, attr)
+    ]
+    for label, m in role_overrides:
+        click.echo(f"  {label}: {m}")
     if cfg.judge_panel_is_heterogeneous:
         panel = ", ".join(cfg.judge_models or [])
         click.echo(f"Judges:  [{panel}] (temp={cfg.judge_temperature})")
