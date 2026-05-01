@@ -25,6 +25,15 @@ class Config(BaseModel):
         default=None,
         description="Model used for judges. Falls back to author_model when None.",
     )
+    judge_models: list[str] | None = Field(
+        default=None,
+        description=(
+            "Optional heterogeneous judge panel. If num_judges is left at its default, "
+            "len(judge_models) defines the panel size. If num_judges is set explicitly, "
+            "it wins and judge_models is round-robined across the panel (e.g. 4 judges "
+            "from 2 models → A,B,A,B). num_judges < len(judge_models) is rejected."
+        ),
+    )
     author_temperature: float = Field(default=0.8, ge=0.0, le=2.0)
     judge_temperature: float = Field(default=0.3, ge=0.0, le=2.0)
     max_tokens: int = Field(default=4096, gt=0)
@@ -36,12 +45,44 @@ class Config(BaseModel):
         description="Consecutive A wins required to declare convergence.",
     )
     max_retries: int = Field(default=5, ge=1, description="Retries per LLM call on rate/overload errors.")
+    track_cost: bool = Field(
+        default=False,
+        description="Opt in to dollar-cost tracking via litellm.completion_cost. "
+        "When False (default), only token counts are recorded.",
+    )
 
     @model_validator(mode="after")
     def _default_judge_model(self) -> "Config":
+        if self.judge_models:
+            num_judges_explicit = "num_judges" in self.model_fields_set
+            if len(self.judge_models) > 1 and not num_judges_explicit:
+                # Ergonomic case: user listed N models, panel size follows.
+                self.num_judges = len(self.judge_models)
+            elif self.num_judges < len(self.judge_models):
+                raise ValueError(
+                    f"num_judges ({self.num_judges}) is smaller than the number of "
+                    f"judge_models provided ({len(self.judge_models)}); "
+                    f"raise --judges or remove models."
+                )
+            if self.judge_model is None:
+                self.judge_model = self.judge_models[0]
         if self.judge_model is None:
             self.judge_model = self.author_model
         return self
+
+    def model_for_judge(self, i: int) -> str:
+        """Resolve the model string for the i-th judge (0-indexed).
+
+        If judge_models is shorter than num_judges, the list is round-robined:
+        judge i uses judge_models[i % len(judge_models)].
+        """
+        if self.judge_models:
+            return self.judge_models[i % len(self.judge_models)]
+        return self.judge_model or self.author_model
+
+    @property
+    def judge_panel_is_heterogeneous(self) -> bool:
+        return bool(self.judge_models) and len(set(self.judge_models)) > 1
 
     @classmethod
     def load(

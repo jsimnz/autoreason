@@ -27,6 +27,7 @@ from autoreason.artifacts import (
     LoopMonitor,
     read_state,
 )
+from autoreason.llm import format_spend
 
 _PHASE_ORDER = (PHASE_INITIAL,) + PHASES_IN_PASS  # initial, critic, author_b, synth, judges
 
@@ -122,10 +123,16 @@ def _trajectory(run_dir: Path, monitor: LoopMonitor) -> Text:
 
 def _stats(monitor: LoopMonitor) -> Text:
     snap = monitor.snapshot()
+    spend = format_spend(
+        snap.get("prompt_tokens", 0),
+        snap.get("completion_tokens", 0),
+        snap.get("total_cost_usd", 0.0),
+        snap.get("cost_tracked", False),
+    )
     return Text.from_markup(
         f"pass [bold]{snap['pass']}[/]    "
         f"phase elapsed [bold]{snap['elapsed_in_phase_s']:.1f}s[/]    "
-        f"cost [bold]${snap['total_cost_usd']:.4f}[/]    "
+        f"[bold]{spend}[/]    "
         f"calls [bold]{snap['num_calls']}[/]"
     )
 
@@ -195,10 +202,19 @@ def _render_from_files(run_dir: Path, prompt_preview: str, config_summary: str) 
     cost = hb.get("total_cost_usd", 0.0) if hb else 0.0
     calls = hb.get("num_calls", 0) if hb else 0
     streak = hb.get("streak", 0) if hb else 0
+    prompt_tok = hb.get("prompt_tokens", 0) if hb else 0
+    completion_tok = hb.get("completion_tokens", 0) if hb else 0
+    cost_tracked = hb.get("cost_tracked", False) if hb else False
 
     try:
         state = read_state(run_dir)
         status_line = f"status: [bold]{state.status}[/]"
+        # state.json is authoritative for cost_tracked (heartbeat may predate flag)
+        cost_tracked = cost_tracked or state.cost_tracked
+        if not hb:
+            prompt_tok = state.prompt_tokens
+            completion_tok = state.completion_tokens
+            cost = state.cost_usd
     except FileNotFoundError:
         status_line = "[dim]status: unknown[/]"
 
@@ -215,9 +231,10 @@ def _render_from_files(run_dir: Path, prompt_preview: str, config_summary: str) 
     m = _M()
     m.streak = streak  # type: ignore[attr-defined]
 
+    spend = format_spend(prompt_tok, completion_tok, cost, cost_tracked)
     stats_text = Text.from_markup(
         f"pass [bold]{pass_num}[/]    phase elapsed [bold]{elapsed:.1f}s[/]    "
-        f"cost [bold]${cost:.4f}[/]    calls [bold]{calls}[/]"
+        f"[bold]{spend}[/]    calls [bold]{calls}[/]"
     )
 
     body = Group(

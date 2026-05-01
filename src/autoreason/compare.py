@@ -21,7 +21,7 @@ from autoreason.artifacts import (
     read_state,
 )
 from autoreason.config import Config
-from autoreason.llm import CostTracker, call_llm
+from autoreason.llm import CostTracker, call_llm, format_spend
 
 
 @dataclass
@@ -32,6 +32,9 @@ class RunSummary:
     status: str
     num_passes: int
     cost_usd: float
+    prompt_tokens: int
+    completion_tokens: int
+    cost_tracked: bool
     trajectory: str
     final_words: int
     converged: bool
@@ -59,6 +62,9 @@ def summarize_run(run_dir: Path) -> RunSummary | None:
         status=state.status,
         num_passes=state.num_passes,
         cost_usd=state.cost_usd,
+        prompt_tokens=state.prompt_tokens,
+        completion_tokens=state.completion_tokens,
+        cost_tracked=state.cost_tracked,
         trajectory=trajectory,
         final_words=final_words,
         converged=state.status == "converged",
@@ -90,11 +96,12 @@ def list_run_summaries(root: Path) -> list[RunSummary]:
 
 def render_list_table(summaries: list[RunSummary]) -> Table:
     """Render a list of runs as a rich Table."""
+    any_cost = any(s.cost_tracked for s in summaries)
     table = Table(title="AutoReason runs", header_style="bold cyan", show_lines=False)
     table.add_column("Run", style="cyan", overflow="fold")
     table.add_column("Status")
     table.add_column("Passes", justify="right")
-    table.add_column("Cost", justify="right")
+    table.add_column("Cost" if any_cost else "Usage", justify="right")
     table.add_column("Words", justify="right")
     table.add_column("Trajectory", overflow="fold")
     table.add_column("Prompt", overflow="fold")
@@ -111,7 +118,7 @@ def render_list_table(summaries: list[RunSummary]) -> Table:
             str(s.run_dir.name),
             f"[{status_style}]{s.status}[/]",
             str(s.num_passes),
-            f"${s.cost_usd:.4f}",
+            format_spend(s.prompt_tokens, s.completion_tokens, s.cost_usd, s.cost_tracked),
             str(s.final_words),
             s.trajectory or "—",
             s.prompt_head,
@@ -121,12 +128,13 @@ def render_list_table(summaries: list[RunSummary]) -> Table:
 
 def render_compare_table(summaries: list[RunSummary]) -> Table:
     """Render a side-by-side comparison of runs."""
+    any_cost = any(s.cost_tracked for s in summaries)
     table = Table(title="AutoReason — compare", header_style="bold cyan")
     table.add_column("Run")
     table.add_column("Status")
     table.add_column("Passes", justify="right")
     table.add_column("Converged")
-    table.add_column("Cost", justify="right")
+    table.add_column("Cost" if any_cost else "Usage", justify="right")
     table.add_column("Words", justify="right")
     table.add_column("Trajectory")
     for s in summaries:
@@ -135,7 +143,7 @@ def render_compare_table(summaries: list[RunSummary]) -> Table:
             s.status,
             str(s.num_passes),
             "yes" if s.converged else "no",
-            f"${s.cost_usd:.4f}",
+            format_spend(s.prompt_tokens, s.completion_tokens, s.cost_usd, s.cost_tracked),
             str(s.final_words),
             s.trajectory,
         )
@@ -168,12 +176,18 @@ async def judge_runs(
         finals.append((label, final.read_text()))
 
     cfg: Config = read_config_snapshot(run_dirs[0])
-    judge_model = model or cfg.judge_model or cfg.author_model
-    cost = CostTracker()
+    # Per-judge model: --model override broadcasts to every judge; else honor the
+    # snapshotted panel (cfg.judge_models for heterogeneous, else the singular field).
+    def _judge_model_for(idx: int) -> str:
+        if model is not None:
+            return model
+        return cfg.model_for_judge(idx)
+    cost = CostTracker(track_cost=cfg.track_cost)
 
     # Use the existing judge pattern: shuffle per judge, parse RANKING, Borda aggregate.
     scores: dict[str, int] = {label: 0 for label, _ in finals}
     raw_rankings: list[list[str]] = []
+    models_used: list[str] = []
 
     for j in range(num_judges):
         shuffled = list(finals)
@@ -203,9 +217,11 @@ async def judge_runs(
             "You are an independent evaluator. You have no authorship stake in any version. "
             "Your job is to determine which version best accomplishes the original task as described."
         )
+        jmodel = _judge_model_for(j)
+        models_used.append(jmodel)
         response = await call_llm(
             system, user,
-            judge_model, cfg.judge_temperature, cfg.max_tokens,
+            jmodel, cfg.judge_temperature, cfg.max_tokens,
             max_retries=cfg.max_retries, cost_tracker=cost,
         )
         ranking = parse_ranking(response, order_map)
@@ -220,14 +236,23 @@ async def judge_runs(
     # Map labels back to run dirs
     label_to_dir = {chr(ord("X") + i): d for i, d in enumerate(run_dirs)}
     ranked_labels = sorted(scores.keys(), key=lambda k: -scores[k])
+    # Keep scalar `model` for back-compat: first used model if panel was homogeneous,
+    # else a display marker. `models` carries the full per-judge panel.
+    display_model = models_used[0] if models_used and len(set(models_used)) == 1 else (
+        "mixed" if models_used else (model or cfg.judge_model or cfg.author_model)
+    )
     return {
         "num_judges": num_judges,
-        "model": judge_model,
+        "model": display_model,
+        "models": models_used,
         "rankings": raw_rankings,
         "scores": scores,
         "winner_dir": str(label_to_dir[ranked_labels[0]]),
         "ordered": [{"label": l, "dir": str(label_to_dir[l]), "score": scores[l]} for l in ranked_labels],
         "cost_usd": round(cost.total_usd, 6),
+        "prompt_tokens": cost.total_prompt_tokens,
+        "completion_tokens": cost.total_completion_tokens,
+        "cost_tracked": cost.track_cost,
     }
 
 

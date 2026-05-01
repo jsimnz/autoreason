@@ -42,9 +42,19 @@ class CallRecord:
 
 @dataclass
 class CostTracker:
-    """Accumulates tokens and cost across all calls in a run."""
+    """Accumulates tokens across all calls in a run; dollar cost is opt-in.
+
+    By default, only token counts are recorded. Set `track_cost=True` to also
+    compute dollar cost per call via `litellm.completion_cost`. Cost tracking
+    requires litellm to have pricing data for the model; when missing, cost is
+    silently 0.0.
+    """
 
     calls: list[CallRecord] = field(default_factory=list)
+    track_cost: bool = False
+    # Live counters updated mid-stream by call_llm; folded into a CallRecord and reset on finalize.
+    in_flight_prompt_tokens: int = 0
+    in_flight_completion_tokens: int = 0
 
     @property
     def total_usd(self) -> float:
@@ -52,11 +62,11 @@ class CostTracker:
 
     @property
     def total_prompt_tokens(self) -> int:
-        return sum(c.prompt_tokens for c in self.calls)
+        return sum(c.prompt_tokens for c in self.calls) + self.in_flight_prompt_tokens
 
     @property
     def total_completion_tokens(self) -> int:
-        return sum(c.completion_tokens for c in self.calls)
+        return sum(c.completion_tokens for c in self.calls) + self.in_flight_completion_tokens
 
     @property
     def num_calls(self) -> int:
@@ -84,7 +94,33 @@ class CostTracker:
             "total_usd": round(self.total_usd, 6),
             "prompt_tokens": self.total_prompt_tokens,
             "completion_tokens": self.total_completion_tokens,
+            "cost_tracked": self.track_cost,
         }
+
+
+def _format_tokens(n: int) -> str:
+    if n < 1000:
+        return str(n)
+    if n < 1_000_000:
+        return f"{n / 1000:.1f}k"
+    return f"{n / 1_000_000:.2f}M"
+
+
+def format_spend(
+    prompt_tokens: int,
+    completion_tokens: int,
+    cost_usd: float,
+    cost_tracked: bool,
+) -> str:
+    """Compact one-line spend summary. Uses dollars if tracked, tokens otherwise."""
+    total_tok = prompt_tokens + completion_tokens
+    tok_str = (
+        f"{_format_tokens(total_tok)} tok "
+        f"({_format_tokens(prompt_tokens)} in / {_format_tokens(completion_tokens)} out)"
+    )
+    if cost_tracked:
+        return f"${cost_usd:.4f}  {tok_str}"
+    return tok_str
 
 
 _RETRYABLE_MARKERS = ("rate", "429", "overloaded", "529", "timeout", "connection")
@@ -110,29 +146,105 @@ async def call_llm(
     Retries with exponential backoff on rate-limit / overload / transient errors.
     Records token usage and dollar cost to `cost_tracker` if provided.
     """
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": user},
+    ]
     last_exc: BaseException | None = None
     for attempt in range(max_retries):
+        if cost_tracker is not None:
+            cost_tracker.in_flight_prompt_tokens = 0
+            cost_tracker.in_flight_completion_tokens = 0
         try:
-            response = await litellm.acompletion(
+            stream = await litellm.acompletion(
                 model=model,
-                messages=[
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": user},
-                ],
+                messages=messages,
                 temperature=temperature,
                 max_tokens=max_tokens,
+                stream=True,
+                stream_options={"include_usage": True},
             )
+            text_parts: list[str] = []
+            reasoning_parts: list[str] = []
+            finish_reason: str = "unknown"
+            chunks: list[Any] = []
+            async for chunk in stream:
+                chunks.append(chunk)
+                usage = getattr(chunk, "usage", None)
+                if usage is not None and cost_tracker is not None:
+                    cost_tracker.in_flight_prompt_tokens = getattr(usage, "prompt_tokens", 0) or 0
+                choices = getattr(chunk, "choices", None) or []
+                if not choices:
+                    continue
+                ch0 = choices[0]
+                fr = getattr(ch0, "finish_reason", None)
+                if fr:
+                    finish_reason = fr
+                delta = getattr(ch0, "delta", None)
+                if delta is None:
+                    continue
+                dc = getattr(delta, "content", None)
+                if dc:
+                    text_parts.append(dc)
+                    if cost_tracker is not None:
+                        cost_tracker.in_flight_completion_tokens += 1
+                rc = getattr(delta, "reasoning_content", None) or getattr(delta, "reasoning", None)
+                if rc:
+                    reasoning_parts.append(rc)
+                    if cost_tracker is not None:
+                        cost_tracker.in_flight_completion_tokens += 1
+
+            text = "".join(text_parts) or "".join(reasoning_parts)
+
             if cost_tracker is not None:
-                _record(cost_tracker, response, model)
-            return response.choices[0].message.content  # type: ignore[union-attr]
+                final_response = _rebuild_response(chunks, messages)
+                if final_response is not None:
+                    _record(cost_tracker, final_response, model)
+                else:
+                    cost_tracker.record(
+                        model=model,
+                        prompt_tokens=cost_tracker.in_flight_prompt_tokens,
+                        completion_tokens=cost_tracker.in_flight_completion_tokens,
+                        cost_usd=0.0,
+                    )
+                cost_tracker.in_flight_prompt_tokens = 0
+                cost_tracker.in_flight_completion_tokens = 0
+
+            if not text:
+                raise RuntimeError(
+                    f"LLM returned empty content (model={model}, finish_reason={finish_reason}). "
+                    f"For reasoning models, this usually means max_tokens ({max_tokens}) "
+                    f"was too low — reasoning tokens consumed the full budget. "
+                    f"Try raising max_tokens or switching to a non-reasoning variant."
+                )
+            return text
         except Exception as exc:  # noqa: BLE001 — we genuinely want broad retry
             last_exc = exc
+            if cost_tracker is not None:
+                cost_tracker.in_flight_prompt_tokens = 0
+                cost_tracker.in_flight_completion_tokens = 0
             if not _is_retryable(exc) or attempt == max_retries - 1:
                 raise
             wait = min((2**attempt) * 5, 120)
             await asyncio.sleep(wait)
     # Unreachable in practice — the raise above covers final attempts.
     raise RuntimeError(f"call_llm failed after {max_retries} retries") from last_exc
+
+
+def _rebuild_response(chunks: list[Any], messages: list[dict[str, Any]]) -> Any | None:
+    """Reassemble streamed chunks into a non-streaming-shaped response.
+
+    Used so `_record` / `litellm.completion_cost` can operate unchanged. Returns
+    None if the builder isn't available or fails — callers fall back to the
+    in-flight counters.
+    """
+    builder = getattr(litellm, "stream_chunk_builder", None)
+    if builder is None:
+        return None
+    try:
+        return builder(chunks, messages=messages)
+    except Exception:  # noqa: BLE001 — best-effort, fall back to raw counts
+        return None
 
 
 def _record(tracker: CostTracker, response: Any, model: str) -> None:
@@ -145,9 +257,10 @@ def _record(tracker: CostTracker, response: Any, model: str) -> None:
         completion_tokens = getattr(usage, "completion_tokens", 0) or 0
 
     cost_usd = 0.0
-    try:
-        cost_usd = float(litellm.completion_cost(completion_response=response) or 0.0)
-    except Exception:  # noqa: BLE001 — missing pricing data shouldn't fail a run
-        cost_usd = 0.0
+    if tracker.track_cost:
+        try:
+            cost_usd = float(litellm.completion_cost(completion_response=response) or 0.0)
+        except Exception:  # noqa: BLE001 — missing pricing data shouldn't fail a run
+            cost_usd = 0.0
 
     tracker.record(model=model, prompt_tokens=prompt_tokens, completion_tokens=completion_tokens, cost_usd=cost_usd)

@@ -144,18 +144,21 @@ async def run_pass(
         monitor.set_phase(pass_num, PHASE_JUDGES)
     phase_t0 = time.monotonic()
     judge_orders: list[dict[str, str]] = []
+    judge_models_used: list[str] = []
     judge_coros = []
-    for _ in range(config.num_judges):
+    for i in range(config.num_judges):
         proposals, order_map = randomize_for_judge(current_a, version_b, version_ab)
         judge_orders.append(order_map)
         j_system, j_user = prompts.render(
             "judge", task_prompt=task_prompt, judge_proposals=proposals
         )
+        judge_model_i = config.model_for_judge(i)
+        judge_models_used.append(judge_model_i)
         judge_coros.append(
             call_llm(
                 j_system,
                 j_user,
-                config.judge_model or config.author_model,
+                judge_model_i,
                 config.judge_temperature,
                 config.max_tokens,
                 max_retries=config.max_retries,
@@ -167,16 +170,20 @@ async def run_pass(
 
     rankings: list[list[str] | None] = []
     judge_details: list[dict[str, Any]] = []
-    for j, (response, order_map) in enumerate(zip(judge_responses, judge_orders), start=1):
+    for j, (response, order_map, jmodel) in enumerate(
+        zip(judge_responses, judge_orders, judge_models_used), start=1
+    ):
         if isinstance(response, BaseException):
             rankings.append(None)
-            judge_details.append({"judge": j, "error": str(response), "presentation_order": order_map})
+            judge_details.append(
+                {"judge": j, "model": jmodel, "error": str(response), "presentation_order": order_map}
+            )
             (pass_dir / f"judge_{j:02d}.md").write_text(f"ERROR: {response}")
         else:
             ranking = parse_ranking(response, order_map)
             rankings.append(ranking)
             judge_details.append(
-                {"judge": j, "ranking": ranking, "presentation_order": order_map}
+                {"judge": j, "model": jmodel, "ranking": ranking, "presentation_order": order_map}
             )
             (pass_dir / f"judge_{j:02d}.md").write_text(response)
     _emit_phase_complete(events, pass_num, PHASE_JUDGES, phase_t0, num_judges=config.num_judges)
@@ -199,6 +206,7 @@ async def run_pass(
         "elapsed_seconds": elapsed,
         "author_model": config.author_model,
         "judge_model": config.judge_model or config.author_model,
+        "judge_models": judge_models_used,
         "cost_usd": round(pass_cost, 6),
         "winner_words": len(winner_text.split()),
     }

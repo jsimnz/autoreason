@@ -28,7 +28,7 @@ from autoreason.artifacts import (
     write_state,
 )
 from autoreason.config import Config
-from autoreason.llm import CostTracker, load_dotenv
+from autoreason.llm import CostTracker, format_spend, load_dotenv
 from autoreason.loop import RunResult, run_autoreason_loop
 from autoreason.prompts import Prompts
 from autoreason.resume import (
@@ -73,14 +73,27 @@ def main(ctx: click.Context, verbose: bool, quiet: bool, no_color: bool, log_fil
 @click.option("--prompt-file", type=click.Path(exists=True, dir_okay=False), help="Read prompt from FILE.")
 @click.option("--output", "-o", type=click.Path(file_okay=False), help="Output directory for this run.")
 @click.option("--model", type=str, help="Author model (litellm ID).")
-@click.option("--judge-model", type=str, help="Judge model (defaults to author model).")
+@click.option(
+    "--judge-model",
+    "judge_model",
+    type=str,
+    multiple=True,
+    help="Judge model. Pass once for a homogeneous panel, or repeat to configure a heterogeneous panel. With --judges N, models round-robin across N judges (e.g. 2 models + --judges 4 → A,B,A,B).",
+)
 @click.option("--judges", type=int, help="Number of judges in the panel.")
 @click.option("--max-passes", type=int, help="Maximum number of refinement passes.")
+@click.option("--max-tokens", type=int, help="Max completion tokens per LLM call.")
 @click.option("--convergence", type=int, help="Consecutive A wins required to converge.")
 @click.option("--config", "config_path", type=click.Path(exists=True, dir_okay=False), help="YAML config file.")
 @click.option("--prompts", "prompts_path", type=click.Path(exists=True, dir_okay=False), help="YAML prompts override file.")
 @click.option("--interactive", is_flag=True, help="Pause after each pass for user input.")
 @click.option("--dry-run", is_flag=True, help="Print plan without calling any LLM.")
+@click.option(
+    "--track-cost/--no-track-cost",
+    "track_cost",
+    default=None,
+    help="Opt in to dollar-cost tracking (default: token counts only).",
+)
 @click.pass_context
 def run(
     ctx: click.Context,
@@ -88,24 +101,37 @@ def run(
     prompt_file: str | None,
     output: str | None,
     model: str | None,
-    judge_model: str | None,
+    judge_model: tuple[str, ...],
     judges: int | None,
     max_passes: int | None,
+    max_tokens: int | None,
     convergence: int | None,
     config_path: str | None,
     prompts_path: str | None,
     interactive: bool,
     dry_run: bool,
+    track_cost: bool | None,
 ) -> None:
     """Run a new refinement loop on a prompt."""
     prompt_text = _resolve_prompt(prompt, prompt_file)
 
+    judge_model_single: str | None = None
+    judge_models_list: list[str] | None = None
+    if judge_model:
+        if len(judge_model) == 1:
+            judge_model_single = judge_model[0]
+        else:
+            judge_models_list = list(judge_model)
+
     overrides: dict[str, Any] = {
         "author_model": model,
-        "judge_model": judge_model,
+        "judge_model": judge_model_single,
+        "judge_models": judge_models_list,
         "num_judges": judges,
         "max_passes": max_passes,
+        "max_tokens": max_tokens,
         "convergence_threshold": convergence,
+        "track_cost": track_cost,
     }
     cfg = Config.load(config_path=config_path, overrides=overrides)
     prompts_obj = Prompts.load(override_path=prompts_path)
@@ -161,8 +187,11 @@ def resume(ctx: click.Context, run_dir: str) -> None:
     quiet = ctx.obj.get("quiet", False)
     no_color = ctx.obj.get("no_color", False)
     if not quiet:
+        prior_spend = format_spend(
+            state.prompt_tokens, state.completion_tokens, state.cost_usd, state.cost_tracked
+        )
         click.echo(f"Resuming: {rd}")
-        click.echo(f"Prior status: {state.status}, {state.num_passes} passes, ${state.cost_usd:.4f} cost")
+        click.echo(f"Prior status: {state.status}, {state.num_passes} passes, {prior_spend}")
         click.echo("")
 
     _execute_loop(
@@ -195,8 +224,9 @@ def status(run_dir: str) -> None:
     click.echo(f"Author:    {s.author_model}")
     click.echo(f"Judge:     {s.judge_model}")
     click.echo(f"Passes:    {s.num_passes}")
-    click.echo(f"Cost:      ${s.cost_usd:.4f}  ({s.num_calls} calls, "
-               f"{s.prompt_tokens}+{s.completion_tokens} tokens)")
+    spend = format_spend(s.prompt_tokens, s.completion_tokens, s.cost_usd, s.cost_tracked)
+    label = "Cost" if s.cost_tracked else "Usage"
+    click.echo(f"{label}:     {spend}  ({s.num_calls} calls)")
     if s.pid:
         click.echo(f"PID:       {s.pid} ({'alive' if live else 'not running'})")
     if s.error:
@@ -305,7 +335,14 @@ def compare(run_dirs: tuple[str, ...], judge: bool, num_judges: int, model: str 
         for rank, item in enumerate(result["ordered"], start=1):
             medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(rank, "  ") if not ctx_no_color() else f"#{rank}"
             click.echo(f"  {medal}  {item['dir']}  (score {item['score']})")
-        click.echo(f"\nJudge cost: ${result['cost_usd']:.4f}  ({result['model']})")
+        judge_spend = format_spend(
+            result.get("prompt_tokens", 0),
+            result.get("completion_tokens", 0),
+            result["cost_usd"],
+            result.get("cost_tracked", False),
+        )
+        label = "cost" if result.get("cost_tracked", False) else "usage"
+        click.echo(f"\nJudge {label}: {judge_spend}  ({result['model']})")
 
 
 def ctx_no_color() -> bool:
@@ -327,7 +364,7 @@ def _execute_loop(
     interactive: bool = False,
 ) -> None:
     """Run (or resume) the loop, persist state throughout, print a summary."""
-    cost = CostTracker()
+    cost = CostTracker(track_cost=cfg.track_cost)
     cached_cost = cached_cost_total(run_dir) if is_resume else 0.0
 
     state = RunState(
@@ -336,6 +373,7 @@ def _execute_loop(
         judge_model=cfg.judge_model or cfg.author_model,
         pid=os.getpid(),
         cost_usd=cached_cost,
+        cost_tracked=cfg.track_cost,
     )
     # Preserve started_at across resumes
     if is_resume:
@@ -445,10 +483,15 @@ def _execute_loop(
         click.echo("")
         click.echo(f"Status:  {result.status}")
         click.echo(f"Passes:  {result.num_passes}")
+        spend = format_spend(
+            state.prompt_tokens, state.completion_tokens, state.cost_usd, cfg.track_cost
+        )
+        cached_hint = ""
+        if cached_cost > 0 and cfg.track_cost:
+            cached_hint = f", ${cached_cost:.4f} cached"
+        label = "Cost" if cfg.track_cost else "Usage"
         click.echo(
-            f"Cost:    ${state.cost_usd:.4f}  ({cost.num_calls} new LLM calls"
-            + (f", ${cached_cost:.4f} cached" if cached_cost > 0 else "")
-            + ")"
+            f"{label}:   {spend}  ({cost.num_calls} new LLM calls{cached_hint})"
         )
         click.echo(f"Output:  {run_dir / 'final_output.md'}")
 
@@ -486,9 +529,13 @@ def _resolve_prompt(prompt: str | None, prompt_file: str | None) -> str:
 def _print_run_header(run_dir: Path, cfg: Config) -> None:
     click.echo(f"Run dir: {run_dir}")
     click.echo(f"Author:  {cfg.author_model} (temp={cfg.author_temperature})")
-    click.echo(
-        f"Judge:   {cfg.judge_model or cfg.author_model} × {cfg.num_judges} (temp={cfg.judge_temperature})"
-    )
+    if cfg.judge_panel_is_heterogeneous:
+        panel = ", ".join(cfg.judge_models or [])
+        click.echo(f"Judges:  [{panel}] (temp={cfg.judge_temperature})")
+    else:
+        click.echo(
+            f"Judge:   {cfg.judge_model or cfg.author_model} × {cfg.num_judges} (temp={cfg.judge_temperature})"
+        )
     click.echo(
         f"Max passes: {cfg.max_passes}, converge: {cfg.convergence_threshold} consecutive A wins"
     )

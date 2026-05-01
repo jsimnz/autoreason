@@ -56,6 +56,7 @@ class RunState:
     prompt_tokens: int = 0
     completion_tokens: int = 0
     num_calls: int = 0
+    cost_tracked: bool = False
     pid: int | None = None
     commands_cursor: int = 0
     error: str | None = None
@@ -94,14 +95,18 @@ class LoopMonitor:
         self.phase_started_at = time.monotonic()
 
     def snapshot(self) -> dict[str, Any]:
+        tracker = self.cost_tracker
         return {
             "pass": self.pass_num,
             "phase": self.phase,
             "elapsed_in_phase_s": round(time.monotonic() - self.phase_started_at, 1),
             "streak": self.streak,
             "num_passes": self.num_passes,
-            "total_cost_usd": round(self.cost_tracker.total_usd, 6) if self.cost_tracker else 0.0,
-            "num_calls": self.cost_tracker.num_calls if self.cost_tracker else 0,
+            "total_cost_usd": round(tracker.total_usd, 6) if tracker else 0.0,
+            "prompt_tokens": tracker.total_prompt_tokens if tracker else 0,
+            "completion_tokens": tracker.total_completion_tokens if tracker else 0,
+            "num_calls": tracker.num_calls if tracker else 0,
+            "cost_tracked": bool(tracker.track_cost) if tracker else False,
             "pid": os.getpid(),
             "ts": _now_iso(),
         }

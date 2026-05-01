@@ -40,7 +40,7 @@ Any litellm-supported provider works (Anthropic, OpenAI, OpenRouter, Gemini, loc
 autoreason run --prompt "Design a 3-month plan to reduce tech debt in a 200k-LOC Python monorepo"
 ```
 
-A rich live panel shows the current phase (critic → author_b → synth → judges), the trajectory so far (`A → AB → A → A`), and cumulative cost.
+A rich live panel shows the current phase (critic → author_b → synth → judges), the trajectory so far (`A → AB → A → A`), and cumulative token usage. Dollar-cost tracking is opt-in via `--track-cost`.
 
 Or from a file:
 
@@ -79,6 +79,7 @@ Common `run` flags:
 --prompts prompts.yaml    Override role prompts
 --interactive             Pause per-pass menu
 --dry-run                 No API calls
+--track-cost              Compute $ cost via litellm (default: tokens only)
 ```
 
 ## Artifact layout

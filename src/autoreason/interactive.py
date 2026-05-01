@@ -75,16 +75,17 @@ class InteractivePauser:
         winner = result.get("winner", "?")
         scores = result.get("scores", {}) or {}
         elapsed = result.get("elapsed_seconds", 0.0)
-        cost = result.get("cost_usd", 0.0)
+        cost = result.get("cost_usd", 0.0) or 0.0
 
         score_str = "  ".join(f"{k}={v}" for k, v in scores.items())
         winner_color = {"A": "green", "B": "yellow", "AB": "magenta"}.get(winner, "cyan")
+        spend_bit = f"cost: [dim]${cost:.4f}[/]" if cost > 0 else "[dim](tokens only)[/]"
 
         header = Text.from_markup(
             f"[bold]Pass {pass_num}[/] complete   "
             f"winner: [{winner_color} bold]{winner}[/]   "
             f"scores: [dim]{score_str}[/]   "
-            f"elapsed: [dim]{elapsed}s[/]   cost: [dim]${cost:.4f}[/]"
+            f"elapsed: [dim]{elapsed}s[/]   {spend_bit}"
         )
 
         critic_snippet = _read_snippet(self.run_dir / f"pass_{int(pass_num):02d}" / "critic.md", max_lines=12)
