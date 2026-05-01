@@ -190,7 +190,7 @@ async def _generate_or_reuse_initial(
     text = await call_llm(
         system,
         user,
-        config.author_model,
+        config.model_for_role("author_a"),
         config.author_temperature,
         config.max_tokens,
         max_retries=config.max_retries,

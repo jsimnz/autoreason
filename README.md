@@ -70,7 +70,12 @@ Common `run` flags:
 --prompt TEXT             Inline prompt
 --prompt-file PATH        Read prompt from file
 --output PATH             Output dir (default: runs/<timestamp>-<slug>)
---model MODEL             Author model (litellm ID)
+--model MODEL             Default author-side model (litellm ID).
+                          Used for any role without its own override below.
+--author-a-model MODEL    Override the model for the initial author_a draft
+--critic-model MODEL      Override the model for the critic
+--author-b-model MODEL    Override the model for the adversarial author_b
+--synthesizer-model MODEL Override the model for the synthesizer
 --judge-model MODEL       Judge model (defaults to author model)
 --judges N                Judges per panel (default 3; 5-7 reduces noise)
 --max-passes N            Cap iterations (default 30)
@@ -172,6 +177,32 @@ max_tokens: 4096
 ```
 
 Precedence: CLI flags → config file → built-in defaults.
+
+### Per-role author models
+
+`author_model` is the default for every author-side role (`author_a`, `critic`,
+`author_b`, `synthesizer`). Any role with its own `*_model` key — or its
+matching CLI flag — overrides that default; unset roles keep using
+`author_model`.
+
+```yaml
+author_model: "anthropic/claude-sonnet-4-5"   # default for any role below
+critic_model: "openai/gpt-4o"                  # tougher critic
+author_b_model: "anthropic/claude-opus-4-7"    # stronger adversarial reviser
+# author_a_model, synthesizer_model omitted → fall back to author_model
+```
+
+Same idea on the CLI:
+
+```bash
+autoreason run --prompt-file idea.md \
+  --model anthropic/claude-sonnet-4-5 \
+  --critic-model openai/gpt-4o \
+  --author-b-model anthropic/claude-opus-4-7
+```
+
+The resolved per-role model used for each pass is recorded in
+`pass_NN/result.json` (`critic_model`, `author_b_model`, `synthesizer_model`).
 
 ## Custom prompts
 

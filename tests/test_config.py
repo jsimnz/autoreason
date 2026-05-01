@@ -70,3 +70,32 @@ class TestConfig:
         p.write_text("- a\n- b\n")
         with pytest.raises(ValueError):
             Config.load(config_path=p)
+
+    def test_role_models_default_to_author_model(self):
+        c = Config(author_model="a/x")
+        for role in ("author_a", "critic", "author_b", "synthesizer"):
+            assert c.model_for_role(role) == "a/x"
+
+    def test_role_models_per_role_overrides(self):
+        c = Config(
+            author_model="a/x",
+            critic_model="c/y",
+            author_b_model="b/z",
+        )
+        assert c.model_for_role("author_a") == "a/x"  # falls back
+        assert c.model_for_role("critic") == "c/y"
+        assert c.model_for_role("author_b") == "b/z"
+        assert c.model_for_role("synthesizer") == "a/x"  # falls back
+
+    def test_role_models_unknown_role_falls_back(self):
+        c = Config(author_model="a/x")
+        assert c.model_for_role("not_a_role") == "a/x"
+
+    def test_role_models_via_overrides(self):
+        c = Config.load(overrides={
+            "author_model": "a/x",
+            "critic_model": "c/y",
+            "synthesizer_model": None,
+        })
+        assert c.model_for_role("critic") == "c/y"
+        assert c.model_for_role("synthesizer") == "a/x"

@@ -19,7 +19,26 @@ class Config(BaseModel):
 
     author_model: str = Field(
         default="anthropic/claude-sonnet-4-5",
-        description="Model used for author_a, author_b, and synthesizer roles.",
+        description=(
+            "Default author-side model. Used for author_a, critic, author_b, and "
+            "synthesizer when their per-role model is not set."
+        ),
+    )
+    author_a_model: str | None = Field(
+        default=None,
+        description="Per-role override for the initial author. Falls back to author_model.",
+    )
+    critic_model: str | None = Field(
+        default=None,
+        description="Per-role override for the critic. Falls back to author_model.",
+    )
+    author_b_model: str | None = Field(
+        default=None,
+        description="Per-role override for the adversarial author_b. Falls back to author_model.",
+    )
+    synthesizer_model: str | None = Field(
+        default=None,
+        description="Per-role override for the synthesizer. Falls back to author_model.",
     )
     judge_model: str | None = Field(
         default=None,
@@ -69,6 +88,21 @@ class Config(BaseModel):
         if self.judge_model is None:
             self.judge_model = self.author_model
         return self
+
+    def model_for_role(self, role: str) -> str:
+        """Resolve the model for an author-side role, falling back to author_model.
+
+        Recognized roles: 'author_a', 'critic', 'author_b', 'synthesizer'.
+        Unknown roles also fall back to author_model so callers don't have to
+        special-case future additions.
+        """
+        per_role = {
+            "author_a": self.author_a_model,
+            "critic": self.critic_model,
+            "author_b": self.author_b_model,
+            "synthesizer": self.synthesizer_model,
+        }.get(role)
+        return per_role or self.author_model
 
     def model_for_judge(self, i: int) -> str:
         """Resolve the model string for the i-th judge (0-indexed).
