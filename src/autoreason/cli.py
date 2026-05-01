@@ -15,6 +15,7 @@ from autoreason import __version__
 from autoreason.artifacts import (
     EVENTS_FILE,
     HISTORY_FILE,
+    PHASE_PAUSED,
     EventSink,
     LoopMonitor,
     RunState,
@@ -289,6 +290,8 @@ def signal(run_dir: str, command: str, payload: str | None) -> None:
         stop                    graceful stop after current pass
         accept                  accept current incumbent, stop
         inject <text>           inject user guidance into the next critic prompt
+        resume                  release a budget-exhaustion pause and retry
+                                the failing call (use after restoring credits)
     """
     if command == "inject" and not payload:
         raise click.UsageError("`inject` requires a text payload.")
@@ -411,6 +414,80 @@ def _execute_loop(
         state.commands_cursor = handler.cursor
         return handler.drain_injection()
 
+    # ── budget-exhaustion pause/resume ────────────────────────────────────
+    # When any provider returns a credit/quota/billing wall, the LLM call
+    # invokes this handler. We pause uniformly via the same commands.jsonl
+    # mechanism the existing signals use: the user (in another terminal)
+    # runs `autoreason signal <run_dir> resume` — or sends Ctrl-C to abort
+    # and resume later via `autoreason resume <run_dir>`.
+    #
+    # `_pause_lock` ensures only ONE concurrent caller (e.g., among 3
+    # parallel judges) actually shows the prompt; the others wait silently
+    # on `_resumed_event` and retry once the lock owner has unblocked.
+    pause_lock = asyncio.Lock()
+    resumed_event = asyncio.Event()
+    resumed_event.set()
+
+    async def _on_budget_exhausted(exc: BaseException) -> None:
+        if pause_lock.locked():
+            await resumed_event.wait()
+            return
+        async with pause_lock:
+            resumed_event.clear()
+            saved_phase = monitor.phase
+            saved_pass = monitor.pass_num
+            monitor.set_phase(saved_pass, PHASE_PAUSED)
+            state.status = "paused"
+            state.error = str(exc)
+            try:
+                write_state(run_dir, state)
+            except OSError:
+                pass
+            events.emit("budget_exhausted", error=str(exc))
+
+            # Always announce on stderr so the message survives whatever
+            # the rich Live UI is doing on stdout (and so it is visible
+            # even when Live isn't running, e.g. --quiet / non-TTY).
+            click.echo("", err=True)
+            click.secho("⏸  Budget exhausted — pausing run.", fg="yellow", bold=True, err=True)
+            click.secho(f"   {exc}", fg="yellow", err=True)
+            click.echo("", err=True)
+            click.echo(
+                f"   To resume after restoring credits / quota:\n"
+                f"     autoreason signal {run_dir} resume\n"
+                f"   Or press Ctrl-C to abort; resume later with:\n"
+                f"     autoreason resume {run_dir}",
+                err=True,
+            )
+            click.echo("", err=True)
+
+            try:
+                while True:
+                    await asyncio.sleep(2.0)
+                    handler.poll()
+                    state.commands_cursor = handler.cursor
+                    if handler.consume_resume():
+                        break
+                    if handler.stop_requested:
+                        # User asked the run to stop (or accept) — surface
+                        # a KeyboardInterrupt so we exit the same way as
+                        # Ctrl-C and end up in the "interrupted" status.
+                        raise KeyboardInterrupt(
+                            "stopped while waiting for budget resume"
+                        )
+            finally:
+                monitor.set_phase(saved_pass, saved_phase)
+                state.status = "running"
+                state.error = None
+                try:
+                    write_state(run_dir, state)
+                except OSError:
+                    pass
+                resumed_event.set()
+
+            events.emit("budget_resumed")
+            click.secho("▶  Resuming.", fg="green", err=True)
+
     # Rich Live fights with stdin prompts — disable it when interactive.
     show_ui = ui_enabled(quiet=quiet, no_color=no_color) and not interactive
     cfg_summary = (
@@ -437,6 +514,7 @@ def _execute_loop(
                 events=events,
                 on_pass_complete=_on_pass_complete,
                 injections_getter=_get_injection,
+                on_budget_exhausted=_on_budget_exhausted,
             )
         finally:
             for t in tasks:

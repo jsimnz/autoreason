@@ -33,7 +33,7 @@ class TestAppendCommand:
             append_command(tmp_path, "fire_ze_missiles")
 
     def test_valid_commands_set(self):
-        assert VALID_COMMANDS == ("stop", "accept", "inject")
+        assert VALID_COMMANDS == ("stop", "accept", "inject", "resume")
 
 
 class TestSignalHandler:
@@ -103,3 +103,23 @@ class TestSignalHandler:
         cmds = read_commands(tmp_path)
         assert len(cmds) == 1
         assert cmds[0]["cmd"] == "stop"
+
+    def test_resume_signal(self, tmp_path: Path):
+        append_command(tmp_path, "resume")
+        h = SignalHandler(tmp_path)
+        h.poll()
+        assert h.resume_requested
+        # consume_resume is one-shot
+        assert h.consume_resume() is True
+        assert h.resume_requested is False
+        assert h.consume_resume() is False
+        # resume by itself is NOT a stop
+        assert not h.stop_requested
+
+    def test_resume_independent_of_stop(self, tmp_path: Path):
+        append_command(tmp_path, "resume")
+        append_command(tmp_path, "stop")
+        h = SignalHandler(tmp_path)
+        h.poll()
+        assert h.resume_requested
+        assert h.stop_requested

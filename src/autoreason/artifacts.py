@@ -36,6 +36,7 @@ PHASE_CRITIC = "critic"
 PHASE_AUTHOR_B = "author_b"
 PHASE_SYNTH = "synthesizer"
 PHASE_JUDGES = "judges"
+PHASE_PAUSED = "paused"  # set by the budget-exhaustion handler while awaiting resume
 PHASES_IN_PASS = (PHASE_CRITIC, PHASE_AUTHOR_B, PHASE_SYNTH, PHASE_JUDGES)
 
 

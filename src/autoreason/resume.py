@@ -18,7 +18,7 @@ from autoreason.config import Config
 from autoreason.prompts import Prompts
 
 # Statuses from which we can meaningfully re-enter the loop.
-RESUMABLE_STATUSES = {"running", "interrupted", "error", "stopped", "initializing"}
+RESUMABLE_STATUSES = {"running", "interrupted", "error", "stopped", "initializing", "paused"}
 TERMINAL_STATUSES = {"converged", "max_passes_reached", "accepted", "dry_run"}
 
 

@@ -9,6 +9,8 @@ Commands:
     stop                    graceful stop at next pass boundary
     accept                  accept current incumbent and stop
     inject <free text>      append guidance to the next critic prompt
+    resume                  release a budget-exhaustion pause and retry the
+                            failing call (used after restoring credits/quota)
 """
 
 from __future__ import annotations
@@ -20,7 +22,7 @@ from typing import Any
 
 from autoreason.artifacts import COMMANDS_FILE, INJECTIONS_FILE
 
-VALID_COMMANDS = ("stop", "accept", "inject")
+VALID_COMMANDS = ("stop", "accept", "inject", "resume")
 
 
 def append_command(run_dir: Path, cmd: str, payload: str | None = None) -> dict[str, Any]:
@@ -71,6 +73,7 @@ class SignalHandler:
         self.cursor = cursor
         self._stop = False
         self._accept = False
+        self._resume = False
         self._pending: list[str] = []
 
     def poll(self) -> None:
@@ -84,6 +87,8 @@ class SignalHandler:
                 self._stop = True
             elif cmd == "accept":
                 self._accept = True
+            elif cmd == "resume":
+                self._resume = True
             elif cmd == "inject" and payload:
                 self._pending.append(payload)
 
@@ -94,6 +99,17 @@ class SignalHandler:
     @property
     def accept_requested(self) -> bool:
         return self._accept
+
+    @property
+    def resume_requested(self) -> bool:
+        return self._resume
+
+    def consume_resume(self) -> bool:
+        """One-shot consume of a pending resume signal. Returns True if one was set."""
+        if self._resume:
+            self._resume = False
+            return True
+        return False
 
     def drain_injection(self) -> str:
         """Consume any pending injections, return the formatted append text (or '')."""

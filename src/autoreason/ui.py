@@ -11,6 +11,7 @@ import asyncio
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 from rich.console import Console, Group
 from rich.live import Live
@@ -23,6 +24,7 @@ from autoreason.artifacts import (
     HISTORY_FILE,
     PHASE_IDLE,
     PHASE_INITIAL,
+    PHASE_PAUSED,
     PHASES_IN_PASS,
     LoopMonitor,
     read_state,
@@ -71,9 +73,11 @@ def _render(
         f"[dim]{config_summary}[/]\n"
         f"[dim]output: {run_dir}[/]"
     )
-    body = Group(
-        header,
-        Text(""),
+    paused_banner = _paused_banner(run_dir, monitor.phase == PHASE_PAUSED)
+    rows: list[Any] = [header, Text("")]
+    if paused_banner is not None:
+        rows.extend([paused_banner, Text("")])
+    rows.extend([
         _phase_row(monitor.phase),
         Text(""),
         _trajectory(run_dir, monitor),
@@ -81,15 +85,18 @@ def _render(
         _stats(monitor),
         Text(""),
         _events_tail(run_dir),
-    )
-    return Panel(body, title="[bold cyan]AutoReason[/]", border_style="cyan")
+    ])
+    border = "yellow" if monitor.phase == PHASE_PAUSED else "cyan"
+    return Panel(Group(*rows), title="[bold cyan]AutoReason[/]", border_style=border)
 
 
 def _phase_row(current_phase: str) -> Text:
+    # During a paused state we want every phase dimmed — no "▶" pointer
+    # (the active phase is "paused", which isn't in _PHASE_ORDER).
     current_idx = _PHASE_ORDER.index(current_phase) if current_phase in _PHASE_ORDER else -1
     parts: list[str] = []
     for i, ph in enumerate(_PHASE_ORDER):
-        if current_phase == PHASE_IDLE:
+        if current_phase == PHASE_IDLE or current_phase == PHASE_PAUSED:
             marker, style = "·", "dim"
         elif i < current_idx:
             marker, style = "✓", "green"
@@ -99,6 +106,43 @@ def _phase_row(current_phase: str) -> Text:
             marker, style = " ", "dim"
         parts.append(f"[{style}]\\[{marker} {ph}][/]")
     return Text.from_markup("  ".join(parts))
+
+
+def _paused_banner(run_dir: Path, is_paused: bool) -> Text | None:
+    """Yellow banner shown above the phase row while a budget pause is active.
+
+    Pulls the latest budget_exhausted event for the failing-call message and
+    surfaces the resume command verbatim so the user can copy it.
+    """
+    if not is_paused:
+        return None
+    err = _latest_event_field(run_dir, "budget_exhausted", "error") or "(no detail)"
+    err_short = err if len(err) <= 200 else err[:197] + "…"
+    return Text.from_markup(
+        f"[bold yellow]⏸  PAUSED — budget exhausted[/]\n"
+        f"[yellow]{err_short}[/]\n"
+        f"[bold]resume:[/]  autoreason signal {run_dir} resume\n"
+        f"[dim]or Ctrl-C, then `autoreason resume {run_dir}` to retry later[/]"
+    )
+
+
+def _latest_event_field(run_dir: Path, event_type: str, field: str) -> str | None:
+    """Scan events.jsonl tail-first for the most recent matching event field."""
+    path = run_dir / EVENTS_FILE
+    if not path.exists():
+        return None
+    try:
+        lines = path.read_text().splitlines()
+    except OSError:
+        return None
+    for line in reversed(lines):
+        try:
+            d = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if d.get("type") == event_type and d.get(field):
+            return str(d[field])
+    return None
 
 
 def _trajectory(run_dir: Path, monitor: LoopMonitor) -> Text:
@@ -237,9 +281,11 @@ def _render_from_files(run_dir: Path, prompt_preview: str, config_summary: str) 
         f"[bold]{spend}[/]    calls [bold]{calls}[/]"
     )
 
-    body = Group(
-        header,
-        Text(""),
+    paused_banner = _paused_banner(run_dir, current_phase == PHASE_PAUSED)
+    rows: list[Any] = [header, Text("")]
+    if paused_banner is not None:
+        rows.extend([paused_banner, Text("")])
+    rows.extend([
         _phase_row(current_phase),
         Text(""),
         _trajectory(run_dir, m),  # type: ignore[arg-type]
@@ -247,8 +293,9 @@ def _render_from_files(run_dir: Path, prompt_preview: str, config_summary: str) 
         stats_text,
         Text(""),
         _events_tail(run_dir, n=5),
-    )
-    return Panel(body, title="[bold cyan]AutoReason — attached[/]", border_style="cyan")
+    ])
+    border = "yellow" if current_phase == PHASE_PAUSED else "cyan"
+    return Panel(Group(*rows), title="[bold cyan]AutoReason — attached[/]", border_style=border)
 
 
 def _read_heartbeat(run_dir: Path) -> dict | None:

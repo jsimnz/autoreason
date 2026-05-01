@@ -11,7 +11,7 @@ from typing import Any
 
 from autoreason.artifacts import PHASE_IDLE, PHASE_INITIAL, EventSink, LoopMonitor
 from autoreason.config import Config
-from autoreason.llm import CostTracker, call_llm
+from autoreason.llm import BudgetExhaustedHandler, CostTracker, call_llm
 from autoreason.pass_ import run_pass
 from autoreason.prompts import Prompts
 
@@ -48,6 +48,7 @@ async def run_autoreason_loop(
     injections_getter: InjectionsGetter | None = None,
     monitor: LoopMonitor | None = None,
     events: EventSink | None = None,
+    on_budget_exhausted: BudgetExhaustedHandler | None = None,
 ) -> RunResult:
     """Run passes until convergence, max_passes, or a requested stop.
 
@@ -65,7 +66,13 @@ async def run_autoreason_loop(
     if monitor is not None:
         monitor.set_phase(0, PHASE_INITIAL)
     current_a = await _generate_or_reuse_initial(
-        task_prompt, task_dir, config, prompts, cost_tracker=cost_tracker, dry_run=dry_run
+        task_prompt,
+        task_dir,
+        config,
+        prompts,
+        cost_tracker=cost_tracker,
+        dry_run=dry_run,
+        on_budget_exhausted=on_budget_exhausted,
     )
     if events is not None and not dry_run:
         events.emit("initial_a_ready", words=len(current_a.split()))
@@ -94,6 +101,7 @@ async def run_autoreason_loop(
             monitor=monitor,
             events=events,
             dry_run=dry_run,
+            on_budget_exhausted=on_budget_exhausted,
         )
 
         if dry_run:
@@ -179,6 +187,7 @@ async def _generate_or_reuse_initial(
     *,
     cost_tracker: CostTracker | None,
     dry_run: bool,
+    on_budget_exhausted: BudgetExhaustedHandler | None = None,
 ) -> str:
     """Read initial_a.md if present, else ask author_a to produce it."""
     init_file = task_dir / "initial_a.md"
@@ -195,6 +204,7 @@ async def _generate_or_reuse_initial(
         config.max_tokens,
         max_retries=config.max_retries,
         cost_tracker=cost_tracker,
+        on_budget_exhausted=on_budget_exhausted,
     )
     init_file.write_text(text)
     return text

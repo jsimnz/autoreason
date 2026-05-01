@@ -8,11 +8,18 @@ from __future__ import annotations
 
 import asyncio
 import os
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
 import litellm
+
+# Async callback invoked when a budget/quota/credit-exhaustion error is detected.
+# It must block until the user has (presumably) restored their budget and
+# wants the failing call to be retried. Raising from inside the handler aborts
+# the call (e.g. KeyboardInterrupt → propagated up through `call_llm`).
+BudgetExhaustedHandler = Callable[[BaseException], Awaitable[None]]
 
 litellm.suppress_debug_info = True
 
@@ -125,8 +132,53 @@ def format_spend(
 
 _RETRYABLE_MARKERS = ("rate", "429", "overloaded", "529", "timeout", "connection")
 
+# Markers that indicate a *budget/quota/credit* problem rather than a transient
+# rate-limit. Hitting any of these means waiting won't help — only the user
+# topping up credits (or a billing window resetting) resolves it. We pause
+# instead of burning retry attempts.
+#
+# Curated from the wild — extend as new providers surface new wording.
+_BUDGET_MARKERS = (
+    # OpenRouter (402)
+    "more credits",
+    "fewer max_tokens",
+    "afford",
+    "create a key with a higher",
+    "daily limit",
+    # OpenAI
+    "insufficient_quota",
+    "exceeded your current quota",
+    "billing_hard_limit_reached",
+    "billing_not_active",
+    # Anthropic
+    "credit balance is too low",
+    "credit balance",
+    # Generic / shared
+    "402",
+    "payment required",
+    "quota exceeded",
+    "quota_exceeded",
+    "out of credits",
+)
+
+
+def _is_budget_exhaustion(exc: BaseException) -> bool:
+    """Heuristic: does this exception look like a billing/quota wall?
+
+    Provider-agnostic — operates on the stringified error. The ``402`` marker
+    is the most reliable cross-provider signal; the keyword list catches
+    providers that surface 4xx/429 with billing-flavored messages instead.
+    """
+    msg = str(exc).lower()
+    return any(m in msg for m in _BUDGET_MARKERS)
+
 
 def _is_retryable(exc: BaseException) -> bool:
+    # Budget exhaustion looks like 429/rate to some classifiers but is NOT
+    # something exponential backoff helps with — exclude it explicitly so the
+    # retry loop hands off to the pause handler instead of burning attempts.
+    if _is_budget_exhaustion(exc):
+        return False
     msg = str(exc).lower()
     return any(m in msg for m in _RETRYABLE_MARKERS)
 
@@ -140,95 +192,119 @@ async def call_llm(
     *,
     max_retries: int = 5,
     cost_tracker: CostTracker | None = None,
+    on_budget_exhausted: BudgetExhaustedHandler | None = None,
 ) -> str:
     """Invoke `model` with one system + one user message. Returns the text response.
 
     Retries with exponential backoff on rate-limit / overload / transient errors.
     Records token usage and dollar cost to `cost_tracker` if provided.
+
+    If a budget/quota/credit-exhaustion error is detected (any provider), the
+    optional `on_budget_exhausted` handler is awaited — it should block until
+    the user has restored their budget — and then the call is retried in full.
+    Without a handler, the original exception is re-raised so the caller can
+    surface or persist it.
     """
     messages = [
         {"role": "system", "content": system},
         {"role": "user", "content": user},
     ]
-    last_exc: BaseException | None = None
-    for attempt in range(max_retries):
-        if cost_tracker is not None:
-            cost_tracker.in_flight_prompt_tokens = 0
-            cost_tracker.in_flight_completion_tokens = 0
-        try:
-            stream = await litellm.acompletion(
-                model=model,
-                messages=messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
-                stream=True,
-                stream_options={"include_usage": True},
-            )
-            text_parts: list[str] = []
-            reasoning_parts: list[str] = []
-            finish_reason: str = "unknown"
-            chunks: list[Any] = []
-            async for chunk in stream:
-                chunks.append(chunk)
-                usage = getattr(chunk, "usage", None)
-                if usage is not None and cost_tracker is not None:
-                    cost_tracker.in_flight_prompt_tokens = getattr(usage, "prompt_tokens", 0) or 0
-                choices = getattr(chunk, "choices", None) or []
-                if not choices:
-                    continue
-                ch0 = choices[0]
-                fr = getattr(ch0, "finish_reason", None)
-                if fr:
-                    finish_reason = fr
-                delta = getattr(ch0, "delta", None)
-                if delta is None:
-                    continue
-                dc = getattr(delta, "content", None)
-                if dc:
-                    text_parts.append(dc)
-                    if cost_tracker is not None:
-                        cost_tracker.in_flight_completion_tokens += 1
-                rc = getattr(delta, "reasoning_content", None) or getattr(delta, "reasoning", None)
-                if rc:
-                    reasoning_parts.append(rc)
-                    if cost_tracker is not None:
-                        cost_tracker.in_flight_completion_tokens += 1
-
-            text = "".join(text_parts) or "".join(reasoning_parts)
-
+    while True:  # outer: re-enter after a budget pause; otherwise we return / raise
+        last_exc: BaseException | None = None
+        for attempt in range(max_retries):
             if cost_tracker is not None:
-                final_response = _rebuild_response(chunks, messages)
-                if final_response is not None:
-                    _record(cost_tracker, final_response, model)
-                else:
-                    cost_tracker.record(
-                        model=model,
-                        prompt_tokens=cost_tracker.in_flight_prompt_tokens,
-                        completion_tokens=cost_tracker.in_flight_completion_tokens,
-                        cost_usd=0.0,
-                    )
                 cost_tracker.in_flight_prompt_tokens = 0
                 cost_tracker.in_flight_completion_tokens = 0
-
-            if not text:
-                raise RuntimeError(
-                    f"LLM returned empty content (model={model}, finish_reason={finish_reason}). "
-                    f"For reasoning models, this usually means max_tokens ({max_tokens}) "
-                    f"was too low — reasoning tokens consumed the full budget. "
-                    f"Try raising max_tokens or switching to a non-reasoning variant."
+            try:
+                stream = await litellm.acompletion(
+                    model=model,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    stream=True,
+                    stream_options={"include_usage": True},
                 )
-            return text
-        except Exception as exc:  # noqa: BLE001 — we genuinely want broad retry
-            last_exc = exc
-            if cost_tracker is not None:
-                cost_tracker.in_flight_prompt_tokens = 0
-                cost_tracker.in_flight_completion_tokens = 0
-            if not _is_retryable(exc) or attempt == max_retries - 1:
-                raise
-            wait = min((2**attempt) * 5, 120)
-            await asyncio.sleep(wait)
-    # Unreachable in practice — the raise above covers final attempts.
-    raise RuntimeError(f"call_llm failed after {max_retries} retries") from last_exc
+                text_parts: list[str] = []
+                reasoning_parts: list[str] = []
+                finish_reason: str = "unknown"
+                chunks: list[Any] = []
+                async for chunk in stream:
+                    chunks.append(chunk)
+                    usage = getattr(chunk, "usage", None)
+                    if usage is not None and cost_tracker is not None:
+                        cost_tracker.in_flight_prompt_tokens = getattr(usage, "prompt_tokens", 0) or 0
+                    choices = getattr(chunk, "choices", None) or []
+                    if not choices:
+                        continue
+                    ch0 = choices[0]
+                    fr = getattr(ch0, "finish_reason", None)
+                    if fr:
+                        finish_reason = fr
+                    delta = getattr(ch0, "delta", None)
+                    if delta is None:
+                        continue
+                    dc = getattr(delta, "content", None)
+                    if dc:
+                        text_parts.append(dc)
+                        if cost_tracker is not None:
+                            cost_tracker.in_flight_completion_tokens += 1
+                    rc = getattr(delta, "reasoning_content", None) or getattr(delta, "reasoning", None)
+                    if rc:
+                        reasoning_parts.append(rc)
+                        if cost_tracker is not None:
+                            cost_tracker.in_flight_completion_tokens += 1
+
+                text = "".join(text_parts) or "".join(reasoning_parts)
+
+                if cost_tracker is not None:
+                    final_response = _rebuild_response(chunks, messages)
+                    if final_response is not None:
+                        _record(cost_tracker, final_response, model)
+                    else:
+                        cost_tracker.record(
+                            model=model,
+                            prompt_tokens=cost_tracker.in_flight_prompt_tokens,
+                            completion_tokens=cost_tracker.in_flight_completion_tokens,
+                            cost_usd=0.0,
+                        )
+                    cost_tracker.in_flight_prompt_tokens = 0
+                    cost_tracker.in_flight_completion_tokens = 0
+
+                if not text:
+                    raise RuntimeError(
+                        f"LLM returned empty content (model={model}, finish_reason={finish_reason}). "
+                        f"For reasoning models, this usually means max_tokens ({max_tokens}) "
+                        f"was too low — reasoning tokens consumed the full budget. "
+                        f"Try raising max_tokens or switching to a non-reasoning variant."
+                    )
+                return text
+            except Exception as exc:  # noqa: BLE001 — we genuinely want broad retry
+                last_exc = exc
+                if cost_tracker is not None:
+                    cost_tracker.in_flight_prompt_tokens = 0
+                    cost_tracker.in_flight_completion_tokens = 0
+                if _is_budget_exhaustion(exc):
+                    # Stop the inner retry loop; the budget handler (if any)
+                    # decides whether we restart the call or re-raise.
+                    break
+                if not _is_retryable(exc) or attempt == max_retries - 1:
+                    raise
+                wait = min((2**attempt) * 5, 120)
+                await asyncio.sleep(wait)
+
+        # Inner loop only falls through here on a budget-exhaustion break.
+        if last_exc is not None and _is_budget_exhaustion(last_exc):
+            if on_budget_exhausted is None:
+                raise last_exc
+            # Handler blocks until the user signals resume. If it raises
+            # (e.g. KeyboardInterrupt during pause), let it propagate.
+            await on_budget_exhausted(last_exc)
+            # Retry the whole call. We do not increment any retry counter —
+            # the failing attempt was due to billing, not unreliability.
+            continue
+
+        # Defensive fallback — every other branch above already returns or raises.
+        raise RuntimeError(f"call_llm failed after {max_retries} retries") from last_exc
 
 
 def _rebuild_response(chunks: list[Any], messages: list[dict[str, Any]]) -> Any | None:

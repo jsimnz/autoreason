@@ -27,7 +27,7 @@ from autoreason.artifacts import (
     LoopMonitor,
 )
 from autoreason.config import Config
-from autoreason.llm import CostTracker, call_llm
+from autoreason.llm import BudgetExhaustedHandler, CostTracker, call_llm
 from autoreason.prompts import Prompts
 
 PassResult = dict[str, Any]
@@ -46,6 +46,7 @@ async def run_pass(
     monitor: LoopMonitor | None = None,
     events: EventSink | None = None,
     dry_run: bool = False,
+    on_budget_exhausted: BudgetExhaustedHandler | None = None,
 ) -> tuple[str, str, PassResult]:
     """Run one pass. Returns (winner_label, winner_text, result_dict)."""
     pass_dir.mkdir(parents=True, exist_ok=True)
@@ -93,6 +94,7 @@ async def run_pass(
         config.max_tokens,
         max_retries=config.max_retries,
         cost_tracker=cost_tracker,
+        on_budget_exhausted=on_budget_exhausted,
     )
     (pass_dir / "critic.md").write_text(critic_text)
     _emit_phase_complete(events, pass_num, PHASE_CRITIC, phase_t0)
@@ -112,6 +114,7 @@ async def run_pass(
         config.max_tokens,
         max_retries=config.max_retries,
         cost_tracker=cost_tracker,
+        on_budget_exhausted=on_budget_exhausted,
     )
     (pass_dir / "version_b.md").write_text(version_b)
     _emit_phase_complete(events, pass_num, PHASE_AUTHOR_B, phase_t0)
@@ -135,6 +138,7 @@ async def run_pass(
         config.max_tokens,
         max_retries=config.max_retries,
         cost_tracker=cost_tracker,
+        on_budget_exhausted=on_budget_exhausted,
     )
     (pass_dir / "version_ab.md").write_text(version_ab)
     _emit_phase_complete(events, pass_num, PHASE_SYNTH, phase_t0)
@@ -163,6 +167,7 @@ async def run_pass(
                 config.max_tokens,
                 max_retries=config.max_retries,
                 cost_tracker=cost_tracker,
+                on_budget_exhausted=on_budget_exhausted,
             )
         )
 
