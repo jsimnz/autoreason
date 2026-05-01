@@ -1,8 +1,0 @@
-{
-  "total_passes": 15,
-  "a_wins": 1,
-  "ab_wins": 12,
-  "b_wins": 2,
-  "converged": false,
-  "trajectory": "AB -> B -> AB -> AB -> AB -> AB -> AB -> AB -> A -> AB -> AB -> AB -> AB -> AB -> B"
-}
